@@ -84,4 +84,8 @@ public class HtmlEntityConfiguration implements FieldAdder {
 		return out;
 	}
 
+	public String[] getFields() {
+		return fields.keySet().toArray(new String[0]);
+	}
+
 }
