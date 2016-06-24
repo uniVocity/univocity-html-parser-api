@@ -20,7 +20,6 @@ public class HtmlDataStoreConfiguration {
 	private final Map<String, HtmlEntityConfiguration> entities = new TreeMap<String, HtmlEntityConfiguration>();
 	private final HtmlEntityConfiguration defaultEntityConfiguration = new HtmlEntityConfiguration();
 
-	//TODO: refactor this code to reuse most of what is common between this class and HierarchicalDataStoreConfiguration.
 	private final FileProvider inputFile;
 	private final ReaderProvider inputProvider;
 
