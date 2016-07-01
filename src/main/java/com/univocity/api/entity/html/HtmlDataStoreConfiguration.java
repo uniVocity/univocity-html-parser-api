@@ -98,4 +98,33 @@ public class HtmlDataStoreConfiguration {
 	public HtmlParserListener getHtmlParserListener() {
 		return listener;
 	}
+
+	/*public void savePagesTo(File targetFile) {
+		String url = inputFile.getFilePath();
+
+		UrlReaderProvider urlReader = new UrlReaderProvider(url, Charset.forName("UTF-8"));
+		String filePath = targetFile.getAbsolutePath();
+
+		StringBuilder contents = new StringBuilder();
+
+		try (Reader reader = response.getContentReader()) {
+			char[] buf = new char[4096 * 4096];
+			int len;
+			while ((len = reader.read(buf)) > 0) {
+				contents.append(buf, 0, len);
+			}
+		} catch (Exception ex) {
+			System.out.println("Error downloading form file {}: {}", filePath, ex.getMessage());
+		}
+
+		String html = contents.toString();
+		try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(targetFile), "UTF-8")) {
+			writer.write(html);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+	} */
 }
