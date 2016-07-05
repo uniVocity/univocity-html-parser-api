@@ -118,13 +118,19 @@ public class HtmlDataStoreConfiguration {
 		}
 
 		String html = contents.toString();
-		try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(targetFile), "UTF-8")) {
+		OutputStreamWriter writer;
+		try {
+			writer = new OutputStreamWriter(new FileOutputStream(targetFile), "UTF-8");
 			writer.write(html);
+			writer.close();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-	} */
+
+	}*/
 }
