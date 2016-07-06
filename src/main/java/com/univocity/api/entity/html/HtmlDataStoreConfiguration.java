@@ -17,8 +17,8 @@ import java.util.*;
  */
 public class HtmlDataStoreConfiguration {
 
-	private final Map<String, HtmlEntityConfiguration> entities = new TreeMap<String, HtmlEntityConfiguration>();
-	private final HtmlEntityConfiguration defaultEntityConfiguration = new HtmlEntityConfiguration();
+	private final Map<String, HtmlEntity> entities = new TreeMap<String, HtmlEntity>();
+	private final HtmlEntity defaultEntityConfiguration = new HtmlEntity();
 
 	private final FileProvider inputFile;
 	private final ReaderProvider inputProvider;
@@ -69,11 +69,11 @@ public class HtmlDataStoreConfiguration {
 		return new TreeSet<String>(entities.keySet());
 	}
 
-	public HtmlEntityConfiguration configureEntity(String entityName) {
+	public HtmlEntity configureEntity(String entityName) {
 		if (entities.containsKey(entityName)) {
 			return entities.get(entityName);
 		} else {
-			HtmlEntityConfiguration config = new HtmlEntityConfiguration(entityName);
+			HtmlEntity config = new HtmlEntity(entityName);
 			entities.put(entityName, config);
 			return config;
 		}
@@ -99,38 +99,4 @@ public class HtmlDataStoreConfiguration {
 		return listener;
 	}
 
-	/*public void savePagesTo(File targetFile) {
-		String url = inputFile.getFilePath();
-
-		UrlReaderProvider urlReader = new UrlReaderProvider(url, Charset.forName("UTF-8"));
-		String filePath = targetFile.getAbsolutePath();
-
-		StringBuilder contents = new StringBuilder();
-
-		try (Reader reader = response.getContentReader()) {
-			char[] buf = new char[4096 * 4096];
-			int len;
-			while ((len = reader.read(buf)) > 0) {
-				contents.append(buf, 0, len);
-			}
-		} catch (Exception ex) {
-			System.out.println("Error downloading form file {}: {}", filePath, ex.getMessage());
-		}
-
-		String html = contents.toString();
-		OutputStreamWriter writer;
-		try {
-			writer = new OutputStreamWriter(new FileOutputStream(targetFile), "UTF-8");
-			writer.write(html);
-			writer.close();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-
-	}*/
 }

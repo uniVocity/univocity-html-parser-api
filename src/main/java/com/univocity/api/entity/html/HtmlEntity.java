@@ -14,18 +14,18 @@ import java.util.*;
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public class HtmlEntityConfiguration implements FieldAdder {
+public class HtmlEntity implements FieldAdder {
 
 	private final String entityName;
 
 	final Map<String, List<HtmlPath>> fields = new LinkedHashMap<String, List<HtmlPath>>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
 
-	HtmlEntityConfiguration() {
+	HtmlEntity() {
 		this.entityName = null;
 	}
 
-	HtmlEntityConfiguration(String entityName) {
+	HtmlEntity(String entityName) {
 		this.entityName = entityName;
 	}
 
