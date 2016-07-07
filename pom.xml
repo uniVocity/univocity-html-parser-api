@@ -201,6 +201,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<univocity-common-api.version>2.0.0-SNAPSHOT</univocity-common-api.version>
+		<univocity-parsers.version>2.2.0-SNAPSHOT</univocity-parsers.version>
 	</properties>
 
 	<dependencies>
@@ -208,6 +209,11 @@
 			<groupId>com.univocity</groupId>
 			<artifactId>univocity-common-api</artifactId>
 			<version>${univocity-common-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.univocity</groupId>
+			<artifactId>univocity-parsers</artifactId>
+			<version>${univocity-parsers.version}</version>
 		</dependency>
 	</dependencies>
 
