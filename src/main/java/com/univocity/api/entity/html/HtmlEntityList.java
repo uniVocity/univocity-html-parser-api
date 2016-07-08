@@ -22,6 +22,7 @@ import java.util.*;
 public class HtmlEntityList {
 
 	private final  Map<String, HtmlEntity> entities = new TreeMap<String, HtmlEntity>();
+	private final Map <String, String> originalEntityNames = new TreeMap<String, String>();
 
 	private HtmlParserListener listener;
 
@@ -44,6 +45,7 @@ public class HtmlEntityList {
 		String normalizedEntityName = entityName.trim().toLowerCase();
 		if (entities.get(normalizedEntityName) == null) {
 			entities.put(normalizedEntityName, new HtmlEntity(entityName));
+			originalEntityNames.put(entityName, normalizedEntityName);
 		}
 			return entities.get(normalizedEntityName);
 	}
@@ -54,7 +56,7 @@ public class HtmlEntityList {
 	 * @return entity names stored as a set.
 	 */
 	public Set<String> getEntityNames() {
-		return new TreeSet<String>(entities.keySet());
+		return new TreeSet<String>(originalEntityNames.keySet());
 	}
 
 	public void setHtmlParserListener(HtmlParserListener listener) {
