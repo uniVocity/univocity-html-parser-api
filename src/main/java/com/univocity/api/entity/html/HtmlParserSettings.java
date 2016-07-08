@@ -23,6 +23,7 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 
 	private RowProcessor globalRowProcessor;
 	private final HtmlEntityList htmlEntityList;
+	private HtmlParserListener listener;
 
 	/**
 	 * Creates a new HtmlParserSettings with a supplied {@link HtmlEntityList}. The {@link HtmlEntityList} is used to
@@ -78,5 +79,13 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 	 */
 	public Set<String> getEntityNames() {
 		return htmlEntityList.getEntityNames();
+	}
+
+	public void setListener(HtmlParserListener listener) {
+		this.listener = listener;
+	}
+
+	public HtmlParserListener getListener() {
+		return listener;
 	}
 }
