@@ -5,9 +5,12 @@
  */
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.*;
 import com.univocity.parsers.common.*;
-import com.univocity.parsers.common.processor.*;
+import com.univocity.parsers.common.processor.core.*;
 
+import java.io.*;
+import java.nio.charset.*;
 import java.util.*;
 
 /**
@@ -15,15 +18,18 @@ import java.util.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  * @see HtmlParser
- * @see RowProcessor
+ * @see Processor
  * @see HtmlEntityList
  */
 public class HtmlParserSettings extends AbstractEntityParserSettings {
 
 
-	private RowProcessor globalRowProcessor;
+	private Processor<HtmlParsingContext> processor;
 	private final HtmlEntityList htmlEntityList;
 	private HtmlParserListener listener;
+	private FileProvider downloadContentDirectory;
+	private int downloadThreads;
+
 
 	/**
 	 * Creates a new HtmlParserSettings with a supplied {@link HtmlEntityList}. The {@link HtmlEntityList} is used to
@@ -45,22 +51,22 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 	}
 
 	/**
-	 * Sets the global {@link RowProcessor}. All rows parsed will be delegated to the globalRowProcessor. Does not
+	 * Sets the global {@link Processor}. All rows parsed will be delegated to the processor. Does not
 	 * need to be set for the {@link HtmlParser} to function.
 	 *
-	 * @param globalRowProcessor the {@link RowProcessor} that will be set as the globalRowProcessor
+	 * @param processor the {@link Processor} that will be set as the processor
 	 */
-	public void setGlobalRowProcessor(RowProcessor globalRowProcessor) {
-		this.globalRowProcessor = globalRowProcessor;
+	public void setGlobalProcessor(Processor<HtmlParsingContext> processor) {
+		this.processor = processor;
 	}
 
 	/**
-	 * Returns the globalRowProcessor if previously set. If the globalRowProcessor was not set, returns a
-	 * {@link NoopRowProcessor}, which is a {@link RowProcessor} that does nothing.
+	 * Returns the processor if previously set. If the processor was not set, returns a
+	 * {@link NoopProcessor}, which is a {@link Processor} that does nothing.
 	 * @return
 	 */
-	public RowProcessor getGlobalRowProcessor() {
-		return globalRowProcessor == null ? NoopRowProcessor.instance : globalRowProcessor;
+	public Processor<HtmlParsingContext> getGlobalProcessor() {
+		return processor == null ? NoopProcessor.instance : processor;
 	}
 
 	@Override
@@ -81,11 +87,57 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 		return htmlEntityList.getEntityNames();
 	}
 
+	/**
+	 * Sets the associated {@link HtmlParserListener} that is used when the {@link HtmlParser} parses.
+	 * @param listener the HtmlParserListener that the settings will be associated with
+	 */
 	public void setListener(HtmlParserListener listener) {
 		this.listener = listener;
 	}
 
+	/**
+	 * Returns the associated {@link HtmlParserListener}
+	 * @return the HtmlParserListener associated with the settings
+	 */
 	public HtmlParserListener getListener() {
 		return listener;
 	}
+
+	public void setDownloadThreads(int downloadThreads) {
+		this.downloadThreads = downloadThreads;
+	}
+
+	public int getDownloadThreads() {
+		return downloadThreads;
+	}
+
+	public void setDownloadContentDirectory(String fileName) {
+		downloadContentDirectory = new FileProvider(fileName);
+	}
+
+	public void setDownloadContentDirectory(String fileName, Charset encoding) {
+		downloadContentDirectory = new FileProvider(fileName, encoding);
+	}
+
+	public void setDownloadContentDirectory(String fileName, String encoding) {
+		downloadContentDirectory = new FileProvider(fileName, encoding);
+	}
+
+	public void setDownloadContentDirectory(File file) {
+		downloadContentDirectory = new FileProvider(file);
+	}
+
+	public void setDownloadContentDirectory(File file, Charset encoding) {
+		downloadContentDirectory = new FileProvider(file, encoding);
+	}
+
+	public void setDownloadContentDirectory(File file, String encoding) {
+		downloadContentDirectory = new FileProvider(file, encoding);
+	}
+
+	public FileProvider getDownloadContentDirectory() {
+		return downloadContentDirectory;
+	}
+
+
 }

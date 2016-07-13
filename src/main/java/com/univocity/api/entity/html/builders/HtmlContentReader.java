@@ -23,6 +23,8 @@ public interface HtmlContentReader {
 
 	void getText(int numberOfSiblingsToInclude);
 
+	void getContentFrom(String attributeName);
+
 	void getPrecedingText();
 
 	void getPrecedingText(int numberOfSiblingsToInclude);

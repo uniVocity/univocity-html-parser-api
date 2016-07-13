@@ -6,10 +6,17 @@
 
 package com.univocity.api.entity.html;
 
+import com.univocity.parsers.common.*;
+
+import java.io.*;
+
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public abstract class HtmlParsingContext {
+public interface HtmlParsingContext extends Context {
 
-	public abstract int currentNodeDepth();
+
+	int currentNodeDepth();
+
+	File getFile(String pathName);
 }

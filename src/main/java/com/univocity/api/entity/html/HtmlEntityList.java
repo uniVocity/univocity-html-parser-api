@@ -24,7 +24,7 @@ public class HtmlEntityList {
 	private final  Map<String, HtmlEntity> entities = new TreeMap<String, HtmlEntity>();
 	private final Map <String, String> originalEntityNames = new TreeMap<String, String>();
 
-	private HtmlParserListener listener;
+	private HtmlParserListener listener; //listener exists in HtmlParserSettings, candidate for deletion
 
 	/**
 	 * Creates a new, empty HtmlEntityList
@@ -34,7 +34,7 @@ public class HtmlEntityList {
 
 
 	/**
-	 * Returns the {@link HtmlEntity} associated with the given entityName. If there is not {@link HtmlEntity} with that
+	 * Returns the {@link HtmlEntity} associated with the given entityName. If there is not a {@link HtmlEntity} with that
 	 * name, it creates it and returns it.
 	 *
 	 * @param entityName the name of the {@link HtmlEntity} that will be returned.
