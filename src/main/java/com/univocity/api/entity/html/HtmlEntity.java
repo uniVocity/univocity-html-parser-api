@@ -104,6 +104,10 @@ public class HtmlEntity implements FieldAdder {
 		return Builder.build(HtmlGroupStart.class, this);
 	}
 
+	public PaginationHtmlGroupStart newPaginationGroup() {
+		return Builder.build(PaginationHtmlGroupStart.class, this);
+	}
+
 	public RecordTriggerStart addRecordTrigger() {
 		RecordTrigger out = Builder.build(RecordTrigger.class, this);
 		addTrigger(out);

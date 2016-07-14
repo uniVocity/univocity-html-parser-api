@@ -29,6 +29,7 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 	private HtmlParserListener listener;
 	private FileProvider downloadContentDirectory;
 	private int downloadThreads;
+	private String fileNamePattern;
 
 
 	/**
@@ -103,9 +104,17 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 		return listener;
 	}
 
+	public int getPaginationFollowCount() {
+		if (htmlEntityList.getPaginator() != null) {
+			return htmlEntityList.getPaginator().getFollowCount();
+		}
+		return -1;
+	}
+
 	public void setDownloadThreads(int downloadThreads) {
 		this.downloadThreads = downloadThreads;
 	}
+
 
 	public int getDownloadThreads() {
 		return downloadThreads;
@@ -137,6 +146,15 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 
 	public FileProvider getDownloadContentDirectory() {
 		return downloadContentDirectory;
+	}
+
+	public void setFileNamePattern(String pattern) {
+		fileNamePattern = pattern;
+	}
+
+	public String getFileNamePattern() {
+		//search/{pageNumber}.html
+		return fileNamePattern;
 	}
 
 

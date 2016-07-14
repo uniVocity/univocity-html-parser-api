@@ -6,6 +6,7 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.common.*;
+import com.univocity.api.entity.html.builders.*;
 
 import java.util.*;
 
@@ -23,6 +24,7 @@ public class HtmlEntityList {
 
 	private final  Map<String, HtmlEntity> entities = new TreeMap<String, HtmlEntity>();
 	private final Map <String, String> originalEntityNames = new TreeMap<String, String>();
+	private HtmlPaginator paginator;
 
 	private HtmlParserListener listener; //listener exists in HtmlParserSettings, candidate for deletion
 
@@ -48,6 +50,17 @@ public class HtmlEntityList {
 			originalEntityNames.put(entityName, normalizedEntityName);
 		}
 			return entities.get(normalizedEntityName);
+	}
+
+	public HtmlPaginator configurePaginator() {
+		if (paginator == null) {
+			paginator = new HtmlPaginator();
+		}
+		return paginator;
+	}
+
+	public HtmlPaginator getPaginator() {
+		return paginator;
 	}
 
 	/**
