@@ -6,4 +6,10 @@ package com.univocity.api.entity.html.builders;
 public interface PaginationHtmlGroup extends BaseHtmlPath<PaginationHtmlGroup>, BaseHtmlPathStart<PaginationHtmlGroup> {
 
 	public HtmlPathStart setNextPage();
+
+	public HtmlPathStart setPageSize();
+
+	public HtmlPathStart setFirstPage();
+
+	public HtmlPathStart addRequestParameter(String parameterName);
 }

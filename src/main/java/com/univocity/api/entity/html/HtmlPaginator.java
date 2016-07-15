@@ -2,12 +2,16 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.entity.html.builders.*;
 
+import java.util.*;
+
 /**
  * Created by anthony on 14/07/16.
  */
 public class HtmlPaginator {
 	HtmlEntity entity;
 	private int followCount;
+	private TreeMap<String, String> requestParameters = new TreeMap<String, String>();
+	private TreeMap<String, List<HtmlPath>> requestParametersWithPaths = new TreeMap<String, List<HtmlPath>>();
 
 	public HtmlPaginator() {
 		this.entity = new HtmlEntity("*paginator*");
@@ -16,7 +20,6 @@ public class HtmlPaginator {
 	public String getEntityName() {
 		return entity.getEntityName();
 	}
-
 
 
 	public HtmlPathStart setNextPage() {
@@ -52,8 +55,20 @@ public class HtmlPaginator {
 		return followCount;
 	}
 
-	public void addRequestParameter(String fieldName) {
-		//entity.
+	public HtmlPathStart addRequestParameter(String fieldName) {
+		return entity.addRequestParameter(fieldName);
+	}
+
+	public void setRequestParameter(String fieldName) {
+		entity.setRequestParameter(fieldName);
+	}
+
+	public TreeMap<String, String> getRequestParameters() {
+		return entity.getRequestParameters();
+	}
+
+	public  boolean isRequestParametersSet() {
+		return !entity.getRequestParameters().isEmpty();
 	}
 
 	public PaginationHtmlGroupStart newGroup() {

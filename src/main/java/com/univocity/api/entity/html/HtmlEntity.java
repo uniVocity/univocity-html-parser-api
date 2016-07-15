@@ -23,6 +23,7 @@ public class HtmlEntity implements FieldAdder {
 
 	final Map<String, List<HtmlPath>> fields = new LinkedHashMap<String, List<HtmlPath>>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
+	private TreeMap<String, String> requestParameters = new TreeMap<String, String>();
 
 	/**
 	 * Creates a new HTMLEntity without a name.
@@ -33,6 +34,7 @@ public class HtmlEntity implements FieldAdder {
 
 	/**
 	 * Creates a new HTMLEntity and associates it with the supplied name
+	 *
 	 * @param entityName a string that identifies the HTMLEntity
 	 */
 	HtmlEntity(String entityName) {
@@ -41,6 +43,7 @@ public class HtmlEntity implements FieldAdder {
 
 	/**
 	 * Returns the name of the HTMLEntity
+	 *
 	 * @return the name as a String
 	 */
 	public String getEntityName() {
@@ -63,10 +66,12 @@ public class HtmlEntity implements FieldAdder {
 	 * called "headings", match "H1" and getText. When the parser runs, the headings in the HTML document will be returned
 	 * and be available in the field "headings".
 	 * <code>
-	 *	HtmlEntity entity = new HtmlEntity();
-	 *  entity.addField("headings").match("H1").getText();
+	 * HtmlEntity entity = new HtmlEntity();
+	 * entity.addField("headings").match("H1").getText();
 	 * </code>
+	 *
 	 * @param fieldName The that the field will be called
+	 *
 	 * @return a {@link HtmlPathStart}, so that a path to the HTML can be defined
 	 */
 	public HtmlPathStart addField(String fieldName) {
@@ -116,9 +121,24 @@ public class HtmlEntity implements FieldAdder {
 
 	/**
 	 * Returns the name of all fields associated with the HtmlEntity.
+	 *
 	 * @return a String array of the field names
 	 */
-	public String[] getFields(){
+	public String[] getFieldNames() {
 		return fields.keySet().toArray(new String[0]);
+	}
+
+	public HtmlPathStart addRequestParameter(String fieldName) {
+		requestParameters.put(fieldName, "");
+		return addField(fieldName);
+	}
+
+	public TreeMap<String, String> getRequestParameters() {
+		return requestParameters;
+	}
+
+	public void setRequestParameter(String parameterName) {
+		requestParameters.put(parameterName, "");
+
 	}
 }
