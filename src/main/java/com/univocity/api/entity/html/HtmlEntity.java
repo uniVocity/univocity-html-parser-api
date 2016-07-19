@@ -137,8 +137,8 @@ public class HtmlEntity implements FieldAdder {
 		return requestParameters;
 	}
 
-	public void setRequestParameter(String parameterName) {
-		requestParameters.put(parameterName, "");
+	public void setRequestParameter(String parameterName, String value) {
+		requestParameters.put(parameterName, value);
 
 	}
 }

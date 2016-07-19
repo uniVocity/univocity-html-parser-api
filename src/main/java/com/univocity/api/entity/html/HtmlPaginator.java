@@ -10,10 +10,14 @@ import java.util.*;
 public class HtmlPaginator {
 	HtmlEntity entity;
 	private int followCount;
+	private int idealPageSize;
+	private int currentPageNumber;
+	private PaginationHandler paginationHandler;
 	private TreeMap<String, String> requestParameters = new TreeMap<String, String>();
 	private TreeMap<String, List<HtmlPath>> requestParametersWithPaths = new TreeMap<String, List<HtmlPath>>();
 
 	public HtmlPaginator() {
+		currentPageNumber = 0;
 		this.entity = new HtmlEntity("*paginator*");
 	}
 
@@ -38,9 +42,18 @@ public class HtmlPaginator {
 		return entity.addField("lastPage");
 	}
 
-
+	//element on page showing number of items on page
 	public HtmlPathStart setPageSize() {
 		return entity.addField("pageSize");
+	}
+
+	//what the paginator will try to set the page size to.
+	public void setIdealPageSize(int pageSize) {
+		this.idealPageSize = pageSize;
+	}
+
+	public int getIdealPageSize() {
+		return idealPageSize;
 	}
 
 	public HtmlPathStart setItemCount() {
@@ -59,8 +72,8 @@ public class HtmlPaginator {
 		return entity.addRequestParameter(fieldName);
 	}
 
-	public void setRequestParameter(String fieldName) {
-		entity.setRequestParameter(fieldName);
+	public void setRequestParameter(String fieldName, String value) {
+		entity.setRequestParameter(fieldName, value);
 	}
 
 	public TreeMap<String, String> getRequestParameters() {
@@ -73,5 +86,25 @@ public class HtmlPaginator {
 
 	public PaginationHtmlGroupStart newGroup() {
 		return entity.newPaginationGroup();
+	}
+
+	public String[] getFieldNames() {
+		return  entity.getFieldNames();
+	}
+
+	public int getCurrentPageNumber() {
+		return currentPageNumber;
+	}
+
+	public void setCurrentPageNumber(int currentPageNumber) {
+		this.currentPageNumber = currentPageNumber;
+	}
+
+	public void setPaginationHandler(PaginationHandler paginationHandler) {
+		this.paginationHandler = paginationHandler;
+	}
+
+	public PaginationHandler getPaginationHandler() {
+		return paginationHandler;
 	}
 }
