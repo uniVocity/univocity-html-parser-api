@@ -1,15 +1,15 @@
 package com.univocity.api.entity.html.builders;
 
 /**
- * Created by anthony on 14/07/16.
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public interface PaginationHtmlGroup extends BaseHtmlPath<PaginationHtmlGroup>, BaseHtmlPathStart<PaginationHtmlGroup> {
 
-	public HtmlPathStart setNextPage();
+	HtmlPathStart setNextPage();
 
-	public HtmlPathStart setPageSize();
+	HtmlPathStart setPageSize();
 
-	public HtmlPathStart setFirstPage();
+	HtmlPathStart setFirstPage();
 
-	public HtmlPathStart addRequestParameter(String parameterName);
+	HtmlPathStart addRequestParameter(String parameterName);
 }

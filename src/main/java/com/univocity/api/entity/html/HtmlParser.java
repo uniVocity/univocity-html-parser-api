@@ -7,7 +7,6 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.*;
 import com.univocity.api.common.*;
-import com.univocity.parsers.common.processor.*;
 import com.univocity.parsers.common.processor.core.*;
 import com.univocity.parsers.common.record.*;
 
@@ -19,6 +18,7 @@ import java.util.*;
  * A Parser that parses HTML.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
+ *
  * @see HtmlParserSettings
  * @see ReaderProvider
  * @see Record
@@ -26,7 +26,7 @@ import java.util.*;
  */
 public  class HtmlParser {
 
-	private  HtmlParser parser;
+	private final HtmlParser parser;
 
 	/**
 	 * Creates a new HtmlParser with configuration provided by {@link HtmlParserSettings}. The HtmlParser gets all
@@ -127,7 +127,7 @@ public  class HtmlParser {
 	}
 
 	/**
-	 * Parses a HTML file provided by {@link ReaderProvider} and delegates each row parsed to a {@link RowProcessor}
+	 * Parses a HTML file provided by {@link ReaderProvider} and delegates each row parsed to a {@link Processor}
 	 * defined in the {@link HtmlParserSettings}
 	 * @param readerProvider The file or URL where the HTML document is located.
 	 */

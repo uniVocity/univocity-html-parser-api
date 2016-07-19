@@ -23,7 +23,7 @@ public class HtmlEntity implements FieldAdder {
 
 	final Map<String, List<HtmlPath>> fields = new LinkedHashMap<String, List<HtmlPath>>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
-	private TreeMap<String, String> requestParameters = new TreeMap<String, String>();
+	private final TreeMap<String, String> requestParameters = new TreeMap<String, String>();
 
 	/**
 	 * Creates a new HTMLEntity without a name.
@@ -109,6 +109,7 @@ public class HtmlEntity implements FieldAdder {
 		return Builder.build(HtmlGroupStart.class, this);
 	}
 
+
 	public PaginationHtmlGroupStart newPaginationGroup() {
 		return Builder.build(PaginationHtmlGroupStart.class, this);
 	}
@@ -133,7 +134,7 @@ public class HtmlEntity implements FieldAdder {
 		return addField(fieldName);
 	}
 
-	public TreeMap<String, String> getRequestParameters() {
+	public Map<String, String> getRequestParameters() {
 		return requestParameters;
 	}
 
