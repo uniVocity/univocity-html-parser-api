@@ -30,6 +30,7 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 	private FileProvider downloadContentDirectory;
 	private int downloadThreads;
 	private String fileNamePattern;
+	private boolean joinRows = false;
 
 
 	/**
@@ -40,6 +41,7 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 	 */
 	public HtmlParserSettings(HtmlEntityList htmlEntityList) {
 		this.htmlEntityList = htmlEntityList;
+		joinRows = false;
 	}
 
 	/**
@@ -218,5 +220,13 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 		return fileNamePattern;
 	}
 
+	public void setJoinRows(boolean joinRows) {
+		//sets if rows are joined when following item links
+		this.joinRows = joinRows;
+	}
+
+	public boolean isJoinRows() {
+		return joinRows;
+	}
 
 }

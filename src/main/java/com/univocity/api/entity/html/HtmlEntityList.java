@@ -24,6 +24,7 @@ public class HtmlEntityList {
 	private final  Map<String, HtmlEntity> entities = new TreeMap<String, HtmlEntity>();
 	private final Map <String, String> originalEntityNames = new TreeMap<String, String>();
 	private HtmlPaginator paginator;
+	private HtmlLinkFollower itemFollower;
 
 	private HtmlParserListener listener; //listener exists in HtmlParserSettings, candidate for deletion
 
@@ -92,6 +93,21 @@ public class HtmlEntityList {
 	 */
 	public Collection<HtmlEntity> getEntities() {
 		return Collections.unmodifiableCollection(entities.values());
+	}
+
+	public HtmlEntity getEntityByName(String entityName) {
+		return entities.get(entityName);
+	}
+
+	public HtmlLinkFollower configureItemFollower() {
+		if (itemFollower == null) {
+			itemFollower = new HtmlLinkFollower();
+		}
+		return itemFollower;
+	}
+
+	public HtmlLinkFollower getItemFollower() {
+		return  itemFollower;
 	}
 
 }
