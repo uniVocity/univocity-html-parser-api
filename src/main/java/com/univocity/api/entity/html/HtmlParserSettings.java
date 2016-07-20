@@ -220,13 +220,5 @@ public class HtmlParserSettings extends AbstractEntityParserSettings {
 		return fileNamePattern;
 	}
 
-	public void setJoinRows(boolean joinRows) {
-		//sets if rows are joined when following item links
-		this.joinRows = joinRows;
-	}
-
-	public boolean isJoinRows() {
-		return joinRows;
-	}
 
 }
