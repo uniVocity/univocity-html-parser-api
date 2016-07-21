@@ -17,19 +17,16 @@ import java.util.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public class HtmlEntity implements FieldAdder {
-
-	private final String entityName;
+public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 
 	final Map<String, List<HtmlPath>> fields = new LinkedHashMap<String, List<HtmlPath>>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
-	private final TreeMap<String, String> requestParameters = new TreeMap<String, String>();
 
 	/**
 	 * Creates a new HTMLEntity without a name.
 	 */
 	HtmlEntity() {
-		this.entityName = null;
+		super();
 	}
 
 	/**
@@ -38,16 +35,7 @@ public class HtmlEntity implements FieldAdder {
 	 * @param entityName a string that identifies the HTMLEntity
 	 */
 	HtmlEntity(String entityName) {
-		this.entityName = entityName;
-	}
-
-	/**
-	 * Returns the name of the HTMLEntity
-	 *
-	 * @return the name as a String
-	 */
-	public String getEntityName() {
-		return entityName;
+		super(entityName);
 	}
 
 	@Override
@@ -134,12 +122,4 @@ public class HtmlEntity implements FieldAdder {
 		return addField(fieldName);
 	}
 
-	public Map<String, String> getRequestParameters() {
-		return requestParameters;
-	}
-
-	public void setRequestParameter(String parameterName, String value) {
-		requestParameters.put(parameterName, value);
-
-	}
 }

@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class PaginationContext {
 
-	private final HtmlPaginator paginator;
+	private final RemoteResourcePaginator paginator;
 	private final UrlReaderProvider urlReaderProvider;
 	private List<String[]> rows;
 
@@ -23,7 +23,7 @@ public class PaginationContext {
 	 * @param paginator
 	 * @param urlReaderProvider
 	 */
-	public PaginationContext(HtmlPaginator paginator, UrlReaderProvider urlReaderProvider) {
+	public PaginationContext(RemoteResourcePaginator paginator, UrlReaderProvider urlReaderProvider) {
 		this.paginator = paginator;
 		this.urlReaderProvider = urlReaderProvider;
 	}
@@ -83,7 +83,8 @@ public class PaginationContext {
 	}
 
 	private String getField(String fieldName) {
-			return paginator.getRequestParameters().get(fieldName);
+		Map<String,String> map = paginator.getRequestParameters();
+		return  map.get(fieldName);
 	}
 
 	/**

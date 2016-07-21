@@ -5,11 +5,6 @@
  */
 package com.univocity.api.entity.html;
 
-import com.univocity.api.common.*;
-
-import java.util.*;
-
-
 
 /**
  * This class creates and stores {@link HtmlEntity}s.
@@ -19,12 +14,7 @@ import java.util.*;
  * @see HtmlParser
  * @see HtmlParserListener
  */
-public class HtmlEntityList {
-
-	private final  Map<String, HtmlEntity> entities = new TreeMap<String, HtmlEntity>();
-	private final Map <String, String> originalEntityNames = new TreeMap<String, String>();
-	private HtmlPaginator paginator;
-	private HtmlLinkFollower itemFollower;
+public class HtmlEntityList extends RemoteResourceEntityList<HtmlEntity> {
 
 	private HtmlParserListener listener; //listener exists in HtmlParserSettings, candidate for deletion
 
@@ -34,43 +24,30 @@ public class HtmlEntityList {
 	public HtmlEntityList() {
 	}
 
-
-	/**
-	 * Returns the {@link HtmlEntity} associated with the given entityName. If there is not a {@link HtmlEntity} with that
-	 * name, it creates it and returns it.
-	 *
-	 * @param entityName the name of the {@link HtmlEntity} that will be returned.
-	 * @return the {@link HtmlEntity} with the given entityName
-	 */
-	public HtmlEntity configureEntity(String entityName) {
-		Args.notBlank(entityName, "Entity name");
-		String normalizedEntityName = entityName.trim().toLowerCase();
-		if (entities.get(normalizedEntityName) == null) {
-			entities.put(normalizedEntityName, new HtmlEntity(entityName));
-			originalEntityNames.put(entityName, normalizedEntityName);
-		}
-			return entities.get(normalizedEntityName);
+	@Override
+	protected HtmlEntity newEntity(String entityName) {
+		return new HtmlEntity(entityName);
 	}
 
-	public HtmlPaginator configurePaginator() {
-		if (paginator == null) {
-			paginator = new HtmlPaginator();
-		}
-		return paginator;
+	@Override
+	protected HtmlPaginator newPaginator() {
+		return new HtmlPaginator();
 	}
+
 
 	public HtmlPaginator getPaginator() {
-		return paginator;
+		return (HtmlPaginator) paginator;
 	}
 
-	/**
-	 * Returns the entity names stored in the HtmlEntityList as a set of type String
-	 *
-	 * @return entity names stored as a set.
-	 */
-	public Set<String> getEntityNames() {
-		return new TreeSet<String>(originalEntityNames.keySet());
+	@Override
+	protected  HtmlLinkFollower newLinkFollower() {
+		return new HtmlLinkFollower();
 	}
+
+	public HtmlLinkFollower getLinkFollower() {
+		return (HtmlLinkFollower) linkFollower;
+	}
+
 
 	public void setHtmlParserListener(HtmlParserListener listener) {
 		this.listener = listener;
@@ -85,29 +62,16 @@ public class HtmlEntityList {
 		return listener;
 	}
 
-
-	/**
-	 * Returns all the entities stored in the entityList as a unmodifiable Collection
-	 *
-	 * @return a Collection of {@link HtmlEntity}s.
-	 */
-	public Collection<HtmlEntity> getEntities() {
-		return Collections.unmodifiableCollection(entities.values());
-	}
-
-	public HtmlEntity getEntityByName(String entityName) {
-		return entities.get(entityName);
-	}
-
-	public HtmlLinkFollower configureItemFollower() {
-		if (itemFollower == null) {
-			itemFollower = new HtmlLinkFollower();
+	public HtmlPaginator configurePaginator() {
+		if (paginator == null) {
+			paginator = newPaginator();
 		}
-		return itemFollower;
+		return (HtmlPaginator) paginator;
 	}
-
-	public HtmlLinkFollower getItemFollower() {
-		return  itemFollower;
+	public HtmlLinkFollower configureLinkFollower() {
+		if (linkFollower == null) {
+			linkFollower = newLinkFollower();
+		}
+		return (HtmlLinkFollower) linkFollower;
 	}
-
 }
