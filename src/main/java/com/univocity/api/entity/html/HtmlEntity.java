@@ -7,6 +7,7 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.*;
+import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
 
 import java.util.*;

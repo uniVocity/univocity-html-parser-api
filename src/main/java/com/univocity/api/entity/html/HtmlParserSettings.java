@@ -5,6 +5,7 @@
  */
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.remote.*;
 import com.univocity.parsers.common.processor.core.*;
 
 /**

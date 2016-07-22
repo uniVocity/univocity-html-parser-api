@@ -6,6 +6,8 @@
 package com.univocity.api.entity.html;
 
 
+import com.univocity.api.common.remote.*;
+
 /**
  * This class creates and stores {@link HtmlEntity}s.
  *

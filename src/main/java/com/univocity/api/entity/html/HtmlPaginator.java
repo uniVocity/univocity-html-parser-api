@@ -1,5 +1,7 @@
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.*;
+import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
 
 /**
@@ -22,6 +24,10 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	@Override
 	public HtmlEntity newEntity() {
 		return new HtmlEntity(entityName);
+	}
+
+	public HtmlEntity getEntity() {
+		return entity;
 	}
 
 	/**

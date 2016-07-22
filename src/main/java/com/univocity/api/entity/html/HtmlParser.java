@@ -26,7 +26,7 @@ import java.util.*;
  */
 public  class HtmlParser {
 
-	private final HtmlParser parser;
+	private final HtmlParserInterface parser;
 
 	/**
 	 * Creates a new HtmlParser with configuration provided by {@link HtmlParserSettings}. The HtmlParser gets all
@@ -38,7 +38,7 @@ public  class HtmlParser {
 		if (settings == null) {
 			parser = null;
 		} else {
-			parser = Builder.build(HtmlParser.class, settings);
+			parser = Builder.build(HtmlParserInterface.class, settings);
 		}
 	}
 

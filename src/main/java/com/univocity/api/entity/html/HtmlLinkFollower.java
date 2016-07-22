@@ -1,5 +1,6 @@
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
 
 /**
@@ -11,6 +12,9 @@ public class HtmlLinkFollower extends RemoteResourceLinkFollower<HtmlEntity> {
 		super();
 	}
 
+	public HtmlEntity getEntity() {
+		return entity;
+	}
 	@Override
 	protected HtmlEntity newEntity() {
 		return new HtmlEntity(entityName);
