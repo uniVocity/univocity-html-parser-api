@@ -17,5 +17,4 @@ public abstract class HtmlMatchingContext implements HtmlParsingContext {
 
 	public abstract String getEntityName();
 
-	public abstract String getDataStoreName();
 }

@@ -6,7 +6,10 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.common.remote.*;
+import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.processor.core.*;
+
+import java.util.*;
 
 /**
  * This is the configuration class used by {@link HtmlParser}.
@@ -16,7 +19,7 @@ import com.univocity.parsers.common.processor.core.*;
  * @see Processor
  * @see HtmlEntityList
  */
-public class HtmlParserSettings extends RemoteResourceSettings<HtmlEntityList> {
+public class HtmlParserSettings extends RemoteResourceSettings<HtmlEntityList, Format, HtmlParsingContext> {
 
 
 	private HtmlParserListener listener;
@@ -30,27 +33,6 @@ public class HtmlParserSettings extends RemoteResourceSettings<HtmlEntityList> {
 	public HtmlParserSettings(HtmlEntityList entityList) {
 		super(entityList);
 	}
-
-
-//	/**
-//	 * Sets the global {@link Processor}. All rows parsed will be delegated to the processor. Does not
-//	 * need to be set for the {@link HtmlParser} to function.
-//	 *
-//	 * @param processor the {@link Processor} that will be set as the processor
-//	 */
-//	public void setGlobalProcessor(Processor<HtmlParsingContext> processor) {
-//		this.processor = processor;
-//	}
-
-//	/**
-//	 * Returns the processor if previously set. If the processor was not set, returns a
-//	 * {@link NoopProcessor}, which is a {@link Processor} that does nothing.
-//	 *
-//	 * @return the {@link Processor} previously set, or a {@link NoopProcessor} if never set.
-//	 */
-//	public Processor<HtmlParsingContext> getGlobalProcessor() {
-//		return processor == null ? NoopProcessor.instance : processor;
-//	}
 
 
 	/**
@@ -70,5 +52,13 @@ public class HtmlParserSettings extends RemoteResourceSettings<HtmlEntityList> {
 	}
 
 
-
+	@Override
+	protected Format createDefaultFormat() {
+		return new Format() {
+			@Override
+			protected TreeMap<String, Object> getConfiguration() {
+				return new TreeMap<String, Object>();
+			}
+		};
+	}
 }
