@@ -62,4 +62,8 @@ public class HtmlParserSettings extends RemoteResourceSettings<HtmlEntityList, F
 			}
 		};
 	}
+
+	final void setCurrentEntity(String entityName){
+		this.currentEntity = ArgumentUtils.normalize(entityName);
+	}
 }
