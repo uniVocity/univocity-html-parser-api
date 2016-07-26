@@ -20,7 +20,7 @@ import java.util.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  *
- * @see HtmlParserSettings
+ * @see InternalHtmlParserSettings
  * @see ReaderProvider
  * @see Record
  * @see HtmlEntity
@@ -30,7 +30,7 @@ public  class HtmlParser {
 	private final HtmlParserInterface parser;
 
 	/**
-	 * Creates a new HtmlParser with configuration provided by {@link HtmlParserSettings}. The HtmlParser gets all
+	 * Creates a new HtmlParser with configuration provided by {@link InternalHtmlParserSettings}. The HtmlParser gets all
 	 * configuration from this settings class.
 	 *
 	 * @param settings The HtmlParser configuration
@@ -129,7 +129,7 @@ public  class HtmlParser {
 
 	/**
 	 * Parses a HTML file provided by {@link ReaderProvider} and delegates each row parsed to a {@link Processor}
-	 * defined in the {@link HtmlParserSettings}
+	 * defined in the {@link InternalHtmlParserSettings}
 	 * @param readerProvider The file or URL where the HTML document is located.
 	 */
 	public  void parse(ReaderProvider readerProvider) {

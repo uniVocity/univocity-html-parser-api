@@ -19,7 +19,7 @@ import com.univocity.api.common.remote.*;
  */
 public class HtmlEntityList extends RemoteResourceEntityList<HtmlEntity> {
 
-	private HtmlParserListener listener; //listener exists in HtmlParserSettings, candidate for deletion
+	private HtmlParserListener listener; //listener exists in InternalHtmlParserSettings, candidate for deletion
 
 	/**
 	 * Creates a new, empty HtmlEntityList
