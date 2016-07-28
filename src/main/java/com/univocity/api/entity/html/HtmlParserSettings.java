@@ -1,6 +1,7 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.common.*;
+import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.fields.*;
 import com.univocity.parsers.common.processor.core.*;
 
@@ -85,7 +86,7 @@ public class HtmlParserSettings {
 
 	/**
 	 * Sets the number of threads that will be created to download content (e.g. images) after a page finishes parsing.
-	 * If not set or set to a number <= 0, 4 threads will be used.
+	 * If not set or set to a number <= 0, a thread will be created for each logical core on the running PC.
 	 *
 	 * @param downloadThreads the number of download threads that will be used to download content
 	 */
@@ -402,14 +403,44 @@ public class HtmlParserSettings {
 	}
 
 	public final void addEntitiesToSkip(String... entitiesToSkip) {
-		settings.setEntitiesToSkip(entitiesToSkip);
+		settings.addEntitiesToSkip(entitiesToSkip);
 	}
 
 	public void setColumnReorderingEnabled(boolean columnReorderingEnabled) {
 		settings.setColumnReorderingEnabled(columnReorderingEnabled);
 	}
 
+	//Probably not relevent to parsing html
 	public void setMaxColumns(int maxColumns) {
 		settings.setMaxColumns(maxColumns);
+	}
+
+	//Probably not relevent to parsing html
+	public int getMaxColumns() {
+		return settings.getMaxColumns();
+	}
+
+	/**
+	 * Returns the custom error handler to be used to capture and handle errors that might happen while processing records with a {@link com.univocity.parsers.common.processor.core.Processor}
+	 * or a {@link RowWriterProcessor} (i.e. non-fatal {@link DataProcessingException}s).
+	 *
+	 * <p>The parsing/writing process won't stop (unless the error handler rethrows the {@link DataProcessingException} or manually stops the process).</p>
+	 *
+	 * @return the callback error handler with custom code to manage occurrences of {@link DataProcessingException}.
+	 */
+	public  ProcessorErrorHandler<HtmlParsingContext> getProcessorErrorHandler() {
+		return  settings.getProcessorErrorHandler();
+	}
+
+	/**
+	 * Defines a custom error handler to capture and handle errors that might happen while processing records with a {@link com.univocity.parsers.common.processor.core.Processor}
+	 * or a {@link RowWriterProcessor} (i.e. non-fatal {@link DataProcessingException}s).
+	 *
+	 * <p>The parsing parsing/writing won't stop (unless the error handler rethrows the {@link DataProcessingException} or manually stops the process).</p>
+	 *
+	 * @param processorErrorHandler the callback error handler with custom code to manage occurrences of {@link DataProcessingException}.
+	 */
+	public void setProcessorErrorHandler(ProcessorErrorHandler<HtmlParsingContext> processorErrorHandler) {
+		settings.setProcessorErrorHandler(processorErrorHandler);
 	}
 }
