@@ -306,28 +306,6 @@ public class HtmlParserSettings {
 	}
 
 	/**
-	 * Defines the field names in the input/output, in the sequence they occur (defaults to null).
-	 * <p>when reading, the given header names will be used to refer to each column irrespective of whether or not the input contains a header row
-	 * <p>when writing, the given header names will be used to refer to each column and can be used for writing the header row
-	 *
-	 * @param headers the field name sequence associated with each column in the input/output.
-	 */
-	public void setHeaders(String... headers) {
-		settings.setHeaders(headers);
-	}
-
-	/**
-	 * Returns the field names in the input/output, in the sequence they occur (defaults to null).
-	 * <p>when reading, the given header names will be used to refer to each column irrespective of whether or not the input contains a header row
-	 * <p>when writing, the given header names will be used to refer to each column and can be used for writing the header row
-	 *
-	 * @return the field name sequence associated with each column in the input/output.
-	 */
-	public String[] getHeaders() {
-		return settings.getHeaders();
-	}
-
-	/**
 	 * Configures the parser/writer to trim or keep leading and trailing whitespaces around values
 	 * This has the same effect as invoking both {@link #setIgnoreLeadingWhitespaces(boolean)} and {@link #setIgnoreTrailingWhitespaces(boolean)}
 	 * with the same value.
@@ -408,16 +386,6 @@ public class HtmlParserSettings {
 
 	public void setColumnReorderingEnabled(boolean columnReorderingEnabled) {
 		settings.setColumnReorderingEnabled(columnReorderingEnabled);
-	}
-
-	//Probably not relevent to parsing html
-	public void setMaxColumns(int maxColumns) {
-		settings.setMaxColumns(maxColumns);
-	}
-
-	//Probably not relevent to parsing html
-	public int getMaxColumns() {
-		return settings.getMaxColumns();
 	}
 
 	/**
