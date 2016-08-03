@@ -54,10 +54,10 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * path that defines what HTML data will be returned when the parser runs. For example, you could define a field
 	 * called "headings", match "H1" elements and get the text. When the parser runs, the headings in the HTML document will be returned
 	 * and be available in the field "headings".
-	 * <code>
+	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entityList = new HtmlEntityList();
 	 * entityList.configureEntity("heading).addField("headings").match("H1").getText();
-	 * </code>
+	 *</p></pre></blockquote><hr>
 	 *
 	 * @param fieldName The name the field will be called
 	 *
@@ -117,9 +117,17 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	/**
 	 * Returns a {@link PartialHtmlPathStart} that is used to define a path. Fields then can added to this path using
 	 * {@link PartialHtmlPath#addField(String)}. Creating ParitalPaths are useful for when there are multiple fields
-	 * that exist in the same area of the HTML Document, as the path can be reused.
+	 * that exist in the same area of the HTML Document, as the path can be reused. For example:
 	 *
-	 * @return a {@link PartialHtmlPathStart} to specify path
+	 * <p><hr><blockquote><pre>
+	 * 	HtmlEntityList entityList = new HtmlEntityList();
+	 * 	HtmlEntity items = entityList.configureEntity("items");
+	 *	PartialHtmlPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
+	 *	path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
+	 *	path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
+	 *	</p></pre></blockquote><hr>
+	 *
+	 * @return a {@link PartialHtmlPathStart} to specify a path
 	 */
 	public PartialHtmlPathStart newPath() {
 		return Builder.build(PartialHtmlPathStart.class, this);
@@ -128,8 +136,30 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	/**
 	 * Returns a {@link HtmlGroupStart} that allows for a group to be defined. A group is a section of the HTML input
 	 * that is allowed to be parsed. Paths created from a group will only parse inside this defined area, ignoring
-	 * any HTML that exists outside of it.
+	 * any HTML that exists outside of it. For example, say you wanted to parse the "hello" and "howdy" in the following
+	 * HTML:
 	 *
+	 * <p><hr><blockquote><pre>
+	 * <div class="parseMe">
+	 * 	<p>hello</p>
+	 * </div>
+	 * <p>howdy</p>
+	 * <h1>No Parsing Area</h1>
+	 * <p>don't parse me!</p>
+	 * </p></pre></blockquote><hr>
+	 *
+	 * <p> </p>The parsing rules, using groups can be defined as: </p>
+	 *
+	 * <p><hr><blockquote><pre>
+	 * HtmlEntityList entityList = new HtmlEntityList();
+	 * HtmlParserSettings settings = new HtmlParserSettings(entityList);
+	 *
+	 * HtmlGroup group = entityList.configureEntity("test").newGroup().startAt("div").classes("parseMe").endAt("h1");
+	 * group.addField("greeting").match("p").getText();
+	 * </p></pre></blockquote><hr>
+	 *
+	 * <p>The parser will then ignore the 'don't parse me' as the group restricts the parsing to the area defined by from
+	 * the class opening tag to the h1 tag.</p>
 	 * @return a {@link HtmlGroupStart} used to specify the group
 	 */
 	public HtmlGroupStart newGroup() {
