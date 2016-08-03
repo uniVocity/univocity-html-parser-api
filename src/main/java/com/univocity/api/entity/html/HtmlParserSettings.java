@@ -10,16 +10,30 @@ import java.nio.charset.*;
 import java.util.*;
 
 /**
- * Created by anthony on 26/07/16.
+ * The configuration class for {@link HtmlParser}.
+ *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @see HtmlParser
+ * @see HtmlEntityList
  */
 public class HtmlParserSettings {
 
 	private final InternalHtmlParserSettings settings;
 
+	/**
+	 * Creates a new HtmlParserSettings and associates it with {@link HtmlEntityList}
+	 *
+	 * @param entityList the {@link HtmlEntityList} that will be associated
+	 */
 	public HtmlParserSettings(HtmlEntityList entityList) {
 		settings = new InternalHtmlParserSettings(entityList);
 	}
 
+	/**
+	 * Returns the InternalSettings that is contained within the HtmlParserSettings
+	 *
+	 * @return the associated InternalSettings
+	 */
 	public InternalHtmlParserSettings getInternalSettings() {
 		return settings;
 	}
@@ -49,7 +63,7 @@ public class HtmlParserSettings {
 	/**
 	 * Returns the {@link HtmlEntityList} associated with the settings.
 	 *
-	 * @return the HtmlEntityList
+	 * @return the associated {@link HtmlEntityList}
 	 */
 	public HtmlEntityList getEntityList() {
 		return settings.getEntityList();
@@ -189,33 +203,55 @@ public class HtmlParserSettings {
 		return settings.getFileNamePattern();
 	}
 
+
+	/**
+	 * Associates the given {@link Processor} with the supplied entities.
+	 *
+	 * @param entityProcessor  the {@link Processor}
+	 * @param entities names of entities that will be handled by the {@link Processor}
+	 */
 	public final void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, Collection<String> entities) {
 		settings.setEntityProcessor(entityProcessor, entities);
 	}
 
+	/**
+	 * Associates the given {@link Processor} with the supplied entities.
+	 *
+	 * @param entityProcessor  the {@link Processor}
+	 * @param entities names of entities that will be handled by the {@link Processor}
+	 */
 	public final void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, String... entities) {
 		settings.setEntityProcessor(entityProcessor,entities);
 	}
 
+
+	/**
+	 * Selects a sequence of fields for reading by their names
+	 *
+	 * @param fieldNames The field names to be read
+	 *
+	 * @return the (modifiable) set of selected fields
+	 */
 	public final EntityFieldSet<Enum> selectFields(Enum... fieldNames) {
 		return settings.selectFields(fieldNames);
 	}
 
 
 	/**
-	 * Selects a sequence of fields for reading/writing by their names
+	 * Selects a sequence of fields for reading by their names
 	 *
-	 * @param fieldNames The field names to read/write
+	 * @param fieldNames The field names to be read
 	 *
 	 * @return the (modifiable) set of selected fields
 	 */
 	public final EntityFieldSet<String> selectFields(String... fieldNames) {
 		return settings.selectFields(fieldNames);
 	}
+
 	/**
-	 * Selects fields which will not be read/written by their names
+	 * Selects fields which will not be read by their names
 	 *
-	 * @param fieldNames The field names to exclude from the parsing/writing process
+	 * @param fieldNames The field names to exclude from the parsing process
 	 *
 	 * @return the (modifiable) set of ignored fields
 	 */
@@ -224,9 +260,9 @@ public class HtmlParserSettings {
 	}
 
 	/**
-	 * Selects a sequence of fields for reading/writing by their indexes
+	 * Selects a sequence of fields for reading by their indexes
 	 *
-	 * @param fieldIndexes The field indexes to read/write
+	 * @param fieldIndexes The field indexes to read
 	 *
 	 * @return the (modifiable) set of selected fields
 	 */
@@ -235,9 +271,9 @@ public class HtmlParserSettings {
 	}
 
 	/**
-	 * Selects fields which will not be read/written by their indexes
+	 * Selects fields which will not be read by their indexes
 	 *
-	 * @param fieldIndexes The field indexes to exclude from the parsing/writing process
+	 * @param fieldIndexes The field indexes to exclude from the parsing process
 	 *
 	 * @return the (modifiable) set of ignored fields
 	 */
@@ -245,13 +281,19 @@ public class HtmlParserSettings {
 		return settings.excludeIndexes(fieldIndexes);
 	}
 
+	/**
+	 * Selects fields which will not be read by their names
+	 *
+	 * @param fieldNames The field names to exclude from the parsing process
+	 *
+	 * @return the (modifiable) set of ignored fields
+	 */
 	public final EntityFieldSet<Enum> excludeFields(Enum... fieldNames) {
 		return settings.excludeFields(fieldNames);
 	}
 	/**
 	 * Returns the String representation of a null value (defaults to null)
 	 * <p>When reading, if the parser does not read any character from the input, the nullValue is used instead of an empty string
-	 * <p>When writing, if the writer has a null object to write to the output, the nullValue is used instead of an empty string
 	 *
 	 * @return the String representation of a null value
 	 */
@@ -262,7 +304,6 @@ public class HtmlParserSettings {
 	/**
 	 * Sets the String representation of a null value (defaults to null)
 	 * <p>When reading, if the parser does not read any character from the input, the nullValue is used instead of an empty string
-	 * <p>When writing, if the writer has a null object to write to the output, the nullValue is used instead of an empty string
 	 *
 	 * @param emptyValue the String representation of a null value
 	 */
@@ -344,53 +385,122 @@ public class HtmlParserSettings {
 		settings.setErrorContentLength(errorContentLength);
 	}
 
+	/**
+	 * Add entities to read by their names. This entities will be parsed in addition to any entities that were
+	 * previously added.
+	 *
+	 * @param entitiesToRead names of entities that will be parsed
+	 */
 	public final void addEntitiesToRead(Collection<String> entitiesToRead) {
 		settings.addEntitiesToRead(entitiesToRead);
 	}
 
+	/**
+	 * Add entities to read by their names. This entities will be parsed in addition to any entities that were
+	 * previously added.
+	 *
+	 * @param entitiesToRead names of entities that will be parsed
+	 */
 	public final void addEntitiesToRead(String... entitiesToRead) {
 		settings.addEntitiesToRead(entitiesToRead);
 	}
 
+	/**
+	 * Add entities to skip by their names. This entities will be skipped during the parsing process, as well as any
+	 * entities that were previously added to be skipped.
+	 *
+	 * @param entitiesToSkip names of entities that will be skipped
+	 */
 	public final void addEntitiesToSkip(Collection<String> entitiesToSkip) {
 		settings.addEntitiesToRead(entitiesToSkip);
 	}
 
+	/**
+	 * Set entities to not be parsed by their names. Will override and previous adding/setting entities to skip.  For example,
+	 * if there is three entities (A,B,C). It was previously set that it would skip A. By setting B to skip,
+	 * the parser will run on A and C, ONLY skipping B.
+	 *
+	 * @param entitiesToSkip the names of entities that will be skipped
+	 */
 	public final void setEntitiesToSkip(Collection<String> entitiesToSkip) {
 		settings.addEntitiesToRead(entitiesToSkip);
 	}
 
+	/**
+	 * Returns the names of the entities that will be read from.
+	 *
+	 * @return set of entity names as strings that will be read
+	 */
 	public final Set<String> getEntitiesToRead() {
 		return settings.getEntitiesToRead();
 	}
 
+	/**
+	 * Set entities to read by their names. Will override any previous adding/setting of entities to read. For example,
+	 * if there is three entities (A,B,C). It was previously set that it would read from A. By setting B and C to read,
+	 * the parser will ONLY run on B and C.
+	 *
+	 * @param entitiesToRead the entities that will be parsed
+	 */
 	public final void setEntitiesToRead(Collection<String> entitiesToRead) {
 		settings.setEntitiesToRead(entitiesToRead);
 	}
 
+	/**
+	 * Set entities to read by their names. Will override any previous adding/setting of entities to read. For example,
+	 * if there is three entities (A,B,C). It was previously set that it would read from A. By setting B and C to read,
+	 * the parser will ONLY run on B and C.
+	 *
+	 * @param entitiesToRead the entities that will be parsed
+	 */
 	public final void setEntitiesToRead(String... entitiesToRead) {
 		settings.setEntitiesToRead(entitiesToRead);
 	}
 
+	/**
+	 * Returns the names of entities that will be ignored when parsing
+	 *
+	 * @return names of entities that will be skipped during parsing
+	 */
 	public final Set<String> getEntitiesToSkip() {
 		return settings.getEntitiesToSkip();
 	}
 
+	/**
+	 * Set entities to not be parsed by their names. Will override and previous adding/setting entities to skip.  For example,
+	 * if there is three entities (A,B,C). It was previously set that it would skip A. By setting B to skip,
+	 * the parser will run on A and C, ONLY skipping B.
+	 *
+	 * @param entitiesToSkip the names of entities that will be skipped
+	 */
 	public final void setEntitiesToSkip(String... entitiesToSkip) {
 		settings.setEntitiesToSkip(entitiesToSkip);
 	}
 
+	/**
+	 * Add entities to skip by their names. This entities will be skipped during the parsing process, as well as any
+	 * entities that were previously added to be skipped.
+	 *
+	 * @param entitiesToSkip names of entities that will be skipped
+	 */
 	public final void addEntitiesToSkip(String... entitiesToSkip) {
 		settings.addEntitiesToSkip(entitiesToSkip);
 	}
 
+	/**
+	 * Defines whether fields selected using the field selection methods (defined by the parent class {@link CommonSettings}) should be reordered (defaults to true).
+	 * <p>When disabled, each parsed record will contain values for all columns, in the order they occur in the input. Fields which were not selected will not be parsed but and the record will contain empty values.
+	 * <p>When enabled, each parsed record will contain values only for the selected columns. The values will be ordered according to the selection.
+	 *
+	 * @param columnReorderingEnabled the flag indicating whether or not selected fields should be reordered and returned by the parser
+	 */
 	public void setColumnReorderingEnabled(boolean columnReorderingEnabled) {
 		settings.setColumnReorderingEnabled(columnReorderingEnabled);
 	}
 
 	/**
-	 * Returns the custom error handler to be used to capture and handle errors that might happen while processing records with a {@link com.univocity.parsers.common.processor.core.Processor}
-	 * or a {@link RowWriterProcessor} (i.e. non-fatal {@link DataProcessingException}s).
+	 * Returns the custom error handler to be used to capture and handle errors that might happen while processing records with a {@link Processor}
+	 * (i.e. non-fatal {@link DataProcessingException}s).
 	 *
 	 * <p>The parsing/writing process won't stop (unless the error handler rethrows the {@link DataProcessingException} or manually stops the process).</p>
 	 *
@@ -401,8 +511,8 @@ public class HtmlParserSettings {
 	}
 
 	/**
-	 * Defines a custom error handler to capture and handle errors that might happen while processing records with a {@link com.univocity.parsers.common.processor.core.Processor}
-	 * or a {@link RowWriterProcessor} (i.e. non-fatal {@link DataProcessingException}s).
+	 * Defines a custom error handler to capture and handle errors that might happen while processing records with a {@link Processor}
+	 * (i.e. non-fatal {@link DataProcessingException}s).
 	 *
 	 * <p>The parsing parsing/writing won't stop (unless the error handler rethrows the {@link DataProcessingException} or manually stops the process).</p>
 	 *
@@ -410,5 +520,25 @@ public class HtmlParserSettings {
 	 */
 	public void setProcessorErrorHandler(ProcessorErrorHandler<HtmlParsingContext> processorErrorHandler) {
 		settings.setProcessorErrorHandler(processorErrorHandler);
+	}
+
+	/**
+	 * Returns the empty value. When a empty string (i.e: "") is parsed, it will replace the string with the empty value
+	 * in the parsed row.
+	 *
+	 * @return the empty value as a string
+	 */
+	public String getEmptyValue() {
+		return settings.getEmptyValue();
+	}
+
+	/**
+	 * Sets the empty value. When a empty string (i.e: "") is parsed, it will replace the string with the empty value
+	 * in the parsed row.
+	 *
+	 * @param emptyValue the string that will define the empty value
+	 */
+	public void setEmptyValue(String emptyValue) {
+		settings.setEmptyValue(emptyValue);
 	}
 }
