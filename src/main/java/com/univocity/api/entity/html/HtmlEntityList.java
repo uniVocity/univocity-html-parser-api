@@ -27,31 +27,56 @@ public class HtmlEntityList extends RemoteResourceEntityList<HtmlEntity> {
 	public HtmlEntityList() {
 	}
 
+	/**
+	 * Creates a new {@link HtmlEntity} with the supplied name and returns it. Used by {@link RemoteResourceEntityList#configureEntity(String)}.
+	 *
+	 * @param entityName the name that will be used to identify the entity
+	 * @return the HtmlEntity that was created
+	 */
 	@Override
 	protected HtmlEntity newEntity(String entityName) {
 		return new HtmlEntity(entityName);
 	}
 
+	/**
+	 * Creates a new {@link HtmlPaginator} and returns it. Used by {@link RemoteResourceEntityList#configurePaginator()}.
+	 *
+	 * @return the {@link HtmlPaginator} that was created
+	 */
 	@Override
 	protected HtmlPaginator newPaginator() {
 		return new HtmlPaginator();
 	}
 
-
+	/**
+	 * Returns the {@link HtmlPaginator} associated with the HtmlEntityList
+	 *
+	 * @return the {@link HtmlPaginator} stored within the HtmlEntityList
+	 */
 	public HtmlPaginator getPaginator() {
 		return (HtmlPaginator) paginator;
 	}
 
+	/**
+	 * Creates a new {@link HtmlLinkFollower} and returns it. Used by {@link RemoteResourceEntityList#configureEntity(String)}
+	 *
+	 * @return the created {@link HtmlLinkFollower}
+	 */
 	@Override
 	protected  HtmlLinkFollower newLinkFollower() {
 		return new HtmlLinkFollower();
 	}
 
+	/**
+	 * Returns the {@link HtmlLinkFollower} associated with the HtmlEntityList.
+	 *
+	 * @return the {@link HtmlLinkFollower} contained by the HtmlEntityList
+	 */
 	public HtmlLinkFollower getLinkFollower() {
 		return (HtmlLinkFollower) linkFollower;
 	}
 
-
+	//delete?
 	public void setHtmlParserListener(HtmlParserListener listener) {
 		this.listener = listener;
 	}
@@ -61,16 +86,32 @@ public class HtmlEntityList extends RemoteResourceEntityList<HtmlEntity> {
 	 *
 	 * @return the {@link HtmlParserListener}
 	 */
+	//delete?
 	public HtmlParserListener getHtmlParserListener() {
 		return listener;
 	}
 
+	/**
+	 * Returns the associated {@link HtmlPaginator}, creating it if it does not exist already. {@link HtmlPaginator}s are
+	 * used to define how the parser loads the next page to parse.
+	 *
+	 *
+	 * @return the {@link HtmlPaginator} associated with the HtmlEntityList
+	 */
 	public HtmlPaginator configurePaginator() {
 		if (paginator == null) {
 			paginator = newPaginator();
 		}
 		return (HtmlPaginator) paginator;
 	}
+
+	/**
+	 * Returns the associated {@link HtmlLinkFollower}, creating it if it does not exist already. {@link HtmlLinkFollower}s
+	 * are used to define links that the parser will follow and parse. A use case for this is when parsing a list of
+	 * products on a store page.
+	 *
+	 * @return the {@link HtmlLinkFollower} associated with the HtmlEntityList
+	 */
 	public HtmlLinkFollower configureLinkFollower() {
 		if (linkFollower == null) {
 			linkFollower = newLinkFollower();
