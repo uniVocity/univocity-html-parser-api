@@ -10,30 +10,68 @@ import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
 
 /**
- * Created by anthony on 20/07/16.
+ * An subclass of {@link RemoteResourceLinkFollower} used specifically for following links on an HTML document.
+ *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public class HtmlLinkFollower extends RemoteResourceLinkFollower<HtmlEntity> {
 
-	public HtmlLinkFollower() {
+
+	/**
+	 * Creates a new HtmlLinkFollower
+	 */
+	HtmlLinkFollower() {
 		super();
 	}
 
+	/**
+	 * Returns the {@link HtmlEntity} associated with the HtmlLinkFollower
+	 *
+	 * @return the associated {@link HtmlEntity}
+	 */
 	public HtmlEntity getEntity() {
 		return entity;
 	}
+
+	/**
+	 * Creates a new HtmlEntity with the static entityName defined in {@link RemoteResourceLinkFollower}.
+	 *
+	 * @return the created HTmlEntity
+	 */
 	@Override
 	protected HtmlEntity newEntity() {
 		return new HtmlEntity(entityName);
 	}
 
+	/**
+	 * Returns a {@link HtmlGroupStart} that allows for a group to be defined. A group is a section of the HTML input
+	 * that is allowed to be parsed. Paths created from a group will only parse inside this defined area, ignoring
+	 * any HTML that exists outside of it.
+	 *
+	 * @return a {@link HtmlGroupStart} used to specify the group
+	 */
 	public HtmlGroupStart newGroup() {
 		return entity.newGroup();
 	}
 
+	/**
+	 * Returns a {@link HtmlPathStart} that is used to define the path of the HTML link. When the parsing process is
+	 * running, the parser will follow the links added and parse the linked HTML documents. Multiple links can
+	 * be added.
+	 *
+	 * @return a {@link HtmlPathStart} to specify path of link
+	 */
 	public HtmlPathStart  addLink() {
 		return entity.addField("linkNo"+linkNum++);
 	}
 
+	/**
+	 * Adds a new field specified by the given fieldName and returns a {@link HtmlPathStart} that specifies the
+	 * path to the element that will be parsed.
+	 *
+	 * @param fieldName the name that will be used to identify the field
+	 * @return a {@link HtmlPathStart} to specify path to element
+	 */
 	public HtmlPathStart addField(String fieldName) {
 		return entity.addField(fieldName);
 	}
