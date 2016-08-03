@@ -24,6 +24,7 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 
 
 	private HtmlParserListener listener;
+	private String emptyValue = null;
 
 	/**
 	 * Creates a new InternalHtmlParserSettings with a supplied {@link HtmlEntityList}. The {@link HtmlEntityList} is used to
@@ -64,5 +65,27 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 
 	final void setCurrentEntity(String entityName){
 		this.currentEntity = ArgumentUtils.normalize(entityName);
+	}
+
+	/**
+	 * Sets the String representation of an empty value (defaults to null)
+	 *
+	 * <p>When reading, if the parser does not read any character from the input, and the input is within quotes, the empty is used instead of an empty string
+	 *
+	 * @param emptyValue the String representation of an empty value
+	 */
+	public void setEmptyValue(String emptyValue) {
+		this.emptyValue = emptyValue;
+	}
+
+	/**
+	 * Returns the String representation of an empty value (defaults to null)
+	 *
+	 * <p>When reading, if the parser does not read any character from the input, and the input is within quotes, the empty is used instead of an empty string
+	 *
+	 * @return the String representation of an empty value
+	 */
+	public String getEmptyValue() {
+		return emptyValue;
 	}
 }
