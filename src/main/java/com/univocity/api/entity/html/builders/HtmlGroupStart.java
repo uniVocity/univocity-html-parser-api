@@ -13,6 +13,8 @@ package com.univocity.api.entity.html.builders;
  * elements in this outside area.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @see HtmlGroup
+ * @see PartialHtmlGroup
  */
 public interface HtmlGroupStart {
 
