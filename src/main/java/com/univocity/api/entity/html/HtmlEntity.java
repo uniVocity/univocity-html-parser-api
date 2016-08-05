@@ -261,7 +261,8 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	}
 
 	/**
-	 * Returns the name of all fields associated with the HtmlEntity.
+	 * Returns the name of all fields associated with the HtmlEntity. Fields are associated when any of the field adding
+	 * methods are run.
 	 *
 	 * @return a String array of the field names
 	 */

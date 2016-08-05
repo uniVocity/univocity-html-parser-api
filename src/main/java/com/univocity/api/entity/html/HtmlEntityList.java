@@ -84,7 +84,7 @@ public class HtmlEntityList extends RemoteResourceEntityList<HtmlEntity> {
 	/**
 	 * Returns the {@link HtmlParserListener} associated with the HtmlEntityList.
 	 *
-	 * @return the {@link HtmlParserListener}
+	 * @return the associated {@link HtmlParserListener}
 	 */
 	//delete?
 	public HtmlParserListener getHtmlParserListener() {

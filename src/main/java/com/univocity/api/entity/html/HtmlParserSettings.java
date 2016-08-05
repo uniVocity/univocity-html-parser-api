@@ -39,7 +39,9 @@ public class HtmlParserSettings {
 	}
 
 	/**
-	 * Sets the associated {@link HtmlParserListener} that is used when the {@link HtmlParser} parses.
+	 * Sets the associated {@link HtmlParserListener} that is used when the {@link HtmlParser} parses. A {@link HtmlParserListener}
+	 * provides information about events that occur during the parsing process.
+	 *
 	 * @param listener the HtmlParserListener that the settings will be associated with
 	 */
 	public void setListener(HtmlParserListener listener) {
@@ -47,7 +49,9 @@ public class HtmlParserSettings {
 	}
 
 	/**
-	 * Returns the associated {@link HtmlParserListener}
+	 * Returns the associated {@link HtmlParserListener}. A {@link HtmlParserListener} provides information about events
+	 * that occur during the parsing process.
+	 *
 	 * @return the HtmlParserListener associated with the settings
 	 */
 	public HtmlParserListener getListener() {
@@ -293,7 +297,7 @@ public class HtmlParserSettings {
 	}
 	/**
 	 * Returns the String representation of a null value (defaults to null)
-	 * <p>When reading, if the parser does not read any character from the input, the nullValue is used instead of an empty string
+	 * <p>When reading, if the parser cannot find the specified element, it will return the nullValue instead of null. </p>
 	 *
 	 * @return the String representation of a null value
 	 */
@@ -303,7 +307,7 @@ public class HtmlParserSettings {
 
 	/**
 	 * Sets the String representation of a null value (defaults to null)
-	 * <p>When reading, if the parser does not read any character from the input, the nullValue is used instead of an empty string
+	 * <p>When reading, if the parser cannot find the specified element, it will return the nullValue instead of null. </p>
 	 *
 	 * @param emptyValue the String representation of a null value
 	 */

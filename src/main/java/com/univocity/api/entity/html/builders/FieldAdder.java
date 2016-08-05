@@ -7,7 +7,13 @@
 package com.univocity.api.entity.html.builders;
 
 /**
+ * An interface used to facilitate the adding of fields for {@link com.univocity.api.entity.html.HtmlEntity}'s and
+ * {@link HtmlGroup}s
+ *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ *
+ * @see HtmlGroup
+ * @see com.univocity.api.entity.html.HtmlEntity
  */
 public interface FieldAdder {
 

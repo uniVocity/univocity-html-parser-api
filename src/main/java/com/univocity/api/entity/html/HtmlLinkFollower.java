@@ -10,7 +10,7 @@ import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
 
 /**
- * An subclass of {@link RemoteResourceLinkFollower} used specifically for following links on an HTML document.
+ * An subclass of {@link RemoteResourceLinkFollower} used specifically for following links on a HTML document.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */

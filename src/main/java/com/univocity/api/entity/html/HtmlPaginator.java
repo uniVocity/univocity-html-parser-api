@@ -27,11 +27,22 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 		super();
 	}
 
+	/**
+	 * Creates a new {@link HtmlEntity} and returns it. Used by {@link RemoteResourcePaginator} to associated the
+	 * correct type of entity to a specific {@link RemoteResourcePaginator} implementation.
+	 *
+	 * @return the created {@link HtmlEntity}.
+	 */
 	@Override
-	public HtmlEntity newEntity() {
+	protected HtmlEntity newEntity() {
 		return new HtmlEntity(entityName);
 	}
 
+	/**
+	 * Returns the {@link HtmlEntity} that is associated with the Paginator.
+	 *
+	 * @return returns the associated {@link HtmlEntity}
+	 */
 	public HtmlEntity getEntity() {
 		return entity;
 	}

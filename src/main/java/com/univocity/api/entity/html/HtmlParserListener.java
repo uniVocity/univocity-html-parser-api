@@ -35,7 +35,7 @@ public abstract class HtmlParserListener {
 	}
 
 	/**
-	 * A method that runs when a HTML element is matched based on the
+	 * A method that runs when a HTML element is matched based on the path set in the creation of the field.
 	 *
 	 * @param element the element that was matched
 	 * @param context the {@link HtmlParsingContext} used by the {@link HtmlParser} during the parsing process

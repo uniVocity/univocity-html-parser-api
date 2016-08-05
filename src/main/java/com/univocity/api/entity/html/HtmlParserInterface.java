@@ -14,6 +14,8 @@ import java.nio.charset.*;
 import java.util.*;
 
 /**
+ * A interface used by {@link HtmlParser}
+ *
  * Created by anthony on 22/07/16.
  */
 public interface HtmlParserInterface  {

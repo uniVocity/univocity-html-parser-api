@@ -70,7 +70,8 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 	/**
 	 * Sets the String representation of an empty value (defaults to null)
 	 *
-	 * <p>When reading, if the parser does not read any character from the input, and the input is within quotes, the empty is used instead of an empty string
+	 * <p>When reading, if the parser does not read any character from the input, for example getting the text from
+	 * &lt;td>&lt;/td>, the empty value is used instead of an empty string </p>
 	 *
 	 * @param emptyValue the String representation of an empty value
 	 */
@@ -81,7 +82,8 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 	/**
 	 * Returns the String representation of an empty value (defaults to null)
 	 *
-	 * <p>When reading, if the parser does not read any character from the input, and the input is within quotes, the empty is used instead of an empty string
+	 * <p>When reading, if the parser does not read any character from the input, for example getting the text from
+	 * &lt;td>&lt;/td>, the empty value is used instead of an empty string </p>
 	 *
 	 * @return the String representation of an empty value
 	 */
