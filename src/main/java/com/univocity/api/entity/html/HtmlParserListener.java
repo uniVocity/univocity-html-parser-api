@@ -7,19 +7,47 @@
 package com.univocity.api.entity.html;
 
 /**
+ * An abstract class that is used by the {@link HtmlParser} to provide information about events that occur during
+ * the parsing process.
+ *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @see HtmlParser
+ * @see HtmlParsingContext
+ * @see HtmlMatchingContext
  */
 public abstract class HtmlParserListener {
 
+	/**
+	 * A method that runs when the {@link HtmlParser} begins parsing.
+	 *
+	 * @param context the {@link HtmlParsingContext} used by the {@link HtmlParser} during the parsing process
+	 */
 	public void parsingStarted(HtmlParsingContext context) {
 	}
 
+	/**
+	 * A method that runs every time the {@link HtmlParser}  visits a HTML element on a HTML document.
+	 *
+	 * @param element the element that was visited
+	 * @param context the {@link HtmlParsingContext} used by the {@link HtmlParser} during the parsing process
+	 */
 	public void elementVisited(HtmlElement element, HtmlParsingContext context) {
 	}
 
+	/**
+	 * A method that runs when a HTML element is matched based on the
+	 *
+	 * @param element the element that was matched
+	 * @param context the {@link HtmlParsingContext} used by the {@link HtmlParser} during the parsing process
+	 */
 	public void elementMatched(HtmlElement element, HtmlMatchingContext context) {
 	}
 
+	/**
+	 * A method that runs when the parsing process has ended.
+	 *
+	 * @param context the {@link HtmlParsingContext} used by the {@link HtmlParser} during the parsing process
+	 */
 	public void parsingEnded(HtmlParsingContext context) {
 	}
 }
