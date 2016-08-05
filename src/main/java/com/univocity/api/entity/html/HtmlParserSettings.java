@@ -311,44 +311,44 @@ public class HtmlParserSettings {
 		settings.setNullValue(emptyValue);
 	}
 	/**
-	 * Returns whether or not trailing whitespaces from values being read/written should be skipped  (defaults to true)
+	 * Returns whether or not trailing whitespaces from values being read should be trimmed  (defaults to true)
 	 *
-	 * @return true if trailing whitespaces from values being read/written should be skipped, false otherwise
+	 * @return true if trailing whitespaces from values being read should be trimmed, false otherwise
 	 */
-	public boolean getIgnoreTrailingWhitespaces() {
+	public boolean isTrimTrailingWhitespaces() {
 		return settings.getIgnoreTrailingWhitespaces();
 	}
 
 	/**
-	 * Defines whether or not trailing whitespaces from values being read/written should be skipped  (defaults to true)
+	 * Defines whether or not trailing whitespaces from values being read should be trimmed  (defaults to true)
 	 *
-	 * @param ignoreTrailingWhitespaces true if trailing whitespaces from values being read/written should be skipped, false otherwise
+	 * @param ignoreTrailingWhitespaces true if trailing whitespaces from values being read should be trimmed, false otherwise
 	 */
-	public void setIgnoreTrailingWhitespaces(boolean ignoreTrailingWhitespaces) {
+	public void setTrimTrailingWhitespaces(boolean ignoreTrailingWhitespaces) {
 		settings.setIgnoreTrailingWhitespaces(ignoreTrailingWhitespaces);
 	}
 
 	/**
-	 * Returns whether or not leading whitespaces from values being read/written should be skipped  (defaults to true)
+	 * Returns whether or not leading whitespaces from values being read should be trimmed(defaults to true)
 	 *
-	 * @return true if leading whitespaces from values being read/written should be skipped, false otherwise
+	 * @return true if leading whitespaces from values being read should be trimmed, false otherwise
 	 */
-	public boolean getIgnoreLeadingWhitespaces() {
+	public boolean isTrimLeadingWhitespaces() {
 		return settings.getIgnoreLeadingWhitespaces();
 	}
 
 	/**
-	 * Defines whether or not leading whitespaces from values being read/written should be skipped  (defaults to true)
+	 * Defines whether or not leading whitespaces from values being read should be trimmed(defaults to true)
 	 *
-	 * @param ignoreLeadingWhitespaces true if leading whitespaces from values being read/written should be skipped, false otherwise
+	 * @param ignoreLeadingWhitespaces true if leading whitespaces from values being read should be trimmed, false otherwise
 	 */
-	public void setIgnoreLeadingWhitespaces(boolean ignoreLeadingWhitespaces) {
+	public void setTrimLeadingWhitespaces(boolean ignoreLeadingWhitespaces) {
 		settings.setIgnoreLeadingWhitespaces(ignoreLeadingWhitespaces);
 	}
 
 	/**
-	 * Configures the parser/writer to trim or keep leading and trailing whitespaces around values
-	 * This has the same effect as invoking both {@link #setIgnoreLeadingWhitespaces(boolean)} and {@link #setIgnoreTrailingWhitespaces(boolean)}
+	 * Configures the parser to trim or keep leading and trailing whitespaces around values
+	 * This has the same effect as invoking both {@link #setTrimLeadingWhitespaces(boolean)} and {@link #setTrimTrailingWhitespaces(boolean)}
 	 * with the same value.
 	 *
 	 * @param trim a flag indicating whether the whitespaces should remove whitespaces around values parsed/written.
@@ -522,23 +522,29 @@ public class HtmlParserSettings {
 		settings.setProcessorErrorHandler(processorErrorHandler);
 	}
 
+
 	/**
-	 * Returns the empty value. When a empty string (i.e: "") is parsed, it will replace the string with the empty value
-	 * in the parsed row.
+	 * Returns the String representation of an empty value (defaults to null)
 	 *
-	 * @return the empty value as a string
+	 * <p>When reading, if the parser does not read any character from the input, for example getting the text from
+	 * &lt;td>&lt;/td>, the empty value is used instead of an empty string </p>
+	 *
+	 * @return the String representation of an empty value
 	 */
 	public String getEmptyValue() {
 		return settings.getEmptyValue();
 	}
 
 	/**
-	 * Sets the empty value. When a empty string (i.e: "") is parsed, it will replace the string with the empty value
-	 * in the parsed row.
+	 * Sets the String representation of an empty value (defaults to null)
 	 *
-	 * @param emptyValue the string that will define the empty value
+	 * <p>When reading, if the parser does not read any character from the input, for example getting the text from
+	 * &lt;td>&lt;/td>, the empty value is used instead of an empty string. </p>
+	 *
+	 * @param emptyValue the String representation of an empty value
 	 */
 	public void setEmptyValue(String emptyValue) {
 		settings.setEmptyValue(emptyValue);
 	}
+
 }
