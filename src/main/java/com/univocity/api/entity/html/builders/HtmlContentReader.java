@@ -17,7 +17,32 @@ import java.io.*;
 public interface HtmlContentReader {
 
 	/**
-	 * Used to get the text of a table data's header.
+	 * Used to get the text of a table data's header. For example, given a HTML document like this:
+	 *
+	 * <p><hr><blockquote><pre><code>
+	 *<table>
+     *<tr>
+	 *	<th>a</th>
+	 *	<th>b</th>
+	 *	<th>c</th>
+     *</tr>
+     *<tr>
+	 *	<td>first</td>
+ 	 *	<td>second</td>
+	 *	<td>third</td>
+	 *</tr>
+	 * </table>
+	 * </p></pre></blockquote><hr></code>
+	 *
+	 * <p>A technique to get the table headers is to have these parsing rules: </p>
+	 *
+	 * <p><hr><blockquote><pre>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("tableHeader").match("table").match("td").getHeadingText();
+	 * </p></pre></blockquote><hr>
+	 *
+	 * <p>When run through the parser, the parser will return each table header (a,b,c) in a separate row</p>
 	 */
 	void getHeadingText();
 
