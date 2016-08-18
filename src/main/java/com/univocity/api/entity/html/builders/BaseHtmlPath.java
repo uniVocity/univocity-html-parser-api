@@ -46,13 +46,6 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	T containing(String elementName, int depthLimit);
 
 	/**
-	 *
-	 * @param textContent
-	 * @return
-	 */
-	T withText(String textContent);
-
-	/**
 	 * Creates a path to a HTML element that contains the specified text. It also supports the special characters of
 	 * '*' and '?'.
 	 *
