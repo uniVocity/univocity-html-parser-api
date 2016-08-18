@@ -54,7 +54,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * </p>
 	 *
 	 * <p><hr><blockquote><pre>
-	 * path.match("span").withMatchingText("a*").getText();
+	 * path.match("span").withText("a*").getText();
 	 * </p></blockquote></pre><hr>
 	 *
 	 * <p>
@@ -68,7 +68,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * </p>
 	 *
 	 * <p><hr><blockquote><pre>
-	 * path.match("span").withMatchingText("a?????").getText();
+	 * path.match("span").withText("a?????").getText();
 	 *</p></blockquote></pre><hr>
 	 *
 	 * <p>Which describes 'match the span element that has text that starts with 'a' and has 5 characters after the 'a'.
@@ -79,9 +79,9 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
-	T withMatchingText(String textContent);
+	T withText(String textContent);
 
-	T withMatchingTextCaseSensitive(String textContent);
+	T withTextMatchCase(String textContent);
 
 	/**
 	 * Creates a path to a HTML element by the specified class names. One to many class names can be inserted as
