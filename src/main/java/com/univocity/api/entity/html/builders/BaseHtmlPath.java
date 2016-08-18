@@ -45,9 +45,50 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	T containing(String elementName, int depthLimit);
 
+	/**
+	 *
+	 * @param textContent
+	 * @return
+	 */
 	T withText(String textContent);
 
+	/**
+	 * Creates a path to a HTML element that contains the specified text. It also supports the special characters of
+	 * '*' and '?'.
+	 *
+	 * <p>* is used by the parser to match any characters. For instance, there is a short HTML document of '{@code <div> <span>abcdef</span> <span>kettle</span> </div>}'.
+	 * One technique to match the first span would be to write:
+	 * </p>
+	 *
+	 * <p><hr><blockquote><pre>
+	 * path.match("span").withMatchingText("a*").getText();
+	 * </p></blockquote></pre><hr>
+	 *
+	 * <p>
+	 * The meaning of setting the matching text to 'a*' means 'match the element with text starting with 'a' with any
+	 * characters after it'. Alternatives to match the text could be: '*f' (text ending with f) and 'a*f' (text starting
+	 * with a and ending with f)
+	 * </p>
+	 *
+	 * <p>? is used by the parser to match any one character. Using this simple HTML document('{@code <div> <span>abcdef</span> <span>abc</span> </div>}'),
+	 * we can set the matching rules as:
+	 * </p>
+	 *
+	 * <p><hr><blockquote><pre>
+	 * path.match("span").withMatchingText("a?????").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 * <p>Which describes 'match the span element that has text that starts with 'a' and has 5 characters after the 'a'.
+	 * Alternatives to match the text could be '?????f' (any 5 characters then a f) and 'ab??ef' ('a', followed by 'b',
+	 * followed by any two characters, followed by 'e' and 'f') </p>
+	 *
+	 * @param textContent the string that will be matched, accounting for wildcard elements
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T withMatchingText(String textContent);
+
+	T withMatchingTextCaseSensitive(String textContent);
 
 	/**
 	 * Creates a path to a HTML element by the specified class names. One to many class names can be inserted as
