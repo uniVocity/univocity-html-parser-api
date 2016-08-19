@@ -79,6 +79,34 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	T childOf(String elementName);
 
+	/**
+	 * Creates a path to the HTML element that is contained by the specified element. For example, given this simple
+	 * HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div>
+	 *<span>I'm in a div!</span>
+	 *</div>
+	 *<article>
+	 *<span>I'm in an article!</span>
+	 *</article>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>One technique to get the text of the span element inside of the 'article' element would be to write:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("followed").match("span").containedBy("article").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 * <p>The matching rules can be described as "get the text of span elements inside of an article element". When
+	 * the parser runs, it will return "I'm in an article!"</p>
+	 *
+	 * @param elementName the name of the element where elements contained within will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T containedBy(String elementName);
 
 	T containedBy(String elementName, int depthLimit);
