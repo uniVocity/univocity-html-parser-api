@@ -15,12 +15,62 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	T precededByText(String text);
 
+	/**
+	 * Creates a path to the HTML element that has the specified element placed after it. For example, given this
+	 * simple HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div>
+	 *<strong>before</strong><strong>after</strong>
+	 *</div>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>One technique to get the text of the first'strong' element is:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("followed").match("strong").followedBy("strong").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The matching rules in plain english are: get the text of a 'strong' element that has a 'strong' element placed
+	 * after it. When the parsing process runs, it will return 'before'</p>
+	 *
+	 * @param elementName the name of the HTML element
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T followedBy(String elementName);
 
 	T followedBy(String elementName, int distance);
 
 	T followedImmediatelyBy(String elementName);
 
+	/**
+	 * Creates a path to the HTML element that has the specified element placed before it. For example, given this
+	 * simple HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div>
+	 *<strong>before</strong><strong>after</strong>
+	 *</div>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>One technique to get the text of the second 'strong' element is:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("preceded").match("strong").precededBy("strong").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The matching rules in plain english are: get the text of a 'strong' element that has a 'strong' element placed
+	 * before it. When the parsing process runs, it will return 'after'</p>
+	 *
+	 * @param elementName the name of the HTML element
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T precededBy(String elementName);
 
 	T precededBy(String elementName, int distance);
@@ -33,6 +83,39 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	T containedBy(String elementName, int depthLimit);
 
+	/**
+	 * Creates a path to the HTML element that is under the specified header element of a table. For example, given
+	 * a simple HTML document of:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<table>
+	 *<tr> <th><span>heading1</span></th> <th>heading2</th> </tr>
+	 *<tr> <td>one</td> <td>two</td> </tr>
+	 *<tr> <td>lorem</td> <td>ispum</td> </tr>
+	 *</table>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p> One technique to only return the text under 'heading1' would be: </p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("underTableHeader").match("td").underHeader("span").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>When the parser runs, it will return 'one' and 'lorem'. If all data under the headers needed to be returned,
+	 * only a simple change to the matching rules needs to be done: </p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *entity.addField("underTableHeader").match("td").underHeader("th").getText();
+	 *</p></blockquote></pre><hr>'
+	 *
+	 * <p>Which will result in all the text apart from the table headers being returned.</p>
+	 *
+	 * @param headerElementName the header element of a table that will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T underHeader(String headerElementName);
 
 	T under(String elementName);
@@ -46,7 +129,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	T containing(String elementName, int depthLimit);
 
 	/**
-	 * Creates a path to a HTML element that contains the specified text. It also supports the special characters of
+	 * Creates a path to a HTML element that contains the specified text. Is case insensitive. It also supports the special characters of
 	 * '*' and '?'.
 	 *
 	 * <p>* is used by the parser to match any characters. For instance, there is a short HTML document of '{@code <div> <span>abcdef</span> <span>kettle</span> </div>}'.
@@ -81,6 +164,15 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T withText(String textContent);
 
+	/**
+	 * Like {@link #withText(String)} but case sensitive. Creates a path to a HTML element that contains the specified
+	 * text. Also supports the special characters of '*' and '?'.
+	 *
+ 	 * @param textContent the string that will be matched, accounting for wildcard elements
+	 *
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T withTextMatchCase(String textContent);
 
 	/**

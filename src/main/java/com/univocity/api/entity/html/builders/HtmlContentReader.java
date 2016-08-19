@@ -48,6 +48,27 @@ public interface HtmlContentReader {
 
 	void getHeadingText(int headingRowIndex);
 
+	/**
+	 * Specifies that the parser will return the text contained in the HTML element above the HTML element defined by
+	 * the path. For example, given the HTML document of:
+	 *
+	 * <p><hr><blockquote><pre><code>
+	 *<table>
+	 *<tr> <th>heading1</th> <th>heading2</th> </tr>
+	 *<tr> <td>one</td> <td>two</td> </tr>
+	 *<tr> <td>a</td> <td>ab</td> </tr>
+	 *</table>
+	 * </p></pre></blockquote><hr></code>
+	 *
+	 * <p>One technique to return the second row would be: </p>
+	 *
+	 * <<p><hr><blockquote><pre><code>
+	 * entity.addField("tableHeader").match("td").withText("a*").getTextAbove();
+	 * </p></pre></blockquote><hr></code>
+	 *
+	 * <p>Which describes: get the text above 'td' elements that contains text starting with 'a'. When the parser runs,
+	 * it will return  'one' and 'two'.</p>
+	 */
 	void getTextAbove();
 
 	void getTextAbove(int numberOfElementsAbove);
