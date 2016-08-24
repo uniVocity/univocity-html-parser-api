@@ -11,8 +11,53 @@ package com.univocity.api.entity.html.builders;
  */
 interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
+	/**
+	 * Creates a path ot the HTML element that has the specified text placed in an element before it. For example,
+	 * given this simple HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<span>first</span><span>second</span><span>third</span>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>One technique to get the text of the first 'span' element is: </p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("followed").match("span").followedByText("second").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The parser will return "first", as the element following the first 'span' element has the text "second"</p>
+	 *
+	 * @param text the text contained in the element that is placed after the element that will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T followedByText(String text);
 
+
+	/**
+	 * Creates a path ot the HTML element that has the specified text placed in an element after it. For example,
+	 * given this simple HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<span>first</span><span>second</span><span>third</span>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>One technique to get the text of the last 'span' element is: </p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("preceded").match("span").precededByText("second").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The parser will return "third" from the third 'span' element, as the element preceding this element has the text "second"</p>
+	 *
+	 * @param text the text contained in the element that is placed before the element that will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T precededByText(String text);
 
 	/**
@@ -25,7 +70,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *</div>
 	 *</p></blockquote></pre><hr>
 	 *
-	 *<p>One technique to get the text of the first'strong' element is:</p>
+	 *<p>One technique to get the text of the first 'strong' element is:</p>
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
@@ -77,6 +122,12 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	T precededImmediatelyBy(String elementName);
 
+	/**
+	 * Creates a path to the child of the specified HTML element.
+	 *
+	 * @param elementName
+	 * @return
+	 */
 	T childOf(String elementName);
 
 	/**
@@ -136,7 +187,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *
 	 *<p><hr><blockquote><pre>
 	 *entity.addField("underTableHeader").match("td").underHeader("th").getText();
-	 *</p></blockquote></pre><hr>'
+	 *</p></blockquote></pre><hr>
 	 *
 	 * <p>Which will result in all the text apart from the table headers being returned.</p>
 	 *
@@ -148,6 +199,36 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	T under(String elementName);
 
+	/**
+	 * Creates a path to the HTML element that is the parent of the specified element. A parent is defined as the element
+	 * that directly contains an element. For example: {@code <div> <article> <h1> heading </h1> <p> text </p> </article>
+	 * </div>}. The article element is the parent of both the h1 and p elements. The div element is parent of article
+	 * but <strong>not</strong> parent of h1 and p. A technique for using parentOf can be showcased using this simple
+	 * HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div title="one">
+	 *<h1>good</h1>
+	 *</div>
+	 *<div title="two">
+	 *<h2>bad</h2>
+	 *</div>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique to get the title of the first div element is to write: </p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("parent").match("div").parentOf("h1").getAttribute("title");
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The parser will return "one", as the parent of the h1 element is the first div.</p>
+	 *
+	 * @param elementName the name of the element where the parent of which will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T parentOf(String elementName);
 
 	T containing(String... pathOfElementNames);
