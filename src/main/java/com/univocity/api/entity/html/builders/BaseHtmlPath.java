@@ -123,8 +123,29 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	T precededImmediatelyBy(String elementName);
 
 	/**
-	 * Creates a path to the child of the specified HTML element.
+	 * Creates a path to the child of the specified HTML element. A child is defined as a HTML element that is directly
+	 * contained by another HTML element. For example, given this simple HTML document:
 	 *
+	 *<p><hr><blockquote><pre>
+	 *<div>
+	 *	<h1>one</h1>
+	 *</div>
+	 *<article>
+	 *	<h1>two</h1>
+	 *</article>;
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>One technique to get the text of the first 'h1' element is to write:</p>
+	 *
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("child").match("h1").childOf("div").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The matching rules, in plain english, can be described as: get the text of the 'h1' element that is the child
+	 * of a div element. </p>
 	 * @param elementName
 	 * @return
 	 */
@@ -160,6 +181,46 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T containedBy(String elementName);
 
+	/**
+	 * Creates a path to the HTML element that is contained by the given element. Differs from {@link #containedBy(String)}
+	 * as it allows the specification of a depth limit. This depth limit restricts the number of times the parser can
+	 * go up in the HTML hierarchy to search for the given element. The first parent it visits is at depth limit 1, the
+	 * parent's parent is at depth limit 2 and so on. For an example, given this HTML document:
+	 *
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div>
+	 *	<article>
+	 *		<header>
+	 *			<span>first</span>
+	 *		</header>
+	 *	</article>
+	 *</div>
+	 *<div>
+	 *	<article>
+	 *		<span>second</span>
+	 *	</article>
+	 *</div>
+	 *</p></blockquote></pre><hr>
+	 *
+	 * <p>A technique to get the text of the second span element would be:</p>
+	 *
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("writing").match("span").containedBy("div",2).getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>This will only return 'second' from the last span. While the first span element is contained by a div, the div
+	 * is at a depth level of 3 meaning that the parser will ignore it.</p>
+	 *
+	 * @param elementName the name of the element that contains the element that apath will be created to.
+	 * @param depthLimit the limit of how far the parser will search up the HTML hierarchy
+	 *
+	 * @return  a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T containedBy(String elementName, int depthLimit);
 
 	/**
@@ -231,10 +292,83 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T parentOf(String elementName);
 
+	/**
+	 *
+	 * @param pathOfElementNames
+	 * @return
+	 */
 	T containing(String... pathOfElementNames);
 
+	/**
+	 * Creates a path to the HTML element that contains the specified element. For instance, given this simple HTML
+	 * document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<article>
+	 *	<h1>Review: Tea</h1>
+	 *	<p>It's good</p>
+	 *</article>
+	 *<article>
+	 *	<h1>Discussion: Computers</h1>
+	 *	<p>It's the future!</p>
+	 *</article>;
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique to get the 'p' text of the first article is to write: </p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("reviewText").match("article").containing("h1").withText("Review*").match("p").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The matching rules, in plain english, can be described as "get the text of the p element that is in the article
+	 * that contains a h1 element starting with 'Review' ". The parser will return 'It's good' when it runs. </p>
+	 *
+	 * @param elementName
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T containing(String elementName);
 
+	/**
+	 * Creates a path to the HTML element that contains the given element. Differs from {@link #containing(String)} by
+	 * allowing the specification of a depth limit. This depth limit determines how far down in the hierarchy the parser
+	 * will search for the element. For example, given this HTML document:
+	 *
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div title=\pen\>
+	 *	<article>
+	 *		<header>
+	 *			<span></span>
+	 *		</header>
+	 *	</article>
+	 *</div>
+	 *<div title=\crayon\>
+	 *	<article>
+	 *		<span></span>
+	 *	</article>
+	 *</div>;
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique of getting the title of the second div element would be:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("writing").match("div").containing("span",2).getAttribute("title");
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>Running the parser will result in only 'crayon' being returned. This is because in the first div, the span is
+	 * at the depth of 3. As the depth limit as been set at 2, the parser will ignore the first div.</p>
+	 *
+	 * @param elementName
+	 * @param depthLimit the limit of how far the parser will go down the hierarchy to find the given element
+	 *
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T containing(String elementName, int depthLimit);
 
 	/**
