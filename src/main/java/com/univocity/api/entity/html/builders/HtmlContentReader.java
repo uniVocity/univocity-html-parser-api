@@ -110,11 +110,28 @@ public interface HtmlContentReader {
 	 */
 	void getPrecedingText();
 
+	/**
+	 * Gets the text from the specified number of HTML elements placed before the element that is described in the path.
+	 * For example, given this HTML: {@code <h1>header</h1><p>more</p><p>text</p><footer>feet</footer>} a way to get
+	 * the text of everything before the footer and after the h1 is:
+	 *
+	 * <p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("fieldName").match("footer").getPrecedingText(2);
+	 *</p></pre></blockquote><hr>
+	 *
+	 *<p>This will return "textmore" as the first p element is the first sibling, and the second p element is the second
+	 * sibling. As the h1 element is third sibling, it is ignored by the parser. </p>
+	 *
+	 * @param numberOfSiblingsToInclude the number of elements preceding the element defined in the path that the text will
+	 *                                  be returned from
+	 */
 	void getPrecedingText(int numberOfSiblingsToInclude);
 
 	/**
-	 * Specifies that the parser will return the text from the HTML that occurs after the HTML element
-	 * specified by the path. For instance, given an HTML document that looks like {@code '<div>before<span>hello</span>after</div>'},
+	 * Gets the text from the HTML element that is placed directly after the HTML element specified by the path. For
+	 * instance, given an HTML document that looks like {@code '<div>before<span>hello</span>after<p>text</p></div>'},
 	 * a way to get the text just after the span element is:
 	 *
 	 * <p><hr><blockquote><pre>
@@ -123,10 +140,28 @@ public interface HtmlContentReader {
 	 *entity.addField("following").match("span").getFollowingText();
 	 *</p></pre></blockquote><hr>
 	 *
-	 * <p>When the parser runs, it will return "after"</p>
+	 * <p>When the parser runs, it will return "after".</p>
 	 */
 	void getFollowingText();
 
+	/**
+	 * Gets the text from the specified number of HTMl elements following the HTML element described in the path. For
+	 * instance, given a HTML document looking like: {@code <h1>header</h1><p>text</p><footer>feet</footer><p>annoying</p>}.
+	 * A technique to get the text of everything after the h1 element and before the last p element would be to write:
+	 *
+	 * <p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("fieldName").match("h1").getFollowingText(2);
+	 *</p></pre></blockquote><hr>
+	 *
+	 *<p>The parser will return "textfeet" as the first p element is the first sibling and the footer element is the
+	 * second sibling. As the last p element is the 3rd sibling, it lies outside the range of the matching rules and will
+	 * be ignored.</p>
+	 *
+	 * @param numberOfSiblingsToInclude the number of elements following the element defined in the path that the text will
+	 *                                  be returned from
+	 */
 	void getFollowingText(int numberOfSiblingsToInclude);
 
 	/**
