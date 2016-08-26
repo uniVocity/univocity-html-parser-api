@@ -89,6 +89,33 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	T followedBy(String elementName, int distance);
 
+	/**
+	 * Creates a path to the HTML element that has the given element place directly after it. This can be showcased
+	 * by looking at this small HTML snippet: {@code <p>someText</p><p>moreText</p><footer>foot</footer>}. The second p
+	 * element is immediately followed by a footer element, but the first p element is immediately followed by the other
+	 * p element.
+	 *
+	 * <p>An example using this method can be described with the following HTML document:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 * <span>first</span><span>second</span><strong>third</strong>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique to get the text of the second span element is:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("secondSpan").match("span").followedImmediatelyBy("strong").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>This will only return the text in the second span element as it is followed immediately by a strong element.
+	 * The first span element element is followed immediately by a span element, so it will not be returned by the parser</p>
+	 *
+	 * @param elementName the element before this given element will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T followedImmediatelyBy(String elementName);
 
 	/**
@@ -258,6 +285,33 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T underHeader(String headerElementName);
 
+	/**
+	 * Creates a path to the HTML element that is directly under the given element in a table. For example, given this
+	 * HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 * <table>
+	 *<tr> <th>Animal</th>  <th>quantity</th> </tr>
+	 *<tr> <td>Alpacas</td> <td>12</td> </tr>
+	 *<tr> <td>Lions</td>   <td>5</td> </tr>
+	 *</table>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique to get the text of the last row in the table is:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("firstSpan").match("td").under("td").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The parser will return the 'Lions' and '5'. This is because the matching rules state 'get the text from a 'td'
+	 * that is under another 'td' element'. As the second row is under 'th' elements, it is ignored by the parser.</p>
+	 *
+	 * @param elementName The name of the element above the element that a path will be created to
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T under(String elementName);
 
 	/**
