@@ -46,6 +46,30 @@ public interface HtmlContentReader {
 	 */
 	void getHeadingText();
 
+	/**
+	 * Gets the text of the table heading that is at the given index. For example, given this HTML document:
+	 *
+	 * <p><hr><blockquote><pre><code>
+	 *<table>
+	 *	<tr> <th>Top header</th> </tr>
+	 *	<tr> <th>Middle Header</th></tr>
+	 *	<tr> <th>Bottom Header</th></tr>
+	 *	<tr> <td>A boring row</td></tr>
+	 </table>
+	 * </p></pre></blockquote><hr></code>
+	 *
+	 *<p>A technique of getting the text of the 2nd header is:</p>
+	 *
+	 * <p><hr><blockquote><pre><code>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("fieldName").match("td").getHeadingText(2);
+	 * </p></pre></blockquote><hr></code>
+	 *
+	 * <p>The parser will return "Middle Header" as it is at the second heading index.</p>
+	 *
+	 * @param headingRowIndex the index of the row that the text will be returned from
+	 */
 	void getHeadingText(int headingRowIndex);
 
 	/**
