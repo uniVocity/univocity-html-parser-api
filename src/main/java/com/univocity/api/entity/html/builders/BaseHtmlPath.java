@@ -87,6 +87,28 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T followedBy(String elementName);
 
+	/**
+	 * Creates a path to the HTML element that has the specified element at the given distance following it. The distance
+	 * is a measure of how many siblings away the specified element is. For example, in this HTML:
+	 * {@code <span>first</span> <span>second</span> <pre>surpriseHeader</pre> <strong>third</strong>}, the pre element
+	 * is 1 distance away from the second span element and the strong element is at a distance of 2. A technique to
+	 * get the text from the second span element would be:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("fieldName").match("span").followedBy("strong",2).getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 * <p>The parser will return "second" as the strong element is at the following distance of 2. The first span element
+	 * is ignored as the distance from it to the strong element is 3.</p>
+	 *
+	 * @param elementName the name of the HTML element
+	 * @param distance the number sibling that the parser will go to
+	 *
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T followedBy(String elementName, int distance);
 
 	/**
@@ -145,8 +167,58 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T precededBy(String elementName);
 
+	/**
+	 * Creates a path to the HTML element that has the specified element at the given distance before it. The distance
+	 * is a measure of how many siblings away the specified element is. For example, in this HTML:
+	 * {@code <strong>first</strong> <h1>surprise header</h1> <span>first</span> <span>second</span>}, the h1 element
+	 * is 1 distance away from the first span element and the strong element is at a distance of 2. A technique to
+	 * get the text from the first span element would be:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("firstSpan").match("span").precededBy("strong",2).getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 * <p>The parser will return "first" as the strong element is at the following distance of 2. The second span element
+	 * is ignored as the distance from it to the strong element is 3.</p>
+	 *
+	 * @param elementName the name of the HTML element
+	 * @param distance the number sibling that the parser will go to
+	 *
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T precededBy(String elementName, int distance);
 
+
+	/**
+	 * Creates a path to the HTML element that has the given element place directly before it. This can be showcased
+	 * by looking at this small HTML snippet: {@code <h1>feet</h1><p>someText</p><p>moreText</p>}. The first p
+	 * element is immediately preceded by a h1 element, but the second p element is immediately preceded by the other
+	 * p element.
+	 *
+	 * <p>An example using this method can be described with the following HTML document:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<strong>first</strong><span>second</span><span>third</span>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique to get the text of the first span element is:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 entity.addField("firstSpan").match("span").precededImmediatelyBy("strong").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>This will only return the text in the first span element as it is followed immediately by a strong element.
+	 * The second span element is preceded immediately by a span element, so it will not be returned by the parser</p>
+	 *
+	 * @param elementName the element after this given element will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T precededImmediatelyBy(String elementName);
 
 	/**
@@ -347,9 +419,27 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	T parentOf(String elementName);
 
 	/**
+	 * Creates a path to the HTML element that contains the given elements. For instance, given this simple HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div>
+	 *<article>
+	 *	<p>Some Text</p>
+	 *</article>
+	 *<article>
+	 *	<h1>Review: Tea</h1>
+	 *	<p>It's good</p>
+	 *</article>
+	 *<article>
+	 *	<h1>Discussion: Computers</h1>
+	 *</article>
+	 *</div>
+	 *</p></blockquote></pre><hr>
 	 *
 	 * @param pathOfElementNames
-	 * @return
+	 *
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
 	 */
 	T containing(String... pathOfElementNames);
 
