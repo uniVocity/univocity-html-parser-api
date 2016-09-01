@@ -7,6 +7,9 @@
 package com.univocity.api.entity.html.builders;
 
 /**
+ * A class that facilitates the creation of paths to HTML Elements. These paths are used by the HTML Parser to determine
+ * what data will be returned when the parsing process runs.
+ *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
