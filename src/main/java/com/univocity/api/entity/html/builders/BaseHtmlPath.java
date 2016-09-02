@@ -554,6 +554,9 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T withText(String textContent);
 
+
+	T withExactText(String textContent);
+
 	/**
 	 * Like {@link #withText(String)} but case sensitive. Creates a path to a HTML element that contains the specified
 	 * text. Also supports the special characters of '*' and '?'.
@@ -564,6 +567,8 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * what information to return.
 	 */
 	T withTextMatchCase(String textContent);
+
+	T withExactTextMatchCase(String textContent);
 
 	/**
 	 * Creates a path to a HTML element by the specified class names. One to many class names can be inserted as
