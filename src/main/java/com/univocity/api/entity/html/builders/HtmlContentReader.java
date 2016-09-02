@@ -76,17 +76,17 @@ public interface HtmlContentReader {
 	 * Specifies that the parser will return the text contained in the HTML element above the HTML element defined by
 	 * the path. For example, given the HTML document of:
 	 *
-	 * <p><hr><blockquote><pre><code>
+	 *<p><hr><blockquote><pre><code>
 	 *<table>
 	 *<tr> <th>heading1</th> <th>heading2</th> </tr>
 	 *<tr> <td>one</td> <td>two</td> </tr>
 	 *<tr> <td>a</td> <td>ab</td> </tr>
 	 *</table>
-	 * </p></pre></blockquote><hr></code>
+	 *</p></pre></blockquote><hr></code>
 	 *
 	 * <p>One technique to return the second row would be: </p>
 	 *
-	 * <<p><hr><blockquote><pre><code>
+	 * <p><hr><blockquote><pre><code>
 	 * entity.addField("tableHeader").match("td").withText("a*").getTextAbove();
 	 * </p></pre></blockquote><hr></code>
 	 *
@@ -95,6 +95,34 @@ public interface HtmlContentReader {
 	 */
 	void getTextAbove();
 
+	/**
+	 * Specifies that the parser will return all the text contained in text in the HTML element at the specified distance above
+	 * above the HTML element specified by the path. For example, given the HTML document of:
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *<table>
+	 *<tr> <th>Name</th> <th>Number</th> </tr>
+	 *<tr> <td>Adam</td> <td>143</td> </tr>
+	 *<tr> <td>Bob</td> <td>222</td> </tr>
+	 *<tr> <td>Charlie</td> <td>973</td> </tr>
+	 *</p></pre></blockquote><hr></code>
+	 *</table>
+	 *
+	 *<p>A technique to get the text from the second row's number field is:</p>
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("text").match("td").precededBy("td").withText("c*").getTextAbove(2);
+	 *</p></pre></blockquote><hr></code>
+	 *
+	 * <p>The matching rules, described in english, is match the td that has a td with text starting with "c" before it.
+	 * This targets the td with '973' in it. Then, the rules state to get the text from the element that is 2 elements above.
+	 * When the parser runs, it will return '143'.</p>
+	 *
+	 * @param numberOfElementsAbove the text will be returned from the HTML element this number of elements above from
+	 *                              the current HTML element
+	 */
 	void getTextAbove(int numberOfElementsAbove);
 
 	/**
@@ -104,6 +132,37 @@ public interface HtmlContentReader {
 	 */
 	void getText();
 
+	/**
+	 * Specifies that the parser will return the text contained within the HTML element defined by the path <strong>plus</strong>
+	 * the text in the specified amount of <strong>following</strong> siblings. An example of using this can be shown by the
+	 * following HTML:
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *{@code <div>
+	 *     <h1>title</h1>
+	 *     <p>Cool Text</p>
+	 *     <p>More Cool Text</p>
+	 *     <footer>feet</footer>
+	 * </div> }
+	 * </p></pre></blockquote><hr></code>
+	 *
+	 *<p>A technique to get the text of both the p elements is:</p>
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("text").match("p").precededBy("h1").getText(1);
+	 *</p></pre></blockquote><hr></code>
+	 *
+	 *<p>What this code snippet does, is it creates a path to the first p element (as the element is preceded by a h1
+	 * element), then the parser gets text of the first p element and it's following sibling, which is the second p element.
+	 * The footer text is ignored as it is 2 siblings away from the targeted p element.
+	 * </p>
+	 *
+	 * <p>Setting the number of siblings to <= 0 is the equivalent of using {@link #getText()}.</p>
+	 *
+	 * @param numberOfSiblingsToInclude the number of following siblings from current element that the text will be returned from
+	 */
 	void getText(int numberOfSiblingsToInclude);
 
 	/**

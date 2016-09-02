@@ -49,20 +49,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 		return newField(fieldName, true, true);
 	}
 
-	/**
-	 * The name of the column. This method returns a {@link HtmlPathStart}, which allows the specification of a HTML
-	 * path that defines what HTML data will be returned when the parser runs. For example, you could define a field
-	 * called "headings", match "H1" elements and get the text. When the parser runs, the headings in the HTML document will be returned
-	 * and be available in the field "headings".
-	 * <p><hr><blockquote><pre>
-	 * HtmlEntityList entityList = new HtmlEntityList();
-	 * entityList.configureEntity("heading).addField("headings").match("H1").getText();
-	 *</p></pre></blockquote><hr>
-	 *
-	 * @param fieldName The name the field will be called
-	 *
-	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
-	 */
+
 	public HtmlPathStart addField(String fieldName) {
 		return newField(fieldName, false, false);
 	}

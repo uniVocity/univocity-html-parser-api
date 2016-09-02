@@ -16,12 +16,25 @@ package com.univocity.api.entity.html.builders;
  * @see com.univocity.api.entity.html.HtmlEntity
  */
 public interface FieldAdder {
-
+	/**
+	 * The name of the column. This method returns a {@link HtmlPathStart}, which allows the specification of a HTML
+	 * path that defines what HTML data will be returned when the parser runs. For example, you could define a field
+	 * called "headings", match "H1" elements and get the text. When the parser runs, the headings in the HTML document will be returned
+	 * and be available in the field "headings".
+	 * <p><hr><blockquote><pre>
+	 * HtmlEntityList entityList = new HtmlEntityList();
+	 * entityList.configureEntity("heading).addField("headings").match("H1").getText();
+	 *</p></pre></blockquote><hr>
+	 *
+	 * @param fieldName The name the field will be called
+	 *
+	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
+	 */
 	HtmlPathStart addField(String fieldName);
 
 	/**
 	 * A persistent field is a field that when a value is found, will insert the found value in subsequent rows, even if
-	 * the path defined does not exist for these rows. An example of using persistent fields can be explained by viewing
+	 * the element defined does not exist for these rows. An example of using persistent fields can be explained by viewing
 	 * this HTML:
 	 *
 	 *<p><hr><blockquote><pre>
@@ -53,7 +66,7 @@ public interface FieldAdder {
 	 *
 	 * <p>The value from that is returned from the matching rules for the persistent field will "persist" into the
 	 * subsequent rows and get the output that we want. If a regular 'addField' is used instead of a persistent field,
-	 * the second row will return [null, ispum] as the element is only matched once for the first row,</p>
+	 * the second row will return [null, ispum] as the element is only matched once for the first row.</p>
 	 *
 	 * <p>NOTE: If a persistent field's path finds another match, the persistent field value will replaced by this new
 	 * value. </p>
@@ -63,6 +76,11 @@ public interface FieldAdder {
 	 */
 	HtmlPathStart addPersistentField(String fieldName);
 
+	/**
+	 * A silent field is a field that when a new value is found, does not trigger a new row to be generated.
+	 * @param fieldName
+	 * @return
+	 */
 	HtmlPathStart addSilentField(String fieldName);
 
 	HtmlPathStart addSilentPersistentField(String fieldName);
