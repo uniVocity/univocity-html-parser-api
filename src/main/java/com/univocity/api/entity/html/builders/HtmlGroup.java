@@ -9,11 +9,8 @@ package com.univocity.api.entity.html.builders;
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlGroup extends BaseHtmlPath<HtmlGroup>, BaseHtmlPathStart<HtmlGroup>, FieldAdder {
-
-	PartialHtmlPath buildPartialPath();
+public interface HtmlGroup extends BaseHtmlPath<HtmlGroup>, BaseHtmlPathStart<HtmlGroup>, FieldAdder, CopyAndAddTrigger {
 
 	HtmlGroup setConstantField(String constantFieldName, String constantValue);
 
-	RecordTriggerStart addRecordTrigger();
 }
