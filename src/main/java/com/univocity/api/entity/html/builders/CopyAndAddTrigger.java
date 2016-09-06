@@ -1,6 +1,8 @@
 package com.univocity.api.entity.html.builders;
 
 /**
+ * An interface that provides functionality to copy a path and add a record trigger.
+ *
  * Created by anthony on 2/09/16.
  */
 interface CopyAndAddTrigger {

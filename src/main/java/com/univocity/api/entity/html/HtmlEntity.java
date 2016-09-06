@@ -247,12 +247,6 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 		return out;
 	}
 
-	/**
-	 * Returns the name of all fields associated with the HtmlEntity. Fields are associated when any of the field adding
-	 * methods are run.
-	 *
-	 * @return a String array of the field names
-	 */
 	public String[] getFieldNames() {
 		return fields.keySet().toArray(new String[0]);
 	}
@@ -267,6 +261,10 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	public HtmlPathStart addRequestParameter(String fieldName) {
 		requestParameters.put(fieldName, "");
 		return addField(fieldName);
+	}
+
+	public void removeField(String fieldName) {
+		fields.remove(fieldName);
 	}
 
 }

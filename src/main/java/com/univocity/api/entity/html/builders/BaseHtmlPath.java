@@ -519,7 +519,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	T containing(String elementName, int depthLimit);
 
 	/**
-	 * Creates a path to a HTML element that contains the specified text. Is case insensitive. It also supports the special characters of
+	 * Creates a path to a HTML element that <strong>starts with</strong> the specified text. Is case insensitive. It also supports the special characters of
 	 * '*' and '?'.
 	 *
 	 * <p>* is used by the parser to match any characters. For instance, there is a short HTML document of '{@code <div> <span>abcdef</span> <span>kettle</span> </div>}'.
@@ -527,14 +527,16 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * </p>
 	 *
 	 * <p><hr><blockquote><pre>
-	 * path.match("span").withText("a*").getText();
+	 * path.match("span").withText("*f").getText();
 	 * </p></blockquote></pre><hr>
 	 *
 	 * <p>
-	 * The meaning of setting the matching text to 'a*' means 'match the element with text starting with 'a' with any
-	 * characters after it'. Alternatives to match the text could be: '*f' (text ending with f) and 'a*f' (text starting
-	 * with a and ending with f)
+	 * The meaning of setting the matching text to '*f' means 'match the element with text ending with 'f' with any
+	 * characters before it'. Alternatives to match the text could be: 'a' (text starting with a) and 'a*f' (text starting
+	 * with a and ending with f).
 	 * </p>
+	 *
+	 * <p>Note: Specifying 'a*' or 'a' will match the same elements.</p>
 	 *
 	 * <p>? is used by the parser to match any one character. Using this simple HTML document('{@code <div> <span>abcdef</span> <span>abc</span> </div>}'),
 	 * we can set the matching rules as:
@@ -554,11 +556,34 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T withText(String textContent);
 
-
+	/**
+	 * Creates a path to the HTML element that matches <strong>exactly</strong> with the specified text. Is case insensitive.
+	 * Also supports the special characters '*' and '?' explained in {@link #withText(String)}. An example of using
+	 * withExactTest can be shown by looking at this simple HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *{@code <p title="cool">a</p>
+	 *<p title="not-cool">ab</p> }
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique to get the title of the first p is to write</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("text").match("p").withExactText("a").getAttribute("title");
+	 *</p></blockquote></pre><hr>
+	 *
+	 * <p>The parser will return "cool" as the first p element has the same exact text as the text specified. If the
+	 * method {@link #withText(String)} was used instead, the parser would return "cool" <strong>and</strong> "not-cool".
+	 * This is because {@link #withText(String)} will search for elements that <strong>start with</strong> "a".</p>
+	 * @param textContent
+	 * @return
+	 */
 	T withExactText(String textContent);
 
 	/**
-	 * Like {@link #withText(String)} but case sensitive. Creates a path to a HTML element that contains the specified
+	 * Like {@link #withText(String)} but case sensitive. Creates a path to a HTML element that <strong>starts with</strong>
 	 * text. Also supports the special characters of '*' and '?'.
 	 *
  	 * @param textContent the string that will be matched, accounting for wildcard elements
@@ -568,6 +593,14 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 */
 	T withTextMatchCase(String textContent);
 
+	/**
+	 * Case sensitive version of {@link #withExactTextMatchCase(String)}. Creates a path to the HTML element that
+	 * matches <strong>exactly</strong> with the specified text. Also supports the special characters of '*' and '?'.
+	 *
+	 * @param textContent the string that will be matched, accounting for wildcard elements
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
+	 */
 	T withExactTextMatchCase(String textContent);
 
 	/**
