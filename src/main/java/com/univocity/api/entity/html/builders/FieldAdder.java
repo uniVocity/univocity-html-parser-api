@@ -77,7 +77,32 @@ public interface FieldAdder {
 	HtmlPathStart addPersistentField(String fieldName);
 
 	/**
-	 * A silent field is a field that when a new value is found, does not trigger a new row to be generated.
+	 * A silent field is a field that when a new value is found, does not trigger a new row to be generated. If a value
+	 * has been previously parsed for the field, the parser will replace it with the newly parsed value. An example
+	 * of this can be shown with this HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *{@code <div>
+	 *	<article class="feature">
+	 *		<h1>first</h1>
+	 *		<p>lorem</p>
+	 *		<h1>second</h1>
+	 *	</article>
+	 *</div> }
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>A technique to get the text of the <strong>second</strong> header and the text of the p element is: </p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *
+	 *entity.addSilentField("silent").match("h1").containedBy("article").getText();
+	 entity.addField("text").match("article").match("p").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The parser will return [second, lorem]. When the parser finishes parsing the p element, the row is actually
+	 * [first, lorem]. When the TODO: THIS </p>
 	 * @param fieldName
 	 * @return
 	 */
