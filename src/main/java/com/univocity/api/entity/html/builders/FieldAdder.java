@@ -102,9 +102,12 @@ public interface FieldAdder {
 	 *</p></blockquote></pre><hr>
 	 *
 	 *<p>The parser will return [second, lorem]. When the parser finishes parsing the p element, the row is actually
-	 * [first, lorem]. When the TODO: THIS </p>
-	 * @param fieldName
-	 * @return
+	 * [first, lorem]. As soon as the parser parses the second h1 element, instead of creating a new row with this value,
+	 * it will replace the 'first' to generate the row [second, lorem]. If 'addField' was used in this example instead of
+	 * 'addSilentField', two rows would be produced [first, lorem] and [second, null]</p>
+	 *
+	 * @param fieldName a string that identifies the field
+	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
 	 */
 	HtmlPathStart addSilentField(String fieldName);
 
