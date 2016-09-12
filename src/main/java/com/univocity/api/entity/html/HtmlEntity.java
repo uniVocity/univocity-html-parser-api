@@ -63,8 +63,8 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * to the given field. Finally, returns the created {@link HtmlPathStart}.
 	 *
 	 * @param fieldName the name that identifies the field
-	 * @param persistent
-	 * @param inhibitNewRows
+	 * @param persistent if true, the field is persistent
+	 * @param inhibitNewRows if true, the field is silent
 	 * @return a {@link HtmlPathStart} to define a path
 	 */
 	private HtmlPathStart newField(String fieldName, boolean persistent, boolean inhibitNewRows) {

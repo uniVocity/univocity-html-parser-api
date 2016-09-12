@@ -248,8 +248,10 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *
 	 *<p>The matching rules, in plain english, can be described as: get the text of the 'h1' element that is the child
 	 * of a div element. </p>
-	 * @param elementName
-	 * @return
+	 *
+	 * @param elementName the name of the element
+	 * @return  a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
 	 */
 	T childOf(String elementName);
 
@@ -439,7 +441,19 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *</div>
 	 *</p></blockquote></pre><hr>
 	 *
-	 * @param pathOfElementNames
+	 *<p>A technique to get the text of the{@code <p>} element in the middle article is: /p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *entity.addField("reviewText").match("article").containing("h1","p").match("p").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>The matching rules state, match an {@code <article>} element that contains a {@code <h1>} and  a {@code <p>} element.
+	 * Then, get the text of a {@code <p>} element. As neither the first article nor the third article has both a
+	 * {@code <h1>} and  a {@code <p>} element, they are ignored by the parser.</p>
+	 *
+	 * @param pathOfElementNames the element that contains these elements will be matched
 	 *
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
@@ -472,7 +486,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *<p>The matching rules, in plain english, can be described as "get the text of the p element that is in the article
 	 * that contains a h1 element starting with 'Review' ". The parser will return 'It's good' when it runs. </p>
 	 *
-	 * @param elementName
+	 * @param elementName the HTML element that contains this element will be matched
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
@@ -510,7 +524,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *<p>Running the parser will result in only 'crayon' being returned. This is because in the first div, the span is
 	 * at the depth of 3. As the depth limit as been set at 2, the parser will ignore the first div.</p>
 	 *
-	 * @param elementName
+	 * @param elementName the HTML element that contains this element will be matched
 	 * @param depthLimit the limit of how far the parser will go down the hierarchy to find the given element
 	 *
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
@@ -577,8 +591,10 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * <p>The parser will return "cool" as the first p element has the same exact text as the text specified. If the
 	 * method {@link #withText(String)} was used instead, the parser would return "cool" <strong>and</strong> "not-cool".
 	 * This is because {@link #withText(String)} will search for elements that <strong>start with</strong> "a".</p>
-	 * @param textContent
-	 * @return
+	 *
+	 * @param textContent the exact string that will be matched
+	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * what information to return.
 	 */
 	T withExactText(String textContent);
 
@@ -594,7 +610,7 @@ interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	T withTextMatchCase(String textContent);
 
 	/**
-	 * Case sensitive version of {@link #withExactTextMatchCase(String)}. Creates a path to the HTML element that
+	 * Case sensitive version of {@link #withExactText(String)}. Creates a path to the HTML element that
 	 * matches <strong>exactly</strong> with the specified text. Also supports the special characters of '*' and '?'.
 	 *
 	 * @param textContent the string that will be matched, accounting for wildcard elements

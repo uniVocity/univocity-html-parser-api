@@ -103,7 +103,7 @@ public  class HtmlParser {
 	/**
 	 * Parses a HTML input provided by a {@link Reader}. Returns a map of the rows parsed.
 	 *
-	 * @param reader
+	 * @param reader the Reader that provides the HTML to parse
 	 * @return A map where the key is the entity name and the value is a list of rows (as Strings) parsed from that
 	 * entity
 	 */

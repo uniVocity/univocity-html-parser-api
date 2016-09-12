@@ -30,7 +30,7 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 	 * Creates a new InternalHtmlParserSettings with a supplied {@link HtmlEntityList}. The {@link HtmlEntityList} is used to
 	 * store {@link HtmlEntity}'s which define the specific HTML elements that will be parsed.
 	 *
-	 * @param entityList
+	 * @param entityList the HtmlEntityList that will be associated with the settings
 	 */
 	public InternalHtmlParserSettings(HtmlEntityList entityList) {
 		super(entityList);

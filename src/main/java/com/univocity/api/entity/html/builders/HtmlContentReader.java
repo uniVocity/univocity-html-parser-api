@@ -6,10 +6,12 @@
 
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.api.entity.html.*;
+
 import java.io.*;
 
 /**
- * This class allows what content will be read from a {@link HtmlPath} byt the {@link HtmlParser}. This is the final
+ * This class defines what content will be read from a {@link HtmlPath} by the {@link HtmlParser}. This is the final
  * step of creating a path.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
