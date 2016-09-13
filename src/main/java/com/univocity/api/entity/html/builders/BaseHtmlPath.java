@@ -12,7 +12,7 @@ package com.univocity.api.entity.html.builders;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
+public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 
 	/**
 	 * Creates a path ot the HTML element that has the specified text placed in an element before it. For example,
