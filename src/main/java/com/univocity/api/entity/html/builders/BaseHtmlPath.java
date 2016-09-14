@@ -6,6 +6,8 @@
 
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.api.entity.html.builders.annotations.*;
+
 /**
  * A class that facilitates the creation of paths to HTML Elements. These paths are used by the HTML Parser to determine
  * what data will be returned when the parsing process runs.
@@ -36,6 +38,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T followedByText(String text);
 
 
@@ -61,6 +64,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T precededByText(String text);
 
 	/**
@@ -88,6 +92,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T followedBy(String elementName);
 
 	/**
@@ -112,6 +117,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T followedBy(String elementName, int distance);
 
 	/**
@@ -141,6 +147,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T followedImmediatelyBy(String elementName);
 
 	/**
@@ -168,6 +175,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T precededBy(String elementName);
 
 	/**
@@ -192,6 +200,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T precededBy(String elementName, int distance);
 
 
@@ -222,6 +231,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T precededImmediatelyBy(String elementName);
 
 	/**
@@ -253,6 +263,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return  a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.PARENTS)
 	T childOf(String elementName);
 
 	/**
@@ -283,6 +294,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.PARENTS)
 	T containedBy(String elementName);
 
 	/**
@@ -325,6 +337,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return  a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.PARENTS)
 	T containedBy(String elementName, int depthLimit);
 
 	/**
@@ -360,6 +373,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.TABLE)
 	T underHeader(String headerElementName);
 
 	/**
@@ -389,6 +403,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.TABLE)
 	T under(String elementName);
 
 	/**
@@ -421,6 +436,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.INSIDE)
 	T parentOf(String elementName);
 
 	/**
@@ -458,6 +474,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.INSIDE)
 	T containing(String... pathOfElementNames);
 
 	/**
@@ -490,6 +507,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.INSIDE)
 	T containing(String elementName);
 
 	/**
@@ -530,6 +548,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.INSIDE)
 	T containing(String elementName, int depthLimit);
 
 	/**
@@ -568,6 +587,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
 	T withText(String textContent);
 
 	/**
@@ -596,6 +616,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
 	T withExactText(String textContent);
 
 	/**
@@ -607,6 +628,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
 	T withTextMatchCase(String textContent);
 
 	/**
@@ -617,6 +639,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
 	T withExactTextMatchCase(String textContent);
 
 	/**
@@ -628,6 +651,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @param otherCssClasses any other classes that the HTML element contains, optional.
 	 * @return a {@link BaseHtmlPath} which allows the more HTML elements to be added to the path
 	 */
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T classes(String firstCssClass, String... otherCssClasses);
 
 	/**
@@ -639,6 +663,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @param attributeValue the value of the attribute
 	 * @return a {@link BaseHtmlPath} which allows the more HTML elements to be added to the path
 	 */
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T attribute(String attributeName, String attributeValue);
 
 	/**
@@ -649,6 +674,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @param idValue the id of an element that a path will be created to
 	 * @return a {@link BaseHtmlPath} which allows the more HTML elements to be added to the path
 	 */
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T id(String idValue);
 
 }
