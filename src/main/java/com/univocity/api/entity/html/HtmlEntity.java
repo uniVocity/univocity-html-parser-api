@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 
-	final Map<String, List<HtmlPath>> fields = new LinkedHashMap<String, List<HtmlPath>>();
+	final Map<String, Object> fields = new LinkedHashMap<String, Object>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
 
 	/**
@@ -82,7 +82,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * @param path the path that will be associated with the field
 	 */
 	void addPathToField(String fieldName, HtmlPath path) {
-		List<HtmlPath> paths = fields.get(fieldName);
+		List<HtmlPath> paths = (List<HtmlPath>) fields.get(fieldName);
 		if (paths == null) {
 			paths = new ArrayList<HtmlPath>();
 			fields.put(fieldName, paths);
@@ -267,4 +267,8 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 		fields.remove(fieldName);
 	}
 
+	@Override
+	public void addConstantField(String constantFieldName, String constantValue) {
+		fields.put(constantFieldName, constantValue);
+	}
 }

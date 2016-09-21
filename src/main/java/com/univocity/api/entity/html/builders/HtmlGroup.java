@@ -45,15 +45,14 @@ public interface HtmlGroup extends BaseHtmlPath<HtmlGroup>, BaseHtmlPathStart<Ht
 	 *group.addField("header").match("h1").getText();
 	 *
 	 *	// creates constant field
-	 *group.setConstantField("constant","cool article");
+	 *group.addConstantField("constant","cool article");
 	 *</p></pre></blockquote><hr>
 	 *
 	 *<p>This will return [first, cool article] in the first row, and [second, cool article] in the second row.</p>
 	 *
 	 * @param constantFieldName the name of that will be associated with the field
 	 * @param constantValue the value that will always be returned in the field
-	 * @return this HtmlGroup
 	 */
-	HtmlGroup setConstantField(String constantFieldName, String constantValue);
+	void addConstantField(String constantFieldName, String constantValue);
 
 }

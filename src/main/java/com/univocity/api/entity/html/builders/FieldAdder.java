@@ -112,4 +112,24 @@ public interface FieldAdder {
 	HtmlPathStart addSilentField(String fieldName);
 
 	HtmlPathStart addSilentPersistentField(String fieldName);
+
+	/**
+	 * Creates a field that <strong>always</strong> returns the specified value. An example to use this method can
+	 * be shown with this HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *
+	 *	// creates constant field
+	 *entity.addConstantField("constant","cool article");
+	 *</p></pre></blockquote><hr>
+	 *
+	 *<p>All rows generated from the "test" entity will contain a column named "constant" whose value will
+	 * always be [cool article].</p>
+	 *
+	 * @param constantFieldName the name of that will be associated with the field
+	 * @param constantValue the value that will always be returned in the field
+	 */
+	void addConstantField(String constantFieldName, String constantValue);
 }
