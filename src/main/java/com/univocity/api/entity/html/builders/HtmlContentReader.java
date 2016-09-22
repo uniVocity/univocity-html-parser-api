@@ -127,6 +127,9 @@ public interface HtmlContentReader {
 	 */
 	void getTextAbove(int numberOfElementsAbove);
 
+
+	void getTextAbove(String firstAlternative, String ... otherAlternatives);
+
 	/**
 	 * Specifies that the parser will return the text contained within the HTML element defined by the path. For instance,
 	 * say a field is added to an entity and the path is set to get text from table data. When the parser runs and hits
