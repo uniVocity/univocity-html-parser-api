@@ -76,7 +76,7 @@ public interface HtmlContentReader {
 
 	/**
 	 * Specifies that the parser will return the text contained in the HTML element above the HTML element defined by
-	 * the path. For example, given the HTML document of:
+	 * the path. Only applicable to tables. For example, given the HTML document of:
 	 *
 	 *<p><hr><blockquote><pre><code>
 	 *<table>
@@ -98,8 +98,8 @@ public interface HtmlContentReader {
 	void getTextAbove();
 
 	/**
-	 * Specifies that the parser will return all the text contained in text in the HTML element at the specified distance above
-	 * above the HTML element specified by the path. For example, given the HTML document of:
+	 * Specifies that the parser will return all the text contained in the HTML element at the specified distance above
+	 * the HTML element specified by the path. Only applicable to tables. For example, given the HTML document of:
 	 *
 	 *<p><hr><blockquote><pre><code>
 	 *<table>
@@ -128,6 +128,62 @@ public interface HtmlContentReader {
 	void getTextAbove(int numberOfElementsAbove);
 
 
+	/**
+	 * Specifies that the parser will return the text in the table row above the current element that contains the
+	 * given text. Only applicable to tables. It is best used for when:
+	 * <ol>
+	 *  <li>Text needs to be parsed from a row above</li>
+	 *  <li>The number of rows above is variable or not known <strong>AND</strong>  </li>
+	 *  <li>There is a known set of possible strings that the above element can contain.  </li>
+	 *
+	 * </ol>
+	 * For example, given these mismatching tables in a HTML document:
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *<table>
+	 *	<tr> <th>Gender</th> <td>Male</td>  <td>Female</td> </tr>
+	 *	<tr> <th>Age</th> <td>41</td>  <td>36</td></tr>
+	 *	<tr> <th>Name</th>  <td>Steven</td> <td>Mandy</td> </tr>
+	 * </table>
+	 * <table>
+	 *	 <tr> <th>Age</th> <td>38</td>  <td>24</td></tr>
+	 *	 <tr> <th>Gender</th> <td>Female</td>  <td>Male</td> </tr>
+	 *	 <tr> <th>Name</th>  <td>Sarah</td> <td>Bob</td> </tr>
+	 * </table>
+	 *</p></pre></blockquote><hr></code>
+	 *
+	 * <p>A technique to get the name and gender of each person in both tables is: </p>
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *
+	 * //Creates path to both "Name" th elements
+	 *PartialHtmlPath path = entity.newPath().match("th").withText("Name");
+	 *
+	 *  //Matches each td in name row and gets the text
+	 *path.addField("name").match("td").getText();
+	 *
+	 * //Matches td in above row that contains "Male" or "Female" and gets the text
+	 *path.addField("gender").match("td").getTextAbove("Male", "Female");
+	 *</p></pre></blockquote><hr></code>
+	 *
+	 *<p>The code snippet above creates a path to the "Name" th element. It then creates two fields. Both fields
+	 * matches every td element next to the "Name" element. The first field simply returns the text inside the td element.
+	 * The second field searches the td's above the matched td until it finds "Male" <strong>OR</strong> "Female" and returns it.</p>
+	 *
+	 *<p>The output that will return is:</p>
+	 *
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *[Steven, Male]
+	 *[Mandy, Female]
+	 *[Sarah, Female]
+	 *[Bob, Male]
+	 *</p></pre></blockquote><hr></code>
+	 * @param firstAlternative The text that the parser will attempt to match in a row above
+	 * @param otherAlternatives Optional extra strings that the parser will look for in an above row
+	 */
 	void getTextAbove(String firstAlternative, String ... otherAlternatives);
 
 	/**
