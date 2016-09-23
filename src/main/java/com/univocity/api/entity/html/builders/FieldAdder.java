@@ -68,6 +68,12 @@ public interface FieldAdder {
 	 * subsequent rows and get the output that we want. If a regular 'addField' is used instead of a persistent field,
 	 * the second row will return [null, ispum] as the element is only matched once for the first row.</p>
 	 *
+	 *<p><hr><blockquote><pre>
+	 *Output:
+	 * [first, lorem]
+	 * [first, ispum]
+	 *</p></blockquote></pre><hr>
+	 *
 	 * <p>NOTE: If a persistent field's path finds another match, the persistent field value will replaced by this new
 	 * value. </p>
 	 *
@@ -111,11 +117,75 @@ public interface FieldAdder {
 	 */
 	HtmlPathStart addSilentField(String fieldName);
 
+	/**
+	 * A silent persistent field is a field that  will not cause new rows to generated when a new value is found and the
+	 * value will be inserted in subsequent rows. In short, a field that combines the function of both a silent and
+	 * persistent field. An example of using this can be shown with this HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<article>
+	 *	<p>lorem</p>
+	 *	<pre>first</pre>
+	 *	<p>ispum</p>
+	 *
+	 *	<p>dolor sit</p>
+	 *	<pre>second</pre>
+	 *
+	 *	<p>amet</p>
+	 *	<pre>third</pre>
+	 *</article>
+	 *</p></blockquote></pre><hr>
+	 *
+	 * <p>In this document, each {@code <pre>} element is associated with the {@code <p>} element immediately before it.
+	 * The first {@code <pre>} element is also associated with the {@code <p>} element directly after it. To parse the
+	 * document so each row returned has each {@code pre} element and it's associated {@code <p>} elements:</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 *HtmlEntityList entities = new HtmlEntityList();
+	 *HtmlEntity entity = entities.configureEntity("test");
+	 *
+	 *entity.addSilentPersistentField("silent").match("pre").containedBy("article").getText();
+	 *entity.addField("text").match("article").match("p").getText();
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>When the parser runs it will match first p and pre values and put them in a row. It will then match the
+	 * p element containing ispum and start a new row. When it reaches the p element with "dolor sit" in it, it will
+	 * trigger the start of a new row, causing the first pre value (as it is persistent) to be put in the same row as
+	 * the "ispum" p value row (["first","ispum"]. etc.</p>
+	 *
+	 *<p><hr><blockquote><pre>
+	 * Output:
+	 * 	[first, lorem]
+	 *	[first, ispum]
+	 *	[second, dolor sit]
+	 *	[third, amet]
+	 *</p></blockquote></pre><hr>
+	 *
+	 * @param fieldName a string that identifies the field
+	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
+	 */
 	HtmlPathStart addSilentPersistentField(String fieldName);
 
 	/**
-	 * Creates a field that <strong>always</strong> returns the specified value. An example to use this method can
+	 * Creates a field that always returns the specified value. An example to use this method can
 	 * be shown with this HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<div>
+	 *	<article>
+	 *		<h1>first</h1>
+	 *		<p>lorem</p>
+	 *	</article>
+	 *	<article>
+	 *		<h1>second</h1>
+	 *		<p>ispum</p>
+	 *	</article>
+	 *	<article>
+	 *		<h1>third</h1>
+	 *		<p>lol</p>
+	 *	</article>
+	 *</div>
+	 *</p></pre></blockquote><hr>
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
@@ -123,10 +193,14 @@ public interface FieldAdder {
 	 *
 	 *	// creates constant field
 	 *entity.addConstantField("constant","cool article");
+	 *
+	 *entity.addField("title").match("h1").getText();
+	 *entity.addField("content").match("p").getText();
 	 *</p></pre></blockquote><hr>
 	 *
-	 *<p>All rows generated from the "test" entity will contain a column named "constant" whose value will
-	 * always be [cool article].</p>
+	 *<p>When the parser runs, it will get the text from each article heading and 'p' element. It will also attach
+	 * "cool article" to the first column of each row. For instance, the first article row will look like: ["cool article",
+	 * "first", "lorem"].</p>
 	 *
 	 * @param constantFieldName the name of that will be associated with the field
 	 * @param constantValue the value that will always be returned in the field
