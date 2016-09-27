@@ -7,6 +7,7 @@
 package com.univocity.api.entity.html.builders;
 
 import com.univocity.api.entity.html.*;
+import com.univocity.api.entity.html.builders.annotations.*;
 
 import java.io.*;
 
@@ -46,6 +47,7 @@ public interface HtmlContentReader {
 	 *
 	 * <p>When run through the parser, the parser will return each table header (a,b,c) in a separate row</p>
 	 */
+	@Matcher( type = Matcher.Type.TABLE)
 	void getHeadingText();
 
 	/**
@@ -72,6 +74,7 @@ public interface HtmlContentReader {
 	 *
 	 * @param headingRowIndex the index of the row that the text will be returned from
 	 */
+	@Matcher( type = Matcher.Type.TABLE)
 	void getHeadingText(int headingRowIndex);
 
 	/**
@@ -95,6 +98,7 @@ public interface HtmlContentReader {
 	 * <p>Which describes: get the text above 'td' elements that contains text starting with 'a'. When the parser runs,
 	 * it will return  'one' and 'two'.</p>
 	 */
+	@Matcher( type = Matcher.Type.TABLE)
 	void getTextAbove();
 
 	/**
@@ -125,6 +129,7 @@ public interface HtmlContentReader {
 	 * @param numberOfElementsAbove the text will be returned from the HTML element this number of elements above from
 	 *                              the current HTML element
 	 */
+	@Matcher( type = Matcher.Type.TABLE)
 	void getTextAbove(int numberOfElementsAbove);
 
 
@@ -184,6 +189,7 @@ public interface HtmlContentReader {
 	 * @param firstAlternative The text that the parser will attempt to match in a row above
 	 * @param otherAlternatives Optional extra strings that the parser will look for in an above row
 	 */
+	@Matcher( type = Matcher.Type.TABLE)
 	void getTextAbove(String firstAlternative, String ... otherAlternatives);
 
 	/**
@@ -237,6 +243,7 @@ public interface HtmlContentReader {
 	 * @param attributeName the name of the attribute where the value of which will be used to define the content that
 	 *                      will be downloaded.
 	 */
+	@Matcher( type = Matcher.Type.ATTRIBUTE)
 	void getContentFrom(String attributeName);
 
 	/**
@@ -252,6 +259,7 @@ public interface HtmlContentReader {
 	 *
 	 * <p>When the parser runs, it will return "before"</p>
 	 */
+	@Matcher( type = Matcher.Type.NEIGHBOUR)
 	void getPrecedingText();
 
 	/**
@@ -271,6 +279,7 @@ public interface HtmlContentReader {
 	 * @param numberOfSiblingsToInclude the number of elements preceding the element defined in the path that the text will
 	 *                                  be returned from
 	 */
+	@Matcher( type = Matcher.Type.NEIGHBOUR)
 	void getPrecedingText(int numberOfSiblingsToInclude);
 
 	/**
@@ -286,6 +295,7 @@ public interface HtmlContentReader {
 	 *
 	 * <p>When the parser runs, it will return "after".</p>
 	 */
+	@Matcher( type = Matcher.Type.NEIGHBOUR)
 	void getFollowingText();
 
 	/**
@@ -306,6 +316,7 @@ public interface HtmlContentReader {
 	 * @param numberOfSiblingsToInclude the number of elements following the element defined in the path that the text will
 	 *                                  be returned from
 	 */
+	@Matcher( type = Matcher.Type.NEIGHBOUR)
 	void getFollowingText(int numberOfSiblingsToInclude);
 
 	/**
@@ -317,5 +328,6 @@ public interface HtmlContentReader {
 	 * @param attributeName the name of the attribute of the element defined by the {@link HtmlPath} where the value of
 	 *                      the attribute will be returned by the parser.
 	 */
+	@Matcher( type = Matcher.Type.ATTRIBUTE)
 	void getAttribute(String attributeName);
 }
