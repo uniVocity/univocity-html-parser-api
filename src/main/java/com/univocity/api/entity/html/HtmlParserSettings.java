@@ -530,4 +530,29 @@ public class HtmlParserSettings {
 		settings.setEmptyValue(emptyValue);
 	}
 
+
+	/**
+	 * Returns the maximum number of threads used by the parser when processing data of multiple entities from
+	 * the same HTML input.
+	 *
+	 * <p>Defaults to the number of available processors available to the JVM</p>
+	 *
+	 * @return the number of threads used by the parser.
+	 */
+	public int getThreadCount() {
+		return settings.getThreadCount();
+	}
+
+	/**
+	 * Explicitly defines a maximum number of threads that should be used by the parser when processing data of
+	 * multiple entities from the same HTML input.
+	 *
+	 * <p>By default, to the number of available processors available to the JVM will be used</p>
+	 *
+	 * @param threadCount the maximum number of threads to use
+	 */
+	public void setThreadCount(int threadCount) {
+		settings.setThreadCount(threadCount);
+	}
+
 }

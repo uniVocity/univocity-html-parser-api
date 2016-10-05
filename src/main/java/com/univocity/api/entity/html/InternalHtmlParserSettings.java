@@ -22,9 +22,9 @@ import java.util.*;
  */
 public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntityList, Format, HtmlParsingContext> {
 
-
 	private HtmlParserListener listener;
 	private String emptyValue = null;
+	private int threadCount = Runtime.getRuntime().availableProcessors();
 
 	/**
 	 * Creates a new InternalHtmlParserSettings with a supplied {@link HtmlEntityList}. The {@link HtmlEntityList} is used to
@@ -32,12 +32,13 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 	 *
 	 * @param entityList the HtmlEntityList that will be associated with the settings
 	 */
-	public InternalHtmlParserSettings(HtmlEntityList entityList) {
+	InternalHtmlParserSettings(HtmlEntityList entityList) {
 		super(entityList);
 	}
 
 	/**
 	 * Sets the associated {@link HtmlParserListener} that is used when the {@link HtmlParser} parses.
+	 *
 	 * @param listener the HtmlParserListener that the settings will be associated with
 	 */
 	public void setListener(HtmlParserListener listener) {
@@ -46,6 +47,7 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 
 	/**
 	 * Returns the associated {@link HtmlParserListener}
+	 *
 	 * @return the HtmlParserListener associated with the settings
 	 */
 	public HtmlParserListener getListener() {
@@ -63,7 +65,7 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 		};
 	}
 
-	final void setCurrentEntity(String entityName){
+	final void setCurrentEntity(String entityName) {
 		this.currentEntity = ArgumentUtils.normalize(entityName);
 	}
 
@@ -89,5 +91,32 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 	 */
 	public String getEmptyValue() {
 		return emptyValue;
+	}
+
+	/**
+	 * Returns the maximum number of threads used by the parser when processing data of multiple entities from
+	 * the same HTML input.
+	 *
+	 * <p>Defaults to the number of available processors available to the JVM</p>
+	 *
+	 * @return the number of threads used by the parser.
+	 */
+	public int getThreadCount() {
+		return threadCount <= 0 ? 1 : threadCount;
+	}
+
+	/**
+	 * Explicitly defines a maximum number of threads that should be used by the parser when processing data of
+	 * multiple entities from the same HTML input.
+	 *
+	 * <p>By default, to the number of available processors available to the JVM will be used</p>
+	 *
+	 * @param threadCount the maximum number of threads to use
+	 */
+	public void setThreadCount(int threadCount) {
+		if (threadCount <= 0) {
+			threadCount = 1;
+		}
+		this.threadCount = threadCount;
 	}
 }

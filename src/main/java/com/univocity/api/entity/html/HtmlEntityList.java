@@ -19,8 +19,6 @@ import com.univocity.api.common.remote.*;
  */
 public class HtmlEntityList extends RemoteResourceEntityList<HtmlEntity> {
 
-	private HtmlParserListener listener; //listener exists in InternalHtmlParserSettings, candidate for deletion
-
 	/**
 	 * Creates a new, empty HtmlEntityList
 	 */
@@ -74,21 +72,6 @@ public class HtmlEntityList extends RemoteResourceEntityList<HtmlEntity> {
 	 */
 	public HtmlLinkFollower getLinkFollower() {
 		return (HtmlLinkFollower) linkFollower;
-	}
-
-	//delete?
-	public void setHtmlParserListener(HtmlParserListener listener) {
-		this.listener = listener;
-	}
-
-	/**
-	 * Returns the {@link HtmlParserListener} associated with the HtmlEntityList.
-	 *
-	 * @return the associated {@link HtmlParserListener}
-	 */
-	//delete?
-	public HtmlParserListener getHtmlParserListener() {
-		return listener;
 	}
 
 	/**

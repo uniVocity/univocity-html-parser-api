@@ -63,9 +63,10 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * Used by the field adding methods. Creates a new {@link HtmlPathStart} based on the supplied options and adds it
 	 * to the given field. Finally, returns the created {@link HtmlPathStart}.
 	 *
-	 * @param fieldName the name that identifies the field
-	 * @param persistent if true, the field is persistent
+	 * @param fieldName      the name that identifies the field
+	 * @param persistent     if true, the field is persistent
 	 * @param inhibitNewRows if true, the field is silent
+	 *
 	 * @return a {@link HtmlPathStart} to define a path
 	 */
 	private HtmlPathStart newField(String fieldName, boolean persistent, boolean inhibitNewRows) {
@@ -80,7 +81,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * given path.
 	 *
 	 * @param fieldName the name identifies the field
-	 * @param path the path that will be associated with the field
+	 * @param path      the path that will be associated with the field
 	 */
 	void addPathToField(String fieldName, HtmlPath path) {
 		List<HtmlPath> paths = (List<HtmlPath>) fields.get(fieldName);
@@ -110,10 +111,10 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * <p><hr><blockquote><pre>
 	 * 	HtmlEntityList entityList = new HtmlEntityList();
 	 * 	HtmlEntity items = entityList.configureEntity("items");
-	 *	PartialHtmlPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
-	 *	path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
-	 *	path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
-	 *	</p></pre></blockquote><hr>
+	 * 	PartialHtmlPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
+	 * 	path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
+	 * 	path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
+	 * 	</p></pre></blockquote><hr>
 	 *
 	 * @return a {@link PartialHtmlPathStart} to specify a path
 	 */
@@ -148,6 +149,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 *
 	 * <p>The parser will then ignore the 'don't parse me' as the group restricts the parsing to the area defined by from
 	 * the class opening tag to the h1 tag.</p>
+	 *
 	 * @return a {@link HtmlGroupStart} used to specify the group
 	 */
 	public HtmlGroupStart newGroup() {
@@ -192,7 +194,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * 		<td>123 real street</td>
 	 * 	</tr>
 	 * </table>
-	 *</p></pre></blockquote><hr>
+	 * </p></pre></blockquote><hr>
 	 *
 	 * The parsing rules are set below:
 	 *
@@ -203,7 +205,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * PartialHtmlPath path = entityList.configureEntity("record").newPath().match("table");
 	 * path.addField("emailAddress").match("td").precededBy("td").withText("Email Address").getText();
 	 * path.addField("homeAddress").match("td").precededBy("td").withText("Home Address").getText();
-	 *</p></pre></blockquote><hr>
+	 * </p></pre></blockquote><hr>
 	 *
 	 * <p>After running it through the HtmlParser, we get this output: </p>
 	 *
@@ -222,17 +224,17 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * adding the line below to the code snippet we had before:
 	 * </p>
 	 *
-	 *<p><hr><blockquote><pre>
+	 * <p><hr><blockquote><pre>
 	 * path.addRecordTrigger().match("td").withText("Email Address");
-	 *</p></pre></blockquote><hr>
+	 * </p></pre></blockquote><hr>
 	 *
 	 * <p>
 	 * Which, when running it throught the HtmlParser we get the expected output of:
-	 *	</p>
-	 *<p>
+	 * </p>
+	 * <p>
 	 * [bla.@email.com, null]<br>
 	 * [null, 123 real street]
-	 *</p>
+	 * </p>
 	 *
 	 * <p>
 	 * This is because when the parser hits the second email address entry, the RecordTrigger is activated and a new
@@ -257,6 +259,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * the page. Returns a {@link HtmlPathStart} to define a path to the element defining the request parameters.
 	 *
 	 * @param fieldName the name that identifies the request parameter
+	 *
 	 * @return a {@link HtmlPathStart} used to specify path to element
 	 */
 	public HtmlPathStart addRequestParameter(String fieldName) {
@@ -284,7 +287,8 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
 	 *
 	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
-	 * instance on multiple entities make sure your listener implementation is thread-safe.</p>
+	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
+	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setThreadCount(int)}</p>
 	 *
 	 * @param listener the HtmlParserListener that this entity will be associated with
 	 */
@@ -298,7 +302,8 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
 	 *
 	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
-	 * instance on multiple entities make sure your listener implementation is thread-safe.</p>
+	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
+	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setThreadCount(int)}</p>
 	 *
 	 * @return the HtmlParserListener associated with this entity.
 	 */
