@@ -42,8 +42,8 @@ public interface HtmlElement {
 	HtmlElement parent();
 
 	/**
-	 * Returns all the children of the HtmlElement in an array. If there are no children, it will return an empty array
-	 * with a size of 0. For example, {@code <article> <h1>header</h1> <p>text</p> </article>}, running children() on
+	 * Returns all the children of the HtmlElement in an array. If there are no children, it will return an empty, size 0
+	 * array. For example, {@code <article> <h1>header</h1> <p>text</p> </article>}, running children() on
 	 * article will return an array of size 2 with the contents being the 'h1' element and the 'p' element.
 	 *
 	 * @return an array of the children of the HtmlElement or a size 0 array if no children.

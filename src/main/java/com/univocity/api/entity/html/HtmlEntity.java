@@ -263,6 +263,11 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 		return addField(fieldName);
 	}
 
+	/**
+	 * Removes the field with the specified name and the path (if exists) that the field was connected to.
+	 *
+	 * @param fieldName the name of the field that will be removed.
+	 */
 	public void removeField(String fieldName) {
 		fields.remove(fieldName);
 	}

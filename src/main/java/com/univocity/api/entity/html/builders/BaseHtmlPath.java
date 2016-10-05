@@ -517,14 +517,14 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *
 	 *
 	 *<p><hr><blockquote><pre>
-	 *<div title=\pen\>
+	 *<div title="pen">
 	 *	<article>
 	 *		<header>
 	 *			<span></span>
 	 *		</header>
 	 *	</article>
 	 *</div>
-	 *<div title=\crayon\>
+	 *<div title="crayon">
 	 *	<article>
 	 *		<span></span>
 	 *	</article>

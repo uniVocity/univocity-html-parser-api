@@ -194,8 +194,22 @@ public interface HtmlContentReader {
 
 	/**
 	 * Specifies that the parser will return the text contained within the HTML element defined by the path. For instance,
-	 * say a field is added to an entity and the path is set to get text from table data. When the parser runs and hits
-	 * &lt;td>goober&lt;/td>, the parser will return the text inside the html tag, which is: "goober".
+	 * say a field is added to an entity and the path is set to get text from a {@code <td>} tag. When the parser runs and hits
+	 * {@code <td>goober<td>}, the parser will return the text inside the html tag, which is: "goober".
+	 *
+	 * <p>When get text is applied to an element that has children elements, each with their own text. It will combine
+	 * the text into one string, with a space separating each element. An example can be shown by viewing the HTML
+	 * document below:</p>
+	 *
+	 *<p><hr><blockquote><pre><code>
+	 *<div>
+	 *	<h1>The Title</h1>
+	 *	<p>Text</p>
+	 *	<p>More Words</p>
+	 *</div>
+	 *</p></pre></blockquote><hr></code>
+	 *
+	 * <p>If getText() is ran on the {@code <div>} element, the parer return "The Title Text More Words".</p>
 	 */
 	void getText();
 
@@ -237,8 +251,8 @@ public interface HtmlContentReader {
 	 * path. This is useful for downloading binary files such as images and videos stored as 'src' attributes.
 	 *
 	 * <p>Content will be downloaded to the directory specified by
-	 * {@link com.univocity.api.entity.html.HtmlParserSettings#setDownloadContentDirectory(File)}. If download
-	 * directory not set, the content will be stored in a temporary directory.</p>
+	 * {@link HtmlParserSettings#setDownloadContentDirectory(File)}. If download directory not set, the content will be
+	 * stored in a temporary directory.</p>
 	 *
 	 * @param attributeName the name of the attribute where the value of which will be used to define the content that
 	 *                      will be downloaded.

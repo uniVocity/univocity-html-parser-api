@@ -75,9 +75,30 @@ public interface PaginationHtmlGroup extends BaseHtmlPath<PaginationHtmlGroup>, 
 	 */
 	HtmlPathStart setNextPage();
 
+	/**
+	 * Creates a new field and returns a {@link HtmlPathStart} that is used to define a path to the page size element.
+	 * The page size element is the element on the HTML page that describes how many pages there are in the series.
+	 *
+	 * @return a {@link HtmlPathStart} is used to define the path to the first page element
+	 */
 	HtmlPathStart setPageSize();
 
+	/**
+	 * Creates a new field and returns a {@link HtmlPathStart} that is used to define a path to the first page element.
+	 * The first page element is the element on the HTML page that loads the first page of a series when pressed.
+	 *
+	 * @return a {@link HtmlPathStart} is used to define the path to the first page element
+	 */
 	HtmlPathStart setFirstPage();
 
+	/**
+	 * Creates a request parameter with the given name and returns a {@link HtmlPathStart} that is used to define the
+	 * value of the parameter. Parameter values are submitted as a POST request to load the next page.
+	 *
+	 * @param parameterName the name that will be associated with the parameter
+	 *
+	 * @return a {@link HtmlPathStart} that is used to define the path to the element, the value of which will be sent
+	 * in the request.
+	 */
 	HtmlPathStart addRequestParameter(String parameterName);
 }
