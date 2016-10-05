@@ -22,23 +22,6 @@ import java.util.*;
  */
 public interface HtmlParsingContext extends Context {
 
-
-	/**
-	 * Returns the current node depth of the parser. Node depth is how many layers deep the currently visited HTML
-	 * element is. For example given a simple HTML document like: {@code <div><span><span><div>}. When the parser visits
-	 * the span element, the current node depth would be 1 (the node depth of div would be 0).
-	 *
-	 * @return the depth of the currently visited HTML element
-	 */
-	int currentNodeDepth();
-
-	/**
-	 * Returns the element that the Parser is currently visiting.
-	 *
-	 * @return the element that is currently being visited by the parser
-	 */
-	HtmlElement getCurrentElement();
-
 	/**
 	 * If the Parser is reading from a web page, returns the {@link HttpResponse} that it is using. Otherwise it will
 	 * return null.

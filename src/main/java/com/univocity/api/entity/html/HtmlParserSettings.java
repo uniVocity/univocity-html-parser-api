@@ -38,27 +38,6 @@ public class HtmlParserSettings {
 		return settings;
 	}
 
-	/**
-	 * Sets the associated {@link HtmlParserListener} that is used when the {@link HtmlParser} parses. A {@link HtmlParserListener}
-	 * provides information about events that occur during the parsing process.
-	 *
-	 * @param listener the HtmlParserListener that the settings will be associated with
-	 */
-	public void setListener(HtmlParserListener listener) {
-		settings.setListener(listener);
-	}
-
-	/**
-	 * Returns the associated {@link HtmlParserListener}. A {@link HtmlParserListener} provides information about events
-	 * that occur during the parsing process.
-	 *
-	 * @return the HtmlParserListener associated with the settings
-	 */
-	public HtmlParserListener getListener() {
-		return  settings.getListener();
-	}
-
-
 	final void setCurrentEntity(String entityName){
 		settings.setCurrentEntity(entityName);
 	}

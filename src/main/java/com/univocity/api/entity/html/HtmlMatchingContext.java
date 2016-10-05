@@ -33,4 +33,20 @@ public abstract class HtmlMatchingContext implements HtmlParsingContext {
 	 */
 	public abstract String getEntityName();
 
+
+	/**
+	 * Returns the current node depth of the parser. Node depth is how many layers deep the currently visited HTML
+	 * element is. For example given a simple HTML document like: {@code <div><span><span><div>}. When the parser visits
+	 * the span element, the current node depth would be 1 (the node depth of div would be 0).
+	 *
+	 * @return the depth of the currently visited HTML element
+	 */
+	public abstract int currentNodeDepth();
+
+	/**
+	 * Returns the element that the Parser is currently visiting.
+	 *
+	 * @return the element that is currently being visited by the parser
+	 */
+	public abstract HtmlElement getCurrentElement();
 }

@@ -22,6 +22,7 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 
 	final Map<String, Object> fields = new LinkedHashMap<String, Object>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
+	HtmlParserListener listener = null;
 
 	/**
 	 * Creates a new HTMLEntity without a name.
@@ -276,4 +277,33 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	public void addConstantField(String constantFieldName, String constantValue) {
 		fields.put(constantFieldName, constantValue);
 	}
+
+	/**
+	 * Associates a {@link HtmlParserListener} with this {@code HtmlEntity}. The listener methods will be triggered
+	 * by the {@link HtmlParser} while it traverses the HTML structure to collects values for the fields of this entity
+	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
+	 *
+	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
+	 * instance on multiple entities make sure your listener implementation is thread-safe.</p>
+	 *
+	 * @param listener the HtmlParserListener that this entity will be associated with
+	 */
+	public void setListener(HtmlParserListener listener) {
+		this.listener = listener;
+	}
+
+	/**
+	 * Returns the {@link HtmlParserListener} associated with this {@code HtmlEntity}. The listener methods will be triggered
+	 * by the {@link HtmlParser} while it traverses the HTML structure to collects values for the fields of this entity
+	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
+	 *
+	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
+	 * instance on multiple entities make sure your listener implementation is thread-safe.</p>
+	 *
+	 * @return the HtmlParserListener associated with this entity.
+	 */
+	public HtmlParserListener getListener() {
+		return listener;
+	}
+
 }
