@@ -127,5 +127,27 @@ public interface HtmlElement {
 	 */
 	Set<String> classes();
 
+	/**
+	 * Returns true if the specified element is a descendant of the current element. Returns false if otherwise. For
+	 * example, in this HTML document:
+	 *
+	 *<p><hr><blockquote><pre>
+	 *<table>
+	 *	<tr>
+	 *		<td> <span>First Row</span></td>
+	 *	</tr>
+	 *	<tr>
+	 *		<td>Second Row</td>
+	 *	</tr>
+	 *</table>
+	 *</p></blockquote></pre><hr>
+	 *
+	 *<p>Writing tableElement.containsElementInHierarchy(spanElement) would return true as the span element is a descendant
+	 * of the table element. Inverting the code to spanElement.containsElementInHierarchy(tableElement) would return false. </p>
+	 *
+	 * @param element the element that will be checked to see if it is a descendant of the current element.
+	 *
+	 * @return true if the specified element is a descendant of the current element.
+	 */
 	boolean containsElementInHierarchy(HtmlElement element);
 }
