@@ -6,6 +6,7 @@
 
 package com.univocity.api.entity.html;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -49,4 +50,19 @@ public abstract class HtmlMatchingContext implements HtmlParsingContext {
 	 * @return the element that is currently being visited by the parser
 	 */
 	public abstract HtmlElement getCurrentElement();
+
+	/**
+	 * Returns the file that was last downloaded for a given binary field.
+	 *
+	 * @param binaryFieldName name that identifies a field configured to download binary content.
+	 * @return the last downloaded file for the given field
+	 */
+	public abstract File getFile(String binaryFieldName);
+
+	/**
+	 * Returns the names of the fields set to download content.
+	 *
+	 * @return names of fields associated with downloaded content
+	 */
+	public abstract String[] getBinaryFields();
 }

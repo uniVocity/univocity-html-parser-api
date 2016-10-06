@@ -9,9 +9,6 @@ package com.univocity.api.entity.html;
 import com.univocity.api.common.*;
 import com.univocity.parsers.common.*;
 
-import java.io.*;
-import java.util.*;
-
 /**
  * A class that returns information about {@link HtmlParser}'s parsing process.
  *
@@ -30,18 +27,4 @@ public interface HtmlParsingContext extends Context {
 	 */
 	HttpResponse getResponse();
 
-	/**
-	 * Returns the file that was last downloaded by the the specified field.
-	 *
-	 * @param fieldName the name that identifies the field
-	 * @return the last downloaded file from a field
-	 */
-	File getFile(String fieldName);
-
-	/**
-	 * Returns the fields that are set to download content.
-	 *
-	 * @return downloading content fields
-	 */
-	Set<String> getBinaryFileFields();
 }
