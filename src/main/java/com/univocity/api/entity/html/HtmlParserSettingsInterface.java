@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2013 uniVocity Software Pty Ltd. All rights reserved.
+ * This file is subject to the terms and conditions defined in file
+ * 'LICENSE.txt', which is part of this source code package.
+ */
+
 package com.univocity.api.entity.html;
 
-import com.univocity.api.*;
 import com.univocity.api.common.*;
 import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.fields.*;
@@ -11,34 +16,15 @@ import java.nio.charset.*;
 import java.util.*;
 
 /**
- * The configuration class for {@link HtmlParser}.
- *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
- * @see HtmlParser
- * @see HtmlEntityList
  */
-public class HtmlParserSettings implements HtmlParserSettingsInterface {
-
-	final HtmlParserSettingsInterface settings;
-
-	/**
-	 * Creates a new HtmlParserSettings and associates it with {@link HtmlEntityList}
-	 *
-	 * @param entityList the {@link HtmlEntityList} that will be associated
-	 */
-	public HtmlParserSettings(HtmlEntityList entityList) {
-		settings = Builder.build(HtmlParserSettingsInterface.class, entityList);
-	}
-
+public interface HtmlParserSettingsInterface {
 	/**
 	 * Returns the {@link HtmlEntityList} associated with the settings.
 	 *
 	 * @return the associated {@link HtmlEntityList}
 	 */
-	@Override
-	public HtmlEntityList getEntityList() {
-		return settings.getEntityList();
-	}
+	HtmlEntityList getEntityList();
 
 	/**
 	 * Sets the global {@link Processor}. All rows parsed will be delegated to the processor. Does not
@@ -46,10 +32,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param processor the {@link Processor} that will be set as the processor
 	 */
-	@Override
-	public void setGlobalProcessor(Processor<HtmlParsingContext> processor) {
-		settings.setGlobalProcessor(processor);
-	}
+	void setGlobalProcessor(Processor<HtmlParsingContext> processor);
 
 	/**
 	 * Returns the processor if previously set. If the processor was not set, returns a
@@ -57,20 +40,13 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the {@link Processor} previously set, or a {@link NoopProcessor} if never set.
 	 */
-	@Override
-	public Processor<HtmlParsingContext> getGlobalProcessor() {
-		return settings.getGlobalProcessor();
-	}
-
+	Processor<HtmlParsingContext> getGlobalProcessor();
 
 	/**
 	 * Returns the entity names contained in the associated {@link HtmlEntityList} as a set of Strings.
 	 * @return the entity names
 	 */
-	@Override
-	public Set<String> getEntityNames() {
-		return settings.getEntityNames();
-	}
+	Set<String> getEntityNames();
 
 	/**
 	 * Sets the number of threads that will be created to download content (e.g. images) after a page finishes parsing.
@@ -78,30 +54,21 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param downloadThreads the number of download threads that will be used to download content
 	 */
-	@Override
-	public void setDownloadThreads(int downloadThreads) {
-		settings.setDownloadThreads(downloadThreads);
-	}
+	void setDownloadThreads(int downloadThreads);
 
 	/**
 	 * Returns the amount of threads that the parser will use to download content
 	 *
 	 * @return number of download threads set
 	 */
-	@Override
-	public int getDownloadThreads() {
-		return settings.getDownloadThreads();
-	}
+	int getDownloadThreads();
 
 	/**
 	 * Sets the file directory where downloaded content will be stored using the system default encoding
 	 *
 	 * @param fileName the directory that stores downloaded content as a String
 	 */
-	@Override
-	public void setDownloadContentDirectory(String fileName) {
-		settings.setDownloadContentDirectory(fileName);
-	}
+	void setDownloadContentDirectory(String fileName);
 
 	/**
 	 * Sets the file directory where downloaded content will be stored
@@ -109,10 +76,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @param fileName the directory that stores downloaded content as a String
 	 * @param encoding the encoding of the directory as a Charset
 	 */
-	@Override
-	public void setDownloadContentDirectory(String fileName, Charset encoding) {
-		settings.setDownloadContentDirectory(fileName,encoding);
-	}
+	void setDownloadContentDirectory(String fileName, Charset encoding);
 
 	/**
 	 * Sets the file directory where downloaded content will be stored
@@ -120,20 +84,14 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @param fileName the directory that stores downloaded content as a String
 	 * @param encoding the encoding of the directory as a String
 	 */
-	@Override
-	public void setDownloadContentDirectory(String fileName, String encoding) {
-		settings.setDownloadContentDirectory(fileName,encoding);
-	}
+	void setDownloadContentDirectory(String fileName, String encoding);
 
 	/**
 	 * Sets the file directory where downloaded content will be stored and use the default system encoding.
 	 *
 	 * @param file the directory that stores downloaded content
 	 */
-	@Override
-	public void setDownloadContentDirectory(File file) {
-		settings.setDownloadContentDirectory(file);
-	}
+	void setDownloadContentDirectory(File file);
 
 	/**
 	 * Sets the file directory where downloaded content will be stored
@@ -141,10 +99,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @param file the directory that stores downloaded content
 	 * @param encoding the encoding the directory as a Charset
 	 */
-	@Override
-	public void setDownloadContentDirectory(File file, Charset encoding) {
-		settings.setDownloadContentDirectory(file,encoding);
-	}
+	void setDownloadContentDirectory(File file, Charset encoding);
 
 	/**
 	 * Sets the file directory where downloaded content will be stored
@@ -152,20 +107,14 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @param file The directory that stores downloaded content
 	 * @param encoding the encoding of the directory as a String
 	 */
-	@Override
-	public void setDownloadContentDirectory(File file, String encoding) {
-		settings.setDownloadContentDirectory(file,encoding);
-	}
+	void setDownloadContentDirectory(File file, String encoding);
 
 	/**
 	 * Returns the file directory where downloaded content is stored in
 	 *
 	 * @return a FileProvider which contains the download content directory
 	 */
-	@Override
-	public FileProvider getDownloadContentDirectory() {
-		return settings.getDownloadContentDirectory();
-	}
+	FileProvider getDownloadContentDirectory();
 
 	/**
 	 * The pattern that the names of pages downloaded will follow. For example, setting the pattern as
@@ -174,20 +123,13 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param pattern the pattern of file names
 	 */
-	@Override
-	public void setFileNamePattern(String pattern) {
-		settings.setFileNamePattern(pattern);
-	}
+	void setFileNamePattern(String pattern);
 
 	/**
 	 * Returns the file name pattern used for names when saving pages
 	 * @return the pattern of file names
 	 */
-	@Override
-	public String getFileNamePattern() {
-		return settings.getFileNamePattern();
-	}
-
+	String getFileNamePattern();
 
 	/**
 	 * Associates the given {@link Processor} with the supplied entities.
@@ -195,10 +137,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @param entityProcessor  the {@link Processor}
 	 * @param entities names of entities that will be handled by the {@link Processor}
 	 */
-	@Override
-	public final void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, Collection<String> entities) {
-		settings.setEntityProcessor(entityProcessor, entities);
-	}
+	void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, Collection<String> entities);
 
 	/**
 	 * Associates the given {@link Processor} with the supplied entities.
@@ -206,11 +145,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @param entityProcessor  the {@link Processor}
 	 * @param entities names of entities that will be handled by the {@link Processor}
 	 */
-	@Override
-	public final void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, String... entities) {
-		settings.setEntityProcessor(entityProcessor,entities);
-	}
-
+	void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, String... entities);
 
 	/**
 	 * Selects a sequence of fields for reading by their names
@@ -219,11 +154,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the (modifiable) set of selected fields
 	 */
-	@Override
-	public final EntityFieldSet<Enum> selectFields(Enum... fieldNames) {
-		return settings.selectFields(fieldNames);
-	}
-
+	EntityFieldSet<Enum> selectFields(Enum... fieldNames);
 
 	/**
 	 * Selects a sequence of fields for reading by their names
@@ -232,10 +163,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the (modifiable) set of selected fields
 	 */
-	@Override
-	public final EntityFieldSet<String> selectFields(String... fieldNames) {
-		return settings.selectFields(fieldNames);
-	}
+	EntityFieldSet<String> selectFields(String... fieldNames);
 
 	/**
 	 * Selects fields which will not be read by their names
@@ -244,10 +172,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the (modifiable) set of ignored fields
 	 */
-	@Override
-	public final EntityFieldSet<String> excludeFields(String... fieldNames) {
-		return settings.excludeFields(fieldNames);
-	}
+	EntityFieldSet<String> excludeFields(String... fieldNames);
 
 	/**
 	 * Selects a sequence of fields for reading by their indexes
@@ -256,10 +181,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the (modifiable) set of selected fields
 	 */
-	@Override
-	public final EntityFieldSet<Integer> selectIndexes(Integer... fieldIndexes) {
-		return settings.selectIndexes(fieldIndexes);
-	}
+	EntityFieldSet<Integer> selectIndexes(Integer... fieldIndexes);
 
 	/**
 	 * Selects fields which will not be read by their indexes
@@ -268,10 +190,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the (modifiable) set of ignored fields
 	 */
-	@Override
-	public final EntityFieldSet<Integer> excludeIndexes(Integer... fieldIndexes) {
-		return settings.excludeIndexes(fieldIndexes);
-	}
+	EntityFieldSet<Integer> excludeIndexes(Integer... fieldIndexes);
 
 	/**
 	 * Selects fields which will not be read by their names
@@ -280,20 +199,15 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the (modifiable) set of ignored fields
 	 */
-	@Override
-	public final EntityFieldSet<Enum> excludeFields(Enum... fieldNames) {
-		return settings.excludeFields(fieldNames);
-	}
+	EntityFieldSet<Enum> excludeFields(Enum... fieldNames);
+
 	/**
 	 * Returns the String representation of a null value (defaults to null)
 	 * <p>When reading, if the parser cannot find the specified element, it will return the nullValue instead of null. </p>
 	 *
 	 * @return the String representation of a null value
 	 */
-	@Override
-	public String getNullValue() {
-		return settings.getNullValue();
-	}
+	String getNullValue();
 
 	/**
 	 * Sets the String representation of a null value (defaults to null)
@@ -301,49 +215,35 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param emptyValue the String representation of a null value
 	 */
-	@Override
-	public void setNullValue(String emptyValue) {
-		settings.setNullValue(emptyValue);
-	}
+	void setNullValue(String emptyValue);
+
 	/**
 	 * Returns whether or not trailing whitespaces from values being read should be trimmed  (defaults to true)
 	 *
 	 * @return true if trailing whitespaces from values being read should be trimmed, false otherwise
 	 */
-	@Override
-	public boolean isTrimTrailingWhitespaces() {
-		return settings.isTrimTrailingWhitespaces();
-	}
+	boolean isTrimTrailingWhitespaces();
 
 	/**
 	 * Defines whether or not trailing whitespaces from values being read should be trimmed  (defaults to true)
 	 *
 	 * @param ignoreTrailingWhitespaces true if trailing whitespaces from values being read should be trimmed, false otherwise
 	 */
-	@Override
-	public void setTrimTrailingWhitespaces(boolean ignoreTrailingWhitespaces) {
-		settings.setTrimTrailingWhitespaces(ignoreTrailingWhitespaces);
-	}
+	void setTrimTrailingWhitespaces(boolean ignoreTrailingWhitespaces);
 
 	/**
 	 * Returns whether or not leading whitespaces from values being read should be trimmed(defaults to true)
 	 *
 	 * @return true if leading whitespaces from values being read should be trimmed, false otherwise
 	 */
-	@Override
-	public boolean isTrimLeadingWhitespaces() {
-		return settings.isTrimLeadingWhitespaces();
-	}
+	boolean isTrimLeadingWhitespaces();
 
 	/**
 	 * Defines whether or not leading whitespaces from values being read should be trimmed(defaults to true)
 	 *
 	 * @param ignoreLeadingWhitespaces true if leading whitespaces from values being read should be trimmed, false otherwise
 	 */
-	@Override
-	public void setTrimLeadingWhitespaces(boolean ignoreLeadingWhitespaces) {
-		settings.setTrimLeadingWhitespaces(ignoreLeadingWhitespaces);
-	}
+	void setTrimLeadingWhitespaces(boolean ignoreLeadingWhitespaces);
 
 	/**
 	 * Configures the parser to trim or keep leading and trailing whitespaces around values
@@ -352,10 +252,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param trim a flag indicating whether the whitespaces should remove whitespaces around values parsed/written.
 	 */
-	@Override
-	public final void trimValues(boolean trim) {
-		settings.trimValues(trim);
-	}
+	void trimValues(boolean trim);
 
 	/**
 	 * Configures the parser/writer to limit the length of displayed contents being parsed/written in the exception message when an error occurs
@@ -367,10 +264,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the maximum length of contents displayed in exception messages in case of errors while parsing/writing.
 	 */
-	@Override
-	public int getErrorContentLength() {
-		return settings.getErrorContentLength();
-	}
+	int getErrorContentLength();
 
 	/**
 	 * Configures the parser/writer to limit the length of displayed contents being parsed/written in the exception message when an error occurs.
@@ -382,10 +276,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param errorContentLength maximum length of contents displayed in exception messages in case of errors while parsing/writing.
 	 */
-	@Override
-	public void setErrorContentLength(int errorContentLength) {
-		settings.setErrorContentLength(errorContentLength);
-	}
+	void setErrorContentLength(int errorContentLength);
 
 	/**
 	 * Add entities to read by their names. This entities will be parsed in addition to any entities that were
@@ -393,10 +284,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToRead names of entities that will be parsed
 	 */
-	@Override
-	public final void addEntitiesToRead(Collection<String> entitiesToRead) {
-		settings.addEntitiesToRead(entitiesToRead);
-	}
+	void addEntitiesToRead(Collection<String> entitiesToRead);
 
 	/**
 	 * Add entities to read by their names. This entities will be parsed in addition to any entities that were
@@ -404,10 +292,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToRead names of entities that will be parsed
 	 */
-	@Override
-	public final void addEntitiesToRead(String... entitiesToRead) {
-		settings.addEntitiesToRead(entitiesToRead);
-	}
+	void addEntitiesToRead(String... entitiesToRead);
 
 	/**
 	 * Add entities to skip by their names. This entities will be skipped during the parsing process, as well as any
@@ -415,10 +300,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToSkip names of entities that will be skipped
 	 */
-	@Override
-	public final void addEntitiesToSkip(Collection<String> entitiesToSkip) {
-		settings.addEntitiesToRead(entitiesToSkip);
-	}
+	void addEntitiesToSkip(Collection<String> entitiesToSkip);
 
 	/**
 	 * Set entities to not be parsed by their names. Will override and previous adding/setting entities to skip.  For example,
@@ -427,20 +309,14 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToSkip the names of entities that will be skipped
 	 */
-	@Override
-	public final void setEntitiesToSkip(Collection<String> entitiesToSkip) {
-		settings.addEntitiesToRead(entitiesToSkip);
-	}
+	void setEntitiesToSkip(Collection<String> entitiesToSkip);
 
 	/**
 	 * Returns the names of the entities that will be read from.
 	 *
 	 * @return set of entity names as strings that will be read
 	 */
-	@Override
-	public final Set<String> getEntitiesToRead() {
-		return settings.getEntitiesToRead();
-	}
+	Set<String> getEntitiesToRead();
 
 	/**
 	 * Set entities to read by their names. Will override any previous adding/setting of entities to read. For example,
@@ -449,10 +325,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToRead the entities that will be parsed
 	 */
-	@Override
-	public final void setEntitiesToRead(Collection<String> entitiesToRead) {
-		settings.setEntitiesToRead(entitiesToRead);
-	}
+	void setEntitiesToRead(Collection<String> entitiesToRead);
 
 	/**
 	 * Set entities to read by their names. Will override any previous adding/setting of entities to read. For example,
@@ -461,20 +334,14 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToRead the entities that will be parsed
 	 */
-	@Override
-	public final void setEntitiesToRead(String... entitiesToRead) {
-		settings.setEntitiesToRead(entitiesToRead);
-	}
+	void setEntitiesToRead(String... entitiesToRead);
 
 	/**
 	 * Returns the names of entities that will be ignored when parsing
 	 *
 	 * @return names of entities that will be skipped during parsing
 	 */
-	@Override
-	public final Set<String> getEntitiesToSkip() {
-		return settings.getEntitiesToSkip();
-	}
+	Set<String> getEntitiesToSkip();
 
 	/**
 	 * Set entities to not be parsed by their names. Will override and previous adding/setting entities to skip.  For example,
@@ -483,10 +350,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToSkip the names of entities that will be skipped
 	 */
-	@Override
-	public final void setEntitiesToSkip(String... entitiesToSkip) {
-		settings.setEntitiesToSkip(entitiesToSkip);
-	}
+	void setEntitiesToSkip(String... entitiesToSkip);
 
 	/**
 	 * Add entities to skip by their names. This entities will be skipped during the parsing process, as well as any
@@ -494,10 +358,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param entitiesToSkip names of entities that will be skipped
 	 */
-	@Override
-	public final void addEntitiesToSkip(String... entitiesToSkip) {
-		settings.addEntitiesToSkip(entitiesToSkip);
-	}
+	void addEntitiesToSkip(String... entitiesToSkip);
 
 	/**
 	 * Defines whether fields selected using the field selection methods (defined by the parent class {@link CommonSettings}) should be reordered (defaults to true).
@@ -506,10 +367,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param columnReorderingEnabled the flag indicating whether or not selected fields should be reordered and returned by the parser
 	 */
-	@Override
-	public void setColumnReorderingEnabled(boolean columnReorderingEnabled) {
-		settings.setColumnReorderingEnabled(columnReorderingEnabled);
-	}
+	void setColumnReorderingEnabled(boolean columnReorderingEnabled);
 
 	/**
 	 * Returns the custom error handler to be used to capture and handle errors that might happen while processing records with a {@link Processor}
@@ -519,10 +377,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the callback error handler with custom code to manage occurrences of {@link DataProcessingException}.
 	 */
-	@Override
-	public  ProcessorErrorHandler<HtmlParsingContext> getProcessorErrorHandler() {
-		return  settings.getProcessorErrorHandler();
-	}
+	ProcessorErrorHandler<HtmlParsingContext> getProcessorErrorHandler();
 
 	/**
 	 * Defines a custom error handler to capture and handle errors that might happen while processing records with a {@link Processor}
@@ -532,11 +387,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param processorErrorHandler the callback error handler with custom code to manage occurrences of {@link DataProcessingException}.
 	 */
-	@Override
-	public void setProcessorErrorHandler(ProcessorErrorHandler<HtmlParsingContext> processorErrorHandler) {
-		settings.setProcessorErrorHandler(processorErrorHandler);
-	}
-
+	void setProcessorErrorHandler(ProcessorErrorHandler<HtmlParsingContext> processorErrorHandler);
 
 	/**
 	 * Returns the String representation of an empty value (defaults to null)
@@ -546,10 +397,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the String representation of an empty value
 	 */
-	@Override
-	public String getEmptyValue() {
-		return settings.getEmptyValue();
-	}
+	String getEmptyValue();
 
 	/**
 	 * Sets the String representation of an empty value (defaults to null)
@@ -559,11 +407,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param emptyValue the String representation of an empty value
 	 */
-	@Override
-	public void setEmptyValue(String emptyValue) {
-		settings.setEmptyValue(emptyValue);
-	}
-
+	void setEmptyValue(String emptyValue);
 
 	/**
 	 * Returns the maximum number of threads used by the parser when processing data of multiple entities from
@@ -573,10 +417,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @return the number of threads used by the parser.
 	 */
-	@Override
-	public int getThreadCount() {
-		return settings.getThreadCount();
-	}
+	int getThreadCount();
 
 	/**
 	 * Explicitly defines a maximum number of threads that should be used by the parser when processing data of
@@ -586,9 +427,5 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 *
 	 * @param threadCount the maximum number of threads to use
 	 */
-	@Override
-	public void setThreadCount(int threadCount) {
-		settings.setThreadCount(threadCount);
-	}
-
+	void setThreadCount(int threadCount);
 }
