@@ -20,7 +20,7 @@ import java.util.*;
  * @see Processor
  * @see HtmlEntityList
  */
-public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntityList, Format, HtmlParsingContext> {
+class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntityList, Format, HtmlParsingContext> {
 
 	private HtmlParserListener listener;
 	private String emptyValue = null;
@@ -109,7 +109,7 @@ public class InternalHtmlParserSettings extends RemoteResourceSettings<HtmlEntit
 	 * Explicitly defines a maximum number of threads that should be used by the parser when processing data of
 	 * multiple entities from the same HTML input.
 	 *
-	 * <p>By default, to the number of available processors available to the JVM will be used</p>
+	 * <p>By default, to the number of available processors available to the JVM is be used</p>
 	 *
 	 * @param threadCount the maximum number of threads to use
 	 */

@@ -18,7 +18,7 @@ import java.util.*;
  */
 public class HtmlParserSettings {
 
-	private final InternalHtmlParserSettings settings;
+	final InternalHtmlParserSettings settings;
 
 	/**
 	 * Creates a new HtmlParserSettings and associates it with {@link HtmlEntityList}
@@ -27,15 +27,6 @@ public class HtmlParserSettings {
 	 */
 	public HtmlParserSettings(HtmlEntityList entityList) {
 		settings = new InternalHtmlParserSettings(entityList);
-	}
-
-	/**
-	 * Returns the InternalSettings that is contained within the HtmlParserSettings
-	 *
-	 * @return the associated InternalSettings
-	 */
-	public InternalHtmlParserSettings getInternalSettings() {
-		return settings;
 	}
 
 	final void setCurrentEntity(String entityName){
