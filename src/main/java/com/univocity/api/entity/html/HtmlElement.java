@@ -85,7 +85,7 @@ public interface HtmlElement {
 	 *
 	 * @return unencoded text, or empty string if no text.
 	 */
-	String text();
+	String getText();
 
 	/**
 	 * Returns the HTMLElement that is located just after this HTMLElement. Returns null if there is no next sibling. For
@@ -104,13 +104,6 @@ public interface HtmlElement {
 	 * @return the HTMLElement located just before this HTMLElement or null if no such element.
 	 */
 	HtmlElement previousSibling();
-
-	/**
-	 * Returns a new instance of the HTML element.
-	 *
-	 * @return the newly created HTML element.
-	 */
-	HtmlElement grab();
 
 	/**
 	 * Returns the id of the HTML element or an empty string if the element does not have a id. For example: The HTML
