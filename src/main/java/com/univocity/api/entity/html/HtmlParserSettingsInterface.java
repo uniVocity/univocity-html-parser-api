@@ -27,22 +27,6 @@ public interface HtmlParserSettingsInterface {
 	HtmlEntityList getEntityList();
 
 	/**
-	 * Sets the global {@link Processor}. All rows parsed will be delegated to the processor. Does not
-	 * need to be set for the {@link HtmlParser} to function.
-	 *
-	 * @param processor the {@link Processor} that will be set as the processor
-	 */
-	void setGlobalProcessor(Processor<HtmlParsingContext> processor);
-
-	/**
-	 * Returns the processor if previously set. If the processor was not set, returns a
-	 * {@link NoopProcessor}, which is a {@link Processor} that does nothing.
-	 *
-	 * @return the {@link Processor} previously set, or a {@link NoopProcessor} if never set.
-	 */
-	Processor<HtmlParsingContext> getGlobalProcessor();
-
-	/**
 	 * Returns the entity names contained in the associated {@link HtmlEntityList} as a set of Strings.
 	 * @return the entity names
 	 */

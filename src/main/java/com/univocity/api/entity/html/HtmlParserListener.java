@@ -17,7 +17,6 @@ package com.univocity.api.entity.html;
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlParser
  * @see HtmlParsingContext
- * @see HtmlMatchingContext
  */
 public abstract class HtmlParserListener {
 
@@ -44,7 +43,7 @@ public abstract class HtmlParserListener {
 	 * @param element the element that was matched
 	 * @param context the {@link HtmlParsingContext} used by the {@link HtmlParser} during the parsing process
 	 */
-	public void elementMatched(HtmlElement element, HtmlMatchingContext context) {
+	public void elementMatched(HtmlElement element, HtmlParsingContext context) {
 	}
 
 	/**

@@ -310,5 +310,4 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	public HtmlParserListener getListener() {
 		return listener;
 	}
-
 }
