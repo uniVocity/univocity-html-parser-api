@@ -77,6 +77,6 @@ public interface HtmlParsingContext extends Context {
 	 *
 	 * @return names of fields associated with downloaded content
 	 */
-	String[] getBinaryFields();
+	Set<String> getBinaryFields();
 
 }
