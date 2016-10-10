@@ -7,8 +7,9 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.*;
-import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
+import com.univocity.parsers.common.*;
+import com.univocity.parsers.remote.*;
 
 import java.util.*;
 
@@ -18,26 +19,19 @@ import java.util.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
+public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings> implements FieldAdder {
 
 	final Map<String, Object> fields = new LinkedHashMap<String, Object>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
 	HtmlParserListener listener = null;
 
 	/**
-	 * Creates a new HTMLEntity without a name.
-	 */
-	HtmlEntity() {
-		super();
-	}
-
-	/**
 	 * Creates a new HTMLEntity and associates it with the supplied name.
 	 *
 	 * @param entityName a string that identifies the HTMLEntity
 	 */
-	HtmlEntity(String entityName) {
-		super(entityName);
+	HtmlEntitySettings(String entityName) {
+		super(entityName, createEmptyParserSettings());
 	}
 
 	@Override
@@ -250,21 +244,8 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 		return out;
 	}
 
-	public String[] getFieldNames() {
-		return fields.keySet().toArray(new String[0]);
-	}
-
-	/**
-	 * Creates a new request parameter. Request parameters are used for pagination to supply GET/POST values to change
-	 * the page. Returns a {@link HtmlPathStart} to define a path to the element defining the request parameters.
-	 *
-	 * @param fieldName the name that identifies the request parameter
-	 *
-	 * @return a {@link HtmlPathStart} used to specify path to element
-	 */
-	public HtmlPathStart addRequestParameter(String fieldName) {
-		requestParameters.put(fieldName, "");
-		return addField(fieldName);
+	public Set<String> getFieldNames() {
+		return Collections.unmodifiableSet(fields.keySet());
 	}
 
 	/**
@@ -309,5 +290,9 @@ public class HtmlEntity extends RemoteResourceEntity implements FieldAdder {
 	 */
 	public HtmlParserListener getListener() {
 		return listener;
+	}
+
+	public CommonParserSettings getInternalSettings() {
+		return super.getInternalSettings();
 	}
 }

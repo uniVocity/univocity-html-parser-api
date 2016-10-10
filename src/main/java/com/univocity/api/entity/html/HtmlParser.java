@@ -8,6 +8,7 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.*;
 import com.univocity.api.common.*;
+import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.processor.core.*;
 import com.univocity.parsers.common.record.*;
 
@@ -23,11 +24,11 @@ import java.util.*;
  * @see HtmlParserSettings
  * @see ReaderProvider
  * @see Record
- * @see HtmlEntity
+ * @see HtmlEntitySettings
  */
 public  class HtmlParser {
 
-	private final HtmlParserInterface parser;
+	private final EntityParserInterface parser;
 
 	/**
 	 * Creates a new HtmlParser with configuration provided by {@link HtmlParserSettings}. The HtmlParser gets all
@@ -39,7 +40,7 @@ public  class HtmlParser {
 		if (settings == null) {
 			parser = null;
 		} else {
-			parser = Builder.build(HtmlParserInterface.class, settings);
+			parser = Builder.build(EntityParserInterface.class, settings);
 		}
 	}
 

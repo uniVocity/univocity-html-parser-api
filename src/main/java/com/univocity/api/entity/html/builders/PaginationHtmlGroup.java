@@ -6,6 +6,8 @@
 
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.parsers.remote.*;
+
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
@@ -16,7 +18,7 @@ public interface PaginationHtmlGroup extends BaseHtmlPath<PaginationHtmlGroup>, 
 	 * to the next page element. The next page is a HTML element that changes the current page to the next page in series.
 	 * When the parser runs and completes the parsing of the page, the parser will 'click' on the next page element
 	 * and parse that page. The parser will continue to access the next page until the next page element does not
-	 * exist or the follow count set by {@link com.univocity.api.common.remote.RemoteResourcePaginator#setFollowCount(int)}
+	 * exist or the follow count set by {@link Paginator#setFollowCount(int)}
 	 * is reached.
 	 *
 	 * <p>An example of setting the next page can be demonstrated using this HTML: </p>

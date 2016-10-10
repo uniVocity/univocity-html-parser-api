@@ -3,12 +3,11 @@ package com.univocity.api.entity.html;
 import com.univocity.api.*;
 import com.univocity.api.common.*;
 import com.univocity.parsers.common.*;
-import com.univocity.parsers.common.fields.*;
 import com.univocity.parsers.common.processor.core.*;
+import com.univocity.parsers.remote.*;
 
 import java.io.*;
 import java.nio.charset.*;
-import java.util.*;
 
 /**
  * The configuration class for {@link HtmlParser}.
@@ -17,7 +16,7 @@ import java.util.*;
  * @see HtmlParser
  * @see HtmlEntityList
  */
-public class HtmlParserSettings implements HtmlParserSettingsInterface {
+public class HtmlParserSettings extends RemoteParserSettings<CommonParserSettings, HtmlEntityList> implements HtmlParserSettingsInterface {
 
 	final HtmlParserSettingsInterface settings;
 
@@ -27,26 +26,8 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @param entityList the {@link HtmlEntityList} that will be associated
 	 */
 	public HtmlParserSettings(HtmlEntityList entityList) {
+		super(entityList);
 		settings = Builder.build(HtmlParserSettingsInterface.class, entityList);
-	}
-
-	/**
-	 * Returns the {@link HtmlEntityList} associated with the settings.
-	 *
-	 * @return the associated {@link HtmlEntityList}
-	 */
-	@Override
-	public HtmlEntityList getEntityList() {
-		return settings.getEntityList();
-	}
-
-	/**
-	 * Returns the entity names contained in the associated {@link HtmlEntityList} as a set of Strings.
-	 * @return the entity names
-	 */
-	@Override
-	public Set<String> getEntityNames() {
-		return settings.getEntityNames();
 	}
 
 	/**
@@ -88,7 +69,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 */
 	@Override
 	public void setDownloadContentDirectory(String fileName, Charset encoding) {
-		settings.setDownloadContentDirectory(fileName,encoding);
+		settings.setDownloadContentDirectory(fileName, encoding);
 	}
 
 	/**
@@ -99,7 +80,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 */
 	@Override
 	public void setDownloadContentDirectory(String fileName, String encoding) {
-		settings.setDownloadContentDirectory(fileName,encoding);
+		settings.setDownloadContentDirectory(fileName, encoding);
 	}
 
 	/**
@@ -115,23 +96,23 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	/**
 	 * Sets the file directory where downloaded content will be stored
 	 *
-	 * @param file the directory that stores downloaded content
+	 * @param file     the directory that stores downloaded content
 	 * @param encoding the encoding the directory as a Charset
 	 */
 	@Override
 	public void setDownloadContentDirectory(File file, Charset encoding) {
-		settings.setDownloadContentDirectory(file,encoding);
+		settings.setDownloadContentDirectory(file, encoding);
 	}
 
 	/**
 	 * Sets the file directory where downloaded content will be stored
 	 *
-	 * @param file The directory that stores downloaded content
+	 * @param file     The directory that stores downloaded content
 	 * @param encoding the encoding of the directory as a String
 	 */
 	@Override
 	public void setDownloadContentDirectory(File file, String encoding) {
-		settings.setDownloadContentDirectory(file,encoding);
+		settings.setDownloadContentDirectory(file, encoding);
 	}
 
 	/**
@@ -158,6 +139,7 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 
 	/**
 	 * Returns the file name pattern used for names when saving pages
+	 *
 	 * @return the pattern of file names
 	 */
 	@Override
@@ -165,123 +147,6 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 		return settings.getFileNamePattern();
 	}
 
-
-	/**
-	 * Associates the given {@link Processor} with the supplied entities.
-	 *
-	 * @param entityProcessor  the {@link Processor}
-	 * @param entities names of entities that will be handled by the {@link Processor}
-	 */
-	@Override
-	public final void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, Collection<String> entities) {
-		settings.setEntityProcessor(entityProcessor, entities);
-	}
-
-	/**
-	 * Associates the given {@link Processor} with the supplied entities.
-	 *
-	 * @param entityProcessor  the {@link Processor}
-	 * @param entities names of entities that will be handled by the {@link Processor}
-	 */
-	@Override
-	public final void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, String... entities) {
-		settings.setEntityProcessor(entityProcessor,entities);
-	}
-
-
-	/**
-	 * Selects a sequence of fields for reading by their names
-	 *
-	 * @param fieldNames The field names to be read
-	 *
-	 * @return the (modifiable) set of selected fields
-	 */
-	@Override
-	public final EntityFieldSet<Enum> selectFields(Enum... fieldNames) {
-		return settings.selectFields(fieldNames);
-	}
-
-
-	/**
-	 * Selects a sequence of fields for reading by their names
-	 *
-	 * @param fieldNames The field names to be read
-	 *
-	 * @return the (modifiable) set of selected fields
-	 */
-	@Override
-	public final EntityFieldSet<String> selectFields(String... fieldNames) {
-		return settings.selectFields(fieldNames);
-	}
-
-	/**
-	 * Selects fields which will not be read by their names
-	 *
-	 * @param fieldNames The field names to exclude from the parsing process
-	 *
-	 * @return the (modifiable) set of ignored fields
-	 */
-	@Override
-	public final EntityFieldSet<String> excludeFields(String... fieldNames) {
-		return settings.excludeFields(fieldNames);
-	}
-
-	/**
-	 * Selects a sequence of fields for reading by their indexes
-	 *
-	 * @param fieldIndexes The field indexes to read
-	 *
-	 * @return the (modifiable) set of selected fields
-	 */
-	@Override
-	public final EntityFieldSet<Integer> selectIndexes(Integer... fieldIndexes) {
-		return settings.selectIndexes(fieldIndexes);
-	}
-
-	/**
-	 * Selects fields which will not be read by their indexes
-	 *
-	 * @param fieldIndexes The field indexes to exclude from the parsing process
-	 *
-	 * @return the (modifiable) set of ignored fields
-	 */
-	@Override
-	public final EntityFieldSet<Integer> excludeIndexes(Integer... fieldIndexes) {
-		return settings.excludeIndexes(fieldIndexes);
-	}
-
-	/**
-	 * Selects fields which will not be read by their names
-	 *
-	 * @param fieldNames The field names to exclude from the parsing process
-	 *
-	 * @return the (modifiable) set of ignored fields
-	 */
-	@Override
-	public final EntityFieldSet<Enum> excludeFields(Enum... fieldNames) {
-		return settings.excludeFields(fieldNames);
-	}
-	/**
-	 * Returns the String representation of a null value (defaults to null)
-	 * <p>When reading, if the parser cannot find the specified element, it will return the nullValue instead of null. </p>
-	 *
-	 * @return the String representation of a null value
-	 */
-	@Override
-	public String getNullValue() {
-		return settings.getNullValue();
-	}
-
-	/**
-	 * Sets the String representation of a null value (defaults to null)
-	 * <p>When reading, if the parser cannot find the specified element, it will return the nullValue instead of null. </p>
-	 *
-	 * @param emptyValue the String representation of a null value
-	 */
-	@Override
-	public void setNullValue(String emptyValue) {
-		settings.setNullValue(emptyValue);
-	}
 	/**
 	 * Returns whether or not trailing whitespaces from values being read should be trimmed  (defaults to true)
 	 *
@@ -335,148 +200,6 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	}
 
 	/**
-	 * Configures the parser/writer to limit the length of displayed contents being parsed/written in the exception message when an error occurs
-	 *
-	 * <p>If set to {@code 0}, then no exceptions will include the content being manipulated in their attributes,
-	 * and the {@code "<omitted>"} string will appear in error messages as the parsed/written content.</p>
-	 *
-	 * <p>defaults to {@code -1} (no limit)</p>.
-	 *
-	 * @return the maximum length of contents displayed in exception messages in case of errors while parsing/writing.
-	 */
-	@Override
-	public int getErrorContentLength() {
-		return settings.getErrorContentLength();
-	}
-
-	/**
-	 * Configures the parser/writer to limit the length of displayed contents being parsed/written in the exception message when an error occurs.
-	 *
-	 * <p>If set to {@code 0}, then no exceptions will include the content being manipulated in their attributes,
-	 * and the {@code "<omitted>"} string will appear in error messages as the parsed/written content.</p>
-	 *
-	 * <p>defaults to {@code -1} (no limit)</p>.
-	 *
-	 * @param errorContentLength maximum length of contents displayed in exception messages in case of errors while parsing/writing.
-	 */
-	@Override
-	public void setErrorContentLength(int errorContentLength) {
-		settings.setErrorContentLength(errorContentLength);
-	}
-
-	/**
-	 * Add entities to read by their names. This entities will be parsed in addition to any entities that were
-	 * previously added.
-	 *
-	 * @param entitiesToRead names of entities that will be parsed
-	 */
-	@Override
-	public final void addEntitiesToRead(Collection<String> entitiesToRead) {
-		settings.addEntitiesToRead(entitiesToRead);
-	}
-
-	/**
-	 * Add entities to read by their names. This entities will be parsed in addition to any entities that were
-	 * previously added.
-	 *
-	 * @param entitiesToRead names of entities that will be parsed
-	 */
-	@Override
-	public final void addEntitiesToRead(String... entitiesToRead) {
-		settings.addEntitiesToRead(entitiesToRead);
-	}
-
-	/**
-	 * Add entities to skip by their names. This entities will be skipped during the parsing process, as well as any
-	 * entities that were previously added to be skipped.
-	 *
-	 * @param entitiesToSkip names of entities that will be skipped
-	 */
-	@Override
-	public final void addEntitiesToSkip(Collection<String> entitiesToSkip) {
-		settings.addEntitiesToRead(entitiesToSkip);
-	}
-
-	/**
-	 * Set entities to not be parsed by their names. Will override and previous adding/setting entities to skip.  For example,
-	 * if there is three entities (A,B,C). It was previously set that it would skip A. By setting B to skip,
-	 * the parser will run on A and C, ONLY skipping B.
-	 *
-	 * @param entitiesToSkip the names of entities that will be skipped
-	 */
-	@Override
-	public final void setEntitiesToSkip(Collection<String> entitiesToSkip) {
-		settings.addEntitiesToRead(entitiesToSkip);
-	}
-
-	/**
-	 * Returns the names of the entities that will be read from.
-	 *
-	 * @return set of entity names as strings that will be read
-	 */
-	@Override
-	public final Set<String> getEntitiesToRead() {
-		return settings.getEntitiesToRead();
-	}
-
-	/**
-	 * Set entities to read by their names. Will override any previous adding/setting of entities to read. For example,
-	 * if there is three entities (A,B,C). It was previously set that it would read from A. By setting B and C to read,
-	 * the parser will ONLY run on B and C.
-	 *
-	 * @param entitiesToRead the entities that will be parsed
-	 */
-	@Override
-	public final void setEntitiesToRead(Collection<String> entitiesToRead) {
-		settings.setEntitiesToRead(entitiesToRead);
-	}
-
-	/**
-	 * Set entities to read by their names. Will override any previous adding/setting of entities to read. For example,
-	 * if there is three entities (A,B,C). It was previously set that it would read from A. By setting B and C to read,
-	 * the parser will ONLY run on B and C.
-	 *
-	 * @param entitiesToRead the entities that will be parsed
-	 */
-	@Override
-	public final void setEntitiesToRead(String... entitiesToRead) {
-		settings.setEntitiesToRead(entitiesToRead);
-	}
-
-	/**
-	 * Returns the names of entities that will be ignored when parsing
-	 *
-	 * @return names of entities that will be skipped during parsing
-	 */
-	@Override
-	public final Set<String> getEntitiesToSkip() {
-		return settings.getEntitiesToSkip();
-	}
-
-	/**
-	 * Set entities to not be parsed by their names. Will override and previous adding/setting entities to skip.  For example,
-	 * if there is three entities (A,B,C). It was previously set that it would skip A. By setting B to skip,
-	 * the parser will run on A and C, ONLY skipping B.
-	 *
-	 * @param entitiesToSkip the names of entities that will be skipped
-	 */
-	@Override
-	public final void setEntitiesToSkip(String... entitiesToSkip) {
-		settings.setEntitiesToSkip(entitiesToSkip);
-	}
-
-	/**
-	 * Add entities to skip by their names. This entities will be skipped during the parsing process, as well as any
-	 * entities that were previously added to be skipped.
-	 *
-	 * @param entitiesToSkip names of entities that will be skipped
-	 */
-	@Override
-	public final void addEntitiesToSkip(String... entitiesToSkip) {
-		settings.addEntitiesToSkip(entitiesToSkip);
-	}
-
-	/**
 	 * Defines whether fields selected using the field selection methods (defined by the parent class {@link CommonSettings}) should be reordered (defaults to true).
 	 * <p>When disabled, each parsed record will contain values for all columns, in the order they occur in the input. Fields which were not selected will not be parsed but and the record will contain empty values.
 	 * <p>When enabled, each parsed record will contain values only for the selected columns. The values will be ordered according to the selection.
@@ -497,8 +220,8 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 	 * @return the callback error handler with custom code to manage occurrences of {@link DataProcessingException}.
 	 */
 	@Override
-	public  ProcessorErrorHandler<HtmlParsingContext> getProcessorErrorHandler() {
-		return  settings.getProcessorErrorHandler();
+	public ProcessorErrorHandler<HtmlParsingContext> getProcessorErrorHandler() {
+		return settings.getProcessorErrorHandler();
 	}
 
 	/**
@@ -568,4 +291,94 @@ public class HtmlParserSettings implements HtmlParserSettingsInterface {
 		settings.setThreadCount(threadCount);
 	}
 
+	@Override
+	public int getErrorContentLength() {
+		return settings.getErrorContentLength();
+	}
+
+	@Override
+	public void setErrorContentLength(int errorContentLength) {
+		settings.setErrorContentLength(errorContentLength);
+	}
+
+	@Override
+	public String getNullValue() {
+		return settings.getNullValue();
+	}
+
+	@Override
+	public void setNullValue(String nullValue) {
+		settings.setNullValue(nullValue);
+	}
+
+	@Override
+	protected CommonParserSettings createGlobalSettings() {
+		return createEmptyGlobalSettings();
+	}
+
+
+	/**
+	 * Creates a new {@link HtmlPaginator} and returns it. Used by {@link #configurePaginator()}.
+	 *
+	 * @return the {@link HtmlPaginator} that was created
+	 */
+	@Override
+	protected HtmlPaginator newPaginator() {
+		return new HtmlPaginator();
+	}
+
+	/**
+	 * Returns the {@link HtmlPaginator} associated with the HtmlEntityList
+	 *
+	 * @return the {@link HtmlPaginator} stored within the HtmlEntityList
+	 */
+	public HtmlPaginator getPaginator() {
+		return (HtmlPaginator) paginator;
+	}
+
+	/**
+	 * Creates a new {@link HtmlLinkFollower} and returns it. Used by {@link RemoteEntityList#configureEntity(String)}
+	 *
+	 * @return the created {@link HtmlLinkFollower}
+	 */
+	@Override
+	protected HtmlLinkFollower newLinkFollower() {
+		return new HtmlLinkFollower();
+	}
+
+	/**
+	 * Returns the {@link HtmlLinkFollower} associated with the HtmlEntityList.
+	 *
+	 * @return the {@link HtmlLinkFollower} contained by the HtmlEntityList
+	 */
+	public HtmlLinkFollower getLinkFollower() {
+		return (HtmlLinkFollower) linkFollower;
+	}
+
+	/**
+	 * Returns the associated {@link HtmlPaginator}, creating it if it does not exist already. {@link HtmlPaginator}s are
+	 * used to define how the parser loads the next page to parse.
+	 *
+	 * @return the {@link HtmlPaginator} associated with the HtmlEntityList
+	 */
+	public HtmlPaginator configurePaginator() {
+		if (paginator == null) {
+			paginator = newPaginator();
+		}
+		return (HtmlPaginator) paginator;
+	}
+
+	/**
+	 * Returns the associated {@link HtmlLinkFollower}, creating it if it does not exist already. {@link HtmlLinkFollower}s
+	 * are used to define links that the parser will follow and parse. A use case for this is when parsing a list of
+	 * products on a store page.
+	 *
+	 * @return the {@link HtmlLinkFollower} associated with the HtmlEntityList
+	 */
+	public HtmlLinkFollower configureLinkFollower() {
+		if (linkFollower == null) {
+			linkFollower = newLinkFollower();
+		}
+		return (HtmlLinkFollower) linkFollower;
+	}
 }

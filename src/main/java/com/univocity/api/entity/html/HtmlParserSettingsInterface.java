@@ -8,7 +8,6 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.common.*;
 import com.univocity.parsers.common.*;
-import com.univocity.parsers.common.fields.*;
 import com.univocity.parsers.common.processor.core.*;
 
 import java.io.*;
@@ -114,76 +113,6 @@ public interface HtmlParserSettingsInterface {
 	 * @return the pattern of file names
 	 */
 	String getFileNamePattern();
-
-	/**
-	 * Associates the given {@link Processor} with the supplied entities.
-	 *
-	 * @param entityProcessor  the {@link Processor}
-	 * @param entities names of entities that will be handled by the {@link Processor}
-	 */
-	void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, Collection<String> entities);
-
-	/**
-	 * Associates the given {@link Processor} with the supplied entities.
-	 *
-	 * @param entityProcessor  the {@link Processor}
-	 * @param entities names of entities that will be handled by the {@link Processor}
-	 */
-	void setEntityProcessor(Processor<HtmlParsingContext> entityProcessor, String... entities);
-
-	/**
-	 * Selects a sequence of fields for reading by their names
-	 *
-	 * @param fieldNames The field names to be read
-	 *
-	 * @return the (modifiable) set of selected fields
-	 */
-	EntityFieldSet<Enum> selectFields(Enum... fieldNames);
-
-	/**
-	 * Selects a sequence of fields for reading by their names
-	 *
-	 * @param fieldNames The field names to be read
-	 *
-	 * @return the (modifiable) set of selected fields
-	 */
-	EntityFieldSet<String> selectFields(String... fieldNames);
-
-	/**
-	 * Selects fields which will not be read by their names
-	 *
-	 * @param fieldNames The field names to exclude from the parsing process
-	 *
-	 * @return the (modifiable) set of ignored fields
-	 */
-	EntityFieldSet<String> excludeFields(String... fieldNames);
-
-	/**
-	 * Selects a sequence of fields for reading by their indexes
-	 *
-	 * @param fieldIndexes The field indexes to read
-	 *
-	 * @return the (modifiable) set of selected fields
-	 */
-	EntityFieldSet<Integer> selectIndexes(Integer... fieldIndexes);
-
-	/**
-	 * Selects fields which will not be read by their indexes
-	 *
-	 * @param fieldIndexes The field indexes to exclude from the parsing process
-	 *
-	 * @return the (modifiable) set of ignored fields
-	 */
-	EntityFieldSet<Integer> excludeIndexes(Integer... fieldIndexes);
-
-	/**
-	 * Selects fields which will not be read by their names
-	 *
-	 * @param fieldNames The field names to exclude from the parsing process
-	 *
-	 * @return the (modifiable) set of ignored fields
-	 */
-	EntityFieldSet<Enum> excludeFields(Enum... fieldNames);
 
 	/**
 	 * Returns the String representation of a null value (defaults to null)

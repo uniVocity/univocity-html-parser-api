@@ -6,16 +6,15 @@
 
 package com.univocity.api.entity.html;
 
-import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
+import com.univocity.parsers.remote.*;
 
 /**
- * An subclass of {@link RemoteResourceLinkFollower} used specifically for following links on a HTML document.
+ * An subclass of {@link LinkFollower} used specifically for following links on a HTML document.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public class HtmlLinkFollower extends RemoteResourceLinkFollower<HtmlEntity> {
-
+public class HtmlLinkFollower extends LinkFollower<HtmlEntitySettings> {
 
 	/**
 	 * Creates a new HtmlLinkFollower
@@ -29,18 +28,18 @@ public class HtmlLinkFollower extends RemoteResourceLinkFollower<HtmlEntity> {
 	 *
 	 * @return the associated {@link HtmlEntity}
 	 */
-	public HtmlEntity getEntity() {
-		return entity;
+	public HtmlEntitySettings getEntity() {
+		return entitySettings;
 	}
 
 	/**
-	 * Creates a new HtmlEntity with the static entityName defined in {@link RemoteResourceLinkFollower}.
+	 * Creates a new HtmlEntity with the static entityName defined in {@link LinkFollower}.
 	 *
 	 * @return the created HTmlEntity
 	 */
 	@Override
-	protected HtmlEntity newEntity() {
-		return new HtmlEntity(entityName);
+	protected HtmlEntitySettings newEntitySettings() {
+		return new HtmlEntitySettings(entityName);
 	}
 
 	/**
@@ -51,7 +50,7 @@ public class HtmlLinkFollower extends RemoteResourceLinkFollower<HtmlEntity> {
 	 * @return a {@link HtmlGroupStart} used to specify the group
 	 */
 	public HtmlGroupStart newGroup() {
-		return entity.newGroup();
+		return entitySettings.newGroup();
 	}
 
 	/**
@@ -61,8 +60,8 @@ public class HtmlLinkFollower extends RemoteResourceLinkFollower<HtmlEntity> {
 	 *
 	 * @return a {@link HtmlPathStart} to specify path of link
 	 */
-	public HtmlPathStart  addLink() {
-		return entity.addField("linkNo"+linkNum++);
+	public HtmlPathStart addLink() {
+		return entitySettings.addField("linkNo"+linkNum++);
 	}
 
 	/**
@@ -73,7 +72,7 @@ public class HtmlLinkFollower extends RemoteResourceLinkFollower<HtmlEntity> {
 	 * @return a {@link HtmlPathStart} to specify path to element
 	 */
 	public HtmlPathStart addField(String fieldName) {
-		return entity.addField(fieldName);
+		return entitySettings.addField(fieldName);
 	}
 
 

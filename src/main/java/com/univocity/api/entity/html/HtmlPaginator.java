@@ -6,9 +6,10 @@
 
 package com.univocity.api.entity.html;
 
-import com.univocity.api.common.*;
-import com.univocity.api.common.remote.*;
 import com.univocity.api.entity.html.builders.*;
+import com.univocity.parsers.remote.*;
+
+import java.util.*;
 
 /**
  * Used by the {@link HtmlParser} to follow pages on a website.
@@ -19,23 +20,22 @@ import com.univocity.api.entity.html.builders.*;
  * @see PaginationContext
  * @see PaginationHandler
  */
-public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
+public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	/**
 	 * Creates a new HtmlPaginator and sets the currentPageNumber to 0
 	 */
 	public HtmlPaginator() {
-		super();
 	}
 
 	/**
-	 * Creates a new {@link HtmlEntity} and returns it. Used by {@link RemoteResourcePaginator} to associated the
-	 * correct type of entity to a specific {@link RemoteResourcePaginator} implementation.
+	 * Creates a new {@link HtmlEntity} and returns it. Used by {@link Paginator} to associated the
+	 * correct type of entity to a specific {@link Paginator} implementation.
 	 *
 	 * @return the created {@link HtmlEntity}.
 	 */
 	@Override
-	protected HtmlEntity newEntity() {
-		return new HtmlEntity(entityName);
+	protected HtmlEntitySettings newEntitySettings() {
+		return new HtmlEntitySettings(ENTITY_NAME);
 	}
 
 	/**
@@ -43,8 +43,8 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 *
 	 * @return returns the associated {@link HtmlEntity}
 	 */
-	public HtmlEntity getEntity() {
-		return entity;
+	public HtmlEntitySettings getSettings() {
+		return entitySettings;
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * to the next page element. The next page is a HTML element that changes the current page to the next page in series.
 	 * When the parser runs and completes the parsing of the page, the parser will 'click' on the next page element
 	 * and parse that page. The parser will continue to access the next page until the next page element does not
-	 * exist or the follow count set by {@link com.univocity.api.common.remote.RemoteResourcePaginator#setFollowCount(int)}
+	 * exist or the follow count set by {@link Paginator#setFollowCount(int)}
 	 * is reached.
 	 *
 	 * <p>An example of setting the next page can be demonstrated using this HTML: </p>
@@ -110,7 +110,7 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * @return a {@link HtmlPathStart} is used to define the path to the element
 	 */
 	public HtmlPathStart setNextPage() {
-		return entity.addField("nextPage");
+		return entitySettings.addField("nextPage");
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * @return a {@link HtmlPathStart} is used to define the path to the  element
 	 */
 	public HtmlPathStart setPreviousPage() {
-		return entity.addField("previousPage");
+		return entitySettings.addField("previousPage");
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * @return a {@link HtmlPathStart} is used to define the path to the  element
 	 */
 	public HtmlPathStart setFirstPage() {
-		return entity.addField("firstPage");
+		return entitySettings.addField("firstPage");
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * @return a {@link HtmlPathStart} is used to define the path to the  element
 	 */
 	public HtmlPathStart setLastPage() {
-		return entity.addField("lastPage");
+		return entitySettings.addField("lastPage");
 	}
 
 	/**
@@ -154,12 +154,12 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * @return a {@link HtmlPathStart} is used to define the path to the element
 	 */
 	public HtmlPathStart setPageSize() {
-		return entity.addField("pageSize");
+		return entitySettings.addField("pageSize");
 	}
 
 	//is this pagesize?
 	public HtmlPathStart setItemCount() {
-		return entity.addField("itemCount");
+		return entitySettings.addField("itemCount");
 	}
 
 
@@ -172,8 +172,10 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * @return a {@link HtmlPathStart} is used to define the path to the parameter
 	 */
 	public HtmlPathStart addRequestParameter(String fieldName) {
-		return entity.addRequestParameter(fieldName);
+		//return entity.addRequestParameter(fieldName); //FIXME
+		return null;
 	}
+
 
 
 	/**
@@ -182,7 +184,7 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 * @return a {@link PaginationHtmlGroupStart}
 	 */
 	public PaginationHtmlGroupStart newGroup() {
-		return entity.newPaginationGroup();
+		return entitySettings.newPaginationGroup();
 	}
 
 	/**
@@ -190,7 +192,7 @@ public class HtmlPaginator extends RemoteResourcePaginator<HtmlEntity> {
 	 *
 	 * @return a String array of field names
 	 */
-	public String[] getFieldNames() {
-		return entity.getFieldNames();
+	public Set<String> getFieldNames() {
+		return entitySettings.getFieldNames();
 	}
 }
