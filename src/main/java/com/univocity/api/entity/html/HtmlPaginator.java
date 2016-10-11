@@ -6,9 +6,12 @@
 
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.parsers.remote.*;
 
+import java.io.*;
+import java.net.*;
 import java.util.*;
 
 /**
@@ -43,7 +46,7 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 *
 	 * @return returns the associated {@link HtmlEntity}
 	 */
-	public HtmlEntitySettings getSettings() {
+	 HtmlEntitySettings getSettings() {
 		return entitySettings;
 	}
 

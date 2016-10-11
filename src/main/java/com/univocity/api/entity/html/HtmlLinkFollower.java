@@ -39,7 +39,7 @@ public class HtmlLinkFollower extends LinkFollower<HtmlEntitySettings> {
 	 */
 	@Override
 	protected HtmlEntitySettings newEntitySettings() {
-		return new HtmlEntitySettings(entityName);
+		return new HtmlEntitySettings(ENTITY_NAME);
 	}
 
 	/**
