@@ -337,25 +337,6 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 	}
 
 	/**
-	 * Creates a new {@link HtmlLinkFollower} and returns it. Used by {@link RemoteEntityList#configureEntity(String)}
-	 *
-	 * @return the created {@link HtmlLinkFollower}
-	 */
-	@Override
-	protected HtmlLinkFollower newLinkFollower() {
-		return new HtmlLinkFollower();
-	}
-
-	/**
-	 * Returns the {@link HtmlLinkFollower} associated with the HtmlEntityList.
-	 *
-	 * @return the {@link HtmlLinkFollower} contained by the HtmlEntityList
-	 */
-	public HtmlLinkFollower getLinkFollower() {
-		return (HtmlLinkFollower) linkFollower;
-	}
-
-	/**
 	 * Returns the associated {@link HtmlPaginator}, creating it if it does not exist already. {@link HtmlPaginator}s are
 	 * used to define how the parser loads the next page to parse.
 	 *
@@ -366,19 +347,5 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 			paginator = newPaginator();
 		}
 		return (HtmlPaginator) paginator;
-	}
-
-	/**
-	 * Returns the associated {@link HtmlLinkFollower}, creating it if it does not exist already. {@link HtmlLinkFollower}s
-	 * are used to define links that the parser will follow and parse. A use case for this is when parsing a list of
-	 * products on a store page.
-	 *
-	 * @return the {@link HtmlLinkFollower} associated with the HtmlEntityList
-	 */
-	public HtmlLinkFollower configureLinkFollower() {
-		if (linkFollower == null) {
-			linkFollower = newLinkFollower();
-		}
-		return (HtmlLinkFollower) linkFollower;
 	}
 }
