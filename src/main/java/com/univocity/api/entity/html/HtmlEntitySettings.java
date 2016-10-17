@@ -248,11 +248,6 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		return Collections.unmodifiableSet(fields.keySet());
 	}
 
-	/**
-	 * Removes the field with the specified name and the path (if exists) that the field was connected to.
-	 *
-	 * @param fieldName the name of the field that will be removed.
-	 */
 	public void removeField(String fieldName) {
 		fields.remove(fieldName);
 	}
