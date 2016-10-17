@@ -6,24 +6,22 @@
 
 package com.univocity.api.entity.html;
 
-import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.*;
+import com.univocity.api.exception.*;
 import com.univocity.parsers.remote.*;
-
-import java.io.*;
-import java.net.*;
-import java.util.*;
 
 /**
  * Used by the {@link HtmlParser} to follow pages on a website.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
- *
  * @see HtmlParser
  * @see PaginationContext
  * @see PaginationHandler
  */
 public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
+
+	private int idealPageSize;
+
 	/**
 	 * Creates a new HtmlPaginator and sets the currentPageNumber to 0
 	 */
@@ -46,7 +44,7 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 *
 	 * @return returns the associated {@link HtmlEntity}
 	 */
-	 HtmlEntitySettings getSettings() {
+	HtmlEntitySettings getSettings() {
 		return entitySettings;
 	}
 
@@ -60,49 +58,49 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 *
 	 * <p>An example of setting the next page can be demonstrated using this HTML: </p>
 	 *
-	 *<p><hr><blockquote><pre>
-	 *{@code
-	 *<html>
-	 *<body>
-	 *	<article>
-	 *		<h1>Water: The Truth</h1>
-	 *		<p>It's good for you!</p>
-	 *		<a href="paginationTarget.html">Next Page</a>
-	 *	</article>
-	 *</body>
-	 *</html>
+	 * <p><hr><blockquote><pre>
+	 * {@code
+	 * <html>
+	 * <body>
+	 * 	<article>
+	 * 		<h1>Water: The Truth</h1>
+	 * 		<p>It's good for you!</p>
+	 * 		<a href="paginationTarget.html">Next Page</a>
+	 * 	</article>
+	 * </body>
+	 * </html>
 	 * }
-	 *</p></blockquote></pre><hr>
+	 * </p></blockquote></pre><hr>
 	 *
-	 *<p>paginationTarget.html contains the following HTML: </p>
+	 * <p>paginationTarget.html contains the following HTML: </p>
 	 *
-	 *<p><hr><blockquote><pre>
-	 *{@code
-	 *<html>
-	 *<body>
-	 *	<article>
-	 *		<h1>Bananas</h1>
-	 *		<p>An excellent source of potassium/</p>
-	 *	</article>
-	 *</body>
-	 *</html>
+	 * <p><hr><blockquote><pre>
+	 * {@code
+	 * <html>
+	 * <body>
+	 * 	<article>
+	 * 		<h1>Bananas</h1>
+	 * 		<p>An excellent source of potassium/</p>
+	 * 	</article>
+	 * </body>
+	 * </html>
 	 * }
-	 *</p></blockquote></pre><hr>
+	 * </p></blockquote></pre><hr>
 	 *
-	 *<p>A technique get the text of both the header and text from both pages is: </p>
+	 * <p>A technique get the text of both the header and text from both pages is: </p>
 	 *
 	 *
-	 *<p><hr><blockquote><pre>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("pagination");
+	 * <p><hr><blockquote><pre>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("pagination");
 	 *
-	 //	first column will return header text
-	 *entity.addField("header").match("h1").containedBy("article").getText();
-	 //	second column will return text in p
-	 *entity.addField("text").match("p").containedBy("article").getText();
-
-	 *entities.configurePaginator().setNextPage().match("a").containedBy("article").getAttribute("href");
-	 *</p></blockquote></pre><hr>
+	 * //	first column will return header text
+	 * entity.addField("header").match("h1").containedBy("article").getText();
+	 * //	second column will return text in p
+	 * entity.addField("text").match("p").containedBy("article").getText();
+	 *
+	 * entities.configurePaginator().setNextPage().match("a").containedBy("article").getAttribute("href");
+	 * </p></blockquote></pre><hr>
 	 *
 	 * <p>When the parser runs, it will parse the first page, getting [Water: The Truth, It's good for you!]. The
 	 * paginator will then run, accessing the link's URL provided by the href attribute and opening the next page. The
@@ -180,7 +178,6 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 
-
 	/**
 	 * Creates a new group for the paginator.
 	 *
@@ -191,11 +188,34 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Returns the field names used by the Paginator
+	 * Defines the ideal page size the paginator should try to set the page size to when attempting to access paginated
+	 * content. You might want to provide a page size explicitly if the resource you are trying to access it too large
+	 * and your requests are failing/timing out.
 	 *
-	 * @return a String array of field names
+	 * You must configure the concrete {@code Paginator} implementation to use a "pageSize" field before using this method.
+	 *
+	 * @param pageSize the ideal page size
 	 */
-	public Set<String> getFieldNames() {
-		return entitySettings.getFieldNames();
+	public final void setIdealPageSize(int pageSize) {
+		if (!getFieldNames().contains("pageSize")) {
+			throw new IllegalConfigurationException("Paginator does not have a 'pageSize' field defined.");
+		}
+		this.idealPageSize = pageSize;
+	}
+
+	/**
+	 * Returns the configured ideal page size the paginator should try to set the page size to when attempting to access paginated
+	 * content. You might want to provide a page size explicitly if the resource you are trying to access it too large
+	 * and your requests are failing/timing out.
+	 *
+	 * You must configure the concrete {@code Paginator} implementation to use a "pageSize" field before using this method.
+	 *
+	 * @return the ideal page size
+	 */
+	public final int getIdealPageSize() {
+		if (!getFieldNames().contains("pageSize")) {
+			throw new IllegalConfigurationException("Paginator does not have a 'pageSize' field defined.");
+		}
+		return idealPageSize;
 	}
 }
