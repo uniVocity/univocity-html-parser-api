@@ -3,18 +3,42 @@ package com.univocity.api.entity.html.builders.annotations;
 import java.lang.annotation.*;
 
 /**
- * Created by anthony on 14/09/16.
+ * Basic annotation used internally to classify methods of the public API based on their purpose.
+ *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface Matcher {
-	enum Type {WITH_TEXT, //methods that deal with text inside of element
-		ATTRIBUTE, //methods that deal with an element's attributes
-		TABLE, //methods that are only applicable in a table
-		GETTERS,  //methods that return data
-		NEIGHBOUR, //methods that deal with elements/text in the element preceding/following the current element
-		INSIDE, //methods that concern of elements inside of the specified element (e.g containing/parentof)
-		PARENTS //methods that deal with element(s) that contain the specified element (e.g containedBy, childOf)
+	enum Type {
+		/**
+		 * methods that deal with text inside of an element
+		 */
+		WITH_TEXT,
+		/**
+		 * methods that deal with an element's attributes
+		 */
+		ATTRIBUTE,
+		/**
+		 * methods that are only applicable in a tables
+		 */
+		TABLE,
+		/**
+		 * methods that return data
+		 */
+		GETTERS,
+		/**
+		 * methods that deal with elements/text in the element preceding/following the current element
+		 */
+		NEIGHBOUR,
+		/**
+		 * methods that concern of elements inside of the specified element (e.g containing/parentof)
+		 */
+		INSIDE,
+		/**
+		 * methods that deal with element(s) that contain the specified element (e.g containedBy, childOf)
+		 */
+		PARENTS
 	}
 	Type type();
 }
