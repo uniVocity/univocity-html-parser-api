@@ -91,7 +91,7 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 	 * @return the {@link HtmlPaginator} stored within the HtmlEntityList
 	 */
 	public HtmlPaginator getPaginator() {
-		return (HtmlPaginator) paginator;
+		return (HtmlPaginator) super.getPaginator();
 	}
 
 	/**
