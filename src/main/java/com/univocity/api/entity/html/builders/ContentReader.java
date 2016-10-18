@@ -145,12 +145,12 @@ public interface ContentReader {
 
 
 	/**
-	 * Specifies that the parser will return the text in the table row above the current element that contains the
-	 * given text. Only applicable to tables. It is best used for when:
+	 * Specifies that the parser will return the content of a row, given it contains some expected text,
+	 * above a matched element. Only applicable to tables. It is best used for when:
 	 * <ol>
-	 * <li>Text needs to be parsed from a row above</li>
+	 * <li>Text needs to be parsed from the column of some row above the matched element</li>
 	 * <li>The number of rows above is variable or not known <strong>AND</strong>  </li>
-	 * <li>There is a known set of possible strings that the above element can contain.  </li>
+	 * <li>There is a known set of possible strings that one of the rows above the matched element can contain.</li>
 	 *
 	 * </ol>
 	 * For example, given these mismatching tables in a HTML document:
@@ -174,7 +174,7 @@ public interface ContentReader {
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntity entity = entities.configureEntity("test");
 	 *
-	 * //Creates path to both "Name" th elements
+	 * //Creates path to any "Name" th elements
 	 * PartialPath path = entity.newPath().match("th").withText("Name");
 	 *
 	 *  //Matches each td in name row and gets the text
@@ -184,12 +184,14 @@ public interface ContentReader {
 	 * path.addField("gender").match("td").getTextAbove("Male", "Female");
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 * <p>The code snippet above creates a path to the "Name" th element. It then creates two fields. Both fields
-	 * matches every td element next to the "Name" element. The first field simply returns the text inside the td element.
-	 * The second field searches the td's above the matched td until it finds "Male" <strong>OR</strong> "Female" and returns it.</p>
+	 * <p>The code snippet above creates a path that matches th elements with text = "Name".
+	 * From this path, it creates two fields: "name" and "gender", so each field starts matching every td element next
+	 * to a "Name" th element.
+	 * The "name" field simply matches the next td element returns the text inside it.
+	 * The "gender" field matches the next td element, and then looks for rows above it that contain
+	 * "Male" <strong>OR</strong> "Female" in the corresponding column, returning its text.</p>
 	 *
 	 * <p>The output that will return is:</p>
-	 *
 	 *
 	 * <p><hr><blockquote><pre><code>
 	 * [Steven, Male]
@@ -198,8 +200,8 @@ public interface ContentReader {
 	 * [Bob, Male]
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 * @param firstAlternative  The text that the parser will attempt to match in a row above
-	 * @param otherAlternatives Optional extra strings that the parser will look for in an above row
+	 * @param firstAlternative  The text that the parser will attempt to find and grab in a row above the matched element
+	 * @param otherAlternatives Optional extra strings to look for.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
 	void getTextAbove(String firstAlternative, String... otherAlternatives);
@@ -209,9 +211,8 @@ public interface ContentReader {
 	 * say a field is added to an entity and the path is set to get text from a {@code <td>} tag. When the parser runs and hits
 	 * {@code <td>goober<td>}, the parser will return the text inside the html tag, which is: "goober".
 	 *
-	 * <p>When get text is applied to an element that has children elements, each with their own text. It will combine
-	 * the text into one string, with a space separating each element. An example can be shown by viewing the HTML
-	 * document below:</p>
+	 * <p>When this method is applied to an element that has children elements, each with their own text, it will combine
+	 * everything into one string, with a space separating the text of each element. For example:</p>
 	 *
 	 * <p><hr><blockquote><pre><code>
 	 * <div>
@@ -221,14 +222,14 @@ public interface ContentReader {
 	 * </div>
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 * <p>If getText() is ran on the {@code <div>} element, the parer return "The Title Text More Words".</p>
+	 * The following code should provide the "The Title Text More Words" {@code String} for an "allText" field when
+	 * the parser is run.
 	 */
 	void getText();
 
 	/**
-	 * Specifies that the parser will return the text contained within the HTML element defined by the path <strong>plus</strong>
-	 * the text in the specified amount of <strong>following</strong> siblings. An example of using this can be shown by the
-	 * following HTML:
+	 * Specifies that the parser will return the text contained within the HTML elements matched by the path <strong>plus</strong>
+	 * the text in the specified amount of <strong>following</strong> siblings. For example:
 	 *
 	 * <p><hr><blockquote><pre><code>
 	 * {@code <div>
@@ -247,24 +248,24 @@ public interface ContentReader {
 	 * entity.addField("text").match("p").precededBy("h1").getText(1);
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 * <p>What this code snippet does, is it creates a path to the first p element (as the element is preceded by a h1
-	 * element), then the parser gets text of the first p element and it's following sibling, which is the second p element.
-	 * The footer text is ignored as it is 2 siblings away from the targeted p element.
+	 * <p>This code snippet creates a path to the first p element (the one preceded by a h1 element),
+	 * then the parser gets the text of this first p element and includes the text of <strong>one</string> next sibling,
+	 * which is the second p element. The footer text is ignored as it is 2 siblings away from the targeted p element.
 	 * </p>
 	 *
 	 * <p>Setting the number of siblings to <= 0 is the equivalent of using {@link #getText()}.</p>
 	 *
-	 * @param numberOfSiblingsToInclude the number of following siblings from current element that the text will be returned from
+	 * @param numberOfSiblingsToInclude number of following siblings from the matched element whose text should be returned
 	 */
 	void getText(int numberOfSiblingsToInclude);
 
 	/**
 	 * Specifies that the parser will download content contained within the attribute of the HTML element defined by the
-	 * path. This is useful for downloading binary files such as images and videos stored as 'src' attributes.
+	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
 	 *
 	 * <p>Content will be downloaded to the directory specified by
-	 * {@link HtmlParserSettings#setDownloadContentDirectory(File)}. If download directory not set, the content will be
-	 * stored in a temporary directory.</p>
+	 * {@link HtmlParserSettings#setDownloadContentDirectory(File)}. If the download directory is not set, the content
+	 * will be stored in a temporary directory.</p>
 	 *
 	 * @param attributeName the name of the attribute where the value of which will be used to define the content that
 	 *                      will be downloaded.
@@ -289,7 +290,7 @@ public interface ContentReader {
 	void getPrecedingText();
 
 	/**
-	 * Gets the text from the specified number of HTML elements placed before the element that is described in the path.
+	 * Gets the text from the specified number of HTML elements placed before the element that is matched by the path.
 	 * For example, given this HTML: {@code <h1>header</h1><p>more</p><p>text</p><footer>feet</footer>} a way to get
 	 * the text of everything before the footer and after the h1 is:
 	 *
@@ -299,7 +300,7 @@ public interface ContentReader {
 	 * entity.addField("fieldName").match("footer").getPrecedingText(2);
 	 * </p></pre></blockquote><hr>
 	 *
-	 * <p>This will return "textmore" as the first p element is the first sibling, and the second p element is the second
+	 * <p>This will return "more text" as the first p element is the first sibling, and the second p element is the second
 	 * sibling. As the h1 element is third sibling, it is ignored by the parser. </p>
 	 *
 	 * @param numberOfSiblingsToInclude the number of elements preceding the element defined in the path that the text will
@@ -309,7 +310,7 @@ public interface ContentReader {
 	void getPrecedingText(int numberOfSiblingsToInclude);
 
 	/**
-	 * Gets the text from the HTML element that is placed directly after the HTML element specified by the path. For
+	 * Gets the text from the HTML element that is placed directly after the HTML elements matched by the path. For
 	 * instance, given an HTML document that looks like {@code '<div>before<span>hello</span>after<p>text</p></div>'},
 	 * a way to get the text just after the span element is:
 	 *
@@ -335,7 +336,7 @@ public interface ContentReader {
 	 * entity.addField("fieldName").match("h1").getFollowingText(2);
 	 * </p></pre></blockquote><hr>
 	 *
-	 * <p>The parser will return "textfeet" as the first p element is the first sibling and the footer element is the
+	 * <p>The parser will return "text feet" as the first p element is the first sibling and the footer element is the
 	 * second sibling. As the last p element is the 3rd sibling, it lies outside the range of the matching rules and will
 	 * be ignored.</p>
 	 *
@@ -346,7 +347,7 @@ public interface ContentReader {
 	void getFollowingText(int numberOfSiblingsToInclude);
 
 	/**
-	 * Specifies that the parser will return the value defined by the attribute of the HTML element defined by the path.
+	 * Specifies that the parser will return the value defined by the attribute of the HTML elements defined by the path.
 	 * For example, a field is added to an entity and the path is set to get href values of links (&lt;a>). When the
 	 * parser runs and hits &lt;a href="https://www.google.com">a link&lt;/a>, the parser will return
 	 * "https://www.google.com".
