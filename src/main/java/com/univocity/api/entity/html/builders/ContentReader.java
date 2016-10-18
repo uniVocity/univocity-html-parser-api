@@ -12,81 +12,90 @@ import com.univocity.api.entity.html.builders.annotations.*;
 import java.io.*;
 
 /**
- * This class defines what content will be read from a {@link FieldPath} by the {@link HtmlParser}. This is the final
- * step of creating a path.
+ * A {@code ContentReader} defines what content will be read from a {@link FieldPath} by the {@link HtmlParser}. This is the final
+ * step of creating a path to a field created for an entity (using {@link HtmlEntitySettings}).
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public interface ContentReader {
 	/**
-	 * Used to get the text of a table data's header. For example, given a HTML document like this:
+	 * Used to get the text of a table header above a matched element. For example, given a HTML document like this:
 	 *
 	 * <p><hr><blockquote><pre><code>
-	 *<table>
-     *<tr>
-	 *	<th>a</th>
-	 *	<th>b</th>
-	 *	<th>c</th>
-     *</tr>
-     *<tr>
-	 *	<td>first</td>
- 	 *	<td>second</td>
-	 *	<td>third</td>
-	 *</tr>
+	 * <table>
+	 * <tr>
+	 * 	<th>a</th>
+	 * 	<th>b</th>
+	 * 	<th>c</th>
+	 * </tr>
+	 * <tr>
+	 * 	<td>first</td>
+	 * 	<td>second</td>
+	 * 	<td>third</td>
+	 * </tr>
 	 * </table>
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 * <p>A technique to get the table headers is to have these parsing rules: </p>
+	 * <p>To capture the header of column with text "second", a matching rule can be defined as:</p>
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("tableHeader").match("table").match("td").withText("second").getHeadingText();
+	 * </p></pre></blockquote><hr>
+	 *
+	 * <p>A technique to get all table headers is to have these matching rules: </p>
+	 *
+	 * <p><hr><blockquote><pre>
 	 * entity.addField("tableHeader").match("table").match("td").getHeadingText();
 	 * </p></pre></blockquote><hr>
 	 *
-	 * <p>When run through the parser, the parser will return each table header (a,b,c) in a separate row</p>
+	 * <p>The parser will return each table header ({@code a},{@code b} and {@code c})
+	 * in a separate row of entity {@code test}</p>
 	 */
-	@Matcher( type = Matcher.Type.TABLE)
+	@Matcher(type = Matcher.Type.TABLE)
 	void getHeadingText();
 
 	/**
-	 * Gets the text of the table heading that is at the given index. For example, given this HTML document:
+	 * Captures the text of a row above a matched element, where the position of that row is at a fixed position,
+	 * relative to the start of the table. For example, given this HTML document:
 	 *
 	 * <p><hr><blockquote><pre><code>
-	 *<table>
-	 *	<tr> <th>Top header</th> </tr>
-	 *	<tr> <th>Middle Header</th></tr>
-	 *	<tr> <th>Bottom Header</th></tr>
-	 *	<tr> <td>A boring row</td></tr>
-	 </table>
+	 * <table>
+	 * 	<tr> <td>Top header</td> </tr>
+	 * 	<tr> <td>Middle Header</td></tr>
+	 * 	<tr> <td>Bottom Header</td></tr>
+	 * 	<tr> <td>A boring row</td></tr>
+	 * </table>
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 *<p>A technique of getting the text of the 2nd header is:</p>
+	 * <p>A technique of getting the text of the 3rd header is:</p>
 	 *
 	 * <p><hr><blockquote><pre><code>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
-	 *entity.addField("fieldName").match("td").getHeadingText(2);
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("fieldName").match("td").withText("A boring row").getHeadingText(3);
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 * <p>The parser will return "Middle Header" as it is at the second heading index.</p>
+	 * <p>The parser will return "Bottom Header" as it is at the third row of the table.</p>
 	 *
-	 * @param headingRowIndex the index of the row that the text will be returned from
+	 * @param headingRowIndex index of the row whose text at the column above the matched element
+	 *                        will be returned from
 	 */
-	@Matcher( type = Matcher.Type.TABLE)
+	@Matcher(type = Matcher.Type.TABLE)
 	void getHeadingText(int headingRowIndex);
 
 	/**
 	 * Specifies that the parser will return the text contained in the HTML element above the HTML element defined by
 	 * the path. Only applicable to tables. For example, given the HTML document of:
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *<table>
-	 *<tr> <th>heading1</th> <th>heading2</th> </tr>
-	 *<tr> <td>one</td> <td>two</td> </tr>
-	 *<tr> <td>a</td> <td>ab</td> </tr>
-	 *</table>
-	 *</p></pre></blockquote><hr></code>
+	 * <p><hr><blockquote><pre><code>
+	 * <table>
+	 * <tr> <th>heading1</th> <th>heading2</th> </tr>
+	 * <tr> <td>one</td> <td>two</td> </tr>
+	 * <tr> <td>a</td> <td>ab</td> </tr>
+	 * </table>
+	 * </p></pre></blockquote><hr></code>
 	 *
 	 * <p>One technique to return the second row would be: </p>
 	 *
@@ -94,102 +103,106 @@ public interface ContentReader {
 	 * entity.addField("tableHeader").match("td").withText("a*").getTextAbove();
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 * <p>Which describes: get the text above 'td' elements that contains text starting with 'a'. When the parser runs,
-	 * it will return  'one' and 'two'.</p>
+	 * <p>Which describes: match 'td' elements containing text starting with 'a', then get the text from the element at
+	 * the same column in the row above.
+	 *
+	 * When the parser runs, it will return two records with field "tableHeader" populated with values
+	 * 'one' and 'two', respectively.</p>
 	 */
-	@Matcher( type = Matcher.Type.TABLE)
+	@Matcher(type = Matcher.Type.TABLE)
 	void getTextAbove();
 
 	/**
-	 * Specifies that the parser will return all the text contained in the HTML element at the specified distance above
-	 * the HTML element specified by the path. Only applicable to tables. For example, given the HTML document of:
+	 * Specifies that the parser will return the text contained in the HTML element at a given distance above
+	 * a matched element. Only applicable to tables. For example, given the HTML document of:
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *<table>
-	 *<tr> <th>Name</th> <th>Number</th> </tr>
-	 *<tr> <td>Adam</td> <td>143</td> </tr>
-	 *<tr> <td>Bob</td> <td>222</td> </tr>
-	 *<tr> <td>Charlie</td> <td>973</td> </tr>
-	 *</p></pre></blockquote><hr></code>
-	 *</table>
+	 * <p><hr><blockquote><pre><code>
+	 * <table>
+	 * <tr> <th>Name</th> <th>Number</th> </tr>
+	 * <tr> <td>Adam</td> <td>143</td> </tr>
+	 * <tr> <td>Bob</td> <td>222</td> </tr>
+	 * <tr> <td>Charlie</td> <td>973</td> </tr>
+	 * </p></pre></blockquote><hr></code>
+	 * </table>
 	 *
-	 *<p>A technique to get the text from the second row's number field is:</p>
+	 * <p>A technique to get the text from the second row's Number field is:</p>
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
-	 *entity.addField("text").match("td").precededBy("td").withText("c*").getTextAbove(2);
-	 *</p></pre></blockquote><hr></code>
+	 * <p><hr><blockquote><pre><code>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("text").match("td").precededBy("td").withText("Charlie").getTextAbove(2);
+	 * </p></pre></blockquote><hr></code>
 	 *
-	 * <p>The matching rules, described in english, is match the td that has a td with text starting with "c" before it.
-	 * This targets the td with '973' in it. Then, the rules state to get the text from the element that is 2 elements above.
+	 * <p>The matching rule, described in English, is: match the td that has a td with text "Charlie" before it.
+	 * This targets the td with '973' in it. Then, the rule states: get the text from the element that is 2 rows above.
 	 * When the parser runs, it will return '143'.</p>
 	 *
-	 * @param numberOfElementsAbove the text will be returned from the HTML element this number of elements above from
-	 *                              the current HTML element
+	 * @param numberOfRowsAbove the number of rows above a matched element whose text, at the corresponding column,
+	 *                          will be returned.
 	 */
-	@Matcher( type = Matcher.Type.TABLE)
-	void getTextAbove(int numberOfElementsAbove);
+	@Matcher(type = Matcher.Type.TABLE)
+	void getTextAbove(int numberOfRowsAbove);
 
 
 	/**
 	 * Specifies that the parser will return the text in the table row above the current element that contains the
 	 * given text. Only applicable to tables. It is best used for when:
 	 * <ol>
-	 *  <li>Text needs to be parsed from a row above</li>
-	 *  <li>The number of rows above is variable or not known <strong>AND</strong>  </li>
-	 *  <li>There is a known set of possible strings that the above element can contain.  </li>
+	 * <li>Text needs to be parsed from a row above</li>
+	 * <li>The number of rows above is variable or not known <strong>AND</strong>  </li>
+	 * <li>There is a known set of possible strings that the above element can contain.  </li>
 	 *
 	 * </ol>
 	 * For example, given these mismatching tables in a HTML document:
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *<table>
-	 *	<tr> <th>Gender</th> <td>Male</td>  <td>Female</td> </tr>
-	 *	<tr> <th>Age</th> <td>41</td>  <td>36</td></tr>
-	 *	<tr> <th>Name</th>  <td>Steven</td> <td>Mandy</td> </tr>
+	 * <p><hr><blockquote><pre><code>
+	 * <table>
+	 * 	<tr> <th>Gender</th> <td>Male</td>  <td>Female</td> </tr>
+	 * 	<tr> <th>Age</th> <td>41</td>  <td>36</td></tr>
+	 * 	<tr> <th>Name</th>  <td>Steven</td> <td>Mandy</td> </tr>
 	 * </table>
 	 * <table>
-	 *	 <tr> <th>Age</th> <td>38</td>  <td>24</td></tr>
-	 *	 <tr> <th>Gender</th> <td>Female</td>  <td>Male</td> </tr>
-	 *	 <tr> <th>Name</th>  <td>Sarah</td> <td>Bob</td> </tr>
+	 * 	 <tr> <th>Age</th> <td>38</td>  <td>24</td></tr>
+	 * 	 <tr> <th>Gender</th> <td>Female</td>  <td>Male</td> </tr>
+	 * 	 <tr> <th>Name</th>  <td>Sarah</td> <td>Bob</td> </tr>
 	 * </table>
-	 *</p></pre></blockquote><hr></code>
+	 * </p></pre></blockquote><hr></code>
 	 *
 	 * <p>A technique to get the name and gender of each person in both tables is: </p>
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
+	 * <p><hr><blockquote><pre><code>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
 	 *
 	 * //Creates path to both "Name" th elements
-	 *PartialPath path = entity.newPath().match("th").withText("Name");
+	 * PartialPath path = entity.newPath().match("th").withText("Name");
 	 *
 	 *  //Matches each td in name row and gets the text
-	 *path.addField("name").match("td").getText();
+	 * path.addField("name").match("td").getText();
 	 *
 	 * //Matches td in above row that contains "Male" or "Female" and gets the text
-	 *path.addField("gender").match("td").getTextAbove("Male", "Female");
-	 *</p></pre></blockquote><hr></code>
+	 * path.addField("gender").match("td").getTextAbove("Male", "Female");
+	 * </p></pre></blockquote><hr></code>
 	 *
-	 *<p>The code snippet above creates a path to the "Name" th element. It then creates two fields. Both fields
+	 * <p>The code snippet above creates a path to the "Name" th element. It then creates two fields. Both fields
 	 * matches every td element next to the "Name" element. The first field simply returns the text inside the td element.
 	 * The second field searches the td's above the matched td until it finds "Male" <strong>OR</strong> "Female" and returns it.</p>
 	 *
-	 *<p>The output that will return is:</p>
+	 * <p>The output that will return is:</p>
 	 *
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *[Steven, Male]
-	 *[Mandy, Female]
-	 *[Sarah, Female]
-	 *[Bob, Male]
-	 *</p></pre></blockquote><hr></code>
-	 * @param firstAlternative The text that the parser will attempt to match in a row above
+	 * <p><hr><blockquote><pre><code>
+	 * [Steven, Male]
+	 * [Mandy, Female]
+	 * [Sarah, Female]
+	 * [Bob, Male]
+	 * </p></pre></blockquote><hr></code>
+	 *
+	 * @param firstAlternative  The text that the parser will attempt to match in a row above
 	 * @param otherAlternatives Optional extra strings that the parser will look for in an above row
 	 */
-	@Matcher( type = Matcher.Type.TABLE)
-	void getTextAbove(String firstAlternative, String ... otherAlternatives);
+	@Matcher(type = Matcher.Type.TABLE)
+	void getTextAbove(String firstAlternative, String... otherAlternatives);
 
 	/**
 	 * Specifies that the parser will return the text contained within the HTML element defined by the path. For instance,
@@ -200,13 +213,13 @@ public interface ContentReader {
 	 * the text into one string, with a space separating each element. An example can be shown by viewing the HTML
 	 * document below:</p>
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *<div>
-	 *	<h1>The Title</h1>
-	 *	<p>Text</p>
-	 *	<p>More Words</p>
-	 *</div>
-	 *</p></pre></blockquote><hr></code>
+	 * <p><hr><blockquote><pre><code>
+	 * <div>
+	 * 	<h1>The Title</h1>
+	 * 	<p>Text</p>
+	 * 	<p>More Words</p>
+	 * </div>
+	 * </p></pre></blockquote><hr></code>
 	 *
 	 * <p>If getText() is ran on the {@code <div>} element, the parer return "The Title Text More Words".</p>
 	 */
@@ -217,8 +230,8 @@ public interface ContentReader {
 	 * the text in the specified amount of <strong>following</strong> siblings. An example of using this can be shown by the
 	 * following HTML:
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *{@code <div>
+	 * <p><hr><blockquote><pre><code>
+	 * {@code <div>
 	 *     <h1>title</h1>
 	 *     <p>Cool Text</p>
 	 *     <p>More Cool Text</p>
@@ -226,15 +239,15 @@ public interface ContentReader {
 	 * </div> }
 	 * </p></pre></blockquote><hr></code>
 	 *
-	 *<p>A technique to get the text of both the p elements is:</p>
+	 * <p>A technique to get the text of both the p elements is:</p>
 	 *
-	 *<p><hr><blockquote><pre><code>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
-	 *entity.addField("text").match("p").precededBy("h1").getText(1);
-	 *</p></pre></blockquote><hr></code>
+	 * <p><hr><blockquote><pre><code>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("text").match("p").precededBy("h1").getText(1);
+	 * </p></pre></blockquote><hr></code>
 	 *
-	 *<p>What this code snippet does, is it creates a path to the first p element (as the element is preceded by a h1
+	 * <p>What this code snippet does, is it creates a path to the first p element (as the element is preceded by a h1
 	 * element), then the parser gets text of the first p element and it's following sibling, which is the second p element.
 	 * The footer text is ignored as it is 2 siblings away from the targeted p element.
 	 * </p>
@@ -256,7 +269,7 @@ public interface ContentReader {
 	 * @param attributeName the name of the attribute where the value of which will be used to define the content that
 	 *                      will be downloaded.
 	 */
-	@Matcher( type = Matcher.Type.ATTRIBUTE)
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	void getContentFrom(String attributeName);
 
 	/**
@@ -265,14 +278,14 @@ public interface ContentReader {
 	 * a way to get the text just before the span element is:
 	 *
 	 * <p><hr><blockquote><pre>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
-	 *entity.addField("preceding").match("span").getPrecedingText();
-	 *</p></pre></blockquote><hr>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("preceding").match("span").getPrecedingText();
+	 * </p></pre></blockquote><hr>
 	 *
 	 * <p>When the parser runs, it will return "before"</p>
 	 */
-	@Matcher( type = Matcher.Type.NEIGHBOUR)
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	void getPrecedingText();
 
 	/**
@@ -281,18 +294,18 @@ public interface ContentReader {
 	 * the text of everything before the footer and after the h1 is:
 	 *
 	 * <p><hr><blockquote><pre>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
-	 *entity.addField("fieldName").match("footer").getPrecedingText(2);
-	 *</p></pre></blockquote><hr>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("fieldName").match("footer").getPrecedingText(2);
+	 * </p></pre></blockquote><hr>
 	 *
-	 *<p>This will return "textmore" as the first p element is the first sibling, and the second p element is the second
+	 * <p>This will return "textmore" as the first p element is the first sibling, and the second p element is the second
 	 * sibling. As the h1 element is third sibling, it is ignored by the parser. </p>
 	 *
 	 * @param numberOfSiblingsToInclude the number of elements preceding the element defined in the path that the text will
 	 *                                  be returned from
 	 */
-	@Matcher( type = Matcher.Type.NEIGHBOUR)
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	void getPrecedingText(int numberOfSiblingsToInclude);
 
 	/**
@@ -301,14 +314,14 @@ public interface ContentReader {
 	 * a way to get the text just after the span element is:
 	 *
 	 * <p><hr><blockquote><pre>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
-	 *entity.addField("following").match("span").getFollowingText();
-	 *</p></pre></blockquote><hr>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("following").match("span").getFollowingText();
+	 * </p></pre></blockquote><hr>
 	 *
 	 * <p>When the parser runs, it will return "after".</p>
 	 */
-	@Matcher( type = Matcher.Type.NEIGHBOUR)
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	void getFollowingText();
 
 	/**
@@ -317,19 +330,19 @@ public interface ContentReader {
 	 * A technique to get the text of everything after the h1 element and before the last p element would be to write:
 	 *
 	 * <p><hr><blockquote><pre>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
-	 *entity.addField("fieldName").match("h1").getFollowingText(2);
-	 *</p></pre></blockquote><hr>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("fieldName").match("h1").getFollowingText(2);
+	 * </p></pre></blockquote><hr>
 	 *
-	 *<p>The parser will return "textfeet" as the first p element is the first sibling and the footer element is the
+	 * <p>The parser will return "textfeet" as the first p element is the first sibling and the footer element is the
 	 * second sibling. As the last p element is the 3rd sibling, it lies outside the range of the matching rules and will
 	 * be ignored.</p>
 	 *
 	 * @param numberOfSiblingsToInclude the number of elements following the element defined in the path that the text will
 	 *                                  be returned from
 	 */
-	@Matcher( type = Matcher.Type.NEIGHBOUR)
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	void getFollowingText(int numberOfSiblingsToInclude);
 
 	/**
@@ -341,6 +354,6 @@ public interface ContentReader {
 	 * @param attributeName the name of the attribute of the element defined by the {@link FieldPath} where the value of
 	 *                      the attribute will be returned by the parser.
 	 */
-	@Matcher( type = Matcher.Type.ATTRIBUTE)
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	void getAttribute(String attributeName);
 }
