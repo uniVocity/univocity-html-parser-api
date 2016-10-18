@@ -10,6 +10,8 @@ import com.univocity.api.entity.html.builders.*;
 import com.univocity.api.exception.*;
 import com.univocity.parsers.remote.*;
 
+import java.util.*;
+
 /**
  * Used by the {@link HtmlParser} to follow pages on a website.
  *
@@ -20,6 +22,7 @@ import com.univocity.parsers.remote.*;
  */
 public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
+	public static Set<String> RESERVED_NAMES = new HashSet<String>(Arrays.asList("nextPage", "previousPage", "pageSize", "firstPage", "lastPage", "itemCount"));
 	private int idealPageSize;
 
 	/**
