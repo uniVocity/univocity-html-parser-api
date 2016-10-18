@@ -9,6 +9,5 @@ package com.univocity.api.entity.html.builders;
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface PartialHtmlPath extends BaseHtmlPath<PartialHtmlPath>, PartialHtmlPathStart, FieldAdder, CopyAndAddTrigger {
-
+public interface FieldPath extends ElementFilter<FieldPath>, ContentReader, PathStart {
 }

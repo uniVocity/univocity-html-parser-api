@@ -49,7 +49,7 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Creates a new field for the next page and returns a {@link HtmlPathStart} which can be used to define the path
+	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
 	 * to the next page element. The next page is a HTML element that changes the current page to the next page in series.
 	 * When the parser runs and completes the parsing of the page, the parser will 'click' on the next page element
 	 * and parse that page. The parser will continue to access the next page until the next page element does not
@@ -108,71 +108,71 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * link element on this page, the paginator will be unable to run and the parsing will finish, returning all the
 	 * values that were parsed.</p>
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the element
+	 * @return a {@link PathStart} is used to define the path to the element
 	 */
-	public HtmlPathStart setNextPage() {
+	public PathStart setNextPage() {
 		return entitySettings.addField("nextPage");
 	}
 
 	/**
-	 * Creates a new field for the next page and returns a {@link HtmlPathStart} which can be used to define the path
+	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
 	 * to the 'previous page' element. The previous page is a HTML element that changes the current page to the previous
 	 * page in series.
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the  element
+	 * @return a {@link PathStart} is used to define the path to the  element
 	 */
-	public HtmlPathStart setPreviousPage() {
+	public PathStart setPreviousPage() {
 		return entitySettings.addField("previousPage");
 	}
 
 	/**
-	 * Creates a new field for the next page and returns a {@link HtmlPathStart} which can be used to define the path
+	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
 	 * to the 'first page' element. The first page is a HTML element that changes the current page to the first page
 	 * in series.
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the  element
+	 * @return a {@link PathStart} is used to define the path to the  element
 	 */
-	public HtmlPathStart setFirstPage() {
+	public PathStart setFirstPage() {
 		return entitySettings.addField("firstPage");
 	}
 
 	/**
-	 * Creates a new field for the next page and returns a {@link HtmlPathStart} which can be used to define the path
+	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
 	 * to the 'last page' element. The last page is a HTML element that changes the current page to the last page
 	 * in series.
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the  element
+	 * @return a {@link PathStart} is used to define the path to the  element
 	 */
-	public HtmlPathStart setLastPage() {
+	public PathStart setLastPage() {
 		return entitySettings.addField("lastPage");
 	}
 
 	/**
-	 * Creates a new field for the next page and returns a {@link HtmlPathStart} which can be used to define the path
+	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
 	 * to the 'last page' element. The last page is a HTML element that changes the current page to the last page
 	 * in series.
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the element
+	 * @return a {@link PathStart} is used to define the path to the element
 	 */
-	public HtmlPathStart setPageSize() {
+	public PathStart setPageSize() {
 		return entitySettings.addField("pageSize");
 	}
 
 	//is this pagesize?
-	public HtmlPathStart setItemCount() {
+	public PathStart setItemCount() {
 		return entitySettings.addField("itemCount");
 	}
 
 
 	/**
-	 * Creates a new request parameter and returns a {@link HtmlPathStart} that allows the user to define path to the
+	 * Creates a new request parameter and returns a {@link PathStart} that allows the user to define path to the
 	 * parameter. Request parameters are values set on a page that control what content is displayed.
 	 *
 	 * @param fieldName the name of the request parameter
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the parameter
+	 * @return a {@link PathStart} is used to define the path to the parameter
 	 */
-	public HtmlPathStart addRequestParameter(String fieldName) {
+	public PathStart addRequestParameter(String fieldName) {
 		//return entity.addRequestParameter(fieldName); //FIXME
 		return null;
 	}
@@ -181,9 +181,9 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	/**
 	 * Creates a new group for the paginator.
 	 *
-	 * @return a {@link PaginationHtmlGroupStart}
+	 * @return a {@link PaginationGroupStart}
 	 */
-	public PaginationHtmlGroupStart newGroup() {
+	public PaginationGroupStart newGroup() {
 		return entitySettings.newPaginationGroup();
 	}
 

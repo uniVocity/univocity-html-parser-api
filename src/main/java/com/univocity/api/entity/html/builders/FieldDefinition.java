@@ -8,16 +8,16 @@ package com.univocity.api.entity.html.builders;
 
 /**
  * An interface used to facilitate the adding of fields for {@link com.univocity.api.entity.html.HtmlEntity}'s and
- * {@link HtmlGroup}s
+ * {@link Group}s
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  *
- * @see HtmlGroup
+ * @see Group
  * @see com.univocity.api.entity.html.HtmlEntity
  */
-public interface FieldAdder {
+public interface FieldDefinition {
 	/**
-	 * The name of the column. This method returns a {@link HtmlPathStart}, which allows the specification of a HTML
+	 * The name of the column. This method returns a {@link PathStart}, which allows the specification of a HTML
 	 * path that defines what HTML data will be returned when the parser runs. For example, you could define a field
 	 * called "headings", match "H1" elements and get the text. When the parser runs, the headings in the HTML document will be returned
 	 * and be available in the field "headings".
@@ -28,9 +28,9 @@ public interface FieldAdder {
 	 *
 	 * @param fieldName The name the field will be called
 	 *
-	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
+	 * @return a {@link PathStart}, so that a path to the HTML element can be defined
 	 */
-	HtmlPathStart addField(String fieldName);
+	PathStart addField(String fieldName);
 
 	/**
 	 * A persistent field is a field that when a value is found, will insert the found value in subsequent rows, even if
@@ -78,9 +78,9 @@ public interface FieldAdder {
 	 * value. </p>
 	 *
 	 * @param fieldName a string that identify's the field
-	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
+	 * @return a {@link PathStart}, so that a path to the HTML element can be defined
 	 */
-	HtmlPathStart addPersistentField(String fieldName);
+	PathStart addPersistentField(String fieldName);
 
 	/**
 	 * A silent field is a field that when a new value is found, does not trigger a new row to be generated. If a value
@@ -113,9 +113,9 @@ public interface FieldAdder {
 	 * 'addSilentField', two rows would be produced [first, lorem] and [second, null]</p>
 	 *
 	 * @param fieldName a string that identifies the field
-	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
+	 * @return a {@link PathStart}, so that a path to the HTML element can be defined
 	 */
-	HtmlPathStart addSilentField(String fieldName);
+	PathStart addSilentField(String fieldName);
 
 	/**
 	 * A silent persistent field is a field that  will not cause new rows to generated when a new value is found and the
@@ -162,9 +162,9 @@ public interface FieldAdder {
 	 *</p></blockquote></pre><hr>
 	 *
 	 * @param fieldName a string that identifies the field
-	 * @return a {@link HtmlPathStart}, so that a path to the HTML element can be defined
+	 * @return a {@link PathStart}, so that a path to the HTML element can be defined
 	 */
-	HtmlPathStart addSilentPersistentField(String fieldName);
+	PathStart addSilentPersistentField(String fieldName);
 
 	/**
 	 * Creates a field that always returns the specified value. An example to use this method can

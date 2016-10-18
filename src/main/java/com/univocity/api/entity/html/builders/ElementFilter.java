@@ -14,8 +14,7 @@ import com.univocity.api.entity.html.builders.annotations.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
-
+public interface ElementFilter<T extends ElementFilter<T>> {
 	/**
 	 * Creates a path ot the HTML element that has the specified text placed in an element before it. For example,
 	 * given this simple HTML document:
@@ -35,7 +34,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *<p>The parser will return "first", as the element following the first 'span' element has the text "second"</p>
 	 *
 	 * @param text the text contained in the element that is placed after the element that will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -61,7 +60,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *<p>The parser will return "third" from the third 'span' element, as the element preceding this element has the text "second"</p>
 	 *
 	 * @param text the text contained in the element that is placed before the element that will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -89,7 +88,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * after it. When the parsing process runs, it will return 'before'</p>
 	 *
 	 * @param elementName the name of the HTML element
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -114,7 +113,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @param elementName the name of the HTML element
 	 * @param distance the number sibling that the parser will go to
 	 *
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -144,7 +143,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * The first span element element is followed immediately by a span element, so it will not be returned by the parser</p>
 	 *
 	 * @param elementName the element before this given element will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -172,7 +171,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * before it. When the parsing process runs, it will return 'after'</p>
 	 *
 	 * @param elementName the name of the HTML element
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -197,7 +196,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @param elementName the name of the HTML element
 	 * @param distance the number sibling that the parser will go to
 	 *
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -228,7 +227,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * The second span element is preceded immediately by a span element, so it will not be returned by the parser</p>
 	 *
 	 * @param elementName the element after this given element will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
@@ -260,7 +259,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * of a div element. </p>
 	 *
 	 * @param elementName the name of the element
-	 * @return  a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return  a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.PARENTS)
@@ -291,7 +290,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * the parser runs, it will return "I'm in an article!"</p>
 	 *
 	 * @param elementName the name of the element where elements contained within will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.PARENTS)
@@ -334,7 +333,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @param elementName the name of the element that contains the element that apath will be created to.
 	 * @param depthLimit the limit of how far the parser will search up the HTML hierarchy
 	 *
-	 * @return  a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return  a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.PARENTS)
@@ -370,7 +369,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * <p>Which will result in all the text apart from the table headers being returned.</p>
 	 *
 	 * @param headerElementName the header element of a table that will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
@@ -400,7 +399,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * that is under another 'td' element'. As the second row is under 'th' elements, it is ignored by the parser.</p>
 	 *
 	 * @param elementName The name of the element above the element that a path will be created to
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
@@ -433,7 +432,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *<p>The parser will return "one", as the parent of the h1 element is the first div.</p>
 	 *
 	 * @param elementName the name of the element where the parent of which will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.INSIDE)
@@ -471,7 +470,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *
 	 * @param pathOfElementNames the element that contains these elements will be matched
 	 *
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.INSIDE)
@@ -504,7 +503,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * that contains a h1 element starting with 'Review' ". The parser will return 'It's good' when it runs. </p>
 	 *
 	 * @param elementName the HTML element that contains this element will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.INSIDE)
@@ -545,7 +544,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * @param elementName the HTML element that contains this element will be matched
 	 * @param depthLimit the limit of how far the parser will go down the hierarchy to find the given element
 	 *
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.INSIDE)
@@ -584,7 +583,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * followed by any two characters, followed by 'e' and 'f') </p>
 	 *
 	 * @param textContent the string that will be matched, accounting for wildcard elements
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
@@ -613,7 +612,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * This is because {@link #withText(String)} will search for elements that <strong>start with</strong> "a".</p>
 	 *
 	 * @param textContent the exact string that will be matched
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
@@ -625,7 +624,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *
  	 * @param textContent the string that will be matched, accounting for wildcard elements
 	 *
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
@@ -636,7 +635,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * matches <strong>exactly</strong> with the specified text. Also supports the special characters of '*' and '?'.
 	 *
 	 * @param textContent the string that will be matched, accounting for wildcard elements
-	 * @return a {@link BaseHtmlPath} which allows more HTML elements to be added to the path, or the specification of
+	 * @return a {@link ElementFilter} which allows more HTML elements to be added to the path, or the specification of
 	 * what information to return.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
@@ -649,7 +648,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *
 	 * @param firstCssClass class of a HTML element that a path will be created to
 	 * @param otherCssClasses any other classes that the HTML element contains, optional.
-	 * @return a {@link BaseHtmlPath} which allows the more HTML elements to be added to the path
+	 * @return a {@link ElementFilter} which allows the more HTML elements to be added to the path
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T classes(String firstCssClass, String... otherCssClasses);
@@ -661,7 +660,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 *
 	 * @param attributeName the name of the attribute
 	 * @param attributeValue the value of the attribute
-	 * @return a {@link BaseHtmlPath} which allows the more HTML elements to be added to the path
+	 * @return a {@link ElementFilter} which allows the more HTML elements to be added to the path
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T attribute(String attributeName, String attributeValue);
@@ -672,7 +671,7 @@ public interface BaseHtmlPath<T extends BaseHtmlPath<T>> {
 	 * will be at the div shown in the HTML snippet.
 	 *
 	 * @param idValue the id of an element that a path will be created to
-	 * @return a {@link BaseHtmlPath} which allows the more HTML elements to be added to the path
+	 * @return a {@link ElementFilter} which allows the more HTML elements to be added to the path
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T id(String idValue);

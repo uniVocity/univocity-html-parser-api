@@ -9,6 +9,5 @@ package com.univocity.api.entity.html.builders;
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlPathStart extends BaseHtmlPathStart<HtmlPath> {
-
+public interface PathStart extends ElementFilterStart<FieldPath> {
 }

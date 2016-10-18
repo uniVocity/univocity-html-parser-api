@@ -9,8 +9,7 @@ package com.univocity.api.entity.html.builders;
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlGroup extends BaseHtmlPath<HtmlGroup>, BaseHtmlPathStart<HtmlGroup>, FieldAdder, CopyAndAddTrigger {
-
+public interface Group extends ElementFilter<Group>, ElementFilterStart<Group>, FieldDefinition, PathCopy, Trigger {
 	/**
 	 * Creates a field that <strong>always</strong> returns the specified value. An example to use this method can
 	 * be shown with this HTML document:
@@ -39,7 +38,7 @@ public interface HtmlGroup extends BaseHtmlPath<HtmlGroup>, BaseHtmlPathStart<Ht
 	 *HtmlEntity entity = entities.configureEntity("test");
 	 *
 	 *	// creates group that covers first two article elements
-	 *HtmlGroup group = entity.newGroup().startAt("article").classes("feature").endAt("article").classes("last");
+	 *Group group = entity.newGroup().startAt("article").classes("feature").endAt("article").classes("last");
 	 *
 	 *	// creates field to get header text
 	 *group.addField("header").match("h1").getText();

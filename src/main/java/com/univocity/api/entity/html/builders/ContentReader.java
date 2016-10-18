@@ -12,13 +12,12 @@ import com.univocity.api.entity.html.builders.annotations.*;
 import java.io.*;
 
 /**
- * This class defines what content will be read from a {@link HtmlPath} by the {@link HtmlParser}. This is the final
+ * This class defines what content will be read from a {@link FieldPath} by the {@link HtmlParser}. This is the final
  * step of creating a path.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlContentReader {
-
+public interface ContentReader {
 	/**
 	 * Used to get the text of a table data's header. For example, given a HTML document like this:
 	 *
@@ -164,7 +163,7 @@ public interface HtmlContentReader {
 	 *HtmlEntity entity = entities.configureEntity("test");
 	 *
 	 * //Creates path to both "Name" th elements
-	 *PartialHtmlPath path = entity.newPath().match("th").withText("Name");
+	 *PartialPath path = entity.newPath().match("th").withText("Name");
 	 *
 	 *  //Matches each td in name row and gets the text
 	 *path.addField("name").match("td").getText();
@@ -339,7 +338,7 @@ public interface HtmlContentReader {
 	 * parser runs and hits &lt;a href="https://www.google.com">a link&lt;/a>, the parser will return
 	 * "https://www.google.com".
 	 *
-	 * @param attributeName the name of the attribute of the element defined by the {@link HtmlPath} where the value of
+	 * @param attributeName the name of the attribute of the element defined by the {@link FieldPath} where the value of
 	 *                      the attribute will be returned by the parser.
 	 */
 	@Matcher( type = Matcher.Type.ATTRIBUTE)

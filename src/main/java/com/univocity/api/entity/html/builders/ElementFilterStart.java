@@ -7,17 +7,16 @@
 package com.univocity.api.entity.html.builders;
 
 /**
- * Provides the start of an {@link HtmlPath}.
+ * Provides the start of an {@link FieldPath}.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
- * @see HtmlPath
- * @see PartialHtmlPath
- * @see BaseHtmlPath
+ * @see FieldPath
+ * @see PartialPath
+ * @see ElementFilter
  */
-public interface BaseHtmlPathStart<T extends BaseHtmlPath<T>> {
-
+public interface ElementFilterStart<T extends ElementFilter<T>> {
 	/**
-	 * Used to specify what HTML element the parser will retrieve data from. This is the first step in creating a {@link HtmlPath}
+	 * Used to specify what HTML element the parser will retrieve data from. This is the first step in creating a {@link FieldPath}
 	 * for a field. For example, to get the text of all span elements on a HTML document, one would have to simply write:
 	 *
 	 *<p><hr><blockquote><pre>
@@ -57,12 +56,12 @@ public interface BaseHtmlPathStart<T extends BaseHtmlPath<T>> {
 	 * {@code <article>} elements and then {@code <h1>} inside these {@code <article>} elements or next (sibling of) the
 	 * {@code <article>} elements.</p>
 	 *
-	 * <p>As the method returns a {@link BaseHtmlPath}, it means that further details about the given element and other elements
+	 * <p>As the method returns a {@link ElementFilter}, it means that further details about the given element and other elements
 	 * can be defined so that a very specific path can be created for data that is required. </p>
 	 *
 	 * @param elementName the name of the element that will be matched.
 	 *
-	 * @return a {@link BaseHtmlPath} so a path can be defined
+	 * @return a {@link ElementFilter} so a path can be defined
 	 */
 	T match(String elementName);
 }

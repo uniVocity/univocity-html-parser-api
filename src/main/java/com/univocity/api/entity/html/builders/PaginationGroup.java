@@ -11,10 +11,9 @@ import com.univocity.parsers.remote.*;
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface PaginationHtmlGroup extends BaseHtmlPath<PaginationHtmlGroup>, BaseHtmlPathStart<PaginationHtmlGroup> {
-
+public interface PaginationGroup extends ElementFilter<PaginationGroup>, ElementFilterStart<PaginationGroup> {
 	/**
-	 * Creates a new field for the next page and returns a {@link HtmlPathStart} which can be used to define the path
+	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
 	 * to the next page element. The next page is a HTML element that changes the current page to the next page in series.
 	 * When the parser runs and completes the parsing of the page, the parser will 'click' on the next page element
 	 * and parse that page. The parser will continue to access the next page until the next page element does not
@@ -73,34 +72,34 @@ public interface PaginationHtmlGroup extends BaseHtmlPath<PaginationHtmlGroup>, 
 	 * link element on this page, the paginator will be unable to run and the parsing will finish, returning all the
 	 * values that were parsed.</p>
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the element
+	 * @return a {@link PathStart} is used to define the path to the element
 	 */
-	HtmlPathStart setNextPage();
+	PathStart setNextPage();
 
 	/**
-	 * Creates a new field and returns a {@link HtmlPathStart} that is used to define a path to the page size element.
+	 * Creates a new field and returns a {@link PathStart} that is used to define a path to the page size element.
 	 * The page size element is the element on the HTML page that describes how many pages there are in the series.
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the first page element
+	 * @return a {@link PathStart} is used to define the path to the first page element
 	 */
-	HtmlPathStart setPageSize();
+	PathStart setPageSize();
 
 	/**
-	 * Creates a new field and returns a {@link HtmlPathStart} that is used to define a path to the first page element.
+	 * Creates a new field and returns a {@link PathStart} that is used to define a path to the first page element.
 	 * The first page element is the element on the HTML page that loads the first page of a series when pressed.
 	 *
-	 * @return a {@link HtmlPathStart} is used to define the path to the first page element
+	 * @return a {@link PathStart} is used to define the path to the first page element
 	 */
-	HtmlPathStart setFirstPage();
+	PathStart setFirstPage();
 
 	/**
-	 * Creates a request parameter with the given name and returns a {@link HtmlPathStart} that is used to define the
+	 * Creates a request parameter with the given name and returns a {@link PathStart} that is used to define the
 	 * value of the parameter. Parameter values are submitted as a POST request to load the next page.
 	 *
 	 * @param parameterName the name that will be associated with the parameter
 	 *
-	 * @return a {@link HtmlPathStart} that is used to define the path to the element, the value of which will be sent
+	 * @return a {@link PathStart} that is used to define the path to the element, the value of which will be sent
 	 * in the request.
 	 */
-	HtmlPathStart addRequestParameter(String parameterName);
+	PathStart addRequestParameter(String parameterName);
 }

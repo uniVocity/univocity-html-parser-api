@@ -6,12 +6,10 @@
 
 package com.univocity.api.entity.html.builders;
 
-import com.univocity.api.entity.html.*;
-
 /**
  * Used in {@link HtmlEntity#addRecordTrigger()} to create a path that defines when a new record should be created.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface RecordTriggerStart extends BaseHtmlPathStart<RecordTrigger> {
+public interface RecordTriggerStart extends ElementFilterStart<RecordTrigger> {
 }
