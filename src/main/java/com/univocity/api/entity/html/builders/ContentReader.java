@@ -12,8 +12,9 @@ import com.univocity.api.entity.html.builders.annotations.*;
 import java.io.*;
 
 /**
- * A {@code ContentReader} defines what content will be read from a {@link FieldPath} by the {@link HtmlParser}. This is the final
- * step of creating a path to a field created for an entity (using {@link HtmlEntitySettings}).
+ * A {@code ContentReader} defines what content will be read from the last element matched in a {@link FieldPath} by
+ * the {@link HtmlParser}. This is the final step of creating a path to a field created for an entity
+ * (using {@link HtmlEntitySettings}).
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
@@ -40,7 +41,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("tableHeader").match("table").match("td").withText("second").getHeadingText();
 	 * </p></pre></blockquote><hr>
 	 *
@@ -73,7 +74,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre><code>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("fieldName").match("td").withText("A boring row").getHeadingText(3);
 	 * </p></pre></blockquote><hr></code>
 	 *
@@ -129,7 +130,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre><code>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("text").match("td").precededBy("td").withText("Charlie").getTextAbove(2);
 	 * </p></pre></blockquote><hr></code>
 	 *
@@ -172,7 +173,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre><code>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 * //Creates path to any "Name" th elements
 	 * PartialPath path = entity.newPath().match("th").withText("Name");
@@ -244,7 +245,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre><code>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("text").match("p").precededBy("h1").getText(1);
 	 * </p></pre></blockquote><hr></code>
 	 *
@@ -280,7 +281,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("preceding").match("span").getPrecedingText();
 	 * </p></pre></blockquote><hr>
 	 *
@@ -296,7 +297,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("fieldName").match("footer").getPrecedingText(2);
 	 * </p></pre></blockquote><hr>
 	 *
@@ -316,7 +317,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("following").match("span").getFollowingText();
 	 * </p></pre></blockquote><hr>
 	 *
@@ -332,7 +333,7 @@ public interface ContentReader {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("fieldName").match("h1").getFollowingText(2);
 	 * </p></pre></blockquote><hr>
 	 *
@@ -352,7 +353,7 @@ public interface ContentReader {
 	 *
 	 * * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("link").match("a").getAttribute("href");
 	 * </p></pre></blockquote><hr>
 	 *

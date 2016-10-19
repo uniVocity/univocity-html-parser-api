@@ -26,11 +26,11 @@ public class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Creates a new {@link HtmlEntity} with the supplied name and returns it. Used by {@link RemoteEntityList#configureEntity(String)}.
+	 * Creates a new {@link HtmlEntitySettings} with the supplied name and returns it. Used by {@link RemoteEntityList#configureEntity(String)}.
 	 *
 	 * @param entityName the name that will be used to identify the entity
 	 *
-	 * @return the HtmlEntity that was created
+	 * @return the HtmlEntitySettings that was created
 	 */
 	@Override
 	protected HtmlEntitySettings newEntity(String entityName) {

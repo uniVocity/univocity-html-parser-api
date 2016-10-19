@@ -41,7 +41,7 @@ interface PathCopy {
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
+	 *HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 * //path to the first div that will be used to base other paths on
 	 *PartialPath path = entity.newPath().match("div").classes("cool-div").match("article").containing("h1");

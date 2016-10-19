@@ -35,7 +35,7 @@ public interface Group extends ElementFilter<Group>, ElementFilterStart<Group>, 
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
+	 *HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 *	// creates group that covers first two article elements
 	 *Group group = entity.newGroup().startAt("article").classes("feature").endAt("article").classes("last");

@@ -95,7 +95,7 @@ public class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("pagination");
+	 * HtmlEntitySettings entity = entities.configureEntity("pagination");
 	 *
 	 * //	first column will return header text
 	 * entity.addField("header").match("h1").containedBy("article").getText();

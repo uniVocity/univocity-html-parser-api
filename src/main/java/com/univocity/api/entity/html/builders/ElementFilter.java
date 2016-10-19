@@ -28,7 +28,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("span").followedByText("second").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -55,7 +55,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("preceded").match("span").precededByText("second").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -83,7 +83,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("strong").followedBy("strong").withText("after").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -109,7 +109,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("fieldName").match("span").followedBy("strong",2).getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -144,7 +144,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("secondSpan").match("span").followedImmediatelyBy("strong").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -175,7 +175,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("preceded").match("strong").precededBy("strong").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -201,7 +201,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("firstSpan").match("span").precededBy("strong",2).getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -237,7 +237,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("firstSpan").match("span").precededImmediatelyBy("strong").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -272,7 +272,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("child").match("h1").childOf("div").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -306,7 +306,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("span").containedBy("article").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -351,7 +351,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("writing").match("span").containedBy("div",2).getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -389,7 +389,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("underTableHeader").match("td").underHeader("span").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -432,7 +432,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("firstSpan").match("td").under("span").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -469,7 +469,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("parent").match("div").parentOf("h1").getAttribute("title");
 	 * </p></blockquote></pre><hr>
 	 *
@@ -508,7 +508,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("reviewText").match("article").containing("h1","p").match("p").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -545,7 +545,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("reviewText").match("article").containing("h1").match("p").getText();
 	 * </p></blockquote></pre><hr>
 	 *
@@ -588,7 +588,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("writing").match("div").containing("span",2).getAttribute("title");
 	 * </p></blockquote></pre><hr>
 	 *
@@ -661,7 +661,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p><hr><blockquote><pre>
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntity entity = entities.configureEntity("test");
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("text").match("p").withExactText("a").getAttribute("title");
 	 * </p></blockquote></pre><hr>
 	 *

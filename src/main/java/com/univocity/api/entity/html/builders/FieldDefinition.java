@@ -58,7 +58,7 @@ public interface FieldDefinition {
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
+	 *HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 *entity.addPersistentField("persistent").match("h1").containedBy("article").classes("feature").getText();
 	 *entity.addField("text").match("article").match("p").getText();
@@ -101,7 +101,7 @@ public interface FieldDefinition {
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
+	 *HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 *entity.addSilentField("silent").match("h1").containedBy("article").getText();
 	 entity.addField("text").match("article").match("p").getText();
@@ -142,7 +142,7 @@ public interface FieldDefinition {
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
+	 *HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 *entity.addSilentPersistentField("silent").match("pre").containedBy("article").getText();
 	 *entity.addField("text").match("article").match("p").getText();
@@ -189,7 +189,7 @@ public interface FieldDefinition {
 	 *
 	 *<p><hr><blockquote><pre>
 	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntity entity = entities.configureEntity("test");
+	 *HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 *	// creates constant field
 	 *entity.addConstantField("constant","cool article");

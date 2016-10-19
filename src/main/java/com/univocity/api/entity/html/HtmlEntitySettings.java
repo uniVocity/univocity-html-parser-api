@@ -26,7 +26,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	HtmlParserListener listener = null;
 
 	/**
-	 * Creates a new HTMLEntity and associates it with the supplied name.
+	 * Creates a new HTML entity configuration and associates it with the supplied name.
 	 *
 	 * @param entityName a string that identifies the HTMLEntity
 	 */
@@ -104,7 +104,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 *
 	 * <p><hr><blockquote><pre>
 	 * 	HtmlEntityList entityList = new HtmlEntityList();
-	 * 	HtmlEntity items = entityList.configureEntity("items");
+	 * 	HtmlEntitySettings items = entityList.configureEntity("items");
 	 * 	PartialPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
 	 * 	path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
 	 * 	path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
