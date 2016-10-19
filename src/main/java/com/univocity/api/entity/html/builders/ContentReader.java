@@ -348,8 +348,15 @@ public interface ContentReader {
 
 	/**
 	 * Specifies that the parser will return the value defined by the attribute of the HTML elements defined by the path.
-	 * For example, a field is added to an entity and the path is set to get href values of links (&lt;a>). When the
-	 * parser runs and hits &lt;a href="https://www.google.com">a link&lt;/a>, the parser will return
+	 * For example, a field is added to an entity and the path is set to get href values of links (&lt;a>).
+	 *
+	 * * <p><hr><blockquote><pre>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntity entity = entities.configureEntity("test");
+	 * entity.addField("link").match("a").getAttribute("href");
+	 * </p></pre></blockquote><hr>
+	 *
+	 * When the parser runs and hits &lt;a href="https://www.google.com">a link&lt;/a>, it will return
 	 * "https://www.google.com".
 	 *
 	 * @param attributeName the name of the attribute of the element defined by the {@link FieldPath} where the value of
