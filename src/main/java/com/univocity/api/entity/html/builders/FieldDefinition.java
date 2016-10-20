@@ -19,8 +19,11 @@ package com.univocity.api.entity.html.builders;
  */
 public interface FieldDefinition {
 	/**
-	 * The name of the field. This method returns a {@link PathStart}, which allows the specification of a HTML
-	 * path that defines paths of HTML elements pointing to data that should be be returned when the parser runs.
+	 * Associates a regular field with an entity. Regulars field are used by the parser to retain values for a row. When
+	 * all values of a row are collected, the parser submits the row to the output, and clears all values collected
+	 * for all fields. If the parser collects a value for a field that already contains data, the record will be submitted
+	 * to the output and the incoming value will be associated with the given field in a new row.
+	 *
 	 * For example, you could define a field called "headings", match "H1" elements to get their text. When the parser
 	 * runs, the headings in the HTML document will be returned and be available in the field "headings".
 	 * <p><hr><blockquote><pre>
@@ -36,9 +39,9 @@ public interface FieldDefinition {
 	PathStart addField(String fieldName);
 
 	/**
-	 * A persistent field is a field that retains its value until it is overwritten by the parser. When all values for
-	 * a row are collected, the parser submits the row to the output, and clears the values collected for all fields, except
-	 * the persistent ones, so they will be reused in subsequent records.
+	 * Associates a persistent field with an entity. A persistent field is a field that retains its value until it is
+	 * overwritten by the parser. When all values of a row are collected, the parser submits the row to the output,
+	 * and clears the values collected for all fields, except the persistent ones, so they will be reused in subsequent records.
 	 *
 	 * An example of using persistent fields can be explained by viewing this HTML:
 	 *
@@ -73,8 +76,9 @@ public interface FieldDefinition {
 	 * will reapply it into subsequent rows. If a regular {@link #addField(String)} were used instead,
 	 * the output would be [55, first, lorem] and [null, second, ipsum] as the div and its ID is only matched once.</p>
 	 *
-	 * <p>NOTE: If a persistent field's path finds another match, the persistent field value will replaced by this new
-	 * value. </p>
+	 * <p>NOTE: The persistent field is also silent. If a persistent field's path finds another match, the persistent
+	 * field value will be replaced by this new value, and no new records will be generated. A {@link RecordTrigger} can
+	 * be used to force new records to be generated.</p>
 	 *
 	 * @param fieldName name of the persistent field to be created. If called more than once, a new {@link PathStart}
 	 *                  will be returned, allowing multiple paths to be used to collect data into the same field.
@@ -84,9 +88,9 @@ public interface FieldDefinition {
 	PathStart addPersistentField(String fieldName);
 
 	/**
-	 * A silent field is a field that when a new value is found, does not trigger a new row to be generated. If a value
-	 * has been previously parsed for the field, the parser will replace it with the newly parsed value. An example
-	 * of this can be shown with this HTML document:
+	 * Associates a silent field with an entity. If the parser collects a value for a field that already contains data,
+	 * and the field is silent, it won't submit a new record. The parser will simply replace the previously collected value
+	 * with the newly parsed value. An example of this can be shown with this HTML document:
 	 *
 	 * <p><hr><blockquote><pre>
 	 * {@code <div>
@@ -110,64 +114,17 @@ public interface FieldDefinition {
 	 *
 	 * <p>The parser will return [second, lorem]. When the parser finishes parsing the p element, the row is actually
 	 * [first, lorem]. As soon as the parser parses the second h1 element, instead of creating a new row with this value,
-	 * it will replace the 'first' to generate the row [second, lorem]. If 'addField' was used in this example instead of
-	 * 'addSilentField', two rows would be produced [first, lorem] and [second, null]</p>
+	 * it will replace the 'first' {@code String} with 'second' generating the row [second, lorem].
+	 * If 'addField' was used in this example instead of 'addSilentField', two rows would be produced:
+	 * [first, lorem] and [second, null]</p>
 	 *
-	 * @param fieldName a string that identifies the field
+	 * @param fieldName name of the silent field to be created. If called more than once, a new {@link PathStart}
+	 *                  will be returned, allowing multiple paths to be used to collect data into the same field.
 	 *
-	 * @return a {@link PathStart}, so that a path to the HTML element can be defined
+	 *                  * @return a {@link PathStart}, so that a path to the target HTML content to be captured can be defined
 	 */
 	PathStart addSilentField(String fieldName);
 
-	/**
-	 * A silent persistent field is a field that  will not cause new rows to generated when a new value is found and the
-	 * value will be inserted in subsequent rows. In short, a field that combines the function of both a silent and
-	 * persistent field. An example of using this can be shown with this HTML document:
-	 *
-	 * <p><hr><blockquote><pre>
-	 * <article>
-	 * 	<p>lorem</p>
-	 * 	<pre>first</pre>
-	 * 	<p>ispum</p>
-	 *
-	 * 	<p>dolor sit</p>
-	 * 	<pre>second</pre>
-	 *
-	 * 	<p>amet</p>
-	 * 	<pre>third</pre>
-	 * </article>
-	 * </p></blockquote></pre><hr>
-	 *
-	 * <p>In this document, each {@code <pre>} element is associated with the {@code <p>} element immediately before it.
-	 * The first {@code <pre>} element is also associated with the {@code <p>} element directly after it. To parse the
-	 * document so each row returned has each {@code pre} element and it's associated {@code <p>} elements:</p>
-	 *
-	 * <p><hr><blockquote><pre>
-	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntitySettings entity = entities.configureEntity("test");
-	 *
-	 * entity.addSilentPersistentField("silent").match("pre").containedBy("article").getText();
-	 * entity.addField("text").match("article").match("p").getText();
-	 * </p></blockquote></pre><hr>
-	 *
-	 * <p>When the parser runs it will match first p and pre values and put them in a row. It will then match the
-	 * p element containing ispum and start a new row. When it reaches the p element with "dolor sit" in it, it will
-	 * trigger the start of a new row, causing the first pre value (as it is persistent) to be put in the same row as
-	 * the "ispum" p value row (["first","ispum"]. etc.</p>
-	 *
-	 * <p><hr><blockquote><pre>
-	 * Output:
-	 * 	[first, lorem]
-	 * 	[first, ispum]
-	 * 	[second, dolor sit]
-	 * 	[third, amet]
-	 * </p></blockquote></pre><hr>
-	 *
-	 * @param fieldName a string that identifies the field
-	 *
-	 * @return a {@link PathStart}, so that a path to the HTML element can be defined
-	 */
-	PathStart addSilentPersistentField(String fieldName);
 
 	/**
 	 * Creates a field that always returns the specified value. An example to use this method can
@@ -181,7 +138,7 @@ public interface FieldDefinition {
 	 * 	</article>
 	 * 	<article>
 	 * 		<h1>second</h1>
-	 * 		<p>ispum</p>
+	 * 		<p>ipsum</p>
 	 * 	</article>
 	 * 	<article>
 	 * 		<h1>third</h1>
@@ -205,8 +162,8 @@ public interface FieldDefinition {
 	 * "cool article" to the first column of each row. For instance, the first article row will look like: ["cool article",
 	 * "first", "lorem"].</p>
 	 *
-	 * @param constantFieldName the name of that will be associated with the field
-	 * @param constantValue     the value that will always be returned in the field
+	 * @param constantFieldName name of the constant field to be created
+	 * @param constantValue     the value that will always be returned from the given field
 	 */
 	void addConstantField(String constantFieldName, String constantValue);
 }
