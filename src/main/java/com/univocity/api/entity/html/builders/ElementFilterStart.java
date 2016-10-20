@@ -7,7 +7,11 @@
 package com.univocity.api.entity.html.builders;
 
 /**
- * Provides the start of an {@link FieldPath}.
+ * Provides the start of a {@link ElementFilter}. Essentially, the {@code ElementFilterStart} defines which HTML element
+ * should be matched when the {@link com.univocity.api.entity.html.HtmlParser} is run. When the parser processes an
+ * input HTML, it will run all filtering rules applied over the elements whose tag names match with the one provided
+ * by the {@link #match(String)} method. Values from a matched element are extracted using the rules defined by
+ * a {@link ContentReader}
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see FieldPath
@@ -16,52 +20,56 @@ package com.univocity.api.entity.html.builders;
  */
 public interface ElementFilterStart<T extends ElementFilter<T>> {
 	/**
-	 * Used to specify what HTML element the parser will retrieve data from. This is the first step in creating a {@link FieldPath}
-	 * for a field. For example, to get the text of all span elements on a HTML document, one would have to simply write:
+	 * Used to specify what HTML element the parser must match, filter (using the rules available from {@link ElementFilter})
+	 * and/or retrieve data from (using the options provided by {@link ContentReader}. This is the first step in creating
+	 * a {@link FieldPath} for a field. For example, to get the text of all span elements on a HTML document, one would
+	 * have to simply write:
 	 *
-	 *<p><hr><blockquote><pre>
-	 *	//Set up
-	 *HtmlEntityList htmlEntityList = new HtmlEntityList();
-	 *HtmlParserSettings settings = new HtmlParserSettings(htmlEntityList);
+	 * <p><hr><blockquote><pre>
+	 * 	//Set up
+	 * HtmlEntityList htmlEntityList = new HtmlEntityList();
 	 *
-	 *	//Matching Rule
-	 *htmlEntityList.configureEntity("test").addField("allSpanElements").match("span").getText();
-	 *</p></blockquote></pre><hr>
+	 * 	//Matching Rule
+	 * htmlEntityList.configureEntity("test").addField("allSpanElements").match("span").getText();
+	 * </p></blockquote></pre><hr>
 	 *
-	 * <p>When the parser runs, it will match every span element on the HTML document run on and return it.</p>
+	 * <p>When the parser runs, it will match every span element found on the HTML document and return their text content.</p>
 	 *
-	 * <p>Multiple match rules can be chained together which creates a more specific path. When the first match statement
-	 * is found in a document it will look for the next match element that is contained in <strong>or</strong> a sibling of
-	 * the matched element. An example can be shown by first showing a simple HTML document below: </p>
+	 * <p>Multiple matching rules can be chained together which creates a more specific path. In a sequence of elements to
+	 * be matched is defined, the the parser will look for the first matched element. If it is found it will then look
+	 * for the next element to be matched, that must be contained by the first <strong>or</strong> be one of the following
+	 * sibling of the matched element. An example can be shown by first showing a simple HTML document below: </p>
 	 *
-	 *<p><hr><blockquote><pre>
-	 *<div>
-	 *	<h1>Bad Title</h1>
-	 *</div>
-	 *<article>
-	 *	<h1>Good Title</h1>
-	 *</article>
-	 *<article>
-	 *	<h1>Also Good Title</h1>
-	 *</article>
-	 *</p></blockquote></pre><hr>
+	 * <p><hr><blockquote><pre>
+	 * <div>
+	 * 	<h1>Bad Title</h1>
+	 * </div>
+	 * <article>
+	 * 	<h1>Good Title</h1>
+	 * </article>
+	 * <article>
+	 * 	<h1>Also Good Title</h1>
+	 * </article>
+	 * </p></blockquote></pre><hr>
 	 *
 	 * <p>A technique to only get the text from header elements inside of articles is:</p>
 	 *
-	 *<p><hr><blockquote><pre>
-	 *htmlEntityList.configureEntity("test").addField("headers").match("article").match("h1").getText();
-	 *</p></blockquote></pre><hr>
+	 * <p><hr><blockquote><pre>
+	 * htmlEntityList.configureEntity("test").addField("headers")
+	 * 		.match("article").match("h1").getText();
+	 * </p></blockquote></pre><hr>
 	 *
 	 * <p>The parser will return "Good Title" and "Also Good Title". This is because the matching rules set will look for
-	 * {@code <article>} elements and then {@code <h1>} inside these {@code <article>} elements or next (sibling of) the
+	 * {@code <article>} elements and then {@code <h1>} inside these {@code <article>} elements (or the next sibling of) the
 	 * {@code <article>} elements.</p>
 	 *
-	 * <p>As the method returns a {@link ElementFilter}, it means that further details about the given element and other elements
-	 * can be defined so that a very specific path can be created for data that is required. </p>
+	 * <p>As this method returns an {@link ElementFilter}, the user can provide further rules about the given element,
+	 * or other associated elements. Very specific paths can be created to capture data from virtually anywhere in a
+	 * HTML document. </p>
 	 *
-	 * @param elementName the name of the element that will be matched.
+	 * @param tagName tag name of the element that will be matched.
 	 *
-	 * @return a {@link ElementFilter} so a path can be defined
+	 * @return a {@link ElementFilter} so a that filtering rules over HTML elements with the given tag name can be defined
 	 */
-	T match(String elementName);
+	T match(String tagName);
 }
