@@ -9,6 +9,10 @@ package com.univocity.api.entity.html.builders;
 import com.univocity.parsers.remote.*;
 
 /**
+ * A special purpose {@link Group}-like structure, used only for {@link com.univocity.api.entity.html.HtmlPaginator}s.
+ * Creates an area in the HTML where the paginator will look for elements to help in pagination. Elements outside
+ * the area will be ignored.
+ *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public interface PaginationGroup extends ElementFilter<PaginationGroup>, ElementFilterStart<PaginationGroup> {
@@ -22,49 +26,49 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 *
 	 * <p>An example of setting the next page can be demonstrated using this HTML: </p>
 	 *
-	 *<p><hr><blockquote><pre>
-	 *{@code
-	 *<html>
-	 *<body>
-	 *	<article>
-	 *		<h1>Water: The Truth</h1>
-	 *		<p>It's good for you!</p>
-	 *		<a href="paginationTarget.html">Next Page</a>
-	 *	</article>
-	 *</body>
-	 *</html>
+	 * <p><hr><blockquote><pre>
+	 * {@code
+	 * <html>
+	 * <body>
+	 * 	<article>
+	 * 		<h1>Water: The Truth</h1>
+	 * 		<p>It's good for you!</p>
+	 * 		<a href="paginationTarget.html">Next Page</a>
+	 * 	</article>
+	 * </body>
+	 * </html>
 	 * }
-	 *</p></blockquote></pre><hr>
+	 * </p></blockquote></pre><hr>
 	 *
-	 *<p>paginationTarget.html contains the following HTML: </p>
+	 * <p>paginationTarget.html contains the following HTML: </p>
 	 *
-	 *<p><hr><blockquote><pre>
-	 *{@code
-	 *<html>
-	 *<body>
-	 *	<article>
-	 *		<h1>Bananas</h1>
-	 *		<p>An excellent source of potassium/</p>
-	 *	</article>
-	 *</body>
-	 *</html>
+	 * <p><hr><blockquote><pre>
+	 * {@code
+	 * <html>
+	 * <body>
+	 * 	<article>
+	 * 		<h1>Bananas</h1>
+	 * 		<p>An excellent source of potassium/</p>
+	 * 	</article>
+	 * </body>
+	 * </html>
 	 * }
-	 *</p></blockquote></pre><hr>
+	 * </p></blockquote></pre><hr>
 	 *
-	 *<p>A technique get the text of both the header and text from both pages is: </p>
+	 * <p>A technique get the text of both the header and text from both pages is: </p>
 	 *
 	 *
-	 *<p><hr><blockquote><pre>
-	 *HtmlEntityList entities = new HtmlEntityList();
-	 *HtmlEntitySettings entity = entities.configureEntity("pagination");
+	 * <p><hr><blockquote><pre>
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("pagination");
 	 *
-	 //	first column will return header text
-	 *entity.addField("header").match("h1").containedBy("article").getText();
-	 //	second column will return text in p
-	 *entity.addField("text").match("p").containedBy("article").getText();
-
-	 *entities.configurePaginator().setNextPage().match("a").containedBy("article").getAttribute("href");
-	 *</p></blockquote></pre><hr>
+	 * //	first column will return header text
+	 * entity.addField("header").match("h1").containedBy("article").getText();
+	 * //	second column will return text in p
+	 * entity.addField("text").match("p").containedBy("article").getText();
+	 *
+	 * entities.configurePaginator().setNextPage().match("a").containedBy("article").getAttribute("href");
+	 * </p></blockquote></pre><hr>
 	 *
 	 * <p>When the parser runs, it will parse the first page, getting [Water: The Truth, It's good for you!]. The
 	 * paginator will then run, accessing the link's URL provided by the href attribute and opening the next page. The
@@ -72,15 +76,15 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * link element on this page, the paginator will be unable to run and the parsing will finish, returning all the
 	 * values that were parsed.</p>
 	 *
-	 * @return a {@link PathStart} is used to define the path to the element
+	 * @return a {@link PathStart} used to define the path to the element
 	 */
 	PathStart setNextPage();
 
 	/**
 	 * Creates a new field and returns a {@link PathStart} that is used to define a path to the page size element.
-	 * The page size element is the element on the HTML page that describes how many pages there are in the series.
+	 * The page size element is the element on the HTML page that describes how many elements are present in a page.
 	 *
-	 * @return a {@link PathStart} is used to define the path to the first page element
+	 * @return a {@link PathStart} is used to define the path to the page size
 	 */
 	PathStart setPageSize();
 
@@ -96,10 +100,12 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * Creates a request parameter with the given name and returns a {@link PathStart} that is used to define the
 	 * value of the parameter. Parameter values are submitted as a POST request to load the next page.
 	 *
-	 * @param parameterName the name that will be associated with the parameter
+	 * @param parameterName the name that will be associated with the parameter, which will be sent in the request
+	 *                      for the next page associated with the value collected from the path defined using the
+	 *                      {@link PathStart} object returned by this method.
 	 *
-	 * @return a {@link PathStart} that is used to define the path to the element, the value of which will be sent
-	 * in the request.
+	 * @return a {@link PathStart} that is used to define the path to the element that contains the request parameter
+	 * value, which will be sent in the request for the next page.
 	 */
 	PathStart addRequestParameter(String parameterName);
 }
