@@ -7,6 +7,8 @@
 package com.univocity.api.entity.html.builders;
 
 /**
+ * Allows the copying of a {@link PartialPath}.
+ *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 interface PathCopy {

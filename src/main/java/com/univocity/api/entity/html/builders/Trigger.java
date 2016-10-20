@@ -1,9 +1,12 @@
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.api.entity.html.*;
+
 /**
- * An interface that provides functionality to copy a path and add a record trigger.
+ * An interface that provides functionality add a record trigger, i.e. a path to an element that when found,
+ * forces the parser to generate a record with any values accumulated so far.
  *
- * Created by anthony on 2/09/16.
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 interface Trigger {
 
@@ -33,7 +36,7 @@ interface Trigger {
 	 * 		<td>123 real street</td>
 	 * 	</tr>
 	 * </table>
-	 *</p></pre></blockquote><hr>
+	 * </p></pre></blockquote><hr>
 	 *
 	 * The parsing rules are set below:
 	 *
@@ -44,7 +47,7 @@ interface Trigger {
 	 * PartialPath path = entityList.configureEntity("record").newPath().match("table");
 	 * path.addField("emailAddress").match("td").precededBy("td").withText("Email Address").getText();
 	 * path.addField("homeAddress").match("td").precededBy("td").withText("Home Address").getText();
-	 *</p></pre></blockquote><hr>
+	 * </p></pre></blockquote><hr>
 	 *
 	 * <p>After running it through the HtmlParser, we get this output: </p>
 	 *
@@ -59,24 +62,24 @@ interface Trigger {
 	 *
 	 * <p>
 	 * This is due to the parser finding that the first Home Address is null, assuming that the second home address is
-	 * the one that was specified for the first row. To fix this error, the RecordTrigger will be set. this is done by
+	 * the one that was specified for the first row. To fix this error, the {@link RecordTrigger} will be set. This is done by
 	 * adding the line below to the code snippet we had before:
 	 * </p>
 	 *
-	 *<p><hr><blockquote><pre>
+	 * <p><hr><blockquote><pre>
 	 * path.addRecordTrigger().match("td").withText("Email Address");
-	 *</p></pre></blockquote><hr>
+	 * </p></pre></blockquote><hr>
 	 *
 	 * <p>
-	 * Which, when running it throught the HtmlParser we get the expected output of:
-	 *	</p>
-	 *<p>
+	 * Which, when running it through the {@link HtmlParser} produces:
+	 * </p>
+	 * <p>
 	 * [bla.@email.com, null]<br>
 	 * [null, 123 real street]
-	 *</p>
+	 * </p>
 	 *
 	 * <p>
-	 * This is because when the parser hits the second email address entry, the RecordTrigger is activated and a new
+	 * When the parser hits the second email address entry, the RecordTrigger is activated and a new
 	 * row is created. Therefore, when the parser hits the second Home Address, it adds the value to the second row
 	 * instead of the first row.
 	 * </p>

@@ -39,12 +39,6 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		return newField(fieldName, false, true);
 	}
 
-	@Override
-	public PathStart addSilentPersistentField(String fieldName) {
-		return newField(fieldName, true, true);
-	}
-
-
 	public PathStart addField(String fieldName) {
 		return newField(fieldName, false, false);
 	}
