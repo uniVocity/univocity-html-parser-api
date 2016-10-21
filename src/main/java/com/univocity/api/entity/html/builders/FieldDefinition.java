@@ -26,10 +26,10 @@ public interface FieldDefinition {
 	 *
 	 * For example, you could define a field called "headings", match "H1" elements to get their text. When the parser
 	 * runs, the headings in the HTML document will be returned and be available in the field "headings".
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entityList = new HtmlEntityList();
 	 * entityList.configureEntity("heading).addField("headings").match("H1").getText();
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * @param fieldName name of the field to be created. If called more than once, a new {@link PathStart} will be
 	 *                  returned, allowing multiple paths to be used to collect data into the same field.
@@ -45,32 +45,32 @@ public interface FieldDefinition {
 	 *
 	 * An example of using persistent fields can be explained by viewing this HTML:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * {@code
 	 * <div id="55">
-	 * 	<article>
-	 * 		<h1>first</h1>
-	 * 		<p>lorem</p>
-	 * 	</article>
-	 * 	<article>
-	 * 		<h1>second</h1>
-	 * 		<p>ipsum</p>
-	 * 	</article>
+	 * <article>
+	 * <h1>first</h1>
+	 * <p>lorem</p>
+	 * </article>
+	 * <article>
+	 * <h1>second</h1>
+	 * <p>ipsum</p>
+	 * </article>
 	 * </div>
 	 * }
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>In this example, we want get two records: [55, first, lorem] and [55, second, ipsum]. The "55" value in both
 	 * records should come from the id value of the div. The following rules can be defined to produce this output:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 * entity.addPersistentField("persistentID").match("div").getAttribute("id");
 	 * entity.addField("title").match("h1").getText();
 	 * entity.addField("text").match("p").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>As the "persistentID" field was created as a the persistent field, it will retain its value and the parser
 	 * will reapply it into subsequent rows. If a regular {@link #addField(String)} were used instead,
@@ -92,25 +92,25 @@ public interface FieldDefinition {
 	 * and the field is silent, it won't submit a new record. The parser will simply replace the previously collected value
 	 * with the newly parsed value. An example of this can be shown with this HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * {@code <div>
-	 * 	<article class="feature">
-	 * 		<h1>first</h1>
-	 * 		<p>lorem</p>
-	 * 		<h1>second</h1>
-	 * 	</article>
+	 * <article class="feature">
+	 * <h1>first</h1>
+	 * <p>lorem</p>
+	 * <h1>second</h1>
+	 * </article>
 	 * </div> }
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the text of the <strong>second</strong> header and the text of the p element is: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 * entity.addSilentField("silent").match("h1").containedBy("article").getText();
 	 * entity.addField("text").match("article").match("p").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return [second, lorem]. When the parser finishes parsing the p element, the row is actually
 	 * [first, lorem]. As soon as the parser parses the second h1 element, instead of creating a new row with this value,
@@ -121,7 +121,7 @@ public interface FieldDefinition {
 	 * @param fieldName name of the silent field to be created. If called more than once, a new {@link PathStart}
 	 *                  will be returned, allowing multiple paths to be used to collect data into the same field.
 	 *
-	 *                  * @return a {@link PathStart}, so that a path to the target HTML content to be captured can be defined
+	 * @return a {@link PathStart}, so that a path to the target HTML content to be captured can be defined
 	 */
 	PathStart addSilentField(String fieldName);
 
@@ -130,33 +130,33 @@ public interface FieldDefinition {
 	 * Creates a field that always returns the specified value. An example to use this method can
 	 * be shown with this HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
-	 * 	<article>
-	 * 		<h1>first</h1>
-	 * 		<p>lorem</p>
-	 * 	</article>
-	 * 	<article>
-	 * 		<h1>second</h1>
-	 * 		<p>ipsum</p>
-	 * 	</article>
-	 * 	<article>
-	 * 		<h1>third</h1>
-	 * 		<p>lol</p>
-	 * 	</article>
+	 * <article>
+	 * <h1>first</h1>
+	 * <p>lorem</p>
+	 * </article>
+	 * <article>
+	 * <h1>second</h1>
+	 * <p>ipsum</p>
+	 * </article>
+	 * <article>
+	 * <h1>third</h1>
+	 * <p>lol</p>
+	 * </article>
 	 * </div>
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
-	 * 	// creates constant field
+	 * // creates constant field
 	 * entity.addConstantField("constant","cool article");
 	 *
 	 * entity.addField("title").match("h1").getText();
 	 * entity.addField("content").match("p").getText();
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * <p>When the parser runs, it will get the text from each article heading and 'p' element. It will also attach
 	 * "cool article" to the first column of each row. For instance, the first article row will look like: ["cool article",

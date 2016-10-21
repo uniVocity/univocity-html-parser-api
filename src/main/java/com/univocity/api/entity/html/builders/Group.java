@@ -9,7 +9,7 @@ package com.univocity.api.entity.html.builders;
 /**
  * A group defines the boundaries where a given set of fields should be processed. For example, given the following HTML:
  *
- * <p><hr><blockquote><pre>
+ * <hr>{@code
  * <div id="55">
  * 	<h1>random text</h1>
  * 	<p>random paragraph</p>
@@ -24,10 +24,10 @@ package com.univocity.api.entity.html.builders;
  * 		<p>ipsum</p>
  * 	</article>
  * </div>
- * </p></pre></blockquote><hr>
+ * }<hr>
  *
  * To get all values of every h1 and p element inside an article, the following rules can be created:
- * <p><hr><blockquote><pre>
+ * <hr>{@code
  *
  * HtmlEntityList entities = new HtmlEntityList();
  * HtmlEntitySettings entity = entities.configureEntity("test");
@@ -35,7 +35,7 @@ package com.univocity.api.entity.html.builders;
  * Group group = entity.newGroup().startAt("article").endAtClosing("article");
  * group.addField("title").match("h1").getText();
  * group.addField("text").match("p").getText();
- * </p></pre></blockquote><hr>
+ * }<hr>
  *
  * The group starts at every article element, and ends when the parser finds a closing article element. Fields are added
  * to the group so their paths include it. When the parser runs only the following two records will be produced:

@@ -111,13 +111,13 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 * Returns a {@link PartialPathStart} that is used to define a reusable path of HTML elements. Fields then can
 	 * added to this path using {@link PartialPath#addField(String)} and others, which associates the field with this entity.
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * 	HtmlEntityList entityList = new HtmlEntityList();
 	 * 	HtmlEntitySettings items = entityList.configureEntity("items");
 	 * 	PartialPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
 	 * 	path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
 	 * 	path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
-	 * 	</p></pre></blockquote><hr>
+	 * 	}<hr>
 	 *
 	 * @return a {@link PartialPathStart} to specify the path of HTML elements
 	 */
@@ -131,24 +131,24 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 * this defined area, ignoring any HTML that exists outside of it. For example, say you wanted to parse
 	 * the "hello" and "howdy" in the following HTML:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div class="parseMe">
 	 * 	<p>hello</p>
 	 * </div>
 	 * <p>howdy</p>
 	 * <h1>No Parsing Area</h1>
 	 * <p>don't parse me!</p>
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
-	 * <p> </p>The parsing rules, using groups can be defined as: </p>
+	 * <p> The parsing rules, using groups can be defined as: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entityList = new HtmlEntityList();
 	 * HtmlParserSettings settings = new HtmlParserSettings(entityList);
 	 *
 	 * Group group = entityList.configureEntity("test").newGroup().startAt("div").classes("parseMe").endAt("h1");
 	 * group.addField("greeting").match("p").getText();
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will then ignore the 'don't parse me' as the group restricts the parsing to the area defined from
 	 * a div with class "parseMe" until an opening h1 tag.</p>
@@ -176,7 +176,7 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 * of customer details. In the document, any of the customers fields may not exist (be null when parsed). An example
 	 * of this HTML is shown below:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <table>
 	 * 	<tr>
 	 * 		<td>Email Address</td>
@@ -195,18 +195,18 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 * 		<td>123 real street</td>
 	 * 	</tr>
 	 * </table>
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * The parsing rules are set below:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entityList = new HtmlEntityList();
 	 * HtmlParserSettings settings = new HtmlParserSettings(entityList);
 	 *
 	 * PartialPath path = entityList.configureEntity("record").newPath().match("table");
 	 * path.addField("emailAddress").match("td").precededBy("td").withText("Email Address").getText();
 	 * path.addField("homeAddress").match("td").precededBy("td").withText("Home Address").getText();
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * <p>After running it through the HtmlParser, we get this output: </p>
 	 *
@@ -225,9 +225,9 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 * is done by adding the line below to the code snippet we had before:
 	 * </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * path.addRecordTrigger().match("td").withText("Email Address");
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * <p>
 	 * Which, when running it through the HtmlParser we get the expected output of:

@@ -20,17 +20,17 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element must have a given text placed in an element before it. For example,
 	 * given this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <span>first</span><span>second</span><span>third</span>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>One technique to get the text of the first 'span' element is: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("span").followedByText("second").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return "first", as the element following the first 'span' element has the text "second"</p>
 	 *
@@ -47,17 +47,17 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element must have a given text placed in an element after it. For example,
 	 * given this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <span>first</span><span>second</span><span>third</span>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>One technique to get the text of the last 'span' element is: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("preceded").match("span").precededByText("second").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return "third" from the third 'span' element, as the element preceding this element has the text "second"</p>
 	 *
@@ -73,19 +73,19 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should have a given element placed after it, at any distance. For
 	 * example, given this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
 	 * <strong>before</strong><strong>after</strong>
 	 * </div>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>One technique to get the text of the first 'strong' element is:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("strong").followedBy("strong").withText("after").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The matching rules in plain english are: get the text of a 'strong' element that has a 'strong' element placed
 	 * after it, and that 'strong' element must have text 'after'. When the parsing process runs, it will return 'before'</p>
@@ -107,11 +107,11 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * is 1 distance away from the second span element and the strong element is at a distance of 2. A technique to
 	 * get the text from the second span element would be:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("fieldName").match("span").followedBy("strong",2).getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return "second" as the strong element is at the following distance of 2. The first span element
 	 * is ignored as the distance from it to the strong element is 3.</p>
@@ -136,17 +136,17 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p>An example using this method can be described with the following HTML document:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <span>first</span><span>second</span><strong>third</strong>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the text of the second span element is:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("secondSpan").match("span").followedImmediatelyBy("strong").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>This will only return the text in the second span element as it is followed immediately by a strong element.
 	 * The first span element is followed immediately by a span element, so it will be ignored</p>
@@ -165,19 +165,19 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should have a given element placed before it, at any distance. For
 	 * example, given this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
 	 * <strong>before</strong><strong>after</strong>
 	 * </div>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>One technique to get the text of the second 'strong' element is:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("preceded").match("strong").precededBy("strong").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The matching rules in plain english are: get the text of a 'strong' element that has a 'strong' element placed
 	 * before it. When the parsing process runs, it will return 'after'</p>
@@ -199,11 +199,11 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * is 1 distance away from the first span element and the strong element is at a distance of 2. A technique to
 	 * get the text from the first span element would be:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("firstSpan").match("span").precededBy("strong",2).getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return "first" as the strong element is 2 positions away from the matched span element.
 	 * The second span element is ignored as the distance from it to the strong element is 3.</p>
@@ -229,17 +229,17 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p>An example using this method can be described with the following HTML document:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <strong>first</strong><span>second</span><span>third</span>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the text of the first span element is:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("firstSpan").match("span").precededImmediatelyBy("strong").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>This will only return the text in the first span element as it is followed immediately by a strong element.
 	 * The second span element is preceded immediately by a span element, so it will not be returned by the parser</p>
@@ -258,23 +258,23 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should be a child of a given element. A child is defined as a HTML
 	 * element that is <strong>directly</strong> contained by another HTML element. For example, given this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
 	 * 	<h1>one</h1>
 	 * </div>
 	 * <article>
 	 * 	<h1>two</h1>
 	 * </article>;
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>One technique to get the text of the first 'h1' element is to write:</p>
 	 *
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("child").match("h1").childOf("div").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The matching rules, in plain english, can be described as: get the text of the 'h1' element that is the child
 	 * of a div element. </p>
@@ -293,22 +293,22 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should be in the hierarchy of a given element. For example, given this simple
 	 * HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
 	 * <span>I'm in a div!</span>
 	 * </div>
 	 * <article>
 	 * <span>I'm in an article!</span>
 	 * </article>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>One technique to get the text of the span element inside of the 'article' element would be to write:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("span").containedBy("article").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The matching rules can be described as "get the text of span elements inside of an article element". When
 	 * the parser runs, it will return "I'm in an article!"</p>
@@ -331,7 +331,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * this HTML document:
 	 *
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
 	 * 	<article>
 	 * 		<header>
@@ -344,16 +344,16 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * 		<span>second</span>
 	 * 	</article>
 	 * </div>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the text of the second span element would be:</p>
 	 *
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("writing").match("span").containedBy("div",2).getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>This will only return 'second' from the last span. While the first span element is contained by a div, the div
 	 * is at a depth level of 3 meaning that the parser will ignore it.</p>
@@ -377,28 +377,28 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * For example, given a simple HTML document of:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <table>
 	 * <tr> <th><span>heading1</span></th> <th>heading2</th> </tr>
 	 * <tr> <td>one</td> <td>two</td> </tr>
 	 * <tr> <td>lorem</td> <td>ispum</td> </tr>
 	 * </table>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p> One technique to only return the text under 'heading1' would be: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("underTableHeader").match("td").underHeader("span").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>When the parser runs, it will return 'one' and 'lorem'. If all data under the headers needed to be returned,
 	 * only a simple change to the matching rules needs to be done: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * entity.addField("underTableHeader").match("td").underHeader("th").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>Which will result in all the text apart from the table headers being returned.</p>
 	 *
@@ -420,21 +420,21 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * For example, given this HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <table>
 	 * <tr> <th>Animal</th>  <th>quantity</th> </tr>
 	 * <tr> <td><span>Alpacas</span></td> <td>12</td> </tr>
 	 * <tr> <td>Lions</td>   <td>5</td> </tr>
 	 * </table>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the text of the last row in the table is:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("firstSpan").match("td").under("span").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return the 'Lions'. This is because the matching rules state 'get the text from a 'td'
 	 * that is under a 'span' element'.</p>
@@ -456,22 +456,22 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * both the h1 and p elements. The div element is parent of article but <strong>not</strong> parent of h1 and p.
 	 * A technique for using parentOf can be showcased using this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div title="one">
 	 * <h1>good</h1>
 	 * </div>
 	 * <div title="two">
 	 * <h2>bad</h2>
 	 * </div>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the title of the first div element is to write: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("parent").match("div").parentOf("h1").getAttribute("title");
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return "one", as the parent of the h1 element is the first div.</p>
 	 *
@@ -489,7 +489,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should contain of one or more given elements in its hierarchy.
 	 * For instance, given this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
 	 * <article>
 	 * 	<p>Some Text</p>
@@ -502,15 +502,15 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * 	<h1>Discussion: Computers</h1>
 	 * </article>
 	 * </div>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
-	 * <p>A technique to get the text of the{@code <p>} element in the middle article is: /p>
+	 * <p>A technique to get the text of the{@code <p>} element in the middle article is: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("reviewText").match("article").containing("h1","p").match("p").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The matching rule states: match an {@code <article>} element that contains a {@code <h1>} <strong>and</strong>
 	 * a {@code <p>} element. Then, get the text of a {@code <p>} element. As neither the first article nor the
@@ -530,7 +530,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should contain of a given element in its hierarchy.
 	 * For instance, given this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <article>
 	 * 	<h1>Review: Tea</h1>
 	 * 	<p>It's good</p>
@@ -539,15 +539,15 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * 	<h1>Discussion: Computers</h1>
 	 * 	<p>It's the future!</p>
 	 * </article>;
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the 'p' text of all articles is to write: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("reviewText").match("article").containing("h1").match("p").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The matching rules, in plain English, can be described as "match all article elements that contain a h1 element.
 	 * From that article element, match the p element and return its text". The parser will return 'It's good'
@@ -569,7 +569,7 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * will search for given element from the currently matched element. For example, given this HTML document:
 	 *
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div title="pen">
 	 * 	<article>
 	 * 		<header>
@@ -582,15 +582,15 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * 		<span></span>
 	 * 	</article>
 	 * </div>;
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique of getting the title of the second div element would be:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("writing").match("div").containing("span",2).getAttribute("title");
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>Running the parser will result in only 'crayon' being returned. This is because in the first div, the span is
 	 * at the depth of 3. As the depth limit as been set at 2, the parser will ignore the first div.</p>
@@ -615,9 +615,9 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * be to write:
 	 * </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * path.match("span").withText("*f").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>
 	 * The meaning of setting the matching text to '*f' means 'match the element with text ending with 'f' with any
@@ -631,9 +631,9 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * ('{@code <div> <span>abcdef</span> <span>abc</span> </div>}'), we can set the matching rules as:
 	 * </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * path.match("span").withText("a?????").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>Which describes 'match the span element that has text that starts with 'a' and has 5 characters after the 'a'.
 	 * Alternatives to match the text could be '?????f' (any 5 characters then a f) and 'ab??ef' ('a', followed by 'b',
@@ -652,18 +652,18 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Also supports the special characters '*' and '?' explained in {@link #withText(String)}. An example of using
 	 * withExactTest can be shown by looking at this simple HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * {@code <p title="cool">a</p>
 	 * <p title="not-cool">ab</p> }
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to get the title of the first p is to write</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("text").match("p").withExactText("a").getAttribute("title");
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return "cool" as the first p element has the same exact text as the text specified. If the
 	 * method {@link #withText(String)} was used instead, the parser would return "cool" <strong>and</strong> "not-cool".

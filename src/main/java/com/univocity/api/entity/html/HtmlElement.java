@@ -123,7 +123,7 @@ public interface HtmlElement {
 	 * Returns {@code true} if the specified element is a descendant of the current element. Returns {@code false} if otherwise. For
 	 * example, in this HTML document:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <table>
 	 * 	<tr>
 	 * 		<td> <span>First Row</span></td>
@@ -132,7 +132,7 @@ public interface HtmlElement {
 	 * 		<td>Second Row</td>
 	 * 	</tr>
 	 * </table>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>Writing tableElement.containsElementInHierarchy(spanElement) would return {@code true} as the span element is a descendant
 	 * of the table element. Inverting the code to spanElement.containsElementInHierarchy(tableElement) would return {@code false}. </p>

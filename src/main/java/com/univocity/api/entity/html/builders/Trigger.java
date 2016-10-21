@@ -17,7 +17,7 @@ interface Trigger {
 	 * of customer details. In the document, any of the customers fields may not exist (be null when parsed). An example
 	 * of this HTML is shown below:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <table>
 	 * 	<tr>
 	 * 		<td>Email Address</td>
@@ -36,18 +36,18 @@ interface Trigger {
 	 * 		<td>123 real street</td>
 	 * 	</tr>
 	 * </table>
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * The parsing rules are set below:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entityList = new HtmlEntityList();
 	 * HtmlParserSettings settings = new HtmlParserSettings(entityList);
 	 *
 	 * PartialPath path = entityList.configureEntity("record").newPath().match("table");
 	 * path.addField("emailAddress").match("td").precededBy("td").withText("Email Address").getText();
 	 * path.addField("homeAddress").match("td").precededBy("td").withText("Home Address").getText();
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * <p>After running it through the HtmlParser, we get this output: </p>
 	 *
@@ -66,9 +66,9 @@ interface Trigger {
 	 * adding the line below to the code snippet we had before:
 	 * </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * path.addRecordTrigger().match("td").withText("Email Address");
-	 * </p></pre></blockquote><hr>
+	 * }<hr>
 	 *
 	 * <p>
 	 * Which, when running it through the {@link HtmlParser} produces:

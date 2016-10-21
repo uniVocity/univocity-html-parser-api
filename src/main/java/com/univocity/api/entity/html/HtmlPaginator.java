@@ -61,7 +61,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 *
 	 * <p>An example of setting the next page can be demonstrated using this HTML: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * {@code
 	 * <html>
 	 * <body>
@@ -73,11 +73,11 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * </body>
 	 * </html>
 	 * }
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>paginationTarget.html contains the following HTML: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * {@code
 	 * <html>
 	 * <body>
@@ -88,12 +88,12 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * </body>
 	 * </html>
 	 * }
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique get the text of both the header and text from both pages is: </p>
 	 *
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("pagination");
 	 *
@@ -103,7 +103,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * entity.addField("text").match("p").containedBy("article").getText();
 	 *
 	 * entities.configurePaginator().setNextPage().match("a").containedBy("article").getAttribute("href");
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>When the parser runs, it will parse the first page, getting [Water: The Truth, It's good for you!]. The
 	 * paginator will then run, accessing the link's URL provided by the href attribute and opening the next page. The

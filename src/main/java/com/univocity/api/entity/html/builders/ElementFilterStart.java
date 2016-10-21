@@ -25,13 +25,13 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * a {@link FieldPath} for a field. For example, to get the text of all span elements on a HTML document, one would
 	 * have to simply write:
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * 	//Set up
 	 * HtmlEntityList htmlEntityList = new HtmlEntityList();
 	 *
 	 * 	//Matching Rule
 	 * htmlEntityList.configureEntity("test").addField("allSpanElements").match("span").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>When the parser runs, it will match every span element found on the HTML document and return their text content.</p>
 	 *
@@ -40,7 +40,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * for the next element to be matched, that must be contained by the first <strong>or</strong> be one of the following
 	 * sibling of the matched element. An example can be shown by first showing a simple HTML document below: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * <div>
 	 * 	<h1>Bad Title</h1>
 	 * </div>
@@ -50,14 +50,14 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * <article>
 	 * 	<h1>Also Good Title</h1>
 	 * </article>
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique to only get the text from header elements inside of articles is:</p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * htmlEntityList.configureEntity("test").addField("headers")
 	 * 		.match("article").match("h1").getText();
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>The parser will return "Good Title" and "Also Good Title". This is because the matching rules set will look for
 	 * {@code <article>} elements and then {@code <h1>} inside these {@code <article>} elements (or the next sibling of) the

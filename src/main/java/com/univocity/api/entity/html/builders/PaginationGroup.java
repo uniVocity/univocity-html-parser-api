@@ -26,7 +26,7 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 *
 	 * <p>An example of setting the next page can be demonstrated using this HTML: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * {@code
 	 * <html>
 	 * <body>
@@ -38,11 +38,11 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * </body>
 	 * </html>
 	 * }
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>paginationTarget.html contains the following HTML: </p>
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * {@code
 	 * <html>
 	 * <body>
@@ -53,12 +53,12 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * </body>
 	 * </html>
 	 * }
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>A technique get the text of both the header and text from both pages is: </p>
 	 *
 	 *
-	 * <p><hr><blockquote><pre>
+	 * <hr>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("pagination");
 	 *
@@ -68,7 +68,7 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * entity.addField("text").match("p").containedBy("article").getText();
 	 *
 	 * entities.configurePaginator().setNextPage().match("a").containedBy("article").getAttribute("href");
-	 * </p></blockquote></pre><hr>
+	 * }<hr>
 	 *
 	 * <p>When the parser runs, it will parse the first page, getting [Water: The Truth, It's good for you!]. The
 	 * paginator will then run, accessing the link's URL provided by the href attribute and opening the next page. The

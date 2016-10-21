@@ -18,7 +18,7 @@ interface PathCopy {
 	 * path. Useful for when a path to an element is commonly used to create new paths. An example can be shown with
 	 * this HTML:
 	 *
-	 *<p><hr><blockquote><pre>
+	 *<hr>{@code
 	 * {@code
 	 *<div class="cool-div">
 	 *     <article>
@@ -37,11 +37,11 @@ interface PathCopy {
 	 *     </article>
 	 *</div>
 	 * }
-	 *</p></pre></blockquote><hr>
+	 *}<hr>
 	 *
 	 *<p>A technique to get the text of the p element of the first and second articles in the first div is: </p>
 	 *
-	 *<p><hr><blockquote><pre>
+	 *<hr>{@code
 	 *HtmlEntityList entities = new HtmlEntityList();
 	 *HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
@@ -54,7 +54,7 @@ interface PathCopy {
 	 * //get the text of the second article
 	 *path.copyPath().withText("second").addField("second").match("p").getText();
 	 *
-	 *</p></pre></blockquote><hr>
+	 *}<hr>
 	 *
 	 *<p>In this example, the first path that is created is used as a basis. The path is then copied twice to specify
 	 * the two p elements where the text will be returned from. Running the parser will return [lorem, ispum]. If copyPath
