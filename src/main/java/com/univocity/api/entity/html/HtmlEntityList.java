@@ -10,14 +10,16 @@ package com.univocity.api.entity.html;
 import com.univocity.parsers.remote.*;
 
 /**
- * This class creates and stores {@link HtmlEntity}s.
+ * Manages a list of HTML entities and their {@link HtmlEntitySettings}. Common configuration options shared with
+ * {@link HtmlEntitySettings} and {@link HtmlParserSettings} are inherited from the {@link HtmlParserSettings}, but can
+ * be overriden in the configuration of each individual entity.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
- * @see HtmlEntity
  * @see HtmlParser
+ * @see HtmlParserSettings
  * @see HtmlParserListener
  */
-public class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
+public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 
 	/**
 	 * Creates a new, empty HtmlEntityList
@@ -33,7 +35,7 @@ public class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 	 * @return the HtmlEntitySettings that was created
 	 */
 	@Override
-	protected HtmlEntitySettings newEntity(String entityName) {
+	protected final HtmlEntitySettings newEntity(String entityName) {
 		return new HtmlEntitySettings(entityName);
 	}
 

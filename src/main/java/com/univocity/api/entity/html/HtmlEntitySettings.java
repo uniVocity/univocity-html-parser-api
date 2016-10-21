@@ -14,16 +14,21 @@ import com.univocity.parsers.remote.*;
 import java.util.*;
 
 /**
- * This class defines entities that will be parsed. A entity has a name and one or more fields. These fields specify
- * what specific HTML elements will be parsed, as each field has a path to the HTML data that will be parsed.
+ * A {@code HtmlEntitySettings} object manages the configuration of a HTML entity. An entity has a name and one or more
+ * fields. These fields have paths to the elements that will have their data collected. In addition, a {@link HtmlParserListener}
+ * can be associated with an entity to notify the user of actions made by the {@link HtmlParser}.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @see HtmlEntityList
+ * @see HtmlParser
+ * @see HtmlParserListener
+ * @see HtmlParsingContext
  */
-public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings> implements FieldDefinition {
+public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings> implements FieldDefinition {
 
 	final Map<String, Object> fields = new LinkedHashMap<String, Object>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
-	HtmlParserListener listener = null;
+	private HtmlParserListener listener = null;
 
 	/**
 	 * Creates a new HTML entity configuration and associates it with the supplied name.
@@ -34,16 +39,27 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		super(entityName, createEmptyParserSettings());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public PathStart addSilentField(String fieldName) {
+	public final PathStart addSilentField(String fieldName) {
 		return newField(fieldName, false, true);
 	}
 
-	public PathStart addField(String fieldName) {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final PathStart addField(String fieldName) {
 		return newField(fieldName, false, false);
 	}
 
-	public PathStart addPersistentField(String fieldName) {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final PathStart addPersistentField(String fieldName) {
 		return newField(fieldName, true, false);
 	}
 
@@ -64,14 +80,14 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	}
 
 	/**
-	 * Used by {@link HtmlEntity#newField(String, boolean, boolean)} to add a path to the field. It tries to get the
-	 * field from the fields map. If it doesn't exist, it puts a new field into the map and associated it with the
+	 * Used by {@link #newField(String, boolean, boolean)} to add a path to the field. It tries to get the
+	 * field from the fields map. If it doesn't exist, it puts a new field into the map and associates it with the
 	 * given path.
 	 *
 	 * @param fieldName the name identifies the field
 	 * @param path      the path that will be associated with the field
 	 */
-	void addPathToField(String fieldName, FieldPath path) {
+	final void addPathToField(String fieldName, FieldPath path) {
 		List<FieldPath> paths = (List<FieldPath>) fields.get(fieldName);
 		if (paths == null) {
 			paths = new ArrayList<FieldPath>();
@@ -82,19 +98,18 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 
 
 	/**
-	 * Used by {@link HtmlEntity#addRecordTrigger()}. When a record trigger is defined, it gets added to the
-	 * RecordTrigger list
+	 * Used by {@link #addRecordTrigger()}. When a record trigger is defined, it gets added to the
+	 * {@link #triggers} list
 	 *
-	 * @param trigger the RecordTrigger that will be added to the list
+	 * @param trigger the {@link RecordTrigger} that will be added to the list
 	 */
-	void addTrigger(RecordTrigger trigger) {
+	final void addTrigger(RecordTrigger trigger) {
 		this.triggers.add(trigger);
 	}
 
 	/**
-	 * Returns a {@link PartialPathStart} that is used to define a path. Fields then can added to this path using
-	 * {@link PartialPath#addField(String)}. Creating ParitalPaths are useful for when there are multiple fields
-	 * that exist in the same area of the HTML Document, as the path can be reused. For example:
+	 * Returns a {@link PartialPathStart} that is used to define a reusable path of HTML elements. Fields then can
+	 * added to this path using {@link PartialPath#addField(String)} and others, which associates the field with this entity.
 	 *
 	 * <p><hr><blockquote><pre>
 	 * 	HtmlEntityList entityList = new HtmlEntityList();
@@ -104,17 +119,17 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * 	path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
 	 * 	</p></pre></blockquote><hr>
 	 *
-	 * @return a {@link PartialPathStart} to specify a path
+	 * @return a {@link PartialPathStart} to specify the path of HTML elements
 	 */
-	public PartialPathStart newPath() {
+	public final PartialPathStart newPath() {
 		return Builder.build(PartialPathStart.class, this);
 	}
 
 	/**
-	 * Returns a {@link GroupStart} that allows for a group to be defined. A group is a section of the HTML input
-	 * that is allowed to be parsed. Paths created from a group will only parse inside this defined area, ignoring
-	 * any HTML that exists outside of it. For example, say you wanted to parse the "hello" and "howdy" in the following
-	 * HTML:
+	 * Returns a {@link GroupStart} that allows for a {@link Group} to be defined. A {@link Group} demarcates a section
+	 * of the HTML input that is allowed to be parsed. {@link FieldPath}s created from a group will only be executed inside
+	 * this defined area, ignoring any HTML that exists outside of it. For example, say you wanted to parse
+	 * the "hello" and "howdy" in the following HTML:
 	 *
 	 * <p><hr><blockquote><pre>
 	 * <div class="parseMe">
@@ -135,24 +150,22 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * group.addField("greeting").match("p").getText();
 	 * </p></pre></blockquote><hr>
 	 *
-	 * <p>The parser will then ignore the 'don't parse me' as the group restricts the parsing to the area defined by from
-	 * the class opening tag to the h1 tag.</p>
+	 * <p>The parser will then ignore the 'don't parse me' as the group restricts the parsing to the area defined from
+	 * a div with class "parseMe" until an opening h1 tag.</p>
 	 *
-	 * @return a {@link GroupStart} used to specify the group
+	 * @return a {@link GroupStart} used to specify where the {@link Group} starts.
 	 */
-	public GroupStart newGroup() {
+	public final GroupStart newGroup() {
 		return Builder.build(GroupStart.class, this);
 	}
 
 
 	/**
-	 * Creates a new group for the {@link HtmlPaginator}. A group is a section of the HTML input
-	 * that is allowed to be parsed. Paths created from a group will only parse inside this defined area, ignoring
-	 * any HTML that exists outside of it.
+	 * Creates a new {@link PaginationGroup} for the {@link HtmlPaginator}.
 	 *
-	 * @return a {@link PaginationGroupStart} used to specify the group
+	 * @return a {@link PaginationGroupStart} used to specify where {@link PaginationGroup} starts.
 	 */
-	PaginationGroupStart newPaginationGroup() {
+	final PaginationGroupStart newPaginationGroup() {
 		return Builder.build(PaginationGroupStart.class, this);
 	}
 
@@ -207,9 +220,9 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * </p>
 	 *
 	 * <p>
-	 * This is due to the parser finding that the first Home Address is null, assuming that the second home address is
-	 * the one that was specified for the first row. To fix this error, the RecordTrigger will be set. this is done by
-	 * adding the line below to the code snippet we had before:
+	 * This is due to the parser finding that the first Home Address is {@code null}, assuming that the second home
+	 * address is the one that was specified for the first row. To fix this error, the RecordTrigger will be set. This
+	 * is done by adding the line below to the code snippet we had before:
 	 * </p>
 	 *
 	 * <p><hr><blockquote><pre>
@@ -217,7 +230,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * </p></pre></blockquote><hr>
 	 *
 	 * <p>
-	 * Which, when running it throught the HtmlParser we get the expected output of:
+	 * Which, when running it through the HtmlParser we get the expected output of:
 	 * </p>
 	 * <p>
 	 * [bla.@email.com, null]<br>
@@ -225,63 +238,77 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * </p>
 	 *
 	 * <p>
-	 * This is because when the parser hits the second email address entry, the RecordTrigger is activated and a new
-	 * row is created. Therefore, when the parser hits the second Home Address, it adds the value to the second row
-	 * instead of the first row.
+	 * This is because when the parser hits the second email address entry, the {@code RecordTrigger} is activated
+	 * and a new row is created. Therefore, when the parser hits the second Home Address, it adds the value to the
+	 * second row instead of the first row.
 	 * </p>
 	 *
 	 * @return a {@link RecordTriggerStart} that defines the path for the trigger
 	 */
-	public RecordTriggerStart addRecordTrigger() {
+	public final RecordTriggerStart addRecordTrigger() {
 		RecordTrigger out = Builder.build(RecordTrigger.class, this);
 		addTrigger(out);
 		return out;
 	}
 
-	public Set<String> getFieldNames() {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final Set<String> getFieldNames() {
 		return Collections.unmodifiableSet(fields.keySet());
 	}
 
-	public void removeField(String fieldName) {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public final void removeField(String fieldName) {
 		fields.remove(fieldName);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void addConstantField(String constantFieldName, String constantValue) {
+	public final void addConstantField(String constantFieldName, String constantValue) {
 		fields.put(constantFieldName, constantValue);
 	}
 
 	/**
-	 * Associates a {@link HtmlParserListener} with this {@code HtmlEntity}. The listener methods will be triggered
-	 * by the {@link HtmlParser} while it traverses the HTML structure to collects values for the fields of this entity
+	 * Associates a {@link HtmlParserListener} with this HTML entity. The listener methods will be triggered
+	 * by the {@link HtmlParser} while it traverses the HTML structure to collect values for the fields of this entity.
 	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
 	 *
 	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
 	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
 	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setThreadCount(int)}</p>
 	 *
-	 * @param listener the HtmlParserListener that this entity will be associated with
+	 * @param listener the {@link HtmlParserListener} to be used when the parser executes to collect values for the fields
+	 *                 of this entity.
 	 */
-	public void setListener(HtmlParserListener listener) {
+	public final void setListener(HtmlParserListener listener) {
 		this.listener = listener;
 	}
 
 	/**
-	 * Returns the {@link HtmlParserListener} associated with this {@code HtmlEntity}. The listener methods will be triggered
-	 * by the {@link HtmlParser} while it traverses the HTML structure to collects values for the fields of this entity
+	 * Returns the {@link HtmlParserListener} associated with this HTML entity. The listener methods will be triggered
+	 * by the {@link HtmlParser} while it traverses the HTML structure to collect values for the fields of this entity
 	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
 	 *
 	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
 	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
 	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setThreadCount(int)}</p>
 	 *
-	 * @return the HtmlParserListener associated with this entity.
+	 * @return the {@link HtmlParserListener} to be used when the parser executes to collect values for the fields
+	 * of this entity.
 	 */
-	public HtmlParserListener getListener() {
+	public final HtmlParserListener getListener() {
 		return listener;
 	}
 
-	public CommonParserSettings getInternalSettings() {
+	@Override
+	protected final CommonParserSettings getInternalSettings() {
 		return super.getInternalSettings();
 	}
 }

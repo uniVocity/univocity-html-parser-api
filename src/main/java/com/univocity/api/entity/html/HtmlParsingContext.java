@@ -23,26 +23,26 @@ import java.util.*;
 public interface HtmlParsingContext extends Context {
 
 	/**
-	 * If the Parser is reading from a web page, returns the {@link HttpResponse} that it is using. Otherwise it will
-	 * return null.
+	 * If the {@link HtmlParser} is reading from a web page, returns the {@link HttpResponse} that it is using to process the input
+	 * HTML. Otherwise it will return {@code null}.
 	 *
-	 * @return the {@link HttpResponse} that the parser is using, or null if parsing local file.
+	 * @return the {@link HttpResponse} that the parser is using, or {@code null} if parsing local file.
 	 */
 	HttpResponse getResponse();
 
 	/**
-	 * Returns a Map of matched data where the value is the field name and the value is the data that was matched. Values
-	 * are matched when the {@link HtmlParser} encounters a value defined by a path set by an {@link HtmlEntity}'s added
+	 * Returns a {@code Map} of matched data where the value is the field name and the value is the data that was matched. Values
+	 * are matched when the {@link HtmlParser} encounters a value defined by a path set by an {@link HtmlEntitySettings}' added
 	 * field.
 	 *
-	 * @return a Map of data that was matched during parsing
+	 * @return a {@code Map} of data that was matched for the current record of the current HTML entity while parsing
 	 */
 	Map<String, String> getMatchedData();
 
 	/**
-	 * Returns the name of the {@link HtmlEntity} that the {@link HtmlParser} is using to parse the HTML document.
+	 * Returns the name of the HTML entity that the {@link HtmlParser} is using to parse the HTML document.
 	 *
-	 * @return the name that identifies the {@link HtmlEntity} being used by the {@link HtmlParser}
+	 * @return the name that identifies the HTML entity being used by the {@link HtmlParser}
 	 */
 	String getEntityName();
 
@@ -57,14 +57,15 @@ public interface HtmlParsingContext extends Context {
 	int currentNodeDepth();
 
 	/**
-	 * Returns the element that the Parser is currently visiting.
+	 * Returns the element that the parser is currently visiting.
 	 *
 	 * @return the element that is currently being visited by the parser
 	 */
 	HtmlElement getCurrentElement();
 
 	/**
-	 * Returns the file that was last downloaded for a given binary field.
+	 * Returns the file that was last downloaded for a given binary field. Binary fields are defined using
+	 * {@link com.univocity.api.entity.html.builders.ContentReader#getContentFrom(String)}.
 	 *
 	 * @param binaryFieldName name that identifies a field configured to download binary content.
 	 *
@@ -73,7 +74,8 @@ public interface HtmlParsingContext extends Context {
 	File getFile(String binaryFieldName);
 
 	/**
-	 * Returns the names of the fields set to download content.
+	 * Returns the names of the fields set to download content, i.e. names of fields defined using
+	 * {@link com.univocity.api.entity.html.builders.ContentReader#getContentFrom(String)}
 	 *
 	 * @return names of fields associated with downloaded content
 	 */

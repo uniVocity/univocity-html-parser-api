@@ -5,22 +5,24 @@ import com.univocity.parsers.common.*;
 import com.univocity.parsers.remote.*;
 
 /**
- * The configuration class for {@link HtmlParser}.
+ * Configuration class for the {@link HtmlParser}. Properties that also exist in {@link HtmlEntitySettings} are global
+ * and will be used by each entity configuration by default. Individual {@link HtmlEntitySettings} can have their own
+ * specific configuration modified to override its defaults.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlParser
  * @see HtmlEntityList
  */
-public class HtmlParserSettings extends RemoteParserSettings<CommonParserSettings, HtmlEntityList> {
+public final class HtmlParserSettings extends RemoteParserSettings<CommonParserSettings, HtmlEntityList> {
 
 	private int downloadThreads = Runtime.getRuntime().availableProcessors();
 	private int threadCount = Runtime.getRuntime().availableProcessors();
 	private HtmlParserListener listener;
 
 	/**
-	 * Creates a new HtmlParserSettings and associates it with {@link HtmlEntityList}
+	 * Creates a new {@code HtmlParserSettings} and associates it with a {@link HtmlEntityList}.
 	 *
-	 * @param entityList the {@link HtmlEntityList} that will be associated
+	 * @param entityList the {@link HtmlEntityList} that will be associated with the parser
 	 */
 	public HtmlParserSettings(HtmlEntityList entityList) {
 		super(entityList);
@@ -34,7 +36,7 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 	 *
 	 * @return the number of threads used by the parser.
 	 */
-	public int getThreadCount() {
+	public final int getThreadCount() {
 		return threadCount <= 0 ? 1 : threadCount;
 	}
 
@@ -46,26 +48,60 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 	 *
 	 * @param threadCount the maximum number of threads to use
 	 */
-	public void setThreadCount(int threadCount) {
+	public final void setThreadCount(int threadCount) {
 		if (threadCount <= 0) {
 			threadCount = 1;
 		}
 		this.threadCount = threadCount;
 	}
 
-	public int getErrorContentLength() {
+	/**
+	 * Configures the parser to limit the length of displayed contents being processed in the exception message when an error occurs
+	 *
+	 * <p>If set to {@code 0}, then no exceptions will include the content being manipulated in their attributes,
+	 * and the {@code "<omitted>"} string will appear in error messages as the parsed content.</p>
+	 *
+	 * <p>defaults to {@code -1} (no limit)</p>.
+	 *
+	 * @return the maximum length of contents displayed in exception messages in case of errors while parsing.
+	 */
+	public final int getErrorContentLength() {
 		return globalSettings.getErrorContentLength();
 	}
 
-	public void setErrorContentLength(int errorContentLength) {
+	/**
+	 * Configures the parser to limit the length of displayed contents being processed in the exception message when an error occurs
+	 *
+	 * <p>If set to {@code 0}, then no exceptions will include the content being manipulated in their attributes,
+	 * and the {@code "<omitted>"} string will appear in error messages as the parsed content.</p>
+	 *
+	 * <p>defaults to {@code -1} (no limit)</p>.
+	 *
+	 * @param errorContentLength the maximum length of contents displayed in exception messages in case of errors while parsing.
+	 */
+	public final void setErrorContentLength(int errorContentLength) {
 		globalSettings.setErrorContentLength(errorContentLength);
 	}
 
-	public String getNullValue() {
+	/**
+	 * Returns the {@code String} representation of a null value (defaults to {@code null})
+	 * <p>When reading, if the parser does not read any character from the input for a particular value, the nullValue
+	 * is used instead of an empty {@code String}</p>
+	 *
+	 * @return the String representation of a null value
+	 */
+	public final String getNullValue() {
 		return globalSettings.getNullValue();
 	}
 
-	public void setNullValue(String nullValue) {
+	/**
+	 * Defines the {@code String} representation of a null value (defaults to {@code null})
+	 * <p>When reading, if the parser does not read any character from the input for a particular value, the nullValue
+	 * is used instead of an empty {@code String}</p>
+	 *
+	 * @param nullValue the String representation of a null value
+	 */
+	public final void setNullValue(String nullValue) {
 		globalSettings.setNullValue(nullValue);
 	}
 
@@ -86,11 +122,11 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 	}
 
 	/**
-	 * Returns the {@link HtmlPaginator} associated with the HtmlEntityList
+	 * Returns the {@link HtmlPaginator} associated with this {@code HtmlParserSettings}
 	 *
-	 * @return the {@link HtmlPaginator} stored within the HtmlEntityList
+	 * @return the {@link HtmlPaginator} stored within this {@code HtmlParserSettings}
 	 */
-	public HtmlPaginator getPaginator() {
+	public final HtmlPaginator getPaginator() {
 		return (HtmlPaginator) super.getPaginator();
 	}
 
@@ -102,7 +138,7 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 	 *
 	 * @param downloadThreads the maximum number of threads to be used for downloading content
 	 */
-	public void setDownloadThreads(int downloadThreads) {
+	public final void setDownloadThreads(int downloadThreads) {
 		Args.positive(downloadThreads, "Number of threads for content download");
 		this.downloadThreads = downloadThreads;
 	}
@@ -115,54 +151,82 @@ public class HtmlParserSettings extends RemoteParserSettings<CommonParserSetting
 	 *
 	 * @return the maximum number of threads to be used for downloading content
 	 */
-	public int getDownloadThreads() {
+	public final int getDownloadThreads() {
 		return downloadThreads;
 	}
 
 	/**
-	 * Sets the associated {@link HtmlParserListener} that is used when the {@link HtmlParser} parses.
+	 * Returns the custom error handler to be used to capture and handle errors that might happen while processing
+	 * records with a {@link com.univocity.parsers.common.processor.core.Processor}
+	 * (i.e. non-fatal {@link DataProcessingException}s).
 	 *
-	 * @param listener the HtmlParserListener that the settings will be associated with
-	 */
-	public void setListener(HtmlParserListener listener) {
-		this.listener = listener;
-	}
-
-	/**
-	 * Returns the associated {@link HtmlParserListener}
+	 * <p>The parsing process won't stop (unless the error handler rethrows the {@link DataProcessingException}
+	 * or manually stops the process).</p>
 	 *
-	 * @return the HtmlParserListener associated with the settings
+	 * @return the callback error handler with custom code to manage occurrences of {@link DataProcessingException}.
 	 */
-	public HtmlParserListener getListener() {
-		return listener;
-	}
-
-	public ProcessorErrorHandler getProcessorErrorHandler() {
+	public final ProcessorErrorHandler<HtmlParsingContext> getProcessorErrorHandler() {
 		return globalSettings.getProcessorErrorHandler();
 	}
 
-	public void setProcessorErrorHandler(ProcessorErrorHandler processorErrorHandler) {
+	/**
+	 * Defines a custom error handler to be used to capture and handle errors that might happen while processing
+	 * records with a {@link com.univocity.parsers.common.processor.core.Processor}
+	 * (i.e. non-fatal {@link DataProcessingException}s).
+	 *
+	 * <p>The parsing process won't stop (unless the error handler rethrows the {@link DataProcessingException}
+	 * or manually stops the process).</p>
+	 *
+	 * @param processorErrorHandler the callback error handler with custom code to manage occurrences of {@link DataProcessingException}.
+	 */
+	public final void setProcessorErrorHandler(ProcessorErrorHandler<HtmlParsingContext> processorErrorHandler) {
 		globalSettings.setProcessorErrorHandler(processorErrorHandler);
 	}
 
-	public boolean isTrimTrailingWhitespaces() {
+	/**
+	 * Returns whether or not trailing whitespaces from values being read should be trimmed (defaults to {@code true})
+	 *
+	 * @return {@code true} if trailing whitespaces from values being read should be trimmed, {@code false} otherwise
+	 */
+	public final boolean getTrimTrailingWhitespaces() {
 		return globalSettings.getIgnoreTrailingWhitespaces();
 	}
 
-	public void setTrimTrailingWhitespaces(boolean ignoreTrailingWhitespaces) {
-		globalSettings.setIgnoreTrailingWhitespaces(ignoreTrailingWhitespaces);
+	/**
+	 * Defines whether or not trailing whitespaces from values being read should be trimmed (defaults to {@code true})
+	 *
+	 * @param trimTrailingWhitespaces flag indicating whether to remove trailing whitespaces from values being read
+	 */
+	public final void setTrimTrailingWhitespaces(boolean trimTrailingWhitespaces) {
+		globalSettings.setIgnoreTrailingWhitespaces(trimTrailingWhitespaces);
 	}
 
-	public boolean isTrimLeadingWhitespaces() {
+	/**
+	 * Returns whether or not leading whitespaces from values being read should be trimmed (defaults to {@code true})
+	 *
+	 * @return {@code true} if leading whitespaces from values being read should be trimmed, {@code false} otherwise
+	 */
+	public final boolean getTrimLeadingWhitespaces() {
 		return globalSettings.getIgnoreLeadingWhitespaces();
 	}
 
-	public void setTrimLeadingWhitespaces(boolean ignoreLeadingWhitespaces) {
-		globalSettings.setIgnoreLeadingWhitespaces(ignoreLeadingWhitespaces);
+	/**
+	 * Defines whether or not trailing whitespaces from values being read should be trimmed (defaults to {@code true})
+	 *
+	 * @param trimTrailingWhitespaces flag indicating whether to remove trailing whitespaces from values being read
+	 */
+	public final void setTrimLeadingWhitespaces(boolean trimTrailingWhitespaces) {
+		globalSettings.setIgnoreLeadingWhitespaces(trimTrailingWhitespaces);
 	}
 
-	public void trimValues(boolean trim) {
+	/**
+	 * Configures the parser to trim/keep leading and trailing whitespaces around values
+	 * This has the same effect as invoking both {@link #setTrimLeadingWhitespaces(boolean)}
+	 * and {@link #setTrimTrailingWhitespaces(boolean)} with the same value.
+	 *
+	 * @param trim a flag indicating whether whitespaces should be removed around values parsed.
+	 */
+	public final void trimValues(boolean trim) {
 		globalSettings.trimValues(trim);
 	}
-
 }
