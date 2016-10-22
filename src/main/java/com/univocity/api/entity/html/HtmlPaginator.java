@@ -23,7 +23,6 @@ import java.util.*;
  */
 public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
-	public static Set<String> RESERVED_NAMES = new HashSet<String>(Arrays.asList("nextPage", "previousPage", "pageSize", "firstPage", "lastPage", "itemCount"));
 	private int idealPageSize;
 
 	/**
@@ -65,11 +64,11 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * {@code
 	 * <html>
 	 * <body>
-	 * 	<article>
-	 * 		<h1>Water: The Truth</h1>
-	 * 		<p>It's good for you!</p>
-	 * 		<a href="paginationTarget.html">Next Page</a>
-	 * 	</article>
+	 * <article>
+	 * <h1>Water: The Truth</h1>
+	 * <p>It's good for you!</p>
+	 * <a href="paginationTarget.html">Next Page</a>
+	 * </article>
 	 * </body>
 	 * </html>
 	 * }
@@ -81,10 +80,10 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * {@code
 	 * <html>
 	 * <body>
-	 * 	<article>
-	 * 		<h1>Bananas</h1>
-	 * 		<p>An excellent source of potassium/</p>
-	 * 	</article>
+	 * <article>
+	 * <h1>Bananas</h1>
+	 * <p>An excellent source of potassium/</p>
+	 * </article>
 	 * </body>
 	 * </html>
 	 * }
@@ -114,7 +113,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @return a {@link PathStart} is used to define the path to the next page element
 	 */
 	public final PathStart setNextPage() {
-		return entitySettings.addField("nextPage");
+		return entitySettings.addField(NEXT_PAGE);
 	}
 
 	/**
@@ -125,7 +124,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @return a {@link PathStart} is used to define the path to the previous page element
 	 */
 	public final PathStart setPreviousPage() {
-		return entitySettings.addField("previousPage");
+		return entitySettings.addField(PREVIOUS_PAGE);
 	}
 
 	/**
@@ -136,7 +135,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @return a {@link PathStart} is used to define the path to the first page element
 	 */
 	public final PathStart setFirstPage() {
-		return entitySettings.addField("firstPage");
+		return entitySettings.addField(FIRST_PAGE);
 	}
 
 	/**
@@ -147,7 +146,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @return a {@link PathStart} is used to define the path to the last page element
 	 */
 	public final PathStart setLastPage() {
-		return entitySettings.addField("lastPage");
+		return entitySettings.addField(LAST_PAGE);
 	}
 
 	/**
@@ -158,7 +157,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @return a {@link PathStart} is used to define the path to the element
 	 */
 	public final PathStart setPageSize() {
-		return entitySettings.addField("pageSize");
+		return entitySettings.addField(PAGE_SIZE);
 	}
 
 	/**
@@ -169,7 +168,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @return a {@link PathStart} is used to define the path to the item count element
 	 */
 	public final PathStart setItemCount() {
-		return entitySettings.addField("itemCount");
+		return entitySettings.addField(ITEM_COUNT);
 	}
 
 
@@ -213,7 +212,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @param pageSize the ideal page size
 	 */
 	public final void setIdealPageSize(int pageSize) {
-		if (!getFieldNames().contains("pageSize")) {
+		if (!getFieldNames().contains(PAGE_SIZE)) {
 			throw new IllegalConfigurationException("Paginator does not have a 'pageSize' field defined.");
 		}
 		this.idealPageSize = pageSize;
@@ -229,7 +228,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @return the ideal page size
 	 */
 	public final int getIdealPageSize() {
-		if (!getFieldNames().contains("pageSize")) {
+		if (!getFieldNames().contains(PAGE_SIZE)) {
 			throw new IllegalConfigurationException("Paginator does not have a 'pageSize' field defined.");
 		}
 		return idealPageSize;
