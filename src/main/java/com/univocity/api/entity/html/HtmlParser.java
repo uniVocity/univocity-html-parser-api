@@ -7,7 +7,7 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.*;
-import com.univocity.api.common.*;
+import com.univocity.api.io.*;
 import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.processor.core.*;
 import com.univocity.parsers.common.record.*;

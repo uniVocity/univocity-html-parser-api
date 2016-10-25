@@ -8,9 +8,8 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.api.exception.*;
+import com.univocity.api.net.*;
 import com.univocity.parsers.remote.*;
-
-import java.util.*;
 
 /**
  * Used by the {@link HtmlParser} to collect multiple pages of results in a website and to handle
@@ -176,7 +175,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * Creates a new request parameter and returns a {@link PathStart} that allows the user to define path to the
 	 * parameter. Request parameters are values set on a page, usually internally in hidden fields of a form element,
 	 * and which contain details about the page state. These are usually used to be sent back to the server in a POST
-	 * {@link com.univocity.api.common.HttpRequest}, to validate the current session and return a next page of results.
+	 * {@link HttpRequest}, to validate the current session and return a next page of results.
 	 *
 	 * If you assign the path to the request parameters you are interested in, the paginator will automatically
 	 * set them for you when requesting for the next page of results. Otherwise, you'd have to manually set the parameters
