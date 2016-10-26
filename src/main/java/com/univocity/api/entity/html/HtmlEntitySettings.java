@@ -63,6 +63,7 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 		return newField(fieldName, true, false);
 	}
 
+
 	/**
 	 * Used by the field adding methods. Creates a new {@link PathStart} based on the supplied options and adds it
 	 * to the given field. Finally, returns the created {@link PathStart}.

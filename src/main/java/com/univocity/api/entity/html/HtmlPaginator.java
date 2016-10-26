@@ -6,6 +6,7 @@
 
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.api.exception.*;
 import com.univocity.api.net.*;
@@ -181,15 +182,25 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * set them for you when requesting for the next page of results. Otherwise, you'd have to manually set the parameters
 	 * using a {@link PaginationHandler}.
 	 *
-	 * @param fieldName the name of the request parameter
+	 * @param paramName name of the request parameter
 	 *
 	 * @return a {@link PathStart} is used to define the path of the value for the given parameter
 	 */
-	public final PathStart addRequestParameter(String fieldName) {
-		//return entity.addRequestParameter(fieldName); //FIXME
-		return null;
+	public final PathStart addRequestParameter(String paramName) {
+		Args.notBlank(paramName, "Request parameter name");
+		return entitySettings.addField(paramName);
 	}
 
+
+	/**
+	 * Assigns a value to a request parameter name that the paginator must always set when requesting the next page.
+	 *
+	 * @param paramName name of the request parameter
+	 * @param value     value of the request parameter
+	 */
+	public final void setRequestParameter(String paramName, String value) {
+		entitySettings.addConstantField(paramName, value);
+	}
 
 	/**
 	 * Creates a new {@link PaginationGroup} group for this paginator.

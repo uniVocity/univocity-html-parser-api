@@ -30,11 +30,11 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * {@code
 	 * <html>
 	 * <body>
-	 * 	<article>
-	 * 		<h1>Water: The Truth</h1>
-	 * 		<p>It's good for you!</p>
-	 * 		<a href="paginationTarget.html">Next Page</a>
-	 * 	</article>
+	 * <article>
+	 * <h1>Water: The Truth</h1>
+	 * <p>It's good for you!</p>
+	 * <a href="paginationTarget.html">Next Page</a>
+	 * </article>
 	 * </body>
 	 * </html>
 	 * }
@@ -46,10 +46,10 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * {@code
 	 * <html>
 	 * <body>
-	 * 	<article>
-	 * 		<h1>Bananas</h1>
-	 * 		<p>An excellent source of potassium/</p>
-	 * 	</article>
+	 * <article>
+	 * <h1>Bananas</h1>
+	 * <p>An excellent source of potassium/</p>
+	 * </article>
 	 * </body>
 	 * </html>
 	 * }
@@ -108,4 +108,14 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * value, which will be sent in the request for the next page.
 	 */
 	PathStart addRequestParameter(String parameterName);
+
+	/**
+	 * Associates a constant value to a request parameter. Parameter values are submitted as a POST request
+	 * to load the next page.
+	 *
+	 * @param parameterName  the name that will be associated with the parameter, which will be sent in the request
+	 *                       for the next page
+	 * @param parameterValue the value of the corresponding parameter
+	 */
+	void setRequestParameter(String parameterName, String parameterValue);
 }
