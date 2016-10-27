@@ -12,6 +12,8 @@ import com.univocity.api.exception.*;
 import com.univocity.api.net.*;
 import com.univocity.parsers.remote.*;
 
+import java.util.*;
+
 /**
  * Used by the {@link HtmlParser} to collect multiple pages of results in a website and to handle
  * the files that have been downloaded for each page.
@@ -24,6 +26,7 @@ import com.univocity.parsers.remote.*;
 public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
 	private int idealPageSize;
+	private Set<String> requestParameters;
 
 	/**
 	 * Creates a new HtmlPaginator and sets the currentPageNumber to 0
@@ -39,7 +42,12 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 */
 	@Override
 	protected final HtmlEntitySettings newEntitySettings() {
-		return new HtmlEntitySettings(ENTITY_NAME);
+		return new HtmlEntitySettings(ENTITY_NAME) {
+			{
+				HtmlPaginator.this.requestParameters = this.requestParameters;
+			}
+		};
+
 	}
 
 	/**
@@ -171,6 +179,20 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 		return entitySettings.addField(ITEM_COUNT);
 	}
 
+	/**
+	 * Creates a new field on this {@code HtmlPaginator} and returns a {@link PathStart} that allows the user to define
+	 * a path to the field.
+	 *
+	 * Any value collected for the given field can be read from a {@link PaginationHandler}.
+	 *
+	 * @param fieldName name of the new field
+	 *
+	 * @return a {@link PathStart} is used to define the path of the value for the given field
+	 */
+	public final PathStart addField(String fieldName) {
+		return entitySettings.addField(fieldName);
+	}
+
 
 	/**
 	 * Creates a new request parameter and returns a {@link PathStart} that allows the user to define path to the
@@ -188,6 +210,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 */
 	public final PathStart addRequestParameter(String paramName) {
 		Args.notBlank(paramName, "Request parameter name");
+		requestParameters.add(paramName);
 		return entitySettings.addField(paramName);
 	}
 
@@ -199,6 +222,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * @param value     value of the request parameter
 	 */
 	public final void setRequestParameter(String paramName, String value) {
+		requestParameters.add(paramName);
 		entitySettings.addConstantField(paramName, value);
 	}
 
@@ -209,7 +233,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * of a {@link PaginationGroup}.
 	 */
 	public final PaginationGroupStart newGroup() {
-		return entitySettings.newPaginationGroup();
+		return entitySettings.newPaginationGroup(this);
 	}
 
 	/**

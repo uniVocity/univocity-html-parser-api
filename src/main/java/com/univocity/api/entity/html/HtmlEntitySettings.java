@@ -24,7 +24,7 @@ import java.util.*;
  * @see HtmlParserListener
  * @see HtmlParsingContext
  */
-public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings> implements FieldDefinition {
+public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings> implements FieldDefinition {
 
 	final Map<String, Object> fields = new LinkedHashMap<String, Object>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
@@ -113,12 +113,12 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 * added to this path using {@link PartialPath#addField(String)} and others, which associates the field with this entity.
 	 *
 	 * <hr>{@code
-	 * 	HtmlEntityList entityList = new HtmlEntityList();
-	 * 	HtmlEntitySettings items = entityList.configureEntity("items");
-	 * 	PartialPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
-	 * 	path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
-	 * 	path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
-	 * 	}<hr>
+	 * HtmlEntityList entityList = new HtmlEntityList();
+	 * HtmlEntitySettings items = entityList.configureEntity("items");
+	 * PartialPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
+	 * path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
+	 * path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
+	 * }<hr>
 	 *
 	 * @return a {@link PartialPathStart} to specify the path of HTML elements
 	 */
@@ -134,7 +134,7 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 *
 	 * <hr>{@code
 	 * <div class="parseMe">
-	 * 	<p>hello</p>
+	 * <p>hello</p>
 	 * </div>
 	 * <p>howdy</p>
 	 * <h1>No Parsing Area</h1>
@@ -166,8 +166,8 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 *
 	 * @return a {@link PaginationGroupStart} used to specify where {@link PaginationGroup} starts.
 	 */
-	final PaginationGroupStart newPaginationGroup() {
-		return Builder.build(PaginationGroupStart.class, this);
+	final PaginationGroupStart newPaginationGroup(HtmlPaginator paginator) {
+		return Builder.build(PaginationGroupStart.class, paginator);
 	}
 
 	/**
@@ -179,22 +179,22 @@ public final class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingCo
 	 *
 	 * <hr>{@code
 	 * <table>
-	 * 	<tr>
-	 * 		<td>Email Address</td>
-	 * 		<td>bla@email.com</td>
-	 * 	</tr>
-	 * 	<tr>
-	 * 		<td>Home Address</td>
-	 * 	</tr>
+	 * <tr>
+	 * <td>Email Address</td>
+	 * <td>bla@email.com</td>
+	 * </tr>
+	 * <tr>
+	 * <td>Home Address</td>
+	 * </tr>
 	 * </table>
 	 * <table>
-	 * 	<tr>
-	 * 		<td>Email Address</td>
-	 * 	</tr>
-	 * 	<tr>
-	 * 		<td>Home Address</td>
-	 * 		<td>123 real street</td>
-	 * 	</tr>
+	 * <tr>
+	 * <td>Email Address</td>
+	 * </tr>
+	 * <tr>
+	 * <td>Home Address</td>
+	 * <td>123 real street</td>
+	 * </tr>
 	 * </table>
 	 * }<hr>
 	 *

@@ -118,4 +118,17 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * @param parameterValue the value of the corresponding parameter
 	 */
 	void setRequestParameter(String parameterName, String parameterValue);
+
+	/**
+	 * Creates a new field on this {@code HtmlPaginator} and returns a {@link PathStart} that allows the user to define
+	 * a path to the field.
+	 *
+	 * Any value collected for the given field can be read from a {@link PaginationHandler}.
+	 *
+	 * @param fieldName name of the new field
+	 *
+	 * @return a {@link PathStart} is used to define the path of the value for the given field
+	 */
+	PathStart addField(String fieldName);
+
 }
