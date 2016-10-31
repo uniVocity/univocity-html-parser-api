@@ -60,6 +60,18 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
+	 * Creates a new field for the current page and returns a {@link PathStart} which can be used to define the path
+	 * to the 'current page' element. The current page is a HTML element that indicates which page among a series of pages
+	 * is being currently parsed.
+	 *
+	 * @return a {@link PathStart} used to define the path to the current page element
+	 */
+	public final PathStart setCurrentPage() {
+		return entitySettings.addField(CURRENT_PAGE);
+	}
+
+
+	/**
 	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
 	 * to the next page element. The next page is the HTML element that changes the current page to the next page in series.
 	 * When the parser runs and completes the parsing of the page, it will 'click' on the next page element
