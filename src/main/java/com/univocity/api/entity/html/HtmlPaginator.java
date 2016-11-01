@@ -8,7 +8,6 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.*;
-import com.univocity.api.exception.*;
 import com.univocity.api.net.*;
 import com.univocity.parsers.remote.*;
 
@@ -23,7 +22,7 @@ import java.util.*;
  * @see PaginationContext
  * @see PaginationHandler
  */
-public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
+public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPaginationContext> {
 
 	private int idealPageSize;
 	private Set<String> requestParameters;
@@ -137,61 +136,6 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
-	 * to the 'previous page' element. The previous page is a HTML element that changes the current page to the previous
-	 * page in series.
-	 *
-	 * @return a {@link PathStart} is used to define the path to the previous page element
-	 */
-	public final PathStart setPreviousPage() {
-		return entitySettings.addField(PREVIOUS_PAGE);
-	}
-
-	/**
-	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
-	 * to the 'first page' element. The first page is a HTML element that changes the current page to the first page
-	 * in series.
-	 *
-	 * @return a {@link PathStart} is used to define the path to the first page element
-	 */
-	public final PathStart setFirstPage() {
-		return entitySettings.addField(FIRST_PAGE);
-	}
-
-	/**
-	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
-	 * to the 'last page' element. The last page is a HTML element that changes the current page to the last page
-	 * in series.
-	 *
-	 * @return a {@link PathStart} is used to define the path to the last page element
-	 */
-	public final PathStart setLastPage() {
-		return entitySettings.addField(LAST_PAGE);
-	}
-
-	/**
-	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
-	 * to the 'page size' element. The page size is a HTML element that indicates how many records can be listed
-	 * in the current page.
-	 *
-	 * @return a {@link PathStart} is used to define the path to the element
-	 */
-	public final PathStart setPageSize() {
-		return entitySettings.addField(PAGE_SIZE);
-	}
-
-	/**
-	 * Creates a new field for the item count and returns a {@link PathStart} which can be used to define the path
-	 * to the 'item count' element. The item count is a HTML element that indicates how many records in total have
-	 * been returned and are available. It's the sum all records available in all pages.
-	 *
-	 * @return a {@link PathStart} is used to define the path to the item count element
-	 */
-	public final PathStart setItemCount() {
-		return entitySettings.addField(ITEM_COUNT);
-	}
-
-	/**
 	 * Creates a new field on this {@code HtmlPaginator} and returns a {@link PathStart} that allows the user to define
 	 * a path to the field.
 	 *
@@ -248,35 +192,4 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 		return entitySettings.newPaginationGroup(this);
 	}
 
-	/**
-	 * Defines the ideal page size the paginator should try to set the page size to when attempting to access paginated
-	 * content. You might want to provide a page size explicitly if the resource you are trying to access it too large
-	 * and your requests are failing/timing out.
-	 *
-	 * You must configure this {@code HtmlPaginator} use a "pageSize" field before using this method.
-	 *
-	 * @param pageSize the ideal page size
-	 */
-	public final void setIdealPageSize(int pageSize) {
-		if (!getFieldNames().contains(PAGE_SIZE)) {
-			throw new IllegalConfigurationException("Paginator does not have a 'pageSize' field defined.");
-		}
-		this.idealPageSize = pageSize;
-	}
-
-	/**
-	 * Returns the configured ideal page size the paginator should try to set the page size to when attempting to access paginated
-	 * content. You might want to provide a page size explicitly if the resource you are trying to access it too large
-	 * and your requests are failing/timing out.
-	 *
-	 * You must configure this {@code HtmlPaginator} to use a "pageSize" field before using this method.
-	 *
-	 * @return the ideal page size
-	 */
-	public final int getIdealPageSize() {
-		if (!getFieldNames().contains(PAGE_SIZE)) {
-			throw new IllegalConfigurationException("Paginator does not have a 'pageSize' field defined.");
-		}
-		return idealPageSize;
-	}
 }

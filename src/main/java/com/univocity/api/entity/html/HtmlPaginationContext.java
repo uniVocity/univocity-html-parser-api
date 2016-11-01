@@ -9,6 +9,8 @@ package com.univocity.api.entity.html;
 import com.univocity.api.net.*;
 import com.univocity.parsers.remote.*;
 
+import java.util.*;
+
 /**
  * Contains information about the pagination process managed by a {@link HtmlPaginator} and made available to the user
  * through a {@link PaginationHandler} callback.
@@ -20,6 +22,21 @@ import com.univocity.parsers.remote.*;
  * @see UrlReaderProvider
  */
 public interface HtmlPaginationContext extends PaginationContext {
+
+	/**
+	 * Returns the names of all request parameters configured in the current {@link HtmlPaginator}.
+	 *
+	 * @return a sequence of request field names bound to the paginator.
+	 */
+	Set<String> getRequestParameterNames();
+
+	/**
+	 * Returns the request parameters collected by the paginator as a map of request parameter names and values.
+	 * Note that request parameters can have multiple values assigned to the same name.
+	 *
+	 * @return a map of request parameter names and their values.
+	 */
+	Map<String, String[]> getRequestParameters();
 
 	/**
 	 * Returns the {@link HttpResponse} object with all information returned by the remote server

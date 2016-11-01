@@ -26,9 +26,9 @@ import java.util.*;
  * @see Record
  * @see HtmlEntitySettings
  */
-public final class HtmlParser implements EntityParserInterface {
+public final class HtmlParser implements EntityParserInterface<HtmlPaginationContext> {
 
-	private final EntityParserInterface parser;
+	private final EntityParserInterface<HtmlPaginationContext> parser;
 
 	/**
 	 * Creates a new HtmlParser with configuration provided by {@link HtmlParserSettings}. The {code HtmlParser} gets all
@@ -465,7 +465,7 @@ public final class HtmlParser implements EntityParserInterface {
 	 * @return the current {@link PaginationContext} with pagination information captured after parsing a given input.
 	 */
 	@Override
-	public PaginationContext getPaginationContext() {
+	public HtmlPaginationContext getPaginationContext() {
 		return parser.getPaginationContext();
 	}
 }
