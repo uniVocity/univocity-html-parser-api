@@ -8,6 +8,8 @@ package com.univocity.api.entity.html.builders;
 
 import com.univocity.parsers.remote.*;
 
+import static com.univocity.parsers.remote.Paginator.*;
+
 /**
  * A special purpose {@link Group}-like structure, used only for {@link com.univocity.api.entity.html.HtmlPaginator}s.
  * Creates an area in the HTML where the paginator will look for elements to help in pagination. Elements outside
@@ -80,21 +82,11 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 */
 	PathStart setNextPage();
 
-	/**
-	 * Creates a new field and returns a {@link PathStart} that is used to define a path to the page size element.
-	 * The page size element is the element on the HTML page that describes how many elements are present in a page.
-	 *
-	 * @return a {@link PathStart} is used to define the path to the page size
-	 */
-	PathStart setPageSize();
+	PathStart setNextPageNumber();
 
-	/**
-	 * Creates a new field and returns a {@link PathStart} that is used to define a path to the first page element.
-	 * The first page element is the element on the HTML page that loads the first page of a series when pressed.
-	 *
-	 * @return a {@link PathStart} is used to define the path to the first page element
-	 */
-	PathStart setFirstPage();
+	PathStart setCurrentPage();
+
+	PathStart setCurrentPageNumber();
 
 	/**
 	 * Creates a request parameter with the given name and returns a {@link PathStart} that is used to define the

@@ -24,21 +24,6 @@ import java.util.*;
 public interface HtmlPaginationContext extends PaginationContext {
 
 	/**
-	 * Returns the names of all request parameters configured in the current {@link HtmlPaginator}.
-	 *
-	 * @return a sequence of request field names bound to the paginator.
-	 */
-	Set<String> getRequestParameterNames();
-
-	/**
-	 * Returns the request parameters collected by the paginator as a map of request parameter names and values.
-	 * Note that request parameters can have multiple values assigned to the same name.
-	 *
-	 * @return a map of request parameter names and their values.
-	 */
-	Map<String, String[]> getRequestParameters();
-
-	/**
 	 * Returns the {@link HttpResponse} object with all information returned by the remote server
 	 * in its HTTP response message (which generated the current page).
 	 *

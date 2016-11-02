@@ -24,8 +24,9 @@ import java.util.*;
  */
 public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPaginationContext> {
 
-	private int idealPageSize;
 	private Set<String> requestParameters;
+	final Map<String, String> fieldParameters = new HashMap<String, String>();
+	final Map<String, Object> constantParameters = new HashMap<String, Object>();
 
 	/**
 	 * Creates a new HtmlPaginator and sets the currentPageNumber to 0
@@ -67,6 +68,30 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPagin
 	 */
 	public final PathStart setCurrentPage() {
 		return entitySettings.addField(CURRENT_PAGE);
+	}
+
+	/**
+	 * Creates a new field for the current page and returns a {@link PathStart} which can be used to define the path
+	 * to the 'current page' element as a number. The current page is a HTML element that indicates which page among
+	 * a series of pages is being currently parsed.
+	 *
+	 * @return a {@link PathStart} used to define the path to the current page number
+	 */
+	public final PathStart setCurrentPageNumber() {
+		return entitySettings.addField(CURRENT_PAGE_NUMBER);
+	}
+
+	/**
+	 * Creates a new field for the next page number and returns a {@link PathStart} which can be used to define the path
+	 * to the next page number element. The next page number indicates that there are more pages after the current page.
+	 * When the parser runs and completes the parsing of the page, it will read the next page number to decide whether
+	 * to proceed a try to obtain the next page to parse. The parser will continue to access the next page until the
+	 * next page number does not exist or the follow count set by {@link Paginator#setFollowCount(int)} is reached.
+	 *
+	 * @return a {@link PathStart} used to define the path to the next page number
+	 */
+	public final PathStart setNextPageNumber() {
+		return entitySettings.addField(NEXT_PAGE_NUMBER);
 	}
 
 
@@ -192,4 +217,38 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPagin
 		return entitySettings.newPaginationGroup(this);
 	}
 
+	/**
+	 * Assigns values captured for two fields declared in this {@code HtmlPaginator} to a request parameter. For
+	 * example, if fields "scriptName" and "scriptValue" have been defined in this paginator, and and their values are
+	 * collected as "thescript" and "myscript.js" respectively, the {@link HttpRequest} used to invoke the next page
+	 * will have its {@link HttpRequest#addDataParameter(String, Object)} invoked with "thescript" as the parameter name
+	 * and "myscript.js" as the parameter value.
+	 *
+	 * @param fieldForParamName  name of the field available in this paginator whose value will be used as a the request
+	 *                           parameter name.
+	 * @param fieldForParamValue name of the field available in this paginator whose value will be used as the request
+	 *                           parameter value.
+	 */
+	public final void toRequestParameter(String fieldForParamName, String fieldForParamValue) {
+		Args.notBlank(fieldForParamName, "Field to use as parameter name");
+		Args.notBlank(fieldForParamValue, "Field to use as parameter value");
+		this.fieldParameters.put(fieldForParamName, fieldForParamValue);
+	}
+
+	/**
+	 * Assigns the value captured for a fields declared in this {@code HtmlPaginator} to a request parameter name, and
+	 * associates a constant value to it. If field "scriptValue" has been defined in this paginator, and and its value
+	 * is collected as "myscript.js", the {@link HttpRequest} used to invoke the next page
+	 * will have its {@link HttpRequest#addDataParameter(String, Object)} invoked with "myscript.js" as the parameter
+	 * name, and a constant as the value.
+	 *
+	 * @param fieldForParamName name of the field available in this paginator whose value will be used as a the request
+	 *                          parameter name.
+	 * @param constantValue     the constant to used as the request parameter value.
+	 */
+	public final void toConstantRequestParameter(String fieldForParamName, Object constantValue) {
+		Args.notBlank(fieldForParamName, "Field to use as parameter name");
+		Args.notNull(constantValue, "Constant to be associated with " + fieldForParamName);
+		this.constantParameters.put(fieldForParamName, constantValue);
+	}
 }
