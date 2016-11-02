@@ -99,6 +99,10 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 		this.threadCount = threadCount;
 	}
 
+	@Override
+	public String getDefaultFileExtension() {
+		return "html";
+	}
 
 	@Override
 	protected CommonParserSettings createGlobalSettings() {

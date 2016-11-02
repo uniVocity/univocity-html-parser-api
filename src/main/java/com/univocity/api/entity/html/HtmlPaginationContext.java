@@ -57,6 +57,6 @@ public interface HtmlPaginationContext extends PaginationContext {
 	 * @return the {@link UrlReaderProvider} which will be used to fetch the next page. Will be {@code null} if the
 	 * pagination is running over local files.
 	 */
-	UrlReaderProvider getCallToNextPage();
+	UrlReaderProvider getNextPageRequest();
 
 }
