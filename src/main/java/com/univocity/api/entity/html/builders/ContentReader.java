@@ -8,6 +8,7 @@ package com.univocity.api.entity.html.builders;
 
 import com.univocity.api.entity.html.*;
 import com.univocity.api.entity.html.builders.annotations.*;
+import com.univocity.api.net.*;
 
 import java.io.*;
 
@@ -277,6 +278,19 @@ public interface ContentReader {
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	void getContentFrom(String attributeName);
+
+	/**
+	 * Specifies that the parser will download content contained within the attribute of the HTML element defined by the
+	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
+	 *
+	 * <p>The content will processed by a {@link HttpResponseReader}, provided by the user.</p>
+	 *
+	 * @param attributeName the name of the attribute where the value of which will be used to define the content that
+	 *                      will be downloaded.
+	 * @param contentReader a user-provided callback to process the remote content.
+	 */
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
+	void getContentFrom(String attributeName, HttpResponseReader contentReader);
 
 	/**
 	 * Specifies that the parser will return the text from the HTML that occurs before the HTML element
