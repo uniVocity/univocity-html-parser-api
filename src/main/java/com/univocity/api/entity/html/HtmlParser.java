@@ -28,7 +28,7 @@ import java.util.*;
  */
 public final class HtmlParser implements EntityParserInterface<HtmlPaginationContext> {
 
-	private final EntityParserInterface<HtmlPaginationContext> parser;
+	private final HtmlParserInterface parser;
 
 	/**
 	 * Creates a new HtmlParser with configuration provided by {@link HtmlParserSettings}. The {code HtmlParser} gets all
@@ -40,7 +40,7 @@ public final class HtmlParser implements EntityParserInterface<HtmlPaginationCon
 		if (settings == null) {
 			parser = null;
 		} else {
-			parser = Builder.build(EntityParserInterface.class, settings);
+			parser = Builder.build(HtmlParserInterface.class, settings);
 		}
 	}
 
@@ -178,6 +178,18 @@ public final class HtmlParser implements EntityParserInterface<HtmlPaginationCon
 		return parseAll(new FileProvider(file, encoding));
 	}
 
+	/**
+	 * Given a {@link HtmlElement}, parses all records of all entities
+	 * defined in the {@link EntityList} of this parser, and returns them in a map. Keys are the entity names
+	 * and values are lists of rows produced for that entity.
+	 *
+	 * @param htmlTree the HTML tree with content to be parsed
+	 *
+	 * @return a map of entity names and the corresponding records extracted from the given HTML tree.
+	 */
+	public final Map<String, List<String[]>> parseAll(HtmlElement htmlTree) {
+		return parser.parseAll(htmlTree);
+	}
 
 	/**
 	 * Given an input, made available from a {@link ReaderProvider}, parses all records of all entities
@@ -311,6 +323,19 @@ public final class HtmlParser implements EntityParserInterface<HtmlPaginationCon
 	 */
 	public final Map<String, List<Record>> parseAllRecords(InputStream inputStream, String encoding) {
 		return parser.parseAllRecords(inputStream, encoding);
+	}
+
+	/**
+	 * Given a {@link HtmlElement}, parses all records of all entities
+	 * defined in the {@link EntityList} of this parser, and returns them in a map.  Keys are the entity names
+	 * and values are lists of {@link Record} produced for that entity.
+	 *
+	 * @param htmlTree the HTML tree with content to be parsed
+	 *
+	 * @return a map of entity names and the corresponding records extracted from the given HTML tree.
+	 */
+	public final Map<String, List<Record>> parseAllRecords(HtmlElement htmlTree) {
+		return parser.parseAllRecords(htmlTree);
 	}
 
 	/**
@@ -454,6 +479,136 @@ public final class HtmlParser implements EntityParserInterface<HtmlPaginationCon
 	 */
 	public final void parse(InputStream inputStream, String encoding) {
 		parser.parse(inputStream, encoding);
+	}
+
+	/**
+	 * Given a {@link HtmlElement}, parses all records of all entities
+	 * defined in the {@link EntityList} of this parser, submitting them to the {@link Processor} implementation
+	 * associated with each entity (through {@link EntitySettings#setProcessor(Processor)}. The {@link Processor}
+	 * implementation will handle the rows as they come, in its {@link Processor#rowProcessed(String[], Context)} method
+	 * which can accumulate/transform the rows on demand. The behavior and way to collect results is determined by
+	 * the {@link Processor} implementation used.
+	 *
+	 * @param htmlTree the HTML tree with content to be parsed
+	 */
+	public final void parse(HtmlElement htmlTree) {
+		parser.parse(htmlTree);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link ReaderProvider}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param readerProvider an input provider with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(ReaderProvider readerProvider) {
+		return Builder.build(HtmlParserInterface.class, null).parseTree(readerProvider);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link FileProvider}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param fileProvider the input file with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(FileProvider fileProvider) {
+		return Builder.build(HtmlParserInterface.class, null).parseTree(fileProvider);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.Reader}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param reader the input with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(Reader reader) {
+		return Builder.build(HtmlParserInterface.class, null).parseTree(reader);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * <i>The default system encoding will be used to read text from the given input.</i>
+	 *
+	 * @param inputStream the input with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(InputStream inputStream) {
+		return Builder.build(HtmlParserInterface.class, null).parseTree(inputStream);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param inputStream the input with content to be parsed
+	 * @param encoding    the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(InputStream inputStream, Charset encoding) {
+		return Builder.build(HtmlParserInterface.class, null).parseTree(inputStream, encoding);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param inputStream the input with content to be parsed
+	 * @param encoding    the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(InputStream inputStream, String encoding) {
+		return Builder.build(HtmlParserInterface.class, null).parseTree(inputStream, encoding);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * <i>The default system encoding will be used to read text from the given input.</i>
+	 *
+	 * @param file the input with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(File file) {
+		return parseTree(new FileProvider(file));
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param file     the input with content to be parsed
+	 * @param encoding the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(File file, Charset encoding) {
+		return parseTree(new FileProvider(file, encoding));
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param file     the input with content to be parsed
+	 * @param encoding the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(File file, String encoding) {
+		return parseTree(new FileProvider(file, encoding));
 	}
 
 	/**
