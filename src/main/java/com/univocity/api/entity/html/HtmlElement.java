@@ -83,7 +83,16 @@ public interface HtmlElement {
 	 *
 	 * @return unencoded text, or empty string if no text.
 	 */
-	String getText();
+	String text();
+
+	/**
+	 * Get the data content of this element and all its children. Data consists of textual content inside comments, or
+	 * tags such as {@code style} or {@code script}, for example, where the contents should not render as text.
+	 *
+	 * @return the data content of this element, or empty if no data.
+	 */
+	String data();
+
 
 	/**
 	 * Returns the {@code HtmlElement} that is located just after this {@code HtmlElement}. Returns {@code null} if there
@@ -125,12 +134,12 @@ public interface HtmlElement {
 	 *
 	 * <hr>{@code
 	 * <table>
-	 * 	<tr>
-	 * 		<td> <span>First Row</span></td>
-	 * 	</tr>
-	 * 	<tr>
-	 * 		<td>Second Row</td>
-	 * 	</tr>
+	 * <tr>
+	 * <td> <span>First Row</span></td>
+	 * </tr>
+	 * <tr>
+	 * <td>Second Row</td>
+	 * </tr>
 	 * </table>
 	 * }<hr>
 	 *
