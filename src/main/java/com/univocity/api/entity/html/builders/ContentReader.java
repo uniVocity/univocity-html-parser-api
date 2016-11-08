@@ -57,9 +57,12 @@ public interface ContentReader {
 	 *
 	 * <p>The parser will return each table header ({@code a},{@code b} and {@code c})
 	 * in a separate row of entity {@code test}</p>
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	void getHeadingText();
+	ContentTransform getHeadingText();
 
 	/**
 	 * Captures the text of a row above a matched element, where the position of that row is at a fixed position,
@@ -86,9 +89,12 @@ public interface ContentReader {
 	 *
 	 * @param headingRowIndex index of the row whose text at the column above the matched element
 	 *                        will be returned from
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	void getHeadingText(int headingRowIndex);
+	ContentTransform getHeadingText(int headingRowIndex);
 
 	/**
 	 * Specifies that the parser will return the text contained in the HTML element above the HTML element defined by
@@ -113,9 +119,12 @@ public interface ContentReader {
 	 *
 	 * When the parser runs, it will return two records with field "tableHeader" populated with values
 	 * 'one' and 'two', respectively.</p>
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	void getTextAbove();
+	ContentTransform getTextAbove();
 
 	/**
 	 * Specifies that the parser will return the text contained in the HTML element at a given distance above
@@ -145,9 +154,12 @@ public interface ContentReader {
 	 *
 	 * @param numberOfRowsAbove the number of rows above a matched element whose text, at the corresponding column,
 	 *                          will be returned.
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	void getTextAbove(int numberOfRowsAbove);
+	ContentTransform getTextAbove(int numberOfRowsAbove);
 
 
 	/**
@@ -208,9 +220,12 @@ public interface ContentReader {
 	 *
 	 * @param firstAlternative  The text that the parser will attempt to find and grab in a row above the matched element
 	 * @param otherAlternatives Optional extra strings to look for.
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	void getTextAbove(String firstAlternative, String... otherAlternatives);
+	ContentTransform getTextAbove(String firstAlternative, String... otherAlternatives);
 
 	/**
 	 * Specifies that the parser will return the text contained within the HTML element defined by the path. For instance,
@@ -230,8 +245,11 @@ public interface ContentReader {
 	 *
 	 * The following code should provide the "The Title Text More Words" {@code String} for an "allText" field when
 	 * the parser is run.
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
-	void getText();
+	ContentTransform getText();
 
 	/**
 	 * Specifies that the parser will return the text contained within the HTML elements matched by the path <strong>plus</strong>
@@ -262,35 +280,11 @@ public interface ContentReader {
 	 * <p>Setting the number of siblings to {@code <= 0} is the equivalent of using {@link #getText()}.</p>
 	 *
 	 * @param numberOfSiblingsToInclude number of following siblings from the matched element whose text should be returned
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
-	void getText(int numberOfSiblingsToInclude);
-
-	/**
-	 * Specifies that the parser will download content contained within the attribute of the HTML element defined by the
-	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
-	 *
-	 * <p>Content will be downloaded to the directory specified by
-	 * {@link HtmlParserSettings#setDownloadContentDirectory(File)}. If the download directory is not set, the content
-	 * will be stored in a temporary directory.</p>
-	 *
-	 * @param attributeName the name of the attribute where the value of which will be used to define the content that
-	 *                      will be downloaded.
-	 */
-	@Matcher(type = Matcher.Type.ATTRIBUTE)
-	void getContentFrom(String attributeName);
-
-	/**
-	 * Specifies that the parser will download content contained within the attribute of the HTML element defined by the
-	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
-	 *
-	 * <p>The content will processed by a {@link HttpResponseReader}, provided by the user.</p>
-	 *
-	 * @param attributeName the name of the attribute where the value of which will be used to define the content that
-	 *                      will be downloaded.
-	 * @param contentReader a user-provided callback to process the remote content.
-	 */
-	@Matcher(type = Matcher.Type.ATTRIBUTE)
-	void getContentFrom(String attributeName, HttpResponseReader contentReader);
+	ContentTransform getText(int numberOfSiblingsToInclude);
 
 	/**
 	 * Specifies that the parser will return the text from the HTML that occurs before the HTML element
@@ -304,9 +298,12 @@ public interface ContentReader {
 	 * }<hr>
 	 *
 	 * <p>When the parser runs, it will return "before"</p>
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	void getPrecedingText();
+	ContentTransform getPrecedingText();
 
 	/**
 	 * Gets the text from the specified number of HTML elements placed before the element that is matched by the path.
@@ -324,9 +321,12 @@ public interface ContentReader {
 	 *
 	 * @param numberOfSiblingsToInclude the number of elements preceding the element defined in the path that the text will
 	 *                                  be returned from
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	void getPrecedingText(int numberOfSiblingsToInclude);
+	ContentTransform getPrecedingText(int numberOfSiblingsToInclude);
 
 	/**
 	 * Gets the text from the HTML element that is placed directly after the HTML elements matched by the path. For
@@ -340,9 +340,12 @@ public interface ContentReader {
 	 * }<hr>
 	 *
 	 * <p>When the parser runs, it will return "after".</p>
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	void getFollowingText();
+	ContentTransform getFollowingText();
 
 	/**
 	 * Gets the text from the specified number of HTMl elements following the HTML element described in the path. For
@@ -361,9 +364,12 @@ public interface ContentReader {
 	 *
 	 * @param numberOfSiblingsToInclude the number of elements following the element defined in the path that the text will
 	 *                                  be returned from
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	void getFollowingText(int numberOfSiblingsToInclude);
+	ContentTransform getFollowingText(int numberOfSiblingsToInclude);
 
 	/**
 	 * Specifies that the parser will return the value defined by the attribute of the HTML elements defined by the path.
@@ -380,7 +386,10 @@ public interface ContentReader {
 	 *
 	 * @param attributeName the name of the attribute of the element defined by the {@link FieldPath} where the value of
 	 *                      the attribute will be returned by the parser.
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents a path
+	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
-	void getAttribute(String attributeName);
+	ContentTransform getAttribute(String attributeName);
 }
