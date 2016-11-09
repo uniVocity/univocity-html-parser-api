@@ -504,7 +504,7 @@ public final class HtmlParser implements EntityParserInterface<HtmlPaginationCon
 	 * @return the root {@link HtmlElement} of the entire HTML document.
 	 */
 	public static final HtmlElement parseTree(ReaderProvider readerProvider) {
-		return Builder.build(HtmlParserInterface.class, null).parseTree(readerProvider);
+		return Builder.build(HtmlParserInterface.class, new Object[]{null}).parseTree(readerProvider);
 	}
 
 	/**
