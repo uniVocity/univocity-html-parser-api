@@ -1,6 +1,5 @@
 package com.univocity.api.entity.html;
 
-import com.univocity.api.common.*;
 import com.univocity.parsers.common.*;
 import com.univocity.parsers.remote.*;
 
@@ -15,8 +14,7 @@ import com.univocity.parsers.remote.*;
  */
 public final class HtmlParserSettings extends RemoteParserSettings<CommonParserSettings, HtmlEntityList, HtmlParsingContext> {
 
-	private int downloadThreads = Runtime.getRuntime().availableProcessors();
-	private int threadCount = Runtime.getRuntime().availableProcessors();
+	private int parserThreadCount = Runtime.getRuntime().availableProcessors();
 
 	/**
 	 * Creates a new {@code HtmlParserSettings} and associates it with a {@link HtmlEntityList}.
@@ -46,30 +44,6 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 		return (HtmlPaginator) super.getPaginator();
 	}
 
-	/**
-	 * Sets the number of threads that will be used to download remote content (e.g. images) that is associated with
-	 * the parsed input
-	 *
-	 * <i>Defaults to the available number of processors given by {@link Runtime#availableProcessors()}</i>
-	 *
-	 * @param downloadThreads the maximum number of threads to be used for downloading content
-	 */
-	public final void setDownloadThreads(int downloadThreads) {
-		Args.positive(downloadThreads, "Number of threads for content download");
-		this.downloadThreads = downloadThreads;
-	}
-
-	/**
-	 * Sets the number of threads that will be used to download remote content (e.g. images) that is associated with
-	 * the parsed input
-	 *
-	 * <i>Defaults to the available number of processors given by {@link Runtime#availableProcessors()}</i>
-	 *
-	 * @return the maximum number of threads to be used for downloading content
-	 */
-	public final int getDownloadThreads() {
-		return downloadThreads;
-	}
 
 
 	/**
@@ -80,8 +54,8 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 *
 	 * @return the number of threads used by the parser.
 	 */
-	public final int getThreadCount() {
-		return threadCount <= 0 ? 1 : threadCount;
+	public final int getParserThreadCount() {
+		return parserThreadCount <= 0 ? 1 : parserThreadCount;
 	}
 
 	/**
@@ -90,13 +64,13 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 *
 	 * <p>By default, to the number of available processors available to the JVM will be used</p>
 	 *
-	 * @param threadCount the maximum number of threads to use
+	 * @param parserThreadCount the maximum number of threads to use
 	 */
-	public final void setThreadCount(int threadCount) {
-		if (threadCount <= 0) {
-			threadCount = 1;
+	public final void setParserThreadCount(int parserThreadCount) {
+		if (parserThreadCount <= 0) {
+			parserThreadCount = 1;
 		}
-		this.threadCount = threadCount;
+		this.parserThreadCount = parserThreadCount;
 	}
 
 	@Override

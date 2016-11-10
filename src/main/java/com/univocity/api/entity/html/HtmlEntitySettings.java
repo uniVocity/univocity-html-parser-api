@@ -283,7 +283,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 *
 	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
 	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
-	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setThreadCount(int)}</p>
+	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}</p>
 	 *
 	 * @param listener the {@link HtmlParserListener} to be used when the parser executes to collect values for the fields
 	 *                 of this entity.
@@ -299,7 +299,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 *
 	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
 	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
-	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setThreadCount(int)}</p>
+	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}</p>
 	 *
 	 * @return the {@link HtmlParserListener} to be used when the parser executes to collect values for the fields
 	 * of this entity.
