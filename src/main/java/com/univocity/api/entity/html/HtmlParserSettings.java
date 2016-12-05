@@ -67,7 +67,7 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 * @param parserThreadCount the maximum number of threads to use
 	 */
 	@Range(minSize = 1, maxSize = 16)
-	@UIConfig()
+	@UIConfig(order = 3)
 	public final void setParserThreadCount(int parserThreadCount) {
 		if (parserThreadCount <= 0) {
 			parserThreadCount = 1;
