@@ -249,6 +249,7 @@ public interface ContentReader {
 	 * @return options to transform the captured information, and/or to download content if the text represents a path
 	 * to a remote resource.
 	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
 	ContentTransform getText();
 
 	/**
@@ -284,6 +285,7 @@ public interface ContentReader {
 	 * @return options to transform the captured information, and/or to download content if the text represents a path
 	 * to a remote resource.
 	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	ContentTransform getText(int numberOfSiblingsToInclude);
 
 	/**
