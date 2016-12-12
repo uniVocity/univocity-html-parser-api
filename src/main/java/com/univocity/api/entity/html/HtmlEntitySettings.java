@@ -24,7 +24,7 @@ import java.util.*;
  * @see HtmlParserListener
  * @see HtmlParsingContext
  */
-public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings> implements FieldDefinition {
+public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings, HtmlLinkFollower> implements FieldDefinition {
 
 	final Map<String, Object> fields = new LinkedHashMap<String, Object>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
@@ -306,6 +306,14 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 */
 	public final HtmlParserListener getListener() {
 		return listener;
+	}
+
+	public PathStart followLink() {
+		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower();
+		int indexOfLinkFollower = linkFollowers.size();
+		linkFollowers.add(htmlLinkFollower);
+		return addField(HtmlLinkFollower.ENTITY_NAME + indexOfLinkFollower);
+
 	}
 
 	@Override
