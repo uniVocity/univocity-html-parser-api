@@ -6,6 +6,7 @@
 
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.api.entity.html.*;
 import com.univocity.parsers.common.*;
 
 /**
@@ -28,4 +29,5 @@ public interface ContentTransform extends ContentDownload {
 	 */
 	ContentDownload transform(StringTransformation transformation);
 
+	HtmlLinkFollower followLink(String name);
 }

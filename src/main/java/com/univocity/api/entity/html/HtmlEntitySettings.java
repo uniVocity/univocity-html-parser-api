@@ -308,12 +308,10 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		return listener;
 	}
 
-	public PathStart followLink() {
+	HtmlLinkFollower addHtmlLinkFollower(String fieldName) {
 		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower();
-		int indexOfLinkFollower = linkFollowers.size();
-		linkFollowers.add(htmlLinkFollower);
-		return addField(HtmlLinkFollower.ENTITY_NAME + indexOfLinkFollower);
-
+		linkFollowers.put(fieldName, htmlLinkFollower);
+		return htmlLinkFollower;
 	}
 
 	@Override
