@@ -25,8 +25,19 @@ public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings> {
 		return entitySettings.addField(fieldName);
 	}
 
+
+	public PathStart followLink() {
+		return entitySettings.followLink();
+	}
+
 	Map<String, Object> getPaths() {
 		return entitySettings.fields;
 	}
+
+	@Override
+	public List<HtmlLinkFollower> getLinkFollowers() {
+		return entitySettings.getLinkFollowers();
+	}
+
 
 }
