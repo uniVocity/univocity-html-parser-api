@@ -10,7 +10,6 @@ import java.util.*;
  */
 public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings> {
 
-	static final String LINK_PATH = "**LinkPath**";
 
 	HtmlLinkFollower() {
 
