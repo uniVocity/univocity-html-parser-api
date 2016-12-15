@@ -29,5 +29,5 @@ public interface ContentTransform extends ContentDownload {
 	 */
 	ContentDownload transform(StringTransformation transformation);
 
-	HtmlLinkFollower followLink(String name);
+	HtmlLinkFollower followLink();
 }
