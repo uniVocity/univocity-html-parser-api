@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by anthony on 9/12/16.
  */
-public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings> {
+public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, HtmlEntityList> {
 
 
 	HtmlLinkFollower() {
@@ -16,21 +16,21 @@ public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings> {
 	}
 
 	@Override
-	protected HtmlEntitySettings newEntitySettings() {
-		return new HtmlEntitySettings(ENTITY_NAME);
+	protected HtmlEntityList newEntityList() {
+		return new HtmlEntityList();
 	}
 
 	public PathStart addField(String fieldName) {
-		return entitySettings.addField(fieldName);
+		return defaultEntitySettings.addField(fieldName);
 	}
 
 	Map<String, Object> getPaths() {
-		return entitySettings.fields;
+		return defaultEntitySettings.fields;
 	}
 
 	@Override
 	public Map<String, HtmlLinkFollower> getLinkFollowers() {
-		return entitySettings.getLinkFollowers();
+		return defaultEntitySettings.getLinkFollowers();
 	}
 
 
