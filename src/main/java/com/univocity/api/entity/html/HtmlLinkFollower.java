@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by anthony on 9/12/16.
  */
-public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, HtmlEntityList> {
+public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> {
 
 
 	HtmlLinkFollower() {
@@ -18,6 +18,11 @@ public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, Htm
 	@Override
 	protected HtmlEntityList newEntityList() {
 		return new HtmlEntityList();
+	}
+
+	@Override
+	protected HtmlParserSettings newParserSettings() {
+		return new HtmlParserSettings(entityList);
 	}
 
 	public PathStart addField(String fieldName) {
