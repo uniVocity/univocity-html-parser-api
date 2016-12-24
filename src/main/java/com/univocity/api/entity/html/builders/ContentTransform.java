@@ -30,7 +30,9 @@ public interface ContentTransform extends ContentDownload {
 	 */
 	ContentDownload transform(StringTransformation transformation);
 
+	//no javadoc?
 	HtmlLinkFollower followLink();
 
+	//no javadoc?
 	HtmlLinkFollower followLink(UrlReaderProvider urlReaderProvider);
 }

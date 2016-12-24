@@ -75,7 +75,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * @return a {@link PathStart} to define a path
 	 */
 	private PathStart newField(String fieldName, boolean persistent, boolean inhibitNewRows) {
-		FieldPath pathBuilder = Builder.build(FieldPath.class, this, persistent, inhibitNewRows);
+		FieldPath pathBuilder = Builder.build(FieldPath.class, fieldName, this, persistent, inhibitNewRows);
 		addPathToField(fieldName, pathBuilder);
 		return pathBuilder;
 	}
@@ -309,7 +309,8 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	}
 
 	HtmlLinkFollower addHtmlLinkFollower(String fieldName) {
-		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower();
+		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower(/*this.getEntityName() --- wouldn't this work ???  */);
+		//will break if multiple paths are assigned to same field name and a different link follower is to be used for each path.
 		linkFollowers.put(fieldName, htmlLinkFollower);
 		return htmlLinkFollower;
 	}
