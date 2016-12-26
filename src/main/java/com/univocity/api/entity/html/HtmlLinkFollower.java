@@ -11,7 +11,6 @@ import java.util.*;
  */
 public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> {
 
-
 	HtmlLinkFollower(/* have entity name here and call "super(entity_name)"*/) {
 
 	}
