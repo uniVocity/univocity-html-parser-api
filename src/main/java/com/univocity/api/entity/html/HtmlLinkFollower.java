@@ -3,44 +3,32 @@ package com.univocity.api.entity.html;
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.parsers.remote.*;
 
-import java.util.*;
-
 /**
  * FIXME no javadoc?
  * Created by anthony on 9/12/16.
  */
-public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> {
+public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> implements FieldDefinition {
 
-	HtmlLinkFollower(/* have entity name here and call "super(entity_name)"*/) {
-
+	public HtmlLinkFollower(HtmlEntitySettings parentEntitySettings) {
+		super(parentEntitySettings);
 	}
 
 	@Override
-	protected HtmlEntityList newEntityList() {
-		//should clone parent's configuration (especially globalSettings)
-		return new HtmlEntityList();
+	public PathStart addPersistentField(String fieldName) {
+		return parentEntitySettings.addPersistentField(fieldName);
 	}
 
 	@Override
-	protected HtmlParserSettings newParserSettings() {
-		//should clone current parser settings.
-		return new HtmlParserSettings(entityList);
+	public PathStart addSilentField(String fieldName) {
+		return parentEntitySettings.addSilentField(fieldName);
 	}
 
-	//no javadoc?
+	@Override
+	public void addConstantField(String constantFieldName, String constantValue) {
+		parentEntitySettings.addConstantField(constantFieldName, constantValue);
+	}
+
 	public PathStart addField(String fieldName) {
-		return defaultEntitySettings.addField(fieldName);
+		return parentEntitySettings.addField(fieldName);
 	}
-
-	//no javadoc?
-	Map<String, Object> getPaths() {
-		return defaultEntitySettings.fields;
-	}
-
-	@Override
-	public Map<String, HtmlLinkFollower> getLinkFollowers() {
-		return defaultEntitySettings.getLinkFollowers();
-	}
-
-
 }

@@ -31,16 +31,16 @@ public final class HtmlParser implements EntityParserInterface<HtmlPaginationCon
 	private final HtmlParserInterface parser;
 
 	/**
-	 * Creates a new HtmlParser with configuration provided by {@link HtmlParserSettings}. The {code HtmlParser} gets all
-	 * configuration from this settings class.
+	 * Creates a new HtmlParser with the entity configuration provided by a {@link HtmlEntityList}. The {@code HtmlParser}
+	 * gets all configuration from this list and from {@link HtmlEntityList#getParserSettings()}.
 	 *
-	 * @param settings The {@code HtmlParser} configuration
+	 * @param entityList The list of entities to be parsed by the {@code HtmlParser}, and their configuration
 	 */
-	public HtmlParser(HtmlParserSettings settings) {
-		if (settings == null) {
+	public HtmlParser(HtmlEntityList entityList) {
+		if (entityList == null) {
 			parser = null;
 		} else {
-			parser = Builder.build(HtmlParserInterface.class, settings);
+			parser = Builder.build(HtmlParserInterface.class, entityList);
 		}
 	}
 

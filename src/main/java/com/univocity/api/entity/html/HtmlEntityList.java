@@ -22,9 +22,22 @@ import com.univocity.parsers.remote.*;
 public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 
 	/**
-	 * Creates a new, empty HtmlEntityList
+	 * Creates a new, empty {@code HtmlEntityList}, with a default global {@link HtmlParserSettings} configuration, which is
+	 * used to provide defaults to all entity-specific settings in this list.
 	 */
 	public HtmlEntityList() {
+		super(new HtmlParserSettings());
+	}
+
+	/**
+	 * Creates a new, empty {@code HtmlEntityList}, applying the global {@link HtmlParserSettings} configuration, which is
+	 * used to provide defaults to all entity-specific settings in this list.
+	 *
+	 * @param globalSettings the global parser settings whose configuration may provide defaults for all entities
+	 *                       defined in this list.
+	 */
+	public HtmlEntityList(HtmlParserSettings globalSettings) {
+		super(globalSettings);
 	}
 
 	/**
@@ -39,4 +52,7 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 		return new HtmlEntitySettings(entityName);
 	}
 
+	public HtmlParserSettings getParserSettings() {
+		return (HtmlParserSettings) super.getParserSettings();
+	}
 }

@@ -309,7 +309,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	}
 
 	HtmlLinkFollower addHtmlLinkFollower(String fieldName) {
-		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower(/*this.getEntityName() --- wouldn't this work ???  */);
+		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower(this);
 		//will break if multiple paths are assigned to same field name and a different link follower is to be used for each path.
 		linkFollowers.put(fieldName, htmlLinkFollower);
 		return htmlLinkFollower;

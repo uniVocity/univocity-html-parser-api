@@ -18,12 +18,12 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	private int parserThreadCount = Runtime.getRuntime().availableProcessors();
 
 	/**
-	 * Creates a new {@code HtmlParserSettings} and associates it with a {@link HtmlEntityList}.
-	 *
-	 * @param entityList the {@link HtmlEntityList} that will be associated with the parser
+	 * Creates a new {@code HtmlParserSettings}, which will process
+	 * an input to produce records for entities defined by a {@link HtmlEntityList}.  The
+	 * {@link HtmlEntityList} is used to manage {@link HtmlEntitySettings} for each entity whose records
+	 * will be parsed.
 	 */
-	public HtmlParserSettings(HtmlEntityList entityList) {
-		super(entityList);
+	HtmlParserSettings() {
 	}
 
 	/**
@@ -44,7 +44,6 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	public final HtmlPaginator getPaginator() {
 		return (HtmlPaginator) super.getPaginator();
 	}
-
 
 
 	/**
