@@ -23,7 +23,7 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 * {@link HtmlEntityList} is used to manage {@link HtmlEntitySettings} for each entity whose records
 	 * will be parsed.
 	 */
-	HtmlParserSettings() {
+	public HtmlParserSettings() {
 	}
 
 	/**

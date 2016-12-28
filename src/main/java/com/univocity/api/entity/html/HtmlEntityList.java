@@ -55,4 +55,9 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 	public HtmlParserSettings getParserSettings() {
 		return (HtmlParserSettings) super.getParserSettings();
 	}
+
+	@Override
+	protected HtmlEntityList newInstance() {
+		return new HtmlEntityList(getParserSettings());
+	}
 }
