@@ -37,6 +37,16 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	}
 
 	/**
+	 * Configures a {@link HtmlPaginator} to handle multiple pages of remote content that needs to parsed.
+	 *
+	 * @param paginator a {@link HtmlPaginator} to be associated with the current {@code HtmlParserSettings}
+	 */
+	public final void setPaginator(HtmlPaginator paginator){
+		this.paginator = paginator;
+	}
+
+
+	/**
 	 * Returns the {@link HtmlPaginator} associated with this {@code HtmlParserSettings}
 	 *
 	 * @return the {@link HtmlPaginator} stored within this {@code HtmlParserSettings}
