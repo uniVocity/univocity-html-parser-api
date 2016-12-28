@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings, HtmlLinkFollower> implements FieldDefinition {
 
-	final Map<String, Object> fields = new LinkedHashMap<String, Object>();
+	Map<String, Object> fields = new LinkedHashMap<String, Object>();
 	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
 	private HtmlParserListener listener = null;
 
@@ -318,5 +318,12 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	@Override
 	protected final CommonParserSettings getInternalSettings() {
 		return super.getInternalSettings();
+	}
+
+	@Override
+	protected HtmlEntitySettings clone() {
+		HtmlEntitySettings  out = (HtmlEntitySettings) super.clone();
+		out.fields = new LinkedHashMap<String, Object>();
+		return out;
 	}
 }
