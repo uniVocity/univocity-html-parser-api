@@ -95,4 +95,8 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 		return createEmptyGlobalSettings();
 	}
 
+	@Override
+	protected HtmlParserSettings clone() {
+		return (HtmlParserSettings) super.clone();
+	}
 }

@@ -58,6 +58,6 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 
 	@Override
 	protected HtmlEntityList newInstance() {
-		return new HtmlEntityList(getParserSettings());
+		return new HtmlEntityList(getParserSettings().clone());
 	}
 }
