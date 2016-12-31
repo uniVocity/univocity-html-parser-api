@@ -26,10 +26,10 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * have to simply write:
 	 *
 	 * <hr>{@code
-	 * 	//Set up
+	 * //Set up
 	 * HtmlEntityList htmlEntityList = new HtmlEntityList();
 	 *
-	 * 	//Matching Rule
+	 * //Matching Rule
 	 * htmlEntityList.configureEntity("test").addField("allSpanElements").match("span").getText();
 	 * }<hr>
 	 *
@@ -42,13 +42,13 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * <hr>{@code
 	 * <div>
-	 * 	<h1>Bad Title</h1>
+	 * <h1>Bad Title</h1>
 	 * </div>
 	 * <article>
-	 * 	<h1>Good Title</h1>
+	 * <h1>Good Title</h1>
 	 * </article>
 	 * <article>
-	 * 	<h1>Also Good Title</h1>
+	 * <h1>Also Good Title</h1>
 	 * </article>
 	 * }<hr>
 	 *
@@ -56,7 +56,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * <hr>{@code
 	 * htmlEntityList.configureEntity("test").addField("headers")
-	 * 		.match("article").match("h1").getText();
+	 * .match("article").match("h1").getText();
 	 * }<hr>
 	 *
 	 * <p>The parser will return "Good Title" and "Also Good Title". This is because the matching rules set will look for
@@ -72,4 +72,12 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * @return a {@link ElementFilter} so a that filtering rules over HTML elements with the given tag name can be defined
 	 */
 	T match(String tagName);
+
+	T match(String tagName, int occurrence);
+
+	T matchFirst(String tagName);
+
+	T matchLast(String tagName);
+
+
 }
