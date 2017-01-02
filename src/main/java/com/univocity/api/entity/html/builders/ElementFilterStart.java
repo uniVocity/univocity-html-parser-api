@@ -79,5 +79,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 
 	T matchLast(String tagName);
 
+	T select(String cssQuery);
+
 
 }
