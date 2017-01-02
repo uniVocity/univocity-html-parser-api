@@ -157,8 +157,8 @@ public interface HtmlElement {
 	 * Searches for elements that match a CSS query, with the current {@code HtmlElement} as the starting context. Matched elements
 	 * may include this {@code HtmlElement}, or any of its children.
 	 * <ul>
-	 * <li>{@code el.select("a[href]")} - finds links ({@code a} tags with {@code href} attributes)
-	 * <li>{@code el.select("a[href*=example.com]")} - finds links pointing to example.com (loosely)
+	 * <li>{@code el.query("a[href]")} - finds links ({@code a} tags with {@code href} attributes)
+	 * <li>{@code el.query("a[href*=example.com]")} - finds links pointing to example.com (loosely)
 	 * </ul>
 	 * <p>
 	 * <p/>
