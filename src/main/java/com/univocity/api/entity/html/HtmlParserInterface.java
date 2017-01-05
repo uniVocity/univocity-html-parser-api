@@ -8,8 +8,8 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.io.*;
 import com.univocity.parsers.common.*;
-import com.univocity.parsers.common.processor.core.*;
 import com.univocity.parsers.common.record.*;
+import com.univocity.parsers.remote.*;
 
 import java.io.*;
 import java.nio.charset.*;
@@ -20,7 +20,18 @@ import java.util.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlParserInterface extends EntityParserInterface<HtmlPaginationContext> {
+public interface HtmlParserInterface extends RemoteEntityParserInterface<HtmlPaginationContext, HtmlRecord, HtmlParsingContext, HtmlParserResult> {
+
+	/**
+	 * Given a {@link HtmlElement}, parses all records of all entities
+	 * defined in the {@link EntityList} of this parser, and returns them in a map.  Keys are the entity names
+	 * and values are lists of {@link Record} produced for that entity.
+	 *
+	 * @param htmlTree the HTML tree with content to be parsed
+	 *
+	 * @return a map of entity names and the corresponding records extracted from the given HTML tree.
+	 */
+	Map<String, HtmlParserResult> parse(HtmlElement htmlTree);
 
 	/**
 	 * Generates a DOM tree from the input made available by a {@link ReaderProvider}. Users can navigate the HTML tree
@@ -121,38 +132,4 @@ public interface HtmlParserInterface extends EntityParserInterface<HtmlPaginatio
 	HtmlElement parseTree(File file, String encoding);
 
 
-	/**
-	 * Given a {@link HtmlElement}, parses all records of all entities
-	 * defined in the {@link EntityList} of this parser, and returns them in a map. Keys are the entity names
-	 * and values are lists of rows produced for that entity.
-	 *
-	 * @param htmlTree the HTML tree with content to be parsed
-	 *
-	 * @return a map of entity names and the corresponding records extracted from the given HTML tree.
-	 */
-	Map<String, List<String[]>> parseAll(HtmlElement htmlTree);
-
-
-	/**
-	 * Given a {@link HtmlElement}, parses all records of all entities
-	 * defined in the {@link EntityList} of this parser, and returns them in a map.  Keys are the entity names
-	 * and values are lists of {@link Record} produced for that entity.
-	 *
-	 * @param htmlTree the HTML tree with content to be parsed
-	 *
-	 * @return a map of entity names and the corresponding records extracted from the given HTML tree.
-	 */
-	Map<String, List<Record>> parseAllRecords(HtmlElement htmlTree);
-
-	/**
-	 * Given a {@link HtmlElement}, parses all records of all entities
-	 * defined in the {@link EntityList} of this parser, submitting them to the {@link Processor} implementation
-	 * associated with each entity (through {@link EntitySettings#setProcessor(Processor)}. The {@link Processor}
-	 * implementation will handle the rows as they come, in its {@link Processor#rowProcessed(String[], Context)} method
-	 * which can accumulate/transform the rows on demand. The behavior and way to collect results is determined by
-	 * the {@link Processor} implementation used.
-	 *
-	 * @param htmlTree the HTML tree with content to be parsed
-	 */
-	void parse(HtmlElement htmlTree);
 }
