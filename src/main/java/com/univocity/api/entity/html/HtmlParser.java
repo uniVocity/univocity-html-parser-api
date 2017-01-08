@@ -201,121 +201,6 @@ public final class HtmlParser implements HtmlParserInterface {
 		return parser.parse(htmlTree);
 	}
 
-	/**
-	 * Generates a DOM tree from the input made available by a {@link ReaderProvider}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * @param readerProvider an input provider with content to be parsed
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(ReaderProvider readerProvider) {
-		return Builder.build(HtmlParserInterface.class, new Object[]{null}).parseTree(readerProvider);
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link FileProvider}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * @param fileProvider the input file with content to be parsed
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(FileProvider fileProvider) {
-		return Builder.build(HtmlParserInterface.class, null).parseTree(fileProvider);
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.Reader}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * @param reader the input with content to be parsed
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(Reader reader) {
-		return Builder.build(HtmlParserInterface.class, null).parseTree(reader);
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * <i>The default system encoding will be used to read text from the given input.</i>
-	 *
-	 * @param inputStream the input with content to be parsed
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(InputStream inputStream) {
-		return Builder.build(HtmlParserInterface.class, null).parseTree(inputStream);
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * @param inputStream the input with content to be parsed
-	 * @param encoding    the encoding to be used when reading text from the given input.
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(InputStream inputStream, Charset encoding) {
-		return Builder.build(HtmlParserInterface.class, null).parseTree(inputStream, encoding);
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * @param inputStream the input with content to be parsed
-	 * @param encoding    the encoding to be used when reading text from the given input.
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(InputStream inputStream, String encoding) {
-		return Builder.build(HtmlParserInterface.class, null).parseTree(inputStream, encoding);
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * <i>The default system encoding will be used to read text from the given input.</i>
-	 *
-	 * @param file the input with content to be parsed
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(File file) {
-		return parseTree(new FileProvider(file));
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * @param file     the input with content to be parsed
-	 * @param encoding the encoding to be used when reading text from the given input.
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(File file, Charset encoding) {
-		return parseTree(new FileProvider(file, encoding));
-	}
-
-	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
-	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
-	 *
-	 * @param file     the input with content to be parsed
-	 * @param encoding the encoding to be used when reading text from the given input.
-	 *
-	 * @return the root {@link HtmlElement} of the entire HTML document.
-	 */
-	public final HtmlElement parseTree(File file, String encoding) {
-		return parseTree(new FileProvider(file, encoding));
-	}
 
 	/**
 	 * Returns the {@link PaginationContext} object with information collected for the configured {@link Paginator}, if
@@ -328,5 +213,121 @@ public final class HtmlParser implements HtmlParserInterface {
 	@Override
 	public HtmlPaginationContext getPaginationContext() {
 		return parser.getPaginationContext();
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link ReaderProvider}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param readerProvider an input provider with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(ReaderProvider readerProvider) {
+		return Builder.build(HtmlTreeParser.class).parseTree(readerProvider);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link FileProvider}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param fileProvider the input file with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(FileProvider fileProvider) {
+		return Builder.build(HtmlTreeParser.class).parseTree(fileProvider);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.Reader}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param reader the input with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(Reader reader) {
+		return Builder.build(HtmlTreeParser.class).parseTree(reader);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * <i>The default system encoding will be used to read text from the given input.</i>
+	 *
+	 * @param inputStream the input with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(InputStream inputStream) {
+		return Builder.build(HtmlTreeParser.class).parseTree(inputStream);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param inputStream the input with content to be parsed
+	 * @param encoding    the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(InputStream inputStream, Charset encoding) {
+		return Builder.build(HtmlTreeParser.class).parseTree(inputStream, encoding);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param inputStream the input with content to be parsed
+	 * @param encoding    the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(InputStream inputStream, String encoding) {
+		return Builder.build(HtmlTreeParser.class).parseTree(inputStream, encoding);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * <i>The default system encoding will be used to read text from the given input.</i>
+	 *
+	 * @param file the input with content to be parsed
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(File file) {
+		return Builder.build(HtmlTreeParser.class).parseTree(file);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param file     the input with content to be parsed
+	 * @param encoding the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(File file, Charset encoding) {
+		return Builder.build(HtmlTreeParser.class).parseTree(file, encoding);
+	}
+
+	/**
+	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
+	 *
+	 * @param file     the input with content to be parsed
+	 * @param encoding the encoding to be used when reading text from the given input.
+	 *
+	 * @return the root {@link HtmlElement} of the entire HTML document.
+	 */
+	public static final HtmlElement parseTree(File file, String encoding) {
+		return Builder.build(HtmlTreeParser.class).parseTree(file, encoding);
 	}
 }
