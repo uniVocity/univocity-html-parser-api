@@ -268,12 +268,28 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		fields.remove(fieldName);
 	}
 
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public final void addConstantField(String constantFieldName, String constantValue) {
 		fields.put(constantFieldName, constantValue);
+	}
+
+	@Override
+	protected RemoteEntityList createLinkedEntityList() {
+		return new HtmlEntityList();
+	}
+
+	@Override
+	public HtmlEntityList getLinkedEntities() {
+		return (HtmlEntityList) super.getLinkedEntities();
+	}
+
+	@Override
+	public HtmlEntitySettings addLinkedEntity(String entityName) {
+		return (HtmlEntitySettings) super.addLinkedEntity(entityName);
 	}
 
 	/**
@@ -314,6 +330,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		linkFollowers.put(fieldName, htmlLinkFollower);
 		return htmlLinkFollower;
 	}
+
 
 	@Override
 	protected final CommonParserSettings getInternalSettings() {
