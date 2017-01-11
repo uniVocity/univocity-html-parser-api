@@ -279,24 +279,15 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	}
 
 	@Override
-	protected RemoteEntityList createLinkedEntityList() {
-		return new HtmlEntityList();
+	protected List<HtmlEntitySettings> createLinkedEntityList() {
+		return new ArrayList<HtmlEntitySettings>();
 	}
 
 	@Override
-	public HtmlEntityList getLinkedEntities() {
-		return (HtmlEntityList) super.getLinkedEntities();
+	public List<HtmlEntitySettings> getLinkedEntities() {
+		return (List<HtmlEntitySettings>) super.getLinkedEntities();
 	}
 
-	@Override
-	public HtmlEntitySettings addLinkedEntity(String entityName) {
-		return addLinkedEntity(entityName, RowPlacement.BOTTOM);
-	}
-
-	@Override
-	public HtmlEntitySettings addLinkedEntity(String entityName, RowPlacement rowPlacement) {
-		return (HtmlEntitySettings) super.addLinkedEntity(entityName, rowPlacement);
-	}
 
 	/**
 	 * Associates a {@link HtmlParserListener} with this HTML entity. The listener methods will be triggered
