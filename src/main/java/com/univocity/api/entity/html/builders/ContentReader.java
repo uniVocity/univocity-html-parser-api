@@ -394,4 +394,6 @@ public interface ContentReader {
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	ContentTransform getAttribute(String attributeName);
+
+	ContentDownload getElement(HtmlElementTransformation transformation);
 }
