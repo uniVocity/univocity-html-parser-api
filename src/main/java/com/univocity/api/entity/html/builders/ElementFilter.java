@@ -744,4 +744,6 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T id(String idValue);
 
+	T upTo(String element);
+
 }
