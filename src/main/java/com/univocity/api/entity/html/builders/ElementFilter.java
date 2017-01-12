@@ -745,10 +745,30 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T id(String idValue);
 
-	//TODO: Javadoc
-	T upTo(String element);
+	/**
+	 * Establishes that the parser should look 'up' the page for the given element. Moves the parser's position (TODO: explain 'up')
+	 * to the matched element.
+	 *
+	 * @param elementName the tag name of the element
+	 *
+	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 *
+	 */
+	T upTo(String elementName);
 
-	//TODO: Javadoc
+	//TODO: JavaDoc
+	T upToHeader(String elementName);
+
+	/**
+	 * Establishes that the matched HTML element should pass the supplied filter using
+	 * {@link CustomHtmlElementFilter#match(HtmlElement, HtmlElement)}.
+	 *
+	 * @param customHtmlElementFilter the filter that will be applied to the matched {@link HtmlElement}
+	 *
+	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
 	T filter(CustomHtmlElementFilter customHtmlElementFilter);
 
 }
