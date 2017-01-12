@@ -6,6 +6,8 @@
 
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.api.entity.html.*;
+
 /**
  * Provides the start of a {@link ElementFilter}. Essentially, the {@code ElementFilterStart} defines which HTML element
  * should be matched when the {@link com.univocity.api.entity.html.HtmlParser} is run. Elements matched can be subsequently
@@ -289,6 +291,9 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * @return a {@link ElementFilter} so that filtering rules can be applied over the HTML elements matched with the CSS query
 	 */
 	T select(String cssQuery);
+
+	//TODO: Javadoc
+	T match(CustomHtmlElementFilter customHtmlElementMatcher);
 
 
 }

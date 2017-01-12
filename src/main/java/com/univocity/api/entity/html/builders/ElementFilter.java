@@ -6,6 +6,7 @@
 
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.api.entity.html.*;
 import com.univocity.api.entity.html.builders.annotations.*;
 
 /**
@@ -744,6 +745,10 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T id(String idValue);
 
+	//TODO: Javadoc
 	T upTo(String element);
+
+	//TODO: Javadoc
+	T filter(CustomHtmlElementFilter customHtmlElementFilter);
 
 }
