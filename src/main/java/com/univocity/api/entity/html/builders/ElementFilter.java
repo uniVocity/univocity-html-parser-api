@@ -760,6 +760,10 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	//TODO: JavaDoc
 	T upToHeader(String elementName);
 
+	T downTo(String elementName);
+
+	T downToFooter(String elementName);
+
 	/**
 	 * Establishes that the matched HTML element should pass the supplied filter using
 	 * {@link CustomHtmlElementFilter#match(HtmlElement, HtmlElement)}.
