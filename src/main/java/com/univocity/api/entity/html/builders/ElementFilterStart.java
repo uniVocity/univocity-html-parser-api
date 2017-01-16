@@ -74,7 +74,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * @param tagName tag name of the element that will be matched.
 	 *
-	 * @return a {@link ElementFilter} so a that filtering rules over HTML elements with the given tag name can be defined
+	 * @return a {@link ElementFilter} so that filtering rules over HTML elements with the given tag name can be defined
 	 */
 	T match(String tagName);
 
@@ -122,7 +122,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * @param tagName    tag name of the element that will be matched.
 	 * @param occurrence occurrence index of elements whose tag name matches within a given parent node.
 	 *
-	 * @return a {@link ElementFilter} so a that filtering rules over HTML elements with the given tag name can be defined
+	 * @return a {@link ElementFilter} so that filtering rules over HTML elements with the given tag name can be defined
 	 */
 	T match(String tagName, int occurrence);
 
@@ -169,7 +169,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * @param tagName    tag name of the element that will be matched.
 	 *
-	 * @return a {@link ElementFilter} so a that filtering rules over HTML elements with the given tag name can be defined
+	 * @return a {@link ElementFilter} so that filtering rules over HTML elements with the given tag name can be defined
 	 */
 	T matchFirst(String tagName);
 
@@ -216,7 +216,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * @param tagName    tag name of the element that will be matched.
 	 *
-	 * @return a {@link ElementFilter} so a that filtering rules over HTML elements with the given tag name can be defined
+	 * @return a {@link ElementFilter} so that filtering rules over HTML elements with the given tag name can be defined
 	 */
 	T matchLast(String tagName);
 
@@ -292,7 +292,19 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 */
 	T select(String cssQuery);
 
-	//TODO: Javadoc
+	/**
+	 * Specifies what the parser must match, based on the return value of the supplied CustomHtmlElementFilter's
+	 * {@link CustomHtmlElementFilter#match(HtmlElement, HtmlElement)} method.
+	 *
+	 * <p>
+	 * Note: lastMatchedElement in {@link CustomHtmlElementFilter#match(HtmlElement, HtmlElement)} WILL return null if
+	 * using this method as the start of a matching sequence.
+	 * </p>
+	 *
+	 * @param customHtmlElementMatcher the filter that will be used to determine if a visited HTML element should be matched
+	 *
+	 * @return a {@link ElementFilter} so that filtering rules over HTML elements that were matched by the supplied {@link CustomHtmlElementFilter}
+	 */
 	T match(CustomHtmlElementFilter customHtmlElementMatcher);
 
 

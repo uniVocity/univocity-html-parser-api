@@ -757,11 +757,38 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 */
 	T upTo(String elementName);
 
-	//TODO: JavaDoc
+	/**
+	 * Establishes that the parser should look 'up' the page for the given element that is in the same table column as
+	 * the previously matched element. Will only work if the previously matched element is a &lt;td&gt; or &lt;th&gt; element or
+	 * inside of one.
+	 *
+	 * @param elementName the tag name of the element
+	 *
+	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
 	T upToHeader(String elementName);
 
+	/**
+	 * Establishes that the parser should look 'down' the page for the given element
+	 *
+	 * @param elementName the tag name of the element
+	 *
+	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
 	T downTo(String elementName);
 
+	/**
+	 * Establishes that the parser should look 'down' the page for the given element that is in the same table column as
+	 * the previously matched element. Will only work if the previously matched element is a &lt;td&gt; or &lt;th&gt; element or
+	 * inside of one.
+	 *
+	 * @param elementName the tag name of the element
+	 *
+	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
 	T downToFooter(String elementName);
 
 	/**

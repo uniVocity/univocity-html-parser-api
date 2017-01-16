@@ -13,6 +13,10 @@ public interface CustomHtmlElementFilter {
 	 * Used to determine if the currentElement should be matched by the parser. The lastMatchedElement can be used
 	 * to provide information to determine if the currentElement should be matched.
 	 *
+	 * <p>
+	 * NOTE: lastMatchedElement WILL be null on the first matched element
+	 * </p>
+	 *
 	 * @param lastMatchedElement the element that was matched last by the parser
 	 * @param currentElement the element that the parser is current visiting
 	 *
