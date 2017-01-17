@@ -395,6 +395,15 @@ public interface ContentReader {
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	ContentTransform getAttribute(String attributeName);
 
-	//TODO: JAVADOC
+
+	/**
+	 * Gets the {@link HtmlElement} described by the path and passes it into {@link HtmlElementTransformation#transform(Object)}.
+	 * This allows the supplied concrete implementation of the {@link HtmlElementTransformation} to define how the
+	 * {@link HtmlElement} is transformed into a String and inserted into a row.
+	 *
+	 * @param transformation the transformation that will transform the matched HtmlElement into a String
+	 *
+	 * @return options to download content if the transformed text represents a path to a remote resource.
+	 */
 	ContentDownload getElement(HtmlElementTransformation transformation);
 }

@@ -1,10 +1,12 @@
 package com.univocity.api.entity.html;
 
-import com.univocity.api.entity.html.*;
 import com.univocity.parsers.common.*;
 
+
 /**
- * Created by anthony on 11/01/17.
+ * A transformation operation over a {@link HtmlElement}, that results in a {@code String}
+ *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public interface HtmlElementTransformation extends Transformation<HtmlElement,String> {
 
