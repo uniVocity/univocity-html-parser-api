@@ -278,16 +278,6 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		fields.put(constantFieldName, constantValue);
 	}
 
-	@Override
-	protected List<HtmlEntitySettings> createLinkedEntityList() {
-		return new ArrayList<HtmlEntitySettings>();
-	}
-
-	@Override
-	public List<HtmlEntitySettings> getLinkedEntities() {
-		return (List<HtmlEntitySettings>) super.getLinkedEntities();
-	}
-
 
 	/**
 	 * Associates a {@link HtmlParserListener} with this HTML entity. The listener methods will be triggered
