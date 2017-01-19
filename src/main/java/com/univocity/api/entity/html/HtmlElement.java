@@ -16,13 +16,31 @@ import java.util.*;
 public interface HtmlElement {
 
 	/**
-	 * Returns {@code true} if the {@code HtmlElement} consists solely of text and {@code false} otherwise. For example,
+	 * Returns {@code true} if this {@code HtmlElement} consists solely of text and {@code false} otherwise. For example,
 	 * {@code <p class="highlight">cool text</p>} if the {@code HtmlElement} is the 'p' element, the isText() method
 	 * will return {@code false}. On the {@code HtmlElement} with "cool text", the isText() method will return {@code true}.
+	 *
+	 * <em>Note:</em> this method will return {@code false} if the {@code HtmlElement} contains text that is not meant to be rendered,
+	 * such as comments and script tags. Use {@link #isData()} to identify such elements.
 	 *
 	 * @return {@code true} if {@code HtmlElement} is just text, otherwise {@code false}
 	 */
 	boolean isText();
+
+	/**
+	 * Returns {@code true} if this {@code HtmlElement} consists of data, i.e. content in comments or tags such as {@code style} or
+	 * {@code script}, which should not render as text.
+	 *
+	 * @return {@code true} if {@code HtmlElement} is just non-visible text, otherwise {@code false}
+	 */
+	boolean isData();
+
+	/**
+	 * Returns {@code true} if this {@code HtmlElement} consists of comments, which should not render as text.
+	 *
+	 * @return {@code true} if {@code HtmlElement} is just comments, otherwise {@code false}
+	 */
+	boolean isComment();
 
 	/**
 	 * Returns the HTML tag name associated with the element. For instance the tag name of the element
