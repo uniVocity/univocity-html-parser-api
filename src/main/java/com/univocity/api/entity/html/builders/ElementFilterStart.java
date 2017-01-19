@@ -294,18 +294,18 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 
 	/**
 	 * Specifies what the parser must match, based on the return value of the supplied CustomHtmlElementFilter's
-	 * {@link CustomHtmlElementFilter#match(HtmlElement, HtmlElement)} method.
+	 * {@link HtmlElementMatcher#match(HtmlElement, HtmlElement)} method.
 	 *
 	 * <p>
-	 * Note: lastMatchedElement in {@link CustomHtmlElementFilter#match(HtmlElement, HtmlElement)} WILL return null if
+	 * Note: lastMatchedElement in {@link HtmlElementMatcher#match(HtmlElement, HtmlElement)} WILL return null if
 	 * using this method as the start of a matching sequence.
 	 * </p>
 	 *
 	 * @param customHtmlElementMatcher the filter that will be used to determine if a visited HTML element should be matched
 	 *
-	 * @return a {@link ElementFilter} so that filtering rules over HTML elements that were matched by the supplied {@link CustomHtmlElementFilter}
+	 * @return a {@link ElementFilter} so that filtering rules over HTML elements that were matched by the supplied {@link HtmlElementMatcher}
 	 */
-	T match(CustomHtmlElementFilter customHtmlElementMatcher);
+	T match(HtmlElementMatcher customHtmlElementMatcher);
 
 
 }

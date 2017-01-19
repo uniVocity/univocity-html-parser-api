@@ -746,8 +746,8 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	T id(String idValue);
 
 	/**
-	 * Establishes that the parser should look 'up' the page for the given element. Moves the parser's position (TODO: explain 'up')
-	 * to the matched element.
+	 * Establishes that the parser should look 'up' the page for the given element. The parser will look for an
+	 * element that appears before the current matched element (up in the hierarchy).
 	 *
 	 * @param elementName the tag name of the element
 	 *
@@ -770,7 +770,8 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	T upToHeader(String elementName);
 
 	/**
-	 * Establishes that the parser should look 'down' the page for the given element
+	 * Establishes that the parser should look 'down' the page for the given element. The parser will look for an
+	 * element that appears after the current matched element (down in the hierarchy).
 	 *
 	 * @param elementName the tag name of the element
 	 *
@@ -793,13 +794,13 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 
 	/**
 	 * Establishes that the matched HTML element should pass the supplied filter using
-	 * {@link CustomHtmlElementFilter#match(HtmlElement, HtmlElement)}.
+	 * {@link HtmlElementMatcher#match(HtmlElement, HtmlElement)}.
 	 *
-	 * @param customHtmlElementFilter the filter that will be applied to the matched {@link HtmlElement}
+	 * @param htmlElementMatcher the filter that will be applied to the matched {@link HtmlElement}
 	 *
 	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
 	 */
-	T filter(CustomHtmlElementFilter customHtmlElementFilter);
+	T filter(HtmlElementMatcher htmlElementMatcher);
 
 }
