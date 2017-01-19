@@ -232,9 +232,14 @@ public interface HtmlElement {
 	List<HtmlElement> query(String cssQuery);
 
 	/**
-	 * Generates a W3C DOM document from the current HTML node.
+	 * Generates a W3C DOM document from the current HTML element.
 	 *
-	 * @return the {@link org.w3c.dom.Document} containing the element if it is not the root of a HTML tree.
+	 * The resulting document is guaranteed to have a {@code <head>} and a {@code <body>} element. If the current HTML element
+	 * is the root of the HTML tree, it will be directly mapped to the output Document object. Otherwise, it will be added into
+	 * automatically generated {@code <head>} or {@code <body>} elements, if it is not a {@code <head>} or {@code <body>}.
+	 *
+	 * @return the {@link org.w3c.dom.Document} representing the current HTML tree if this is the root node, or a
+	 * {@link org.w3c.dom.Document} containing this HTML element.
 	 */
 	org.w3c.dom.Document toW3CDocument();
 }
