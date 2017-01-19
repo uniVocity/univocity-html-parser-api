@@ -17,7 +17,7 @@ import java.nio.charset.*;
 public interface HtmlTreeParser {
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link ReaderProvider}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link ReaderProvider}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * @param readerProvider an input provider with content to be parsed
@@ -27,7 +27,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(ReaderProvider readerProvider);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link FileProvider}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link FileProvider}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * @param fileProvider the input file with content to be parsed
@@ -37,7 +37,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(FileProvider fileProvider);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.Reader}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link java.io.Reader}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * @param reader the input with content to be parsed
@@ -47,7 +47,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(Reader reader);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * <i>The default system encoding will be used to read text from the given input.</i>
@@ -59,7 +59,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(InputStream inputStream);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * @param inputStream the input with content to be parsed
@@ -70,7 +70,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(InputStream inputStream, Charset encoding);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link java.io.InputStream}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * @param inputStream the input with content to be parsed
@@ -81,7 +81,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(InputStream inputStream, String encoding);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * <i>The default system encoding will be used to read text from the given input.</i>
@@ -93,7 +93,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(File file);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * @param file     the input with content to be parsed
@@ -104,7 +104,7 @@ public interface HtmlTreeParser {
 	HtmlElement parseTree(File file, Charset encoding);
 
 	/**
-	 * Generates a DOM tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
+	 * Generates a HTML tree from the input made available by a {@link java.io.File}. Users can navigate the HTML tree
 	 * and use CSS selectors against the {@link HtmlElement}s returned to target any specific HTML node.
 	 *
 	 * @param file     the input with content to be parsed

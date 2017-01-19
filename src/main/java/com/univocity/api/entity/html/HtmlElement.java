@@ -231,4 +231,10 @@ public interface HtmlElement {
 	 */
 	List<HtmlElement> query(String cssQuery);
 
+	/**
+	 * Generates a W3C DOM document from the current HTML node.
+	 *
+	 * @return the {@link org.w3c.dom.Document} containing the element if it is not the root of a HTML tree.
+	 */
+	org.w3c.dom.Document toW3CDocument();
 }
