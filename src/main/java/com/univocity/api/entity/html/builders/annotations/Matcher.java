@@ -38,7 +38,9 @@ public @interface Matcher {
 		/**
 		 * methods that deal with element(s) that contain the specified element (e.g containedBy, childOf)
 		 */
-		PARENTS
+		PARENTS,
+		//FIXME: unsure about this one.
+		MOVER
 	}
 	Type type();
 }

@@ -405,5 +405,5 @@ public interface ContentReader {
 	 *
 	 * @return options to download content if the transformed text represents a path to a remote resource.
 	 */
-	ContentDownload getElement(HtmlElementTransformation transformation);
+	ContentTransform getElement(HtmlElementTransformation transformation);
 }
