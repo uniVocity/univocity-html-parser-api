@@ -32,8 +32,8 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 * @return the {@link HtmlPaginator} that was created
 	 */
 	@Override
-	protected HtmlPaginator newPaginator() {
-		return new HtmlPaginator();
+	protected HtmlPaginator newPaginator(RemoteParserSettings parserSettings) {
+		return new HtmlPaginator((HtmlParserSettings)parserSettings);
 	}
 
 	/**

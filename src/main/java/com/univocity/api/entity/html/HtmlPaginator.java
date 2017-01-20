@@ -31,7 +31,8 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPagin
 	/**
 	 * Creates a new HtmlPaginator and sets the currentPageNumber to 0
 	 */
-	public HtmlPaginator() {
+	protected HtmlPaginator(HtmlParserSettings parserSettings) {
+		super(parserSettings);
 	}
 
 	/**
@@ -41,10 +42,11 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPagin
 	 * @return the created {@link HtmlEntitySettings} to be used by this {@code HtmlPaginator}.
 	 */
 	@Override
-	protected final HtmlEntitySettings newEntitySettings() {
+	protected final HtmlEntitySettings newEntitySettings(final RemoteParserSettings htmlParserSettings) {
 		return new HtmlEntitySettings(ENTITY_NAME) {
 			{
 				HtmlPaginator.this.requestParameters = this.requestParameters;
+				this.parserSettings = (HtmlParserSettings) htmlParserSettings;
 			}
 		};
 
