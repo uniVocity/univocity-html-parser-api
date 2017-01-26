@@ -11,5 +11,5 @@ import com.univocity.parsers.remote.*;
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlRecord extends RemoteRecord<HtmlRecord, HtmlParsingContext, HtmlPaginationContext> {
+public interface HtmlRecord extends RemoteRecord<HtmlRecord, HtmlParsingContext> {
 }

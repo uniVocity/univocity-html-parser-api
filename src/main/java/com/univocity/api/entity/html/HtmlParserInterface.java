@@ -17,7 +17,7 @@ import java.util.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlParserInterface extends RemoteEntityParserInterface<HtmlPaginationContext, HtmlRecord, HtmlParsingContext, HtmlParserResult> {
+public interface HtmlParserInterface extends RemoteEntityParserInterface<HtmlRecord, HtmlParsingContext, HtmlParserResult> {
 
 	/**
 	 * Given a {@link HtmlElement}, parses all records of all entities

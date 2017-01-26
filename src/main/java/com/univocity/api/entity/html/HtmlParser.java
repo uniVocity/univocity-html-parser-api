@@ -211,7 +211,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 * @return the current {@link PaginationContext} with pagination information captured after parsing a given input.
 	 */
 	@Override
-	public HtmlPaginationContext getPaginationContext() {
+	public PaginationContext getPaginationContext() {
 		return parser.getPaginationContext();
 	}
 

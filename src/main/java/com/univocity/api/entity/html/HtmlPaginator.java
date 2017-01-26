@@ -22,7 +22,7 @@ import java.util.*;
  * @see PaginationContext
  * @see PaginationHandler
  */
-public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPaginationContext> {
+public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
 	private Set<String> requestParameters;
 	final Map<String, String> fieldParameters = new HashMap<String, String>();
