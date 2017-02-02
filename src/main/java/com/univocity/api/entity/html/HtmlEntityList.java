@@ -48,8 +48,8 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 	 * @return the HtmlEntitySettings that was created
 	 */
 	@Override
-	protected final HtmlEntitySettings newEntity(String entityName) {
-		return new HtmlEntitySettings(entityName);
+	protected final HtmlEntitySettings newEntity(String entityName, HtmlEntitySettings parentEntity) {
+		return new HtmlEntitySettings(entityName, parentEntity);
 	}
 
 	public HtmlParserSettings getParserSettings() {

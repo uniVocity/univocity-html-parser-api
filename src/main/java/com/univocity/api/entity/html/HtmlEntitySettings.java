@@ -36,8 +36,8 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 *
 	 * @param entityName a string that identifies the HTMLEntity
 	 */
-	HtmlEntitySettings(String entityName) {
-		super(entityName, createEmptyParserSettings());
+	HtmlEntitySettings(String entityName, HtmlEntitySettings parentEntity) {
+		super(entityName, createEmptyParserSettings(), parentEntity);
 	}
 
 	/**
@@ -326,7 +326,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 
 	@Override
 	protected HtmlEntitySettings clone() {
-		HtmlEntitySettings  out = (HtmlEntitySettings) super.clone();
+		HtmlEntitySettings out = (HtmlEntitySettings) super.clone();
 		out.fields = new LinkedHashMap<String, Object>();
 		return out;
 	}

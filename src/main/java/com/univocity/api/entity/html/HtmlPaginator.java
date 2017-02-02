@@ -43,7 +43,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 */
 	@Override
 	protected final HtmlEntitySettings newEntitySettings(final RemoteParserSettings htmlParserSettings) {
-		return new HtmlEntitySettings(ENTITY_NAME) {
+		return new HtmlEntitySettings(ENTITY_NAME, null) {
 			{
 				HtmlPaginator.this.requestParameters = this.requestParameters;
 				this.parserSettings = (HtmlParserSettings) htmlParserSettings;
