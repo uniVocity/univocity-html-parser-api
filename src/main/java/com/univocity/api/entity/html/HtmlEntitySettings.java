@@ -9,7 +9,6 @@ package com.univocity.api.entity.html;
 import com.univocity.api.*;
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.parsers.common.*;
-import com.univocity.parsers.common.processor.*;
 import com.univocity.parsers.remote.*;
 
 import java.util.*;
@@ -314,7 +313,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	HtmlLinkFollower addHtmlLinkFollower(String fieldName) {
 		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower(this);
 		//will break if multiple paths are assigned to same field name and a different link follower is to be used for each path.
-		linkFollowers.put(fieldName, htmlLinkFollower);
+		followers.put(fieldName, htmlLinkFollower);
 		return htmlLinkFollower;
 	}
 

@@ -10,7 +10,7 @@ import com.univocity.parsers.remote.*;
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlParser
  */
-public class HtmlLinkFollower extends RemoteLinkFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> implements FieldDefinition {
+public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> implements FieldDefinition {
 
 	protected HtmlLinkFollower(HtmlEntitySettings parentEntitySettings) {
 		super(parentEntitySettings);

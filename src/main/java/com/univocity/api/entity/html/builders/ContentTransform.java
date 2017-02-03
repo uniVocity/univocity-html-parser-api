@@ -90,11 +90,11 @@ public interface ContentTransform {
 	 * A {@link HtmlLinkFollower} is essentially a special type of {@link HtmlEntityList} that allows fields and entities
 	 * to be added to it.
 	 * <p>
-	 * At the end of parsing, the {@link HtmlParser} will combine the rows retrieved from link followers with the rows
-	 * from the original page. To change this setting, use the method {@link HtmlParserSettings#setCombineLinkFollowingRows(boolean)}.
+	 * For each parsed row, the {@link HtmlParser} will combine the it with the results from all associated
+	 * link followers, using the nesting strategy defined by {@link HtmlLinkFollower#getNesting()}.
 	 * </p>
 	 * <p>
-	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless {@link HtmlLinkFollower#ignoreLinkFollowingErrors(boolean)}
+	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless {@link HtmlLinkFollower#ignoreFollowingErrors(boolean)}
 	 * has been set to true.
 	 * </p>
 	 *
@@ -113,11 +113,11 @@ public interface ContentTransform {
 	 * </p>
 	 * <p>
 	 * A {@link HtmlLinkFollower} is essentially a special type of {@link HtmlEntityList} that allows fields and entities
-	 * to be added to it. At the end of parsing, the {@link HtmlParser} will combine the rows retrieved from link followers with the rows
-	 * from the original page. To change this setting, use the method {@link HtmlParserSettings#setCombineLinkFollowingRows(boolean)}.
+	 * to be added to it. For each parsed row, the {@link HtmlParser} will combine the it with the results from all associated
+	 * link followers, using the nesting strategy defined by {@link HtmlLinkFollower#getNesting()}.
 	 * </p>
 	 * <p>
-	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless {@link HtmlLinkFollower#ignoreLinkFollowingErrors(boolean)}
+	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless {@link HtmlLinkFollower#ignoreFollowingErrors(boolean)}
 	 * has been set to true.
 	 * </p>
 	 *
