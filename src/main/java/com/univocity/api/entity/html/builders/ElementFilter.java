@@ -21,17 +21,17 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element must have a given text placed in an element before it. For example,
 	 * given this simple HTML document:
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * <span>first</span><span>second</span><span>third</span>
-	 * }<hr>
+	 * }<pre/></code><hr>
 	 *
 	 * <p>One technique to get the text of the first 'span' element is: </p>
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("span").followedByText("second").getText();
-	 * }<hr>
+	 * }<pre/></code><hr>
 	 *
 	 * <p>The parser will return "first", as the element following the first 'span' element has the text "second"</p>
 	 *
@@ -48,17 +48,17 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element must have a given text placed in an element after it. For example,
 	 * given this simple HTML document:
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * <span>first</span><span>second</span><span>third</span>
-	 * }<hr>
+	 * }<pre/></code><hr>
 	 *
 	 * <p>One technique to get the text of the last 'span' element is: </p>
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("preceded").match("span").precededByText("second").getText();
-	 * }<hr>
+	 * }<pre/></code><hr>
 	 *
 	 * <p>The parser will return "third" from the third 'span' element, as the element preceding this element has the text "second"</p>
 	 *
@@ -74,19 +74,19 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should have a given element placed after it, at any distance. For
 	 * example, given this simple HTML document:
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * <div>
-	 * <strong>before</strong><strong>after</strong>
+	 * 		<strong>before</strong><strong>after</strong>
 	 * </div>
-	 * }<hr>
+	 * }<pre/></code><hr>
 	 *
 	 * <p>One technique to get the text of the first 'strong' element is:</p>
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("followed").match("strong").followedBy("strong").withText("after").getText();
-	 * }<hr>
+	 * }<pre/></code><hr>
 	 *
 	 * <p>The matching rules in plain english are: get the text of a 'strong' element that has a 'strong' element placed
 	 * after it, and that 'strong' element must have text 'after'. When the parsing process runs, it will return 'before'</p>
@@ -108,11 +108,11 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * is 1 distance away from the second span element and the strong element is at a distance of 2. A technique to
 	 * get the text from the second span element would be:
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("fieldName").match("span").followedBy("strong",2).getText();
-	 * }<hr>
+	 * }<pre/></code><hr>
 	 *
 	 * <p>The parser will return "second" as the strong element is at the following distance of 2. The first span element
 	 * is ignored as the distance from it to the strong element is 3.</p>
@@ -261,10 +261,10 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <hr>{@code
 	 * <div>
-	 * 	<h1>one</h1>
+	 * <h1>one</h1>
 	 * </div>
 	 * <article>
-	 * 	<h1>two</h1>
+	 * <h1>two</h1>
 	 * </article>;
 	 * }<hr>
 	 *
@@ -334,16 +334,16 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <hr>{@code
 	 * <div>
-	 * 	<article>
-	 * 		<header>
-	 * 			<span>first</span>
-	 * 		</header>
-	 * 	</article>
+	 * <article>
+	 * <header>
+	 * <span>first</span>
+	 * </header>
+	 * </article>
 	 * </div>
 	 * <div>
-	 * 	<article>
-	 * 		<span>second</span>
-	 * 	</article>
+	 * <article>
+	 * <span>second</span>
+	 * </article>
 	 * </div>
 	 * }<hr>
 	 *
@@ -493,14 +493,14 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * <hr>{@code
 	 * <div>
 	 * <article>
-	 * 	<p>Some Text</p>
+	 * <p>Some Text</p>
 	 * </article>
 	 * <article>
-	 * 	<h1>Review: Tea</h1>
-	 * 	<p>It's good</p>
+	 * <h1>Review: Tea</h1>
+	 * <p>It's good</p>
 	 * </article>
 	 * <article>
-	 * 	<h1>Discussion: Computers</h1>
+	 * <h1>Discussion: Computers</h1>
 	 * </article>
 	 * </div>
 	 * }<hr>
@@ -533,12 +533,12 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <hr>{@code
 	 * <article>
-	 * 	<h1>Review: Tea</h1>
-	 * 	<p>It's good</p>
+	 * <h1>Review: Tea</h1>
+	 * <p>It's good</p>
 	 * </article>
 	 * <article>
-	 * 	<h1>Discussion: Computers</h1>
-	 * 	<p>It's the future!</p>
+	 * <h1>Discussion: Computers</h1>
+	 * <p>It's the future!</p>
 	 * </article>;
 	 * }<hr>
 	 *
@@ -572,16 +572,16 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <hr>{@code
 	 * <div title="pen">
-	 * 	<article>
-	 * 		<header>
-	 * 			<span></span>
-	 * 		</header>
-	 * 	</article>
+	 * <article>
+	 * <header>
+	 * <span></span>
+	 * </header>
+	 * </article>
 	 * </div>
 	 * <div title="crayon">
-	 * 	<article>
-	 * 		<span></span>
-	 * 	</article>
+	 * <article>
+	 * <span></span>
+	 * </article>
 	 * </div>;
 	 * }<hr>
 	 *
@@ -753,7 +753,6 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
-	 *
 	 */
 	T upTo(String elementName);
 
@@ -802,5 +801,13 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * HTML element being matched.
 	 */
 	T filter(HtmlElementMatcher htmlElementMatcher);
+
+	/**
+	 * Negates the very next filter
+	 *
+	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	T not();
 
 }
