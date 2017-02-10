@@ -137,17 +137,17 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 *
 	 * <p>An example using this method can be described with the following HTML document:</p>
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * <span>first</span><span>second</span><strong>third</strong>
-	 * }<hr>
+	 * }<hr><pre/></code>
 	 *
 	 * <p>A technique to get the text of the second span element is:</p>
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("secondSpan").match("span").followedImmediatelyBy("strong").getText();
-	 * }<hr>
+	 * }<hr><pre/></code>
 	 *
 	 * <p>This will only return the text in the second span element as it is followed immediately by a strong element.
 	 * The first span element is followed immediately by a span element, so it will be ignored</p>
@@ -166,19 +166,19 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * Establishes that the matched HTML element should have a given element placed before it, at any distance. For
 	 * example, given this simple HTML document:
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code>{@code
 	 * <div>
-	 * <strong>before</strong><strong>after</strong>
+	 * 		<strong>before</strong><strong>after</strong>
 	 * </div>
-	 * }<hr>
+	 * }<hr><pre/></code>
 	 *
 	 * <p>One technique to get the text of the second 'strong' element is:</p>
 	 *
-	 * <hr>{@code
+	 * <hr><pre><code> {@code
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("preceded").match("strong").precededBy("strong").getText();
-	 * }<hr>
+	 * }<hr><pre/>
 	 *
 	 * <p>The matching rules in plain english are: get the text of a 'strong' element that has a 'strong' element placed
 	 * before it. When the parsing process runs, it will return 'after'</p>
