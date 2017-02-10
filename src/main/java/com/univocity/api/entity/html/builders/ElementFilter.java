@@ -808,6 +808,6 @@ public interface ElementFilter<T extends ElementFilter<T>> {
 	 * @return this {@link ElementFilter} instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
 	 */
-	T not();
+	ElementFilter<T> not();
 
 }
