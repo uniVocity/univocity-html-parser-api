@@ -10,8 +10,6 @@ import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.record.*;
 import com.univocity.parsers.remote.*;
 
-import java.util.*;
-
 /**
  * An extension of the {@link EntityParserInterface} to include all operations specific to the {@link HtmlParser}
  *
@@ -28,6 +26,6 @@ public interface HtmlParserInterface extends RemoteEntityParserInterface<HtmlRec
 	 *
 	 * @return a map of entity names and the corresponding records extracted from the given HTML tree.
 	 */
-	Map<String, HtmlParserResult> parse(HtmlElement htmlTree);
+	Results<HtmlParserResult> parse(HtmlElement htmlTree);
 
 }

@@ -15,7 +15,6 @@ import com.univocity.parsers.remote.*;
 
 import java.io.*;
 import java.nio.charset.*;
-import java.util.*;
 
 /**
  * A very fast HTML parser.
@@ -55,7 +54,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 *
 	 * @param readerProvider an input provider with content to be parsed
 	 */
-	public final Map<String, HtmlParserResult> parse(ReaderProvider readerProvider) {
+	public final Results<HtmlParserResult> parse(ReaderProvider readerProvider) {
 		return parser.parse(readerProvider);
 	}
 
@@ -70,7 +69,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 *
 	 * @param fileProvider the input file with content to be parsed
 	 */
-	public final Map<String, HtmlParserResult> parse(FileProvider fileProvider) {
+	public final Results<HtmlParserResult> parse(FileProvider fileProvider) {
 		return parser.parse(fileProvider);
 	}
 
@@ -87,7 +86,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 *
 	 * @param file the input with content to be parsed
 	 */
-	public final Map<String, HtmlParserResult> parse(File file) {
+	public final Results<HtmlParserResult> parse(File file) {
 		return parse(new FileProvider(file));
 	}
 
@@ -103,7 +102,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 * @param file     the input with content to be parsed
 	 * @param encoding the encoding to be used when reading text from the given input.
 	 */
-	public final Map<String, HtmlParserResult> parse(File file, Charset encoding) {
+	public final Results<HtmlParserResult> parse(File file, Charset encoding) {
 		return parse(new FileProvider(file, encoding));
 	}
 
@@ -119,7 +118,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 * @param file     the input with content to be parsed
 	 * @param encoding the encoding to be used when reading text from the given input.
 	 */
-	public final Map<String, HtmlParserResult> parse(File file, String encoding) {
+	public final Results<HtmlParserResult> parse(File file, String encoding) {
 		return parse(new FileProvider(file, encoding));
 	}
 
@@ -134,7 +133,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 *
 	 * @param reader the input with content to be parsed
 	 */
-	public final Map<String, HtmlParserResult> parse(Reader reader) {
+	public final Results<HtmlParserResult> parse(Reader reader) {
 		return parser.parse(reader);
 	}
 
@@ -151,7 +150,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 *
 	 * @param inputStream the input with content to be parsed
 	 */
-	public final Map<String, HtmlParserResult> parse(InputStream inputStream) {
+	public final Results<HtmlParserResult> parse(InputStream inputStream) {
 		return parser.parse(inputStream);
 	}
 
@@ -167,7 +166,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 * @param inputStream the input with content to be parsed
 	 * @param encoding    the encoding to be used when reading text from the given input.
 	 */
-	public final Map<String, HtmlParserResult> parse(InputStream inputStream, Charset encoding) {
+	public final Results<HtmlParserResult> parse(InputStream inputStream, Charset encoding) {
 		return parser.parse(inputStream, encoding);
 	}
 
@@ -183,7 +182,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 * @param inputStream the input with content to be parsed
 	 * @param encoding    the encoding to be used when reading text from the given input.
 	 */
-	public final Map<String, HtmlParserResult> parse(InputStream inputStream, String encoding) {
+	public final Results<HtmlParserResult> parse(InputStream inputStream, String encoding) {
 		return parser.parse(inputStream, encoding);
 	}
 
@@ -197,7 +196,7 @@ public final class HtmlParser implements HtmlParserInterface {
 	 *
 	 * @param htmlTree the HTML tree with content to be parsed
 	 */
-	public final Map<String, HtmlParserResult> parse(HtmlElement htmlTree) {
+	public final Results<HtmlParserResult> parse(HtmlElement htmlTree) {
 		return parser.parse(htmlTree);
 	}
 
