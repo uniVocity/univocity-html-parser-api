@@ -8,8 +8,6 @@ package com.univocity.api.entity.html.builders;
 
 import com.univocity.parsers.remote.*;
 
-import static com.univocity.parsers.remote.Paginator.*;
-
 /**
  * A special purpose {@link Group}-like structure, used only for {@link com.univocity.api.entity.html.HtmlPaginator}s.
  * Creates an area in the HTML where the paginator will look for elements to help in pagination. Elements outside
@@ -115,7 +113,7 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 * Creates a new field on this {@code HtmlPaginator} and returns a {@link PathStart} that allows the user to define
 	 * a path to the field.
 	 *
-	 * Any value collected for the given field can be read from a {@link PaginationHandler}.
+	 * Any value collected for the given field can be read from a {@link NextInputHandler}.
 	 *
 	 * @param fieldName name of the new field
 	 *

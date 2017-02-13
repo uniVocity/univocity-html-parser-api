@@ -20,7 +20,7 @@ import java.util.*;
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlParser
  * @see PaginationContext
- * @see PaginationHandler
+ * @see NextInputHandler
  */
 public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
@@ -166,7 +166,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 * Creates a new field on this {@code HtmlPaginator} and returns a {@link PathStart} that allows the user to define
 	 * a path to the field.
 	 *
-	 * Any value collected for the given field can be read from a {@link PaginationHandler}.
+	 * Any value collected for the given field can be read from a {@link NextInputHandler}.
 	 *
 	 * @param fieldName name of the new field
 	 *
@@ -185,7 +185,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 *
 	 * If you assign the path to the request parameters you are interested in, the paginator will automatically
 	 * set them for you when requesting for the next page of results. Otherwise, you'd have to manually set the parameters
-	 * using a {@link PaginationHandler}.
+	 * using a {@link NextInputHandler}.
 	 *
 	 * @param paramName name of the request parameter
 	 *
