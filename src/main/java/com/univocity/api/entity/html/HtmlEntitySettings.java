@@ -8,6 +8,7 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.*;
 import com.univocity.api.entity.html.builders.*;
+import com.univocity.api.net.*;
 import com.univocity.parsers.common.*;
 import com.univocity.parsers.remote.*;
 
@@ -317,6 +318,19 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		return htmlLinkFollower;
 	}
 
+
+	/**
+	 * TODO Documentation for followLink
+	 *
+	 * @param fieldName
+	 * @param urlReaderProvider
+	 *
+	 * @return
+	 */
+	public HtmlLinkFollower followLink(String fieldName, UrlReaderProvider urlReaderProvider) {
+		HtmlLinkFollower follower = ((ContentTransform) addField(fieldName)).followLink(urlReaderProvider);
+		return follower;
+	}
 
 	@Override
 	protected final CommonParserSettings getInternalSettings() {

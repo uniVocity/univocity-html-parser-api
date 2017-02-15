@@ -1,5 +1,6 @@
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.parsers.remote.*;
 
@@ -33,5 +34,29 @@ public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEnt
 
 	public PathStart addField(String fieldName) {
 		return entitySettings.addField(fieldName);
+	}
+
+	/**
+	 * @return this HtmlLinkFollower to allow for method chaining
+	 */
+	@Override
+	public HtmlLinkFollower assigning(String fieldName) {
+		return ((HtmlLinkFollower) super.assigning(fieldName));
+	}
+
+	/**
+	 * @return this HtmlLinkFollower to allow for method chaining
+	 */
+	@Override
+	public HtmlLinkFollower assigning(String parameterName, Object parameterValue) {
+		return ((HtmlLinkFollower) super.assigning(parameterName, parameterValue));
+	}
+
+	/**
+	 * @return this HtmlLinkFollower to allow for method chaining
+	 */
+	@Override
+	public HtmlLinkFollower assigning(String parameterName, ValueGetter<?> valueGetter) {
+		return ((HtmlLinkFollower) super.assigning(parameterName, valueGetter));
 	}
 }
