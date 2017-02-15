@@ -6,9 +6,8 @@
 
 package com.univocity.api.entity.html;
 
+import com.univocity.parsers.common.*;
 import com.univocity.parsers.remote.*;
-
-import java.util.*;
 
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
@@ -19,5 +18,5 @@ public interface HtmlParserResult extends RemoteResult<HtmlRecord, HtmlParsingCo
 	HtmlParserResult getLinkedFieldData(int rowIndex);
 
 	@Override
-	Map<String, HtmlParserResult> getLinkedEntityData(int rowIndex);
+	Results<HtmlParserResult> getLinkedEntityData(int rowIndex);
 }
