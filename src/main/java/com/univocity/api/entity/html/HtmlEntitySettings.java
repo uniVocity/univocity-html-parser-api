@@ -320,12 +320,17 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 
 
 	/**
-	 * TODO Documentation for followLink
+	 * Creates a {@link HtmlLinkFollower} as the field with name {@code fieldName} in this {@link HtmlEntitySettings}
+	 * that will follow the {@link UrlReaderProvider}
 	 *
-	 * @param fieldName
-	 * @param urlReaderProvider
+	 * An example use of this would be to supply a {@link UrlReaderProvider} with a parametrized url and
+	 * use the {@link HtmlLinkFollower#assigning} methods to assign the parameters to certain values before
+	 * being followed. This allows for dynamic link creation.
 	 *
-	 * @return
+	 * @param fieldName the name of the field that the {@link HtmlLinkFollower} will be referred to
+	 * @param urlReaderProvider the url that the {@link HtmlLinkFollower} will follow
+	 *
+	 * @return this {@link HtmlLinkFollower} to allow for method chaining
 	 */
 	public HtmlLinkFollower followLink(String fieldName, UrlReaderProvider urlReaderProvider) {
 		HtmlLinkFollower follower = ((ContentTransform) addField(fieldName)).followLink(urlReaderProvider);

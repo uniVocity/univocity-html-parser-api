@@ -37,15 +37,7 @@ public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEnt
 	}
 
 	/**
-	 * @return this HtmlLinkFollower to allow for method chaining
-	 */
-	@Override
-	public HtmlLinkFollower assigning(String fieldName) {
-		return ((HtmlLinkFollower) super.assigning(fieldName));
-	}
-
-	/**
-	 * @return this HtmlLinkFollower to allow for method chaining
+	 * @return this {@link HtmlLinkFollower} to allow for method chaining
 	 */
 	@Override
 	public HtmlLinkFollower assigning(String parameterName, Object parameterValue) {
@@ -53,7 +45,7 @@ public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEnt
 	}
 
 	/**
-	 * @return this HtmlLinkFollower to allow for method chaining
+	 * @return this {@link HtmlLinkFollower} to allow for method chaining
 	 */
 	@Override
 	public HtmlLinkFollower assigning(String parameterName, ValueGetter<?> valueGetter) {

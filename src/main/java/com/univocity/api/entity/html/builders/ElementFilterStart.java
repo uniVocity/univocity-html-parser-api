@@ -83,7 +83,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * For example, consider the following HTML table:
 	 * <hr><pre><code>
-	 *
+	 * {@code
 	 * 	<table>
 	 * 		<tr>
 	 * 			<td>Email Address</td>
@@ -104,6 +104,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * 		    <td>456 Another St</td>
 	 * 		</tr>
 	 * 	</table>
+	 * 	}
 	 * <pre/></code><hr>
 	 *
 	 * To capture the contents under "Home address", one could write:
