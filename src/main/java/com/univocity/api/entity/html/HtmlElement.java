@@ -10,6 +10,7 @@ import com.univocity.api.common.*;
 import com.univocity.api.io.*;
 
 import java.io.*;
+import java.nio.charset.*;
 import java.util.*;
 
 /**
@@ -270,10 +271,74 @@ public interface HtmlElement {
 	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
 	 * Replaces all references to those resources to local references.
 	 *
-	 * @param saveFie             provides the path of where to save the files
+	 * @param saveFile            provides the path of where to save the files
 	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
 	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
 	 *                            otherwise the original directory structure will be maintained
 	 */
-	File fetchResources(FileProvider saveFie, StringFilter fileFilter, boolean flattenResourcesDir);
+	File fetchResources(FileProvider saveFile, StringFilter fileFilter, boolean flattenResourcesDir);
+
+	/**
+	 * Save the element to a local file using the {@link FileProvider}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param saveFile            provides the path of where to save the files
+	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
+	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
+	 *                            otherwise the original directory structure will be maintained
+	 */
+	File fetchResources(File saveFile, StringFilter fileFilter, boolean flattenResourcesDir);
+
+	/**
+	 * Save the element to a local file using the {@link FileProvider}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param saveFile            provides the path of where to save the files
+	 * @param encoding            the desired character encoding for the destination file
+	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
+	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
+	 *                            otherwise the original directory structure will be maintained
+	 */
+	File fetchResources(File saveFile, String encoding, StringFilter fileFilter, boolean flattenResourcesDir);
+
+	/**
+	 * Save the element to a local file using the {@link FileProvider}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param saveFile            provides the path of where to save the files
+	 * @param encoding            the desired character encoding for the destination file
+	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
+	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
+	 *                            otherwise the original directory structure will be maintained
+	 */
+	File fetchResources(File saveFile, Charset encoding, StringFilter fileFilter, boolean flattenResourcesDir);
+
+	/**
+	 * Save the element to a local file using the {@link FileProvider}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param pathToFile          the string path to the output file
+	 * @param encoding            the desired character encoding for the destination file
+	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
+	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
+	 *                            otherwise the original directory structure will be maintained
+	 */
+	File fetchResources(String pathToFile, String encoding, StringFilter fileFilter, boolean flattenResourcesDir);
+
+	/**
+	 * Save the element to a local file using the {@link FileProvider}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param pathToFile          the string path to the output file
+	 * @param encoding            the desired character encoding for the destination file
+	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
+	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
+	 *                            otherwise the original directory structure will be maintained
+	 */
+	File fetchResources(String pathToFile, Charset encoding, StringFilter fileFilter, boolean flattenResourcesDir);
 }
