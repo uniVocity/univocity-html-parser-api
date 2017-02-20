@@ -269,8 +269,10 @@ public interface HtmlElement {
 	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
 	 * Replaces all references to those resources to local references.
 	 *
-	 * @param fileFilter a simple {@link StringFilter} used to filter which resources to save
-	 * @param saveFie    provides the path of where to save the files
+	 * @param saveFie             provides the path of where to save the files
+	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
+	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
+	 *                            otherwise the original directory structure will be maintained
 	 */
-	void fetchResources(StringFilter fileFilter, FileProvider saveFie);
+	void fetchResources(FileProvider saveFie, StringFilter fileFilter, boolean flattenResourcesDir);
 }
