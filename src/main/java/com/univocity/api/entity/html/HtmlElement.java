@@ -9,6 +9,7 @@ package com.univocity.api.entity.html;
 import com.univocity.api.common.*;
 import com.univocity.api.io.*;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -274,5 +275,5 @@ public interface HtmlElement {
 	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
 	 *                            otherwise the original directory structure will be maintained
 	 */
-	void fetchResources(FileProvider saveFie, StringFilter fileFilter, boolean flattenResourcesDir);
+	File fetchResources(FileProvider saveFie, StringFilter fileFilter, boolean flattenResourcesDir);
 }
