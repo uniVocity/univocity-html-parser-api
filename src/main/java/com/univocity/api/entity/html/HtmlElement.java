@@ -6,6 +6,9 @@
 
 package com.univocity.api.entity.html;
 
+import com.univocity.api.common.*;
+import com.univocity.api.io.*;
+
 import java.util.*;
 
 /**
@@ -260,4 +263,14 @@ public interface HtmlElement {
 	 * {@link org.w3c.dom.Document} containing this HTML element.
 	 */
 	org.w3c.dom.Document toW3CDocument();
+
+	/**
+	 * Save the element to a local file using the {@link FileProvider}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param fileFilter a simple {@link StringFilter} used to filter which resources to save
+	 * @param saveFie    provides the path of where to save the files
+	 */
+	void fetchResources(StringFilter fileFilter, FileProvider saveFie);
 }
