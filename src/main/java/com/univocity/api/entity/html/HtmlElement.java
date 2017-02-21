@@ -341,4 +341,16 @@ public interface HtmlElement {
 	 *                            otherwise the original directory structure will be maintained
 	 */
 	File fetchResources(String pathToFile, Charset encoding, StringFilter fileFilter, boolean flattenResourcesDir);
+
+	/**
+	 * Save the element to a local file using the {@link FileProvider}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param pathToFile          the string path to the output file
+	 * @param fileFilter          a simple {@link StringFilter} used to filter which resources to save
+	 * @param flattenResourcesDir if {@code true} then the resultant resources directory will have no child directories,
+	 *                            otherwise the original directory structure will be maintained
+	 */
+	File fetchResources(String pathToFile, StringFilter fileFilter, boolean flattenResourcesDir);
 }
