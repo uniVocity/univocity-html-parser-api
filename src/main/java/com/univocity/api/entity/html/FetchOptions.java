@@ -1,17 +1,20 @@
 package com.univocity.api.entity.html;
 
-import java.io.*;
-import java.nio.charset.*;
+import com.univocity.api.common.*;
 
 /**
- * Configuration class for use in the {@link HtmlElement#fetchResources(File, Charset, FetchOptions)} methods
+ * Configuration class for use in the {@link HtmlElement#fetchResources} methods
  * Setters return {@code this} instance to enable method chaining during initialization.
  */
 public class FetchOptions {
 
 	private boolean flattenDirectoryStructure;
 
+	private StringFilter fileFilter;
+
 	public FetchOptions() {
+		flattenDirectoryStructure = false;
+		fileFilter = TrueStringFilter.TRUE;
 	}
 
 	/**
@@ -45,9 +48,29 @@ public class FetchOptions {
 	}
 
 	/**
+	 * <p>Only download resources that match the {@link StringFilter}.</p>
+	 * <p>The default filter accepts any input.</p>
+	 *
+	 * @param fileFilter used to filter which resources to download
+	 *
+	 * @return current instance of {@link FetchOptions} to enable method chaining during initialization.
+	 */
+	public FetchOptions filterFiles(StringFilter fileFilter) {
+		this.fileFilter = fileFilter;
+		return this;
+	}
+
+	/**
 	 * @return {@link FetchOptions#flattenDirectory}
 	 */
 	public boolean isFlattenDirectoryStructure() {
 		return flattenDirectoryStructure;
+	}
+
+	/**
+	 * @return {@link FetchOptions#filterFiles}
+	 */
+	public StringFilter getFileFilter() {
+		return fileFilter;
 	}
 }

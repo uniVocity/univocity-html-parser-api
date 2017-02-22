@@ -6,7 +6,6 @@
 
 package com.univocity.api.entity.html;
 
-import com.univocity.api.common.*;
 import com.univocity.api.io.*;
 
 import java.io.*;
@@ -272,107 +271,12 @@ public interface HtmlElement {
 	 * Replaces all references to those resources to local references.
 	 *
 	 * @param saveFile     provides the path of where to save the files
-	 * @param fileFilter   a simple {@link StringFilter} used to filter which resources to save
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(FileProvider saveFile, StringFilter fileFilter, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file using the {@link File}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param saveFile     provides the path of where to save the files
-	 * @param fileFilter   a simple {@link StringFilter} used to filter which resources to save
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(File saveFile, StringFilter fileFilter, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file using the {@link File}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param saveFile     provides the path of where to save the files
-	 * @param encoding     the desired character encoding for the destination file
-	 * @param fileFilter   a simple {@link StringFilter} used to filter which resources to save
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(File saveFile, String encoding, StringFilter fileFilter, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file using the {@link File}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param saveFile     provides the path of where to save the files
-	 * @param encoding     the desired character encoding for the destination file
-	 * @param fileFilter   a simple {@link StringFilter} used to filter which resources to save
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(File saveFile, Charset encoding, StringFilter fileFilter, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file at the path {@code pathToFile}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param pathToFile   the string path to the output file
-	 * @param encoding     the desired character encoding for the destination file
-	 * @param fileFilter   a simple {@link StringFilter} used to filter which resources to save
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(String pathToFile, String encoding, StringFilter fileFilter, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file at the path {@code pathToFile}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param pathToFile   the string path to the output file
-	 * @param encoding     the desired character encoding for the destination file
-	 * @param fileFilter   a simple {@link StringFilter} used to filter which resources to save
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(String pathToFile, Charset encoding, StringFilter fileFilter, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file at the path {@code pathToFile}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param pathToFile   the string path to the output file
-	 * @param fileFilter   a simple {@link StringFilter} used to filter which resources to save
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(String pathToFile, StringFilter fileFilter, FetchOptions fetchOptions);
-
-
-	/**
-	 * Save the element to a local file using the {@link FileProvider}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param saveFile     provides the path of where to save the files
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
 	 * @see FetchOptions
 	 */
 	File fetchResources(FileProvider saveFile, FetchOptions fetchOptions);
+
 
 	/**
 	 * Save the element to a local file using the {@link File}
@@ -412,6 +316,19 @@ public interface HtmlElement {
 	 */
 	File fetchResources(File saveFile, Charset encoding, FetchOptions fetchOptions);
 
+
+	/**
+	 * Save the element to a local file at the path {@code pathToFile}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param pathToFile   the string path to the output file
+	 * @param fetchOptions various options used during the fetching of resources
+	 *
+	 * @see FetchOptions
+	 */
+	File fetchResources(String pathToFile, FetchOptions fetchOptions);
+
 	/**
 	 * Save the element a local file at the path {@code pathToFile}
 	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
@@ -437,16 +354,4 @@ public interface HtmlElement {
 	 * @see FetchOptions
 	 */
 	File fetchResources(String pathToFile, Charset encoding, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file at the path {@code pathToFile}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param pathToFile   the string path to the output file
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(String pathToFile, FetchOptions fetchOptions);
 }
