@@ -275,7 +275,7 @@ public interface HtmlElement {
 	 *
 	 * @see FetchOptions
 	 */
-	File fetchResources(FileProvider saveFile, FetchOptions fetchOptions);
+	FetchOutput fetchResources(FileProvider saveFile, FetchOptions fetchOptions);
 
 
 	/**
@@ -288,20 +288,7 @@ public interface HtmlElement {
 	 *
 	 * @see FetchOptions
 	 */
-	File fetchResources(File saveFile, FetchOptions fetchOptions);
-
-	/**
-	 * Save the element to a local file using the {@link File}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
-	 *
-	 * @param saveFile     provides the path of where to save the files
-	 * @param encoding     the desired character encoding for the destination file
-	 * @param fetchOptions various options used during the fetching of resources
-	 *
-	 * @see FetchOptions
-	 */
-	File fetchResources(File saveFile, String encoding, FetchOptions fetchOptions);
+	FetchOutput fetchResources(File saveFile, FetchOptions fetchOptions);
 
 	/**
 	 * Save the element to a local file using the {@link File}
@@ -314,7 +301,20 @@ public interface HtmlElement {
 	 *
 	 * @see FetchOptions
 	 */
-	File fetchResources(File saveFile, Charset encoding, FetchOptions fetchOptions);
+	FetchOutput fetchResources(File saveFile, String encoding, FetchOptions fetchOptions);
+
+	/**
+	 * Save the element to a local file using the {@link File}
+	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
+	 * Replaces all references to those resources to local references.
+	 *
+	 * @param saveFile     provides the path of where to save the files
+	 * @param encoding     the desired character encoding for the destination file
+	 * @param fetchOptions various options used during the fetching of resources
+	 *
+	 * @see FetchOptions
+	 */
+	FetchOutput fetchResources(File saveFile, Charset encoding, FetchOptions fetchOptions);
 
 
 	/**
@@ -327,7 +327,7 @@ public interface HtmlElement {
 	 *
 	 * @see FetchOptions
 	 */
-	File fetchResources(String pathToFile, FetchOptions fetchOptions);
+	FetchOutput fetchResources(String pathToFile, FetchOptions fetchOptions);
 
 	/**
 	 * Save the element a local file at the path {@code pathToFile}
@@ -340,7 +340,7 @@ public interface HtmlElement {
 	 *
 	 * @see FetchOptions
 	 */
-	File fetchResources(String pathToFile, String encoding, FetchOptions fetchOptions);
+	FetchOutput fetchResources(String pathToFile, String encoding, FetchOptions fetchOptions);
 
 	/**
 	 * Save the element to a local file at the path {@code pathToFile}
@@ -353,5 +353,5 @@ public interface HtmlElement {
 	 *
 	 * @see FetchOptions
 	 */
-	File fetchResources(String pathToFile, Charset encoding, FetchOptions fetchOptions);
+	FetchOutput fetchResources(String pathToFile, Charset encoding, FetchOptions fetchOptions);
 }
