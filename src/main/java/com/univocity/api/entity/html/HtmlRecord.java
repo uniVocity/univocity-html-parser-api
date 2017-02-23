@@ -14,7 +14,7 @@ import com.univocity.parsers.common.record.*;
  */
 public interface HtmlRecord extends Record {
 
-	Result<HtmlRecord, HtmlParsingContext> getLinkedFieldData(int rowIndex);
+	Result<HtmlRecord, HtmlParsingContext> getLinkedFieldData();
 
-	Results<? extends Result<HtmlRecord, HtmlParsingContext>> getLinkedEntityData(int rowIndex);
+	Results<? extends Result<HtmlRecord, HtmlParsingContext>> getLinkedEntityData();
 }
