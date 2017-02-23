@@ -6,10 +6,15 @@
 
 package com.univocity.api.entity.html;
 
-import com.univocity.parsers.remote.*;
+import com.univocity.parsers.common.*;
+import com.univocity.parsers.common.record.*;
 
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlRecord extends RemoteRecord<HtmlRecord, HtmlParsingContext> {
+public interface HtmlRecord extends Record {
+
+	Result<HtmlRecord, HtmlParsingContext> getLinkedFieldData(int rowIndex);
+
+	Results<? extends Result<HtmlRecord, HtmlParsingContext>> getLinkedEntityData(int rowIndex);
 }
