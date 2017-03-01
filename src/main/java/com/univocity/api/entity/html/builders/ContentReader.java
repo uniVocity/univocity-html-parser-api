@@ -288,6 +288,27 @@ public interface ContentReader {
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	ContentTransform getText(int numberOfSiblingsToInclude);
 
+
+	/**
+	 * Specifies that the parser will return the text from the HTML that occurs only in the HTML element specified by the path.
+	 * For instance given an HTML document that look like {@code <p>Text <strong>not</strong> only in the p element</p>},
+	 * a way to get only the text directly inside of the p element is:
+	 *
+	 * <hr>{@code
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("ownText").match("p").getOwnText();
+	 * }
+	 * <hr>
+	 *
+	 * <p>When the parser runs, it will return "Text only in the p element"</p>
+	 *
+	 * @return options to transform the captured information, and/or to download content if the text represents
+	 * a path to a remote resource.
+	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
+	ContentTransform getOwnText();
+
 	/**
 	 * Specifies that the parser will return the text from the HTML that occurs before the HTML element
 	 * specified by the path. For instance, given an HTML document that looks like {@code '<div>before<span>hello</span>after</div>'},
