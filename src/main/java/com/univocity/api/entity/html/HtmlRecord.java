@@ -7,14 +7,14 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.parsers.common.*;
-import com.univocity.parsers.common.record.*;
 
 /**
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface HtmlRecord extends Record {
+public interface HtmlRecord extends ResultRecord<HtmlParsingContext> {
 
-	Result<HtmlRecord, HtmlParsingContext> getLinkedFieldData();
+	HtmlParserResult getLinkedFieldData();
 
-	Results<? extends Result<HtmlRecord, HtmlParsingContext>> getLinkedEntityData();
+	Results<HtmlParserResult> getLinkedEntityData();
+
 }
