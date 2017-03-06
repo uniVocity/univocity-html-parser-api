@@ -8,9 +8,6 @@ package com.univocity.api.entity.html.builders;
 
 import com.univocity.api.entity.html.*;
 import com.univocity.api.entity.html.builders.annotations.*;
-import com.univocity.api.net.*;
-
-import java.io.*;
 
 /**
  * A {@code ContentReader} defines what content will be read from the last element matched in a {@link FieldPath} by

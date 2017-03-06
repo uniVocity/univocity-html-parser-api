@@ -6,7 +6,6 @@
 package com.univocity.api.entity.html.processor;
 
 import com.univocity.api.entity.html.*;
-import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.processor.core.*;
 
 /**
