@@ -15,6 +15,7 @@ import com.univocity.parsers.remote.*;
 
 import java.io.*;
 import java.nio.charset.*;
+import java.util.*;
 
 /**
  * A very fast HTML parser.
@@ -120,6 +121,16 @@ public final class HtmlParser implements HtmlParserInterface {
 	 */
 	public final Results<HtmlParserResult> parse(File file, String encoding) {
 		return parse(new FileProvider(file, encoding));
+	}
+
+	@Override
+	public void setReparseDate(Calendar calendar) {
+		parser.setReparseDate(calendar);
+	}
+
+	@Override
+	public void setReparseDate(Date date) {
+		parser.setReparseDate(date);
 	}
 
 	/**
