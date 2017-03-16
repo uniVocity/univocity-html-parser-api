@@ -5,6 +5,8 @@ import com.univocity.api.common.*;
 /**
  * Configuration class for use in the {@link HtmlElement#fetchResources} methods
  * Setters return {@code this} instance to enable method chaining during initialization.
+ *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public class FetchOptions {
 
@@ -61,14 +63,39 @@ public class FetchOptions {
 	}
 
 	/**
-	 * @return {@link FetchOptions#flattenDirectory}
+	 * Whether or not the resource filenames should be 'flattened'. That is to say have the directories condensed into
+	 * the filename so all resource files are in the same directory but all uniquely named.
+	 * <p>e.g.</p>
+	 * <p>
+	 * A file with the relative path
+	 * {@code
+	 * ./path/to/resource/image.png
+	 * }
+	 * would normally be saved as a file called
+	 * {@code image.png}
+	 * in the
+	 * {@code ./path/to/resource/}
+	 * directory.
+	 * </p>
+	 * <p>
+	 * When flattened it will instead be saved as the file
+	 * {@code path_to_resource_image.png}
+	 * in the
+	 * {@code ./}
+	 * directory
+	 * </p>
+	 *
+	 * @return whether or not the directory structure in filenames will be flattened when saving resources.
 	 */
 	public boolean isFlattenDirectoryStructure() {
 		return flattenDirectoryStructure;
 	}
 
 	/**
-	 * @return {@link FetchOptions#filterFiles}
+	 * Returns the currently set {@link StringFilter} which is used to determine which resource files to download and save.
+	 * The default {@link StringFilter} accepts any string so all resources will be downloaded.
+	 *
+	 * @return the {@link StringFilter} used to filter resource urls.
 	 */
 	public StringFilter getFileFilter() {
 		return fileFilter;
