@@ -333,7 +333,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * @return this {@link HtmlLinkFollower} to allow for method chaining
 	 */
 	public HtmlLinkFollower followLink(String fieldName, UrlReaderProvider urlReaderProvider) {
-		HtmlLinkFollower follower = ((ContentTransform) addField(fieldName)).followLink(urlReaderProvider);
+		HtmlLinkFollower follower = ((FieldContentTransform) addField(fieldName)).followLink(urlReaderProvider);
 		return follower;
 	}
 

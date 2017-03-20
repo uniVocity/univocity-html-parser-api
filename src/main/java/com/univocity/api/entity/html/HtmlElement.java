@@ -6,6 +6,7 @@
 
 package com.univocity.api.entity.html;
 
+import com.univocity.api.entity.html.builders.*;
 import com.univocity.api.io.*;
 
 import java.io.*;
@@ -354,4 +355,9 @@ public interface HtmlElement {
 	 * @see FetchOptions
 	 */
 	FetchOutput fetchResources(String pathToFile, Charset encoding, FetchOptions fetchOptions);
+
+	/**
+	 * FIXME: javadoc
+	 */
+	ElementPathStart query();
 }

@@ -16,7 +16,7 @@ import com.univocity.api.entity.html.builders.annotations.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface ContentReader {
+public interface ContentReader<T extends ContentHandler> {
 
 	/**
 	 * Used to get the text of a table header above a matched element. For example, given a HTML document like this:
@@ -59,7 +59,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	ContentTransform getHeadingText();
+	T getHeadingText();
 
 	/**
 	 * Captures the text of a row above a matched element, where the position of that row is at a fixed position,
@@ -91,7 +91,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	ContentTransform getHeadingText(int headingRowIndex);
+	T getHeadingText(int headingRowIndex);
 
 	/**
 	 * Specifies that the parser will return the text contained in the HTML element above the HTML element defined by
@@ -121,7 +121,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	ContentTransform getTextAbove();
+	T getTextAbove();
 
 	/**
 	 * Specifies that the parser will return the text contained in the HTML element at a given distance above
@@ -156,7 +156,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	ContentTransform getTextAbove(int numberOfRowsAbove);
+	T getTextAbove(int numberOfRowsAbove);
 
 
 	/**
@@ -222,7 +222,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.TABLE)
-	ContentTransform getTextAbove(String firstAlternative, String... otherAlternatives);
+	T getTextAbove(String firstAlternative, String... otherAlternatives);
 
 	/**
 	 * Specifies that the parser will return the text contained within the HTML element defined by the path. For instance,
@@ -247,7 +247,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
-	ContentTransform getText();
+	T getText();
 
 	/**
 	 * Specifies that the parser will return the text contained within the HTML elements matched by the path <strong>plus</strong>
@@ -283,7 +283,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	ContentTransform getText(int numberOfSiblingsToInclude);
+	T getText(int numberOfSiblingsToInclude);
 
 
 	/**
@@ -304,7 +304,7 @@ public interface ContentReader {
 	 * a path to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
-	ContentTransform getOwnText();
+	T getOwnText();
 
 	/**
 	 * Specifies that the parser will return the text from the HTML that occurs before the HTML element
@@ -323,7 +323,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	ContentTransform getPrecedingText();
+	T getPrecedingText();
 
 	/**
 	 * Gets the text from the specified number of HTML elements placed before the element that is matched by the path.
@@ -346,7 +346,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	ContentTransform getPrecedingText(int numberOfSiblingsToInclude);
+	T getPrecedingText(int numberOfSiblingsToInclude);
 
 	/**
 	 * Gets the text from the HTML element that is placed directly after the HTML elements matched by the path. For
@@ -365,7 +365,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	ContentTransform getFollowingText();
+	T getFollowingText();
 
 	/**
 	 * Gets the text from the specified number of HTMl elements following the HTML element described in the path. For
@@ -389,7 +389,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
-	ContentTransform getFollowingText(int numberOfSiblingsToInclude);
+	T getFollowingText(int numberOfSiblingsToInclude);
 
 	/**
 	 * Specifies that the parser will return the value defined by the attribute of the HTML elements defined by the path.
@@ -411,7 +411,7 @@ public interface ContentReader {
 	 * to a remote resource.
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
-	ContentTransform getAttribute(String attributeName);
+	T getAttribute(String attributeName);
 
 
 	/**
@@ -423,5 +423,5 @@ public interface ContentReader {
 	 *
 	 * @return options to download content if the transformed text represents a path to a remote resource.
 	 */
-	ContentTransform getElement(HtmlElementTransformation transformation);
+	T getElement(HtmlElementTransformation transformation);
 }
