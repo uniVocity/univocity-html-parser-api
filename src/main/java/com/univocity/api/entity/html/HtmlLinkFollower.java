@@ -13,6 +13,11 @@ import com.univocity.parsers.remote.*;
  */
 public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> implements FieldDefinition {
 
+	/**
+	 * Creates a HtmlLinkFollower using {@code parentEntitySettings} as a basis for the settings
+	 *
+	 * @param parentEntitySettings the parent entity settings to be used as a basis for this instances settings
+	 */
 	protected HtmlLinkFollower(HtmlEntitySettings parentEntitySettings) {
 		super(parentEntitySettings);
 	}
