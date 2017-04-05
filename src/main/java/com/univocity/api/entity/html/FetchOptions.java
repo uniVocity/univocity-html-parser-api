@@ -14,6 +14,10 @@ public class FetchOptions {
 
 	private StringFilter fileFilter;
 
+	/**
+	 * Default constructor for FetchOptions
+	 * Defaults to not flattening directory and accepting any String
+	 */
 	public FetchOptions() {
 		flattenDirectoryStructure = false;
 		fileFilter = TrueStringFilter.TRUE;
