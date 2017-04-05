@@ -274,7 +274,10 @@ public interface HtmlElement {
 	 * @param saveFile     provides the path of where to save the files
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
+	 * @return a FetchOutput instance with various resultant data
+	 *
 	 * @see FetchOptions
+	 * @see FetchOutput
 	 */
 	FetchOutput fetchResources(FileProvider saveFile, FetchOptions fetchOptions);
 
@@ -286,6 +289,7 @@ public interface HtmlElement {
 	 *
 	 * @param saveFile     provides the path of where to save the files
 	 * @param fetchOptions various options used during the fetching of resources
+	 *                     * @return a FetchOutput instance with various resultant data
 	 *
 	 * @see FetchOptions
 	 */
@@ -300,6 +304,8 @@ public interface HtmlElement {
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
+	 * @return a FetchOutput instance with various resultant data
+	 *
 	 * @see FetchOptions
 	 */
 	FetchOutput fetchResources(File saveFile, String encoding, FetchOptions fetchOptions);
@@ -312,6 +318,8 @@ public interface HtmlElement {
 	 * @param saveFile     provides the path of where to save the files
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
+	 *
+	 * @return a FetchOutput instance with various resultant data
 	 *
 	 * @see FetchOptions
 	 */
@@ -339,6 +347,8 @@ public interface HtmlElement {
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
+	 * @return a FetchOutput instance with various resultant data
+	 *
 	 * @see FetchOptions
 	 */
 	FetchOutput fetchResources(String pathToFile, String encoding, FetchOptions fetchOptions);
@@ -352,12 +362,25 @@ public interface HtmlElement {
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
+	 * @return a FetchOutput instance with various resultant data
+	 *
 	 * @see FetchOptions
 	 */
 	FetchOutput fetchResources(String pathToFile, Charset encoding, FetchOptions fetchOptions);
 
 	/**
-	 * FIXME: javadoc
+	 * Starts a matching sequence so chaining selector methods can be used to traverse the HtmlElement
+	 * <br>
+	 * example:
+	 * <hr><pre><code>{@code
+	 * HtmlElement root = HtmlParser.parse(new UrlReaderProvider("https://remote.com/path/to/html"));
+	 * String title = root.query().match("title").getText();
+	 * }</code></pre> <hr>
+	 * <p>Would have the value of the title element stored in the title variable</p>
+	 *
+	 * @return the path start ready for more matching rules to be added or values returned.
+	 *
+	 * @see ElementPathStart
 	 */
 	ElementPathStart query();
 }
