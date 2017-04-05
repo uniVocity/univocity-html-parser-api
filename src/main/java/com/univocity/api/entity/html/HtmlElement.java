@@ -289,7 +289,8 @@ public interface HtmlElement {
 	 *
 	 * @param saveFile     provides the path of where to save the files
 	 * @param fetchOptions various options used during the fetching of resources
-	 *                     * @return a FetchOutput instance with various resultant data
+	 *
+	 * @return a FetchOutput instance with various resultant data
 	 *
 	 * @see FetchOptions
 	 */
@@ -333,6 +334,8 @@ public interface HtmlElement {
 	 *
 	 * @param pathToFile   the string path to the output file
 	 * @param fetchOptions various options used during the fetching of resources
+	 *
+	 * @return a FetchOutput instance with various resultant data
 	 *
 	 * @see FetchOptions
 	 */
