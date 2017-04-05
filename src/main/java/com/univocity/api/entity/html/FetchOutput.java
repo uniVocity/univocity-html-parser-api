@@ -13,17 +13,18 @@ import java.util.*;
 public class FetchOutput {
 
 	/**
-	 * {@link HtmlElement} containing the new html with local resource locations
+	 * {@link HtmlElement} containing the new HTML.
+	 * For each remote resource downloaded; the remote url has been replaced with the relative local file location.
 	 */
 	public HtmlElement treeRoot;
 
 	/**
-	 * {@link File} pointing to where the new html has been saved
+	 * {@link File} pointing to where the new HTML has been saved.
 	 */
 	public File treeHtmlFile;
 
 	/**
-	 * {@link Map} mapping: "downloaded resource files locations" => "original remote urls"
+	 * {@link Map}, mapping each local File that has been downloaded to its original remote URL
 	 */
 	public Map<File, URL> resourceMap;
 

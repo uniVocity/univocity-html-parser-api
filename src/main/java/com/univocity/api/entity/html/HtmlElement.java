@@ -274,7 +274,7 @@ public interface HtmlElement {
 	 * @param saveFile     provides the path of where to save the files
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
-	 * @return a FetchOutput instance with various resultant data
+	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
 	 * @see FetchOptions
 	 * @see FetchOutput
@@ -290,9 +290,10 @@ public interface HtmlElement {
 	 * @param saveFile     provides the path of where to save the files
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
-	 * @return a FetchOutput instance with various resultant data
+	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
 	 * @see FetchOptions
+	 * @see FetchOutput
 	 */
 	FetchOutput fetchResources(File saveFile, FetchOptions fetchOptions);
 
@@ -305,9 +306,10 @@ public interface HtmlElement {
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
-	 * @return a FetchOutput instance with various resultant data
+	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
 	 * @see FetchOptions
+	 * @see FetchOutput
 	 */
 	FetchOutput fetchResources(File saveFile, String encoding, FetchOptions fetchOptions);
 
@@ -320,9 +322,10 @@ public interface HtmlElement {
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
-	 * @return a FetchOutput instance with various resultant data
+	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
 	 * @see FetchOptions
+	 * @see FetchOutput
 	 */
 	FetchOutput fetchResources(File saveFile, Charset encoding, FetchOptions fetchOptions);
 
@@ -335,9 +338,10 @@ public interface HtmlElement {
 	 * @param pathToFile   the string path to the output file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
-	 * @return a FetchOutput instance with various resultant data
+	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
 	 * @see FetchOptions
+	 * @see FetchOutput
 	 */
 	FetchOutput fetchResources(String pathToFile, FetchOptions fetchOptions);
 
@@ -350,9 +354,10 @@ public interface HtmlElement {
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
-	 * @return a FetchOutput instance with various resultant data
+	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
 	 * @see FetchOptions
+	 * @see FetchOutput
 	 */
 	FetchOutput fetchResources(String pathToFile, String encoding, FetchOptions fetchOptions);
 
@@ -365,9 +370,10 @@ public interface HtmlElement {
 	 * @param encoding     the desired character encoding for the destination file
 	 * @param fetchOptions various options used during the fetching of resources
 	 *
-	 * @return a FetchOutput instance with various resultant data
+	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
 	 * @see FetchOptions
+	 * @see FetchOutput
 	 */
 	FetchOutput fetchResources(String pathToFile, Charset encoding, FetchOptions fetchOptions);
 
@@ -377,9 +383,9 @@ public interface HtmlElement {
 	 * example:
 	 * <hr><pre><code>{@code
 	 * HtmlElement root = HtmlParser.parse(new UrlReaderProvider("https://remote.com/path/to/html"));
-	 * String title = root.query().match("title").getText();
+	 * String pageTitle = root.query().match("title").getText();
 	 * }</code></pre> <hr>
-	 * <p>Would have the value of the title element stored in the title variable</p>
+	 * <p>The String variable pageTitle would have the value of the title HTML element</p>
 	 *
 	 * @return the path start ready for more matching rules to be added or values returned.
 	 *

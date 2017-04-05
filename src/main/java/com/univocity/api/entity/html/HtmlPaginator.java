@@ -30,6 +30,8 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
 	/**
 	 * Creates a new HtmlPaginator and sets the currentPageNumber to 0
+	 *
+	 * @param parserSettings the parser settings to use
 	 */
 	protected HtmlPaginator(HtmlParserSettings parserSettings) {
 		super(parserSettings);

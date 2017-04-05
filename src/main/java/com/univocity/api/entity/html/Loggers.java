@@ -13,5 +13,8 @@ package com.univocity.api.entity.html;
  */
 public class Loggers extends com.univocity.api.common.Loggers {
 
+	/**
+	 * Logger for operations involving the parsing of HTML
+	 */
 	public static final String HTML_PARSER = "HTML_PARSER";
 }
