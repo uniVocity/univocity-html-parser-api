@@ -12,7 +12,6 @@ import com.univocity.parsers.common.processor.core.*;
 import com.univocity.parsers.conversions.*;
 
 /**
- *
  * A {@link RowProcessor} implementation for associating rows extracted from any implementation of {@link HtmlParser} into {@link MasterDetailRecord} instances.
  *
  * <p> For each row processed, a call to {@link #isMasterRecord(String[], Context)} will be made to identify whether or not it is a master row.
@@ -22,37 +21,32 @@ import com.univocity.parsers.conversions.*;
  *
  * <p> <b>Note</b> this class extends {@link ObjectRowProcessor} and value conversions provided by {@link Conversion} instances are fully supported.
  *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  * @see MasterDetailRecord
  * @see RowPlacement
  * @see HtmlParser
  * @see ObjectRowListProcessor
  * @see RowProcessor
- *
- * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
- *
  */
 public abstract class MasterDetailProcessor extends AbstractMasterDetailProcessor<HtmlParsingContext> {
 
 	/**
 	 * Creates a MasterDetailProcessor
 	 *
-	 * @param rowPlacement indication whether the master records are placed in relation its detail records in the input.
-	 *
-	 * <hr><blockquote><pre>
-	 *
-	 * Master record (Totals)       Master record (Totals)
-	 *  above detail records         under detail records
-	 *
-	 *    Totals | 100                 Item   | 60
-	 *    Item   | 60                  Item   | 40
-	 *    Item   | 40                  Totals | 100
-	 * </pre></blockquote><hr>
-	 * @param detailProcessor the {@link ObjectRowListProcessor} that processes detail rows.
+	 * @param rowPlacement    the location of the master row relative to the other rows
+	 * @param detailProcessor the processor that processes detail rows.
 	 */
 	public MasterDetailProcessor(RowPlacement rowPlacement, ObjectRowListProcessor detailProcessor) {
 		super(rowPlacement, detailProcessor);
 	}
 
+	/**
+	 * Creates a MasterDetailProcessor.
+	 *
+	 * Default {@code rowPlacement} set to {@link RowPlacement#TOP}
+	 *
+	 * @param detailProcessor the processor that processes detail rows.
+	 */
 	public MasterDetailProcessor(ObjectRowListProcessor detailProcessor) {
 		super(RowPlacement.TOP, detailProcessor);
 	}

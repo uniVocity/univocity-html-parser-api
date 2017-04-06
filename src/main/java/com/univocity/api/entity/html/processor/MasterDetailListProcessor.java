@@ -12,39 +12,47 @@ import com.univocity.parsers.common.processor.*;
 import com.univocity.parsers.common.processor.core.*;
 
 /**
- *
  * A convenience {@link MasterDetailProcessor} implementation for storing all {@link MasterDetailRecord} generated form the parsed input into a list.
  * A typical use case of this class will be:
  *
- * <hr>{@code
+ * <hr><pre>{@code
  *
  * ObjectRowListProcessor detailProcessor = new ObjectRowListProcessor();
  * MasterDetailListProcessor masterRowProcessor = new MasterDetailListProcessor(detailProcessor) {
- *      protected boolean isMasterRecord(String[] row, ParsingContext context) {
- *          return "Total".equals(row[0]);
- *      }
+ * 		protected boolean isMasterRecord(String[] row, ParsingContext context) {
+ * 			return "Total".equals(row[0]);
+ * 		}
  * };
  *
  * parserSettings.setRowProcessor(masterRowProcessor);
  *
  * List&lt;MasterDetailRecord&gt; rows = masterRowProcessor.getRecords();
- * }<hr>
+ * }</pre><hr>
  *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  * @see MasterDetailProcessor
  * @see RowProcessor
  * @see AbstractParser
- *
- * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
- *
  */
 public abstract class MasterDetailListProcessor extends AbstractMasterDetailListProcessor<HtmlParsingContext> implements RowProcessor {
 
-
+	/**
+	 * Creates a MasterDetailListProcessor
+	 *
+	 * @param rowPlacement    the location of the master row relative to the other rows
+	 * @param detailProcessor the processor that processes detail rows.
+	 */
 	public MasterDetailListProcessor(RowPlacement rowPlacement, AbstractObjectListProcessor detailProcessor) {
 		super(rowPlacement, detailProcessor);
 	}
 
+	/**
+	 * Creates a MasterDetailListProcessor
+	 *
+	 * @param detailProcessor the processor that processes detail rows.
+	 */
 	public MasterDetailListProcessor(AbstractObjectListProcessor detailProcessor) {
 		super(detailProcessor);
 	}
+
 }
