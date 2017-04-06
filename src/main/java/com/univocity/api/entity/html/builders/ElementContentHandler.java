@@ -26,8 +26,8 @@ public interface ElementContentHandler extends ContentHandler<ElementContentHand
 	 * 	   List<String> allPTagText = root.query().match("p").getText().getValues();
 	 * }
 	 * </pre></code><hr>
-	 * <p>Would result in <code>{@code allPTagText}</code> containing the values:
-	 * <code>{@code ["First P tag", "Second P tag", "Third P tag"]}</code></p>
+	 * <p>Would result in {@code allPTagText} containing the values:
+	 * {@code ["First P tag", "Second P tag", "Third P tag"]}</p>
 	 *
 	 * @return all of the values returned from using the matching rules.
 	 */
@@ -45,7 +45,7 @@ public interface ElementContentHandler extends ContentHandler<ElementContentHand
 	 * 	   String firstPTagText = root.query().match("p").getText().getValue();
 	 * }
 	 * </pre></code><hr>
-	 * <p>Would result in <code>{@code firstPTagText }</code> containing the value <code>{@code "First P tag"}</code></p>
+	 * <p>Would result in {@code firstPTagText } containing the value {@code "First P tag"}</p>
 	 *
 	 * @return the very first value returned from using the matching rules.
 	 */
