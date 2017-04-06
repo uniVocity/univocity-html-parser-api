@@ -80,10 +80,38 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 */
 	PathStart setNextPage();
 
+	/**
+	 * Creates a new field for the next page number and returns a {@link PathStart} which can be used to define the path
+	 * to the next page number element. The next page number indicates that there are more pages after the current page.
+	 * When the parser runs and completes the parsing of the page, it will read the next page number to decide whether
+	 * to proceed a try to obtain the next page to parse. The parser will continue to access the next page until the
+	 * next page number does not exist or the follow count set by {@link Paginator#setFollowCount(int)} is reached.
+	 *
+	 * This page number can also be used when naming files to be saved after fetching from the remote host, if the filename
+	 * pattern is defined using {@link RemoteParserSettings#setFileNamePattern(String)}
+	 *
+	 * @return a {@link PathStart} used to define the path to the element
+	 *
+	 * @see RemoteParserSettings#setFileNamePattern(String)
+	 */
 	PathStart setNextPageNumber();
 
+	/**
+	 * Creates a new field for the current page and returns a {@link PathStart} which can be used to define the path
+	 * to the 'current page' element. The current page is a HTML element that indicates which page among a series of pages
+	 * is being currently parsed.
+	 *
+	 * @return a {@link PathStart} used to define the path to the element
+	 */
 	PathStart setCurrentPage();
 
+	/**
+	 * Creates a new field for the current page and returns a {@link PathStart} which can be used to define the path
+	 * to the 'current page' element as a number. The current page is a HTML element that indicates which page among
+	 * a series of pages is being currently parsed.
+	 *
+	 * @return a {@link PathStart} used to define the path to the element
+	 */
 	PathStart setCurrentPageNumber();
 
 	/**
