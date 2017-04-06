@@ -9,12 +9,46 @@ package com.univocity.api.entity.html.builders;
 import java.util.*;
 
 /**
- * FIXME: javadoc
+ * An {@code ElementContentHandler} allows values defined for capture by {@link ContentReader} methods to be returned as
+ * actual values instead of needing to define {@link com.univocity.parsers.common.EntitySettings} and retrieving them
+ * as a {@link com.univocity.parsers.common.Result}.
  */
 public interface ElementContentHandler extends ContentHandler<ElementContentHandler> {
 
+	/**
+	 * Get all values found from taking the matching rules previously specified and
+	 * applying them to the input.
+	 * For Example, to get all of the P HTML element text from the input:
+	 * <hr><code><pre>
+	 * {@code
+	 *     String input = "<h1>Header</h1><p>First P tag</p><span>Strong text</span><p>Second P tag</p><p>Third P tag</p>";
+	 * 	   HtmlElement root = HtmlParser.parse(new StringReaderProvider(input));
+	 * 	   List<String> allPTagText = root.query().match("p").getText().getValues();
+	 * }
+	 * </pre></code><hr>
+	 * <p>Would result in <code>{@code allPTagText}</code> containing the values:
+	 * <code>{@code ["First P tag", "Second P tag", "Third P tag"]}</code></p>
+	 *
+	 * @return all of the values returned from using the matching rules.
+	 */
 	List<String> getValues();
 
+
+	/**
+	 * Get the first value found from taking the matching rules previously specified and
+	 * applying them to the input.
+	 * For Example, to get the text of the first P HTML element text from the input:
+	 * <hr><code><pre>
+	 * {@code
+	 *     String input = "<h1>Header</h1><p>First P tag</p><span>Strong text</span><p>Second P tag</p><p>Third P tag</p>";
+	 * 	   HtmlElement root = HtmlParser.parse(new StringReaderProvider(input));
+	 * 	   String firstPTagText = root.query().match("p").getText().getValue();
+	 * }
+	 * </pre></code><hr>
+	 * <p>Would result in <code>{@code firstPTagText }</code> containing the value <code>{@code "First P tag"}</code></p>
+	 *
+	 * @return the very first value returned from using the matching rules.
+	 */
 	String getValue();
 
 }

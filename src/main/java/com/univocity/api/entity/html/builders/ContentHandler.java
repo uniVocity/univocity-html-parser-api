@@ -11,8 +11,13 @@ import com.univocity.api.net.*;
 import com.univocity.parsers.common.*;
 
 /**
- * FIXME: JAVADOC
- * @param <T>
+ * Allows the content captured for a given field, by a {@link ContentReader}, to be transformed by a
+ * {@link StringTransformation} to clean up or transform values or to obtain very specific textual content from the
+ * original value.
+ *
+ * Also provides methods for downloading content from the URL captured by the previous path.
+ *
+ * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 interface ContentHandler<T extends ContentHandler<T>> {
 
