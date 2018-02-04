@@ -12,6 +12,9 @@ import java.io.*;
 import java.nio.charset.*;
 
 /**
+ * A parser that generates a tree of {@link HtmlElement}s. It always returns the root node of the tree. Specific
+ * elements can be matched and easily traversed using {@link HtmlElement#query()} or {@link HtmlElement#query(String)}
+ *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public interface HtmlTreeParser {

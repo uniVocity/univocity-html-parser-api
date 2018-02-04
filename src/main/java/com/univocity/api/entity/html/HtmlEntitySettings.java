@@ -40,25 +40,16 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		super(entityName, createEmptyParserSettings(), parentEntity);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final PathStart addSilentField(String fieldName) {
 		return newField(fieldName, false, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final PathStart addField(String fieldName) {
 		return newField(fieldName, false, false);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final PathStart addPersistentField(String fieldName) {
 		return newField(fieldName, true, false);
@@ -253,26 +244,17 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		return out;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final Set<String> getFieldNames() {
 		return Collections.unmodifiableSet(fields.keySet());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final void removeField(String fieldName) {
 		fields.remove(fieldName);
 	}
 
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public final void addConstantField(String constantFieldName, String constantValue) {
 		fields.put(constantFieldName, constantValue);

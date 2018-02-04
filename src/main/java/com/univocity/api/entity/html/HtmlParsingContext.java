@@ -65,7 +65,7 @@ public interface HtmlParsingContext extends Context {
 
 	/**
 	 * Returns the file that was last downloaded for a given binary field. Binary fields are defined using
-	 * {@link com.univocity.api.entity.html.builders.ContentReader#getContentFrom(String)}.
+	 * {@link com.univocity.api.entity.html.builders.FieldContentTransform#download()}.
 	 *
 	 * @param binaryFieldName name that identifies a field configured to download binary content.
 	 *
@@ -75,7 +75,7 @@ public interface HtmlParsingContext extends Context {
 
 	/**
 	 * Returns the names of the fields set to download content, i.e. names of fields defined using
-	 * {@link com.univocity.api.entity.html.builders.ContentReader#getContentFrom(String)}
+	 * {@link com.univocity.api.entity.html.builders.FieldContentTransform#download()}
 	 *
 	 * @return names of fields associated with downloaded content
 	 */

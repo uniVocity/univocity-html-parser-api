@@ -10,6 +10,9 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface Matcher {
+	/**
+	 * The general type of matching algorithm associated with the method.
+	 */
 	enum Type {
 		/**
 		 * methods that deal with text inside of an element
@@ -38,9 +41,12 @@ public @interface Matcher {
 		/**
 		 * methods that deal with element(s) that contain the specified element (e.g containedBy, childOf)
 		 */
-		PARENTS,
-		//FIXME: unsure about this one.
-		MOVER
+		PARENTS
 	}
+
+	/**
+	 * Returns the general type that indicates what the annotated method does.
+	 * @return the type of matching algorithm implemented by this matcher.
+	 */
 	Type type();
 }

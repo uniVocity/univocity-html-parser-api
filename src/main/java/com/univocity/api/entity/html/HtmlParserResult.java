@@ -10,7 +10,15 @@ import com.univocity.parsers.common.*;
 
 
 /**
+ * Stores the results of parsing some input with the {@link HtmlParser} parser.
+ * The fields that are captured and the order that they appear in each row depend on how they were configured using
+ * {@link HtmlEntitySettings} before parsing.
+ *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @see HtmlParsingContext
+ * @see HtmlEntitySettings
+ * @see HtmlParser
+ * @see HtmlRecord
  */
 public interface HtmlParserResult extends Result<HtmlRecord, HtmlParsingContext> {
 
