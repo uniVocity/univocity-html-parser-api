@@ -6,6 +6,7 @@
 package com.univocity.api.entity.html.processor;
 
 import com.univocity.api.entity.html.*;
+import com.univocity.parsers.annotations.helpers.*;
 import com.univocity.parsers.common.*;
 import com.univocity.parsers.common.processor.core.*;
 
@@ -32,7 +33,7 @@ public abstract class BeanProcessor<T> extends AbstractBeanProcessor<T, HtmlPars
 	 * @param beanType the class with its attributes mapped to fields of records parsed by an {@link HtmlParser}.
 	 */
 	public BeanProcessor(Class<T> beanType) {
-		super(beanType);
+		super(beanType, MethodFilter.ONLY_SETTERS);
 	}
 
 
