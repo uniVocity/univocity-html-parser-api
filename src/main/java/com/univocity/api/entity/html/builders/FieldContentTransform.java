@@ -18,7 +18,8 @@ import java.io.*;
  * {@link StringTransformation} to clean up or transform values or to obtain very specific textual content from the
  * original value.
  *
- * Also provides operations for linking to/downloading content from absolute or relative URLs extracted into values of a field.
+ * Also provides operations for linking to/downloading content from absolute or relative URLs extracted into values of
+ * a field.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
@@ -28,20 +29,20 @@ public interface FieldContentTransform extends ContentHandler<FieldContentTransf
 	 * Specifies that the parser will download content from the URL in the HTML element defined by the
 	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
 	 *
-	 * <p>Content will be downloaded to the directory specified by
+	 * Content will be downloaded to the directory specified by
 	 * {@link HtmlParserSettings#setDownloadContentDirectory(File)}. If the download directory is not set, the content
-	 * will be stored in a temporary directory.</p>
+	 * will be stored in a temporary directory.
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	void download();
 
 	/**
 	 * Specifies that the parser will download content from the URL in the HTML element defined by the
-	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
+	 * path. This is useful for downloading binary files such as images and videos linked by 'src' or 'href' attributes.
 	 *
-	 * <p>Content will be downloaded to the directory specified by
+	 * Content will be downloaded to the directory specified by
 	 * {@link HtmlParserSettings#setDownloadContentDirectory(File)}. If the download directory is not set, the content
-	 * will be stored in a temporary directory.</p>
+	 * will be stored in a temporary directory.
 	 *
 	 * @param baseUrlProvider the base URL and associated configuration to be used for downloading the content.
 	 *                        Required for downloading content wile parsing data from local files.
@@ -54,37 +55,37 @@ public interface FieldContentTransform extends ContentHandler<FieldContentTransf
 	 * retrieved by this field. Each URL returned by this field will be parsed by the associated {@link HtmlLinkFollower}.
 	 * A {@link HtmlLinkFollower} is essentially a special type of {@link HtmlEntityList} that allows fields and entities
 	 * to be added to it.
-	 * <p>
-	 * For each parsed row, the {@link HtmlParser} will combine the it with the results from all associated
+	 *
+	 * For each parsed row, the {@link HtmlParser} will combine it with the results from all associated
 	 * link followers, using the nesting strategy defined by {@link HtmlLinkFollower#getNesting()}.
-	 * </p>
-	 * <p>
-	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless {@link HtmlLinkFollower#ignoreFollowingErrors(boolean)}
-	 * has been set to true.
-	 * </p>
+	 *
+	 *
+	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless
+	 * {@link HtmlLinkFollower#ignoreFollowingErrors(boolean)} has been set to `true`.
 	 *
 	 * @return the created {@link HtmlLinkFollower} which allows the addition of fields and entities to define what data
-	 * from the linked page will be returned.
+	 * from the linked page should be returned.
 	 */
 	HtmlLinkFollower followLink();
 
 	/**
 	 * Creates a {@link HtmlLinkFollower} that will parse linked pages, each linked page URL is defined by inserting
 	 * the value retrieved by this field into the supplied {@link UrlReaderProvider} as a parameter.
-	 * <p>
-	 * For example, if a field (called "query") retrieved the values 'cat' and 'dog', and the {@link UrlReaderProvider} provided had the
-	 * URL of "https://www.google.com/search?q={query}", the two pages that would be parsed would be:
-	 * "https://www.google.com/search?q=cat" and "https://www.google.com/search?q=dog"
-	 * </p>
-	 * <p>
-	 * A {@link HtmlLinkFollower} is essentially a special type of {@link HtmlEntityList} that allows fields and entities
-	 * to be added to it. For each parsed row, the {@link HtmlParser} will combine the it with the results from all associated
+	 *
+	 * For example, if the current entity has a field named "query", which retrieves the values 'cat' and 'dog', and
+	 * the {@link UrlReaderProvider} provided here has the parameterized URL "https://www.google.com/search?q={query}",
+	 * two pages will be parsed as the values replace the `{query}` parameter in the URL:
+	 *
+	 *  * `https://www.google.com/search?q=cat` and
+	 *  * `https://www.google.com/search?q=dog`
+	 *
+	 * A {@link HtmlLinkFollower} is essentially a special type of {@link HtmlEntityList} that allows additional fields
+	 * to be added to the current parent entity. It also allows more entities to be added to it. For each parsed row
+	 * of the parent page, the {@link HtmlParser} will combine their results with the rows of all associated
 	 * link followers, using the nesting strategy defined by {@link HtmlLinkFollower#getNesting()}.
-	 * </p>
-	 * <p>
-	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless {@link HtmlLinkFollower#ignoreFollowingErrors(boolean)}
-	 * has been set to true.
-	 * </p>
+	 *
+	 * If a value parsed in this field is not a valid URL, the parsing process will stop unless
+	 * {@link HtmlLinkFollower#ignoreFollowingErrors(boolean)} has been set to `true`.
 	 *
 	 * @param urlReaderProvider the parameterized URL that values parsed from this field will be inserted into to get
 	 *                          a linked page
