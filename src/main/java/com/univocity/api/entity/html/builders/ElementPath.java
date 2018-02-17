@@ -7,11 +7,11 @@
 package com.univocity.api.entity.html.builders;
 
 /**
- * An {@code ElementPath} establishes rules to select only those HTML elements that fit a certain criteria, while
+ * An `ElementPath` establishes rules to select only those HTML elements that fit a certain criteria, while
  * also allowing the matching of elements under or above the current element matched by the parser. The filtering
- * options provided by this {@code ElementPath} are made available to the user once {@link ElementPathStart#match(String)}
- * is called to target a specific HTML tag, or {@link ElementPathStart#select(String)} is used to filter HTML tags using
- * a CSS selection rule.
+ * options provided by this `ElementPath` are made available to the user once a method of  {@link ElementPathStart} is
+ * called (such as {@link ElementPathStart#match(String)} or {@link ElementPathStart#select(String)}) to target a
+ * specific HTML tag.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  *
