@@ -25,7 +25,7 @@ interface ContentHandler<T extends ContentHandler<T>> {
 	 * Specifies that the parser will download content from the URL in the HTML element defined by the
 	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
 	 *
-	 * <p>The content will processed by a {@link HttpResponseReader}, provided by the user.</p>
+	 * The content will processed by a {@link HttpResponseReader}, provided by the user.
 	 *
 	 * @param contentReader a user-provided callback to process the remote content.
 	 */
@@ -36,7 +36,7 @@ interface ContentHandler<T extends ContentHandler<T>> {
 	 * Specifies that the parser will download content from the URL in the HTML element defined by the
 	 * path. This is useful for downloading binary files such as images and videos linked with 'src' or 'href' attributes.
 	 *
-	 * <p>The content will processed by a {@link HttpResponseReader}, provided by the user.</p>
+	 * The content will processed by a {@link HttpResponseReader}, provided by the user.
 	 *
 	 * @param baseUrlProvider the base URL and associated configuration to be used for downloading the content.
 	 *                        Required for downloading content wile parsing data from local files.
