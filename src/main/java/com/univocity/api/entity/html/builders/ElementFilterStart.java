@@ -54,10 +54,10 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * ```html
 	 * <div>
-	 * 		<h1>Bad Title</h1>
+	 *   <h1>Bad Title</h1>
 	 * </div>
 	 * <article>
-	 * 		<h1>Good Title</h1>
+	 *   <h1>Good Title</h1>
 	 * </article>
 	 * <h1>Also Good Title</h1>
 	 * ```
@@ -93,35 +93,35 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * ```html
 	 * <table>
-	 * 	 <tr>
-	 * 	   <td>Email Address</td>
-	 * 	   <td>bla@email.com</td>
-	 * 	 </tr>
-	 * 	 <tr>
-	 * 	   <td>Home Address</td>
-	 * 	   <td>123 Some St</td>
-	 *   </tr>
-	 * </table>
-	 * <table>
-	 * 	 <tr>
-	 * 	   <td>Email Address</td>
-	 * 	   <td>some@one.com</td>
+	 *   <tr>
+	 *     <td>Email Address</td>
+	 *     <td>bla@email.com</td>
 	 *   </tr>
 	 *   <tr>
 	 *     <td>Home Address</td>
-	 * 	   <td>456 Another St</td>
+	 *     <td>123 Some St</td>
 	 *   </tr>
 	 * </table>
-	 * 	```
+	 * <table>
+	 *   <tr>
+	 *     <td>Email Address</td>
+	 *     <td>some@one.com</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Home Address</td>
+	 *     <td>456 Another St</td>
+	 *   </tr>
+	 * </table>
+	 * ```
 	 *
 	 * To capture the contents under "Home address", one could write:
 	 *
 	 * ```java
 	 * HtmlEntitySettings address = entityList.configureEntity("address");
 	 * address.addField("line1")
-	 * 		.match("tr", 2) //matches the second tr element of each table
-	 * 		.match("td", 2) //inside the previously matched tr, match the second occurrence of the td element
-	 * 		.getText();     //gets the text of the matched td element.
+	 *     .match("tr", 2) //matches the second tr element of each table
+	 *     .match("td", 2) //inside the previously matched tr, match the second occurrence of the td element
+	 *     .getText();     //gets the text of the matched td element.
 	 * ```
 	 *
 	 * The example above should collect the values:
@@ -145,35 +145,35 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * ```html
 	 * <table>
-	 * 	 <tr>
-	 * 	   <td>Email Address</td>
-	 * 	   <td>bla@email.com</td>
-	 * 	 </tr>
-	 * 	 <tr>
-	 * 	   <td>Home Address</td>
-	 * 	   <td>123 Some St</td>
-	 *   </tr>
-	 * </table>
-	 * <table>
-	 * 	 <tr>
-	 * 	   <td>Email Address</td>
-	 * 	   <td>some@one.com</td>
+	 *   <tr>
+	 *     <td>Email Address</td>
+	 *     <td>bla@email.com</td>
 	 *   </tr>
 	 *   <tr>
 	 *     <td>Home Address</td>
-	 * 	   <td>456 Another St</td>
+	 *     <td>123 Some St</td>
 	 *   </tr>
 	 * </table>
-	 * 	```
+	 * <table>
+	 *   <tr>
+	 *     <td>Email Address</td>
+	 *     <td>some@one.com</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Home Address</td>
+	 *     <td>456 Another St</td>
+	 *   </tr>
+	 * </table>
+	 * ```
 	 *
 	 * To capture the contents under "Email Address", one could write:
 	 *
 	 * ```java
 	 * HtmlEntitySettings email = entityList.configureEntity("email");
 	 * email.addField("email")
-	 * 		.matchFirst("tr") //matches the first tr element of each table
-	 * 		.matchLast("td")  //inside the previously matched tr, match the last occurrence of the td element
-	 * 		.getText();       //gets the text of the matched td element.
+	 *     .matchFirst("tr") //matches the first tr element of each table
+	 *     .matchLast("td")  //inside the previously matched tr, match the last occurrence of the td element
+	 *     .getText();       //gets the text of the matched td element.
 	 * ```
 	 *
 	 * This will capture "bla@email.com" but not "123 Some st" as this `td` is not inside the first `tr` matched in
@@ -194,35 +194,35 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * ```html
 	 * <table>
-	 * 	 <tr>
-	 * 	   <td>Email Address</td>
-	 * 	   <td>bla@email.com</td>
-	 * 	 </tr>
-	 * 	 <tr>
-	 * 	   <td>Home Address</td>
-	 * 	   <td>123 Some St</td>
-	 *   </tr>
-	 * </table>
-	 * <table>
-	 * 	 <tr>
-	 * 	   <td>Email Address</td>
-	 * 	   <td>some@one.com</td>
+	 *   <tr>
+	 *     <td>Email Address</td>
+	 *     <td>bla@email.com</td>
 	 *   </tr>
 	 *   <tr>
 	 *     <td>Home Address</td>
-	 * 	   <td>456 Another St</td>
+	 *     <td>123 Some St</td>
 	 *   </tr>
 	 * </table>
-	 * 	```
+	 * <table>
+	 *   <tr>
+	 *     <td>Email Address</td>
+	 *     <td>some@one.com</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Home Address</td>
+	 *     <td>456 Another St</td>
+	 *   </tr>
+	 * </table>
+	 * ```
 	 *
 	 * To capture the contents under "Home address", one could write:
 	 *
 	 * ```java
 	 * HtmlEntitySettings address = entityList.configureEntity("address");
 	 * address.addField("line1")
-	 * 		.matchLast("tr") //matches the last tr element of each table
-	 * 		.matchLast("td")  //inside the previously matched tr, match the last occurrence of the td element
-	 * 		.getText();       //gets the text of the matched td element.
+	 *     .matchLast("tr") //matches the last tr element of each table
+	 *     .matchLast("td")  //inside the previously matched tr, match the last occurrence of the td element
+	 *     .getText();       //gets the text of the matched td element.
 	 * ```
 	 *
 	 * This will capture "123 Some St" from the first `table`. It will also capture "456 Another St" as this `td` is
@@ -240,7 +240,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * Matched elements may include the current element itself, or any of its children, depending on the query.
 	 *
-	 * ##Selector syntax
+	 * ## Selector syntax
 	 *
 	 * A selector is a chain of simple selectors, separated by combinators. Selectors are case insensitive (including against
 	 * elements, attributes, and attribute values).
