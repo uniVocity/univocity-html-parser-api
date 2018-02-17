@@ -490,35 +490,35 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * Establishes that the matched HTML element should contain of one or more given elements in its hierarchy.
 	 * For instance, given this simple HTML document:
 	 *
-	 * <hr><pre><code>{@code
+	 * ```html
 	 * <div>
-	 * <article>
-	 * <p>Some Text</p>
-	 * </article>
-	 * <article>
-	 * <h1>Review: Tea</h1>
-	 * <p>It's good</p>
-	 * </article>
-	 * <article>
-	 * <h1>Discussion: Computers</h1>
-	 * </article>
+	 *   <article>
+	 *     <p>Some Text</p>
+	 *   </article>
+	 *   <article>
+	 *     <h1>Review: Tea</h1>
+	 *     <p>It's good</p>
+	 *   </article>
+	 *   <article>
+	 *     <h1>Discussion: Computers</h1>
+	 *   </article>
 	 * </div>
-	 * }</code></pre><hr>
+	 * ```
 	 *
-	 * <p>A technique to get the text of the{@code <p>} element in the middle article is: </p>
+	 * A technique to get the text of the `<p>` element in the middle article is:
 	 *
-	 * <hr><pre><code>{@code
+	 * ```
 	 * HtmlEntityList entities = new HtmlEntityList();
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 * entity.addField("reviewText").match("article").containing("h1","p").match("p").getText();
-	 * }</code></pre><hr>
+	 * ```
 	 *
-	 * <p>The matching rule states: match an {@code <article>} element that contains a {@code <h1>} <strong>and</strong>
-	 * a {@code <p>} element. Then, get the text of a {@code <p>} element. As neither the first article nor the
-	 * third article have both a {@code <h1>} and a {@code <p>} element, they are ignored by the parser.</p>
+	 * The matching rule states: match an `<article>` element that contains a `<h1>` *and*
+	 * a `<p>` element. Then, get the text of a `<p>` element. As neither the first article nor the
+	 * third article have both a `<h1>` and a `<p>` element, they are ignored by the parser.
 	 *
 	 * @param elementNames names of the elements that should be in the hierarchy of the current matched HTML element.
-	 *                     <b>Note:</b>This does NOT finalize the filtering rules applied over the current matched element.
+	 *                     **Note:** This does NOT finalize the filtering rules applied over the current matched element.
 	 *                     Additional filtering rules will NOT take effect over the given element names.
 	 *
 	 * @return this {@link BasicElementFilter} instance, allowing method chaining to add more filtering rules over the
