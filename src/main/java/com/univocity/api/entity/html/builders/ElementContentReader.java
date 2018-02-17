@@ -11,7 +11,7 @@ import com.univocity.api.entity.html.*;
 import java.util.*;
 
 /**
- * An {@code ElementContentReader} allows the {@link HtmlElement}s that match rules defined in the {@link FieldPath}
+ * An `ElementContentReader` allows the {@link HtmlElement}s that match rules defined in the {@link FieldPath}
  * to be acquired directly instead of capturing certain parts of them.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
