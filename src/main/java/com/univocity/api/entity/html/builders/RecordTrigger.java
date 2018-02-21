@@ -11,6 +11,8 @@ package com.univocity.api.entity.html.builders;
  * when a new record should be created.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ *
+ * @see Trigger
  */
 public interface RecordTrigger extends ElementFilter<RecordTrigger>, RecordTriggerStart {
 }

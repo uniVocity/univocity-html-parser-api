@@ -7,7 +7,7 @@
 package com.univocity.api.entity.html.builders;
 
 /**
- * The {@code UpDown} interface groups rules that match elements under or above the current element matched by the parser.
+ * The `UpDown` interface groups rules that match elements under or above the current element matched by the parser.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
@@ -26,8 +26,8 @@ public interface UpDown<T extends UpDown<T>> {
 
 	/**
 	 * Establishes that the parser should look 'up' the page for the given element that is in the same table column as
-	 * the previously matched element. Will only work if the previously matched element is a &lt;td&gt; or &lt;th&gt; element or
-	 * inside of one.
+	 * the previously matched element. Will only work if the previously matched element is a `<td>` or `<th>` element or
+	 * exists inside a `<td>` or `<th>`.
 	 *
 	 * @param elementName the tag name of the element
 	 *
@@ -49,8 +49,8 @@ public interface UpDown<T extends UpDown<T>> {
 
 	/**
 	 * Establishes that the parser should look 'down' the page for the given element that is in the same table column as
-	 * the previously matched element. Will only work if the previously matched element is a &lt;td&gt; or &lt;th&gt; element or
-	 * inside of one.
+	 * the previously matched element. Will only work if the previously matched element is a `<td>` or `<th>` element or
+	 * exists inside a `<td>` or `<th>`.
 	 *
 	 * @param elementName the tag name of the element
 	 *

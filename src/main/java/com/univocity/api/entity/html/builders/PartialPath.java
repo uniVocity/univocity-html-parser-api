@@ -9,11 +9,11 @@ package com.univocity.api.entity.html.builders;
 import com.univocity.api.entity.html.*;
 
 /**
- * A {@code PartialPath} can be created from an entity using {@link HtmlEntitySettings#newPath()} or from an entity's group,
+ * A `PartialPath` can be created from an entity using {@link HtmlEntitySettings#newPath()} or from an entity's group,
  * using {@link Group#copyPath()}. It allows the specification of a reusable path, with common matching rules.
  *
- * Fields can be added to the {@code PartialPath}, and user just needs to provide only the additional rules required to
- * match elements from the starting point defined by the {@code PartialPath}, and how to collect the data from the matched
+ * Fields can be added to the `PartialPath`, and the user needs to provide only the additional rules required to
+ * match elements from the starting point defined by the `PartialPath`, and how to collect the data from the matched
  * elements, using the methods available from a {@link ContentReader}.
  *
  * @see HtmlEntitySettings
