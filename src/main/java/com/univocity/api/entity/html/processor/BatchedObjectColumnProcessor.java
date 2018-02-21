@@ -11,15 +11,15 @@ import com.univocity.parsers.conversions.*;
 
 /**
  * A {@link RowProcessor} implementation for converting batches of rows extracted from any implementation of {@link HtmlParser} into columns of objects.
- * <p>This uses the value conversions provided by {@link Conversion} instances.</p>
+ * This uses the value conversions provided by {@link Conversion} instances.
  *
- * <p> For each row processed, a sequence of conversions will be executed to generate the appropriate object. Each resulting object will then be stored in
- * a list that contains the values of the corresponding column. </p>
+ *  For each row processed, a sequence of conversions will be executed to generate the appropriate object. Each resulting object will then be stored in
+ * a list that contains the values of the corresponding column.
  *
- * <p> During the execution of the process, the {@link #batchProcessed(int)} method will be invoked after a given number of rows has been processed.</p>
- * <p> The user can access the lists with values parsed for all columns using the methods {@link #getColumnValuesAsList()},
- * {@link #getColumnValuesAsMapOfIndexes()} and {@link #getColumnValuesAsMapOfNames()}. </p>
- * <p> After {@link #batchProcessed(int)} is invoked, all values will be discarded and the next batch of column values will be accumulated.
+ *  During the execution of the process, the {@link #batchProcessed(int)} method will be invoked after a given number of rows has been processed.
+ *  The user can access the lists with values parsed for all columns using the methods {@link #getColumnValuesAsList()},
+ * {@link #getColumnValuesAsMapOfIndexes()} and {@link #getColumnValuesAsMapOfNames()}.
+ *  After {@link #batchProcessed(int)} is invoked, all values will be discarded and the next batch of column values will be accumulated.
  * This process will repeat until there's no more rows in the input.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>

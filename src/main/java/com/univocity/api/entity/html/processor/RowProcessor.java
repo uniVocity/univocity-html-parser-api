@@ -14,18 +14,18 @@ import com.univocity.parsers.conversions.*;
 /**
  * The essential callback interface to handle records parsed by any parser that extends {@link AbstractParser}.
  *
- * <p>When parsing an input, uniVocity-parsers will obtain the RowProcessor from {@link CommonParserSettings#getRowProcessor()}, and
+ * When parsing an input, uniVocity-parsers will obtain the RowProcessor from {@link CommonParserSettings#getRowProcessor()}, and
  * delegate each parsed row to {@link RowProcessor#rowProcessed(String[], HtmlParsingContext)}.
  *
- * <p>Before parsing the first row, the parser will invoke the {@link RowProcessor#processStarted(HtmlParsingContext)} method.
+ * Before parsing the first row, the parser will invoke the {@link RowProcessor#processStarted(HtmlParsingContext)} method.
  *    By this time the input buffer will be already loaded and ready to be consumed.
  *
- * <p>After parsing the last row, all resources are closed and the processing stops. Only after the {@link RowProcessor#processEnded(HtmlParsingContext)} is called so you
+ * After parsing the last row, all resources are closed and the processing stops. Only after the {@link RowProcessor#processEnded(HtmlParsingContext)} is called so you
  *    can perform any additional housekeeping you might need.
  *
- * <p>More control and information over the parsing process are provided by the {@link HtmlParsingContext} object.
+ * More control and information over the parsing process are provided by the {@link HtmlParsingContext} object.
  *
- * <p>uniVocity-parsers provides many useful default implementations of this interface in the package {@link com.univocity.parsers.common.processor}, namely:
+ * uniVocity-parsers provides many useful default implementations of this interface in the package {@link com.univocity.parsers.common.processor}, namely:
  *
  * <ul>
  * <li>{@link RowListProcessor}: convenience class for storing the processed rows into a list.</li>
@@ -64,7 +64,7 @@ public interface RowProcessor extends Processor<HtmlParsingContext> {
 
 	/**
 	 * This method will by invoked by the parser once, after the parsing process stopped and all resources were closed.
-	 * <p> It will always be called by the parser: in case of errors, if the end of the input us reached, or if the user stopped the process manually using {@link HtmlParsingContext#stop()}.
+	 *  It will always be called by the parser: in case of errors, if the end of the input us reached, or if the user stopped the process manually using {@link HtmlParsingContext#stop()}.
 	 *
 	 * @param context A contextual object with information and controls over the state of the parsing process
 	 */

@@ -10,9 +10,9 @@ package com.univocity.api.entity.html;
  * An abstract class that is used by the {@link HtmlParser} to provide information about events that occur during
  * the parsing process.
  *
- * <p><b>Important:</b>This listener is used in a concurrent environment. If you are assigning the same
+ * <b>Important:</b>This listener is used in a concurrent environment. If you are assigning the same
  * instance to multiple entities make sure your implementation is thread-safe, or limit the number
- * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}</p>
+ * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlParser

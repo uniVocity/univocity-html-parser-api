@@ -12,15 +12,15 @@ import com.univocity.parsers.conversions.*;
 /**
  *
  * A {@link RowProcessor} implementation for converting rows extracted by the {@link HtmlParser} into columns of objects.
- * <p>This uses the value conversions provided by {@link Conversion} instances.</p>
+ * This uses the value conversions provided by {@link Conversion} instances.
  *
- * <p> For each row processed, a sequence of conversions will be executed to generate the appropriate object. Each resulting object will then be stored in
- * 	a list that contains the values of the corresponding column. </p>
+ *  For each row processed, a sequence of conversions will be executed to generate the appropriate object. Each resulting object will then be stored in
+ * 	a list that contains the values of the corresponding column.
  *
- * <p> At the end of the process, the user can access the lists with values parsed for all columns using the methods {@link #getColumnValuesAsList()},
- * {@link #getColumnValuesAsMapOfIndexes()} and {@link #getColumnValuesAsMapOfNames()}. </p>
+ *  At the end of the process, the user can access the lists with values parsed for all columns using the methods {@link #getColumnValuesAsList()},
+ * {@link #getColumnValuesAsMapOfIndexes()} and {@link #getColumnValuesAsMapOfNames()}.
  *
- * <p><b>Note:</b> Storing the values of all columns may be memory intensive. For large inputs, use a {@link BatchedObjectColumnProcessor} instead</p>
+ * **Note:** Storing the values of all columns may be memory intensive. For large inputs, use a {@link BatchedObjectColumnProcessor} instead
  *
  * @see HtmlParser
  * @see RowProcessor

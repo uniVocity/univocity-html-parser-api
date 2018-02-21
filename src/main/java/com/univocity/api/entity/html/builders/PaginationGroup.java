@@ -151,7 +151,7 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 
 	/**
 	 * Creates a new field on this `PaginationGroup` and returns a {@link PathStart} that allows the user to define
-	 * a path to the field. Any random fields added to the paginator and their values can be read from
+	 * a path to the field. Any fields added to the paginator and their values can be read from
 	 * a {@link NextInputHandler} through its {@link PaginationContext}.
 	 *
 	 * @param fieldName name of the new field

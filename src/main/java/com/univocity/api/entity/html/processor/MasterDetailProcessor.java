@@ -14,12 +14,12 @@ import com.univocity.parsers.conversions.*;
 /**
  * A {@link RowProcessor} implementation for associating rows extracted from any implementation of {@link HtmlParser} into {@link MasterDetailRecord} instances.
  *
- * <p> For each row processed, a call to {@link #isMasterRecord(String[], Context)} will be made to identify whether or not it is a master row.
- * <p> The detail rows are automatically associated with the master record in an instance of {@link MasterDetailRecord}.
- * <p> When the master record is fully processed (i.e. {@link MasterDetailRecord} contains a master row and  all associated detail rows),
+ *  For each row processed, a call to {@link #isMasterRecord(String[], Context)} will be made to identify whether or not it is a master row.
+ *  The detail rows are automatically associated with the master record in an instance of {@link MasterDetailRecord}.
+ *  When the master record is fully processed (i.e. {@link MasterDetailRecord} contains a master row and  all associated detail rows),
  * it is sent to the user for processing in {@link #masterDetailRecordProcessed(MasterDetailRecord, Context)}.
  *
- * <p> <b>Note</b> this class extends {@link ObjectRowProcessor} and value conversions provided by {@link Conversion} instances are fully supported.
+ *  <b>Note</b> this class extends {@link ObjectRowProcessor} and value conversions provided by {@link Conversion} instances are fully supported.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  * @see MasterDetailRecord

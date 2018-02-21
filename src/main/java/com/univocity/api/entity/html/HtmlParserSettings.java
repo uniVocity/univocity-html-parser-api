@@ -60,7 +60,7 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 * Returns the maximum number of threads used by the parser when processing data of multiple entities from
 	 * the same HTML input.
 	 *
-	 * <p>Defaults to the number of available processors available to the JVM</p>
+	 * Defaults to the number of available processors available to the JVM (via `Runtime.getRuntime().availableProcessors()`)
 	 *
 	 * @return the number of threads used by the parser.
 	 */
@@ -72,7 +72,7 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 * Explicitly defines a maximum number of threads that should be used by the parser when processing data of
 	 * multiple entities from the same HTML input.
 	 *
-	 * <p>By default, to the number of available processors available to the JVM will be used</p>
+	 * By default, to the number of available processors available to the JVM will be used (via `Runtime.getRuntime().availableProcessors()`)
 	 *
 	 * @param parserThreadCount the maximum number of threads to use
 	 */

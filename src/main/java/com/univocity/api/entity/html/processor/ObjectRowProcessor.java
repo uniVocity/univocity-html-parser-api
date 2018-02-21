@@ -13,10 +13,10 @@ import com.univocity.parsers.conversions.*;
 /**
  *
  * A {@link RowProcessor} implementation for converting rows extracted by the {@link HtmlParser} into arrays of objects.
- * <p>This uses the value conversions provided by {@link Conversion} instances.
+ * This uses the value conversions provided by {@link Conversion} instances.
  *
- * <p> For each row processed, a sequence of conversions will be executed and stored in an object array, at its original position.
- * <p> The row with the result of these conversions will then be sent to the {@link ObjectRowProcessor#rowProcessed(Object[], Context)} method, where the user can access it.
+ *  For each row processed, a sequence of conversions will be executed and stored in an object array, at its original position.
+ *  The row with the result of these conversions will then be sent to the {@link ObjectRowProcessor#rowProcessed(Object[], Context)} method, where the user can access it.
  *
  * @see HtmlParser
  * @see RowProcessor

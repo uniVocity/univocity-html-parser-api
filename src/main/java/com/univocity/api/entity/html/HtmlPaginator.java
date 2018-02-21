@@ -26,10 +26,10 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
 	private Set<String> requestParameters;
 	final Map<String, String> fieldParameters = new HashMap<String, String>();
-	final Map<String, Object> constantParameters = new HashMap<String, Object>();
+	final Map<String, Object> parameterData = new HashMap<String, Object>();
 
 	/**
-	 * Creates a new HtmlPaginator and sets the currentPageNumber to 0
+	 * Creates a new `HtmlPaginator` and sets the `currentPageNumber` to 0
 	 *
 	 * @param parserSettings the parser settings to use
 	 */
@@ -39,9 +39,9 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
 	/**
 	 * Creates a new {@link HtmlEntitySettings} which will be used to create fields specifically for this
-	 * {@code HtmlPaginator}.
+	 * `HtmlPaginator`.
 	 *
-	 * @return the created {@link HtmlEntitySettings} to be used by this {@code HtmlPaginator}.
+	 * @return the created {@link HtmlEntitySettings} to be used by this `HtmlPaginator`.
 	 */
 	@Override
 	protected final HtmlEntitySettings newEntitySettings(final RemoteParserSettings htmlParserSettings) {
@@ -55,7 +55,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Returns the {@link HtmlEntitySettings} that is associated with this {@code HtmlPaginator}.
+	 * Returns the {@link HtmlEntitySettings} that is associated with this `HtmlPaginator`.
 	 *
 	 * @return returns the paginator {@link HtmlEntitySettings}
 	 */
@@ -98,65 +98,72 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 		return entitySettings.addField(NEXT_PAGE_NUMBER);
 	}
 
-
 	/**
 	 * Creates a new field for the next page and returns a {@link PathStart} which can be used to define the path
-	 * to the next page element. The next page is the HTML element that changes the current page to the next page in series.
+	 * to the next page element. The next page is a HTML element that changes the current page to the next page in series.
 	 * When the parser runs and completes the parsing of the page, it will 'click' on the next page element
-	 * and parse that page. The parser will continue to access the next page until the next page element does not
-	 * exist or the follow count set by {@link Paginator#setFollowCount(int)} is reached.
+	 * and process the result. The parser will continue to access the next page until a next page element does not
+	 * exist or the follow count set by {@link HtmlPaginator#setFollowCount(int)}
+	 * is reached.
 	 *
-	 * <p>An example of setting the next page can be demonstrated using this HTML: </p>
+	 * An example of setting the next page can be demonstrated using this HTML:
 	 *
-	 * <hr>{@code
-	 * {@code
+	 * ```html
 	 * <html>
-	 * <body>
-	 * <article>
-	 * <h1>Water: The Truth</h1>
-	 * <p>It's good for you!</p>
-	 * <a href="paginationTarget.html">Next Page</a>
-	 * </article>
-	 * </body>
+	 *   <body>
+	 *     <article>
+	 *       <h1>Water: The Truth</h1>
+	 *       <p>It's good for you!</p>
+	 *       <a href="paginationTarget.html">Next Page</a>
+	 *     </article>
+	 *   </body>
 	 * </html>
-	 * }
-	 * }<hr>
+	 * ```
 	 *
-	 * <p>paginationTarget.html contains the following HTML: </p>
+	 * Assume that the `paginationTarget.html` linked above contains the following HTML:
 	 *
-	 * <hr>{@code
-	 * {@code
+	 * ```html
 	 * <html>
-	 * <body>
-	 * <article>
-	 * <h1>Bananas</h1>
-	 * <p>An excellent source of potassium/</p>
-	 * </article>
-	 * </body>
+	 *   <body>
+	 *     <article>
+	 *       <h1>Bananas</h1>
+	 *       <p>An excellent source of potassium</p>
+	 *     </article>
+	 *   </body>
 	 * </html>
-	 * }
-	 * }<hr>
+	 * ```
 	 *
-	 * <p>A technique get the text of both the header and text from both pages is: </p>
+	 * You can get the text in the `h1` and `p` elements from both pages with:
 	 *
-	 *
-	 * <hr>{@code
+	 * ```
 	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntitySettings entity = entities.configureEntity("pagination");
+	 * HtmlEntitySettings entity = entities.configureEntity("entity");
 	 *
-	 * //	first column will return header text
 	 * entity.addField("header").match("h1").containedBy("article").getText();
-	 * //	second column will return text in p
 	 * entity.addField("text").match("p").containedBy("article").getText();
 	 *
-	 * entities.configurePaginator().setNextPage().match("a").containedBy("article").getAttribute("href");
-	 * }<hr>
+	 * entities.configurePaginator()
+	 *     .setNextPage()
+	 *         .match("a")
+	 *             .containedBy("article")
+	 *         .getAttribute("href");
+	 * ```
 	 *
-	 * <p>When the parser runs, it will parse the first page, getting [Water: The Truth, It's good for you!]. The
-	 * paginator will then run, accessing the link's URL provided by the href attribute and opening the next page. The
-	 * parser will then run on this new page getting [Bananas, An excellent source of potassium]. As there is no
-	 * link element on this page, the paginator will be unable to run and the parsing will finish, returning all the
-	 * values that were parsed.</p>
+	 * When the parser runs, it will parse the first page, collecting the first row of data:
+	 *
+	 * ```
+	 * [Water: The Truth, It's good for you!]
+	 * ```
+	 *
+	 * The paginator will then run, accessing the link's URL provided by the `href` attribute and opening the next page.
+	 * This next page will then be parsed to collect the next row:
+	 *
+	 * ```
+	 * [Bananas, An excellent source of potassium]
+	 * ```
+	 *
+	 * As there is no `a` element on the second page with a link to the next, the paginator will be unable to run and
+	 * the parsing will finish, returning the two records parsed from each page.
 	 *
 	 * @return a {@link PathStart} is used to define the path to the next page element
 	 */
@@ -165,10 +172,12 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Creates a new field on this {@code HtmlPaginator} and returns a {@link PathStart} that allows the user to define
-	 * a path to the field.
+	 * Creates a new field on this `HtmlPaginator` and returns a {@link PathStart} that allows the user to define
+	 * a path to the field. Use method {@link #toRequestParameter} of this class to send the field name and its value
+	 * in the body of the POST request to the next page.
 	 *
-	 * Any value collected for the given field can be read from a {@link NextInputHandler}.
+	 * Any fields added to the paginator and their values can be read from a {@link NextInputHandler} through
+	 * its {@link PaginationContext}.
 	 *
 	 * @param fieldName name of the new field
 	 *
@@ -177,7 +186,6 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	public final PathStart addField(String fieldName) {
 		return entitySettings.addField(fieldName);
 	}
-
 
 	/**
 	 * Creates a new request parameter and returns a {@link PathStart} that allows the user to define path to the
@@ -201,10 +209,12 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 
 
 	/**
-	 * Assigns a value to a request parameter name that the paginator must always set when requesting the next page.
+	 * Associates a constant value to a request parameter. Parameter values are submitted in POST requests to load
+	 * the next page.
 	 *
-	 * @param paramName name of the request parameter
-	 * @param value     value of the request parameter
+	 * @param parameterName  the name that will be associated with the parameter, which will be sent in the request
+	 *                       for the next page.
+	 * @param parameterValue the value of the corresponding parameter
 	 */
 	public final void setRequestParameter(String paramName, String value) {
 		requestParameters.add(paramName);
@@ -212,7 +222,8 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Creates a new {@link PaginationGroup} group for this paginator.
+	 * Creates a new {@link PaginationGroup} group for this paginator. Refer to the {@link Group} documentation to learn
+	 * more about how element groups are used.
 	 *
 	 * @return a {@link PaginationGroupStart} which is the first step in determining which element demarcates the start
 	 * of a {@link PaginationGroup}.
@@ -222,7 +233,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Assigns values captured for two fields declared in this {@code HtmlPaginator} to a request parameter. For
+	 * Assigns values captured for two fields declared in this `HtmlPaginator` to a request parameter. For
 	 * example, if fields "scriptName" and "scriptValue" have been defined in this paginator, and and their values are
 	 * collected as "thescript" and "myscript.js" respectively, the {@link HttpRequest} used to invoke the next page
 	 * will have its {@link HttpRequest#addDataParameter(String, Object)} invoked with "thescript" as the parameter name
@@ -240,19 +251,14 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Assigns the value captured for a fields declared in this {@code HtmlPaginator} to a request parameter name, and
-	 * associates a constant value to it. If field "scriptValue" has been defined in this paginator, and and its value
-	 * is collected as "myscript.js", the {@link HttpRequest} used to invoke the next page
-	 * will have its {@link HttpRequest#addDataParameter(String, Object)} invoked with "myscript.js" as the parameter
-	 * name, and a constant as the value.
+	 * Defines a request parameter name and data value to be used when requesting the next page.
 	 *
-	 * @param fieldForParamName name of the field available in this paginator whose value will be used as a the request
-	 *                          parameter name.
-	 * @param constantValue     the constant to used as the request parameter value.
+	 * @param fieldForParamName name of the request parameter to add to this paginator
+	 * @param value             the value associated with the given request parameter
 	 */
-	public final void toConstantRequestParameter(String fieldForParamName, Object constantValue) {
+	public final void setRequestParameterData(String fieldForParamName, Object value) {
 		Args.notBlank(fieldForParamName, "Field to use as parameter name");
-		Args.notNull(constantValue, "Constant to be associated with " + fieldForParamName);
-		this.constantParameters.put(fieldForParamName, constantValue);
+		Args.notNull(value, "Constant to be associated with " + fieldForParamName);
+		this.parameterData.put(fieldForParamName, value);
 	}
 }

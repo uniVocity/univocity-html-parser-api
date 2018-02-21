@@ -24,9 +24,9 @@ public interface HtmlParsingContext extends Context {
 
 	/**
 	 * If the {@link HtmlParser} is reading from a web page, returns the {@link HttpResponse} that it is using to process the input
-	 * HTML. Otherwise it will return {@code null}.
+	 * HTML. Otherwise it will return `null`.
 	 *
-	 * @return the {@link HttpResponse} that the parser is using, or {@code null} if parsing local file.
+	 * @return the {@link HttpResponse} that the parser is using, or `null` if parsing local file.
 	 */
 	HttpResponse getResponse();
 

@@ -12,11 +12,11 @@ import com.univocity.parsers.common.processor.core.*;
  * A simple {@link RowProcessor} implementation that stores values of columns.
  * Values parsed in each row will be split into columns of Strings. Each column has its own list of values.
  *
- * <p> At the end of the process, the user can access the lists with values parsed for all columns using the methods {@link #getColumnValuesAsList()},
- * {@link #getColumnValuesAsMapOfIndexes()} and {@link #getColumnValuesAsMapOfNames()}. </p>
+ *  At the end of the process, the user can access the lists with values parsed for all columns using the methods {@link #getColumnValuesAsList()},
+ * {@link #getColumnValuesAsMapOfIndexes()} and {@link #getColumnValuesAsMapOfNames()}.
  *
  *
- * <p><b>Note:</b> Storing the values of all columns may be memory intensive. For large inputs, use a {@link BatchedColumnProcessor} instead</p>
+ * **Note:** Storing the values of all columns may be memory intensive. For large inputs, use a {@link BatchedColumnProcessor} instead
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  * @see HtmlParser

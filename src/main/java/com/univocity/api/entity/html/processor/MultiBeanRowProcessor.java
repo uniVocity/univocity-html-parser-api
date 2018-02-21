@@ -16,10 +16,10 @@ import java.util.*;
 /**
  * A {@link RowProcessor} implementation for converting rows extracted by the {@link HtmlParser} into java objects.
  *
- * <p>The class types passed to the constructor of this class must contain the annotations provided in {@link com.univocity.parsers.annotations}.
+ * The class types passed to the constructor of this class must contain the annotations provided in {@link com.univocity.parsers.annotations}.
  *
- * <p> For each row processed, one or more java bean instances of any given class will be created with their fields populated.
- * <p> Once all beans are populated from an individual input record, they will be sent to through the {@link #rowProcessed(Map, Context)} method,
+ *  For each row processed, one or more java bean instances of any given class will be created with their fields populated.
+ *  Once all beans are populated from an individual input record, they will be sent to through the {@link #rowProcessed(Map, Context)} method,
  * where the user can access all beans parsed for that row.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
