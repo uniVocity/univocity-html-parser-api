@@ -14,36 +14,36 @@ import java.nio.charset.*;
 import java.util.*;
 
 /**
- * A {@code HtmlElement} contains information about HTML elements collected by the parser
+ * A `HtmlElement` contains information about HTML elements collected by the parser
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public interface HtmlElement {
 
 	/**
-	 * Returns {@code true} if this {@code HtmlElement} consists solely of text and {@code false} otherwise. For example,
-	 * {@code <p class="highlight">cool text</p>} if the {@code HtmlElement} is the 'p' element, the isText() method
-	 * will return {@code false}. On the {@code HtmlElement} with "cool text", the isText() method will return {@code true}.
+	 * Returns `true` if this `HtmlElement` consists solely of text and `false` otherwise. For example,
+	 * consider `<p class="highlight">cool text</p>`; If this `HtmlElement` is the 'p' element, `isText()`
+	 * will return `false`. If this `HtmlElement` is just a node with "cool text", `isText()` will return `true`.
 	 *
-	 * <em>Note:</em> this method will return {@code false} if the {@code HtmlElement} contains text that is not meant to be rendered,
+	 * **Note:** this method will return `false` if the `HtmlElement` contains text that is not meant to be rendered,
 	 * such as comments and script tags. Use {@link #isData()} to identify such elements.
 	 *
-	 * @return {@code true} if {@code HtmlElement} is just text, otherwise {@code false}
+	 * @return `true` if this element is just text, otherwise `false`
 	 */
 	boolean isText();
 
 	/**
-	 * Returns {@code true} if this {@code HtmlElement} consists of data, i.e. content in comments or tags such as {@code style} or
-	 * {@code script}, which should not render as text.
+	 * Returns `true` if this `HtmlElement` consists of data, i.e. content in comments or tags such as `style` or
+	 * `script`, which should not render as text.
 	 *
-	 * @return {@code true} if {@code HtmlElement} is just non-visible text, otherwise {@code false}
+	 * @return `true` if this element is just invisible text, otherwise `false`
 	 */
 	boolean isData();
 
 	/**
-	 * Returns {@code true} if this {@code HtmlElement} consists of comments, which should not render as text.
+	 * Returns `true` if this `HtmlElement` consists of comments, which should not render as text.
 	 *
-	 * @return {@code true} if {@code HtmlElement} is just comments, otherwise {@code false}
+	 * @return `true` if element is just comments, otherwise `false`
 	 */
 	boolean isComment();
 
@@ -56,61 +56,60 @@ public interface HtmlElement {
 	String tagName();
 
 	/**
-	 * Returns the parent of the HTML Element. A parent is defined as the element which directly contains the
-	 * current element. For instance, given this HTML {@code <div> <h1>header</h1> <p>text</p> </div>}, the parent of the
-	 * 'p' would be 'div'. If there is no parent, {@code null} is returned.
+	 * Returns the parent of this Element. A parent is defined as the element which directly contains the
+	 * current element. For instance, given `<div> <h1>header</h1> <p>text</p> </div>`, the parent of
+	 * `<p>` would be `<div>`. If there is no parent, `null` is returned.
 	 *
-	 * @return the {@code HtmlElement}'s parent or {@code null} if no parent
+	 * @return the `HtmlElement`'s parent or `null` if no parent is available
 	 */
 	HtmlElement parent();
 
 	/**
-	 * Returns all the children of the {@code HtmlElement} in an array. If there are no children, it will return an
-	 * empty array. For example, {@code <article> <h1>header</h1> <p>text</p> </article>}, running children() on
-	 * article will return an array of size 2 with the contents being the 'h1' element and the 'p' element.
+	 * Returns a copy of all children of this element in an array. If there are no children, it will return an
+	 * empty array. For example,`<article> <h1>header</h1> <p>text</p> </article>`, running `children()` on
+	 * `article` will return an array of size 2 with the contents being the `<h1>` element and the `<p>`.
 	 *
-	 * @return an array with the children of the {@code HtmlElement} or a size 0 array if no children.
+	 * @return an array with the children of this element or an empty array if no children.
 	 */
 	HtmlElement[] children();
 
 	/**
-	 * Gets an attribute's value by its name as a {@code String}. If the element has no attributes or if the supplied
-	 * attribute name does not exist within the element, then an empty {@code String} will be returned. For example,
-	 * {@code <div title="hello"></div><footer>feet</footer>}, running attribute("title") on the div will return "hello".
-	 * Running the same method on footer and the text "feet" will return a empty {@code String}.
+	 * Returns an attribute value by its name as a `String`. If the element has no attributes or if the supplied
+	 * attribute name does not exist within the element, then an empty `String` will be returned. For example,
+	 * `<div title="hello"></div><footer>feet</footer>`, running `attribute("title")` on the `<div>` will return "hello".
+	 * Running the same method on `<footer>` will return `""`.
 	 *
-	 * <p>To get an absolute URL from a link that could be relative, prefix the attribute name with "abs:". For example
-	 * running attribute("abs:href") on {@code <a href="contact.html"} will return the absolute URL of contact.html,
-	 * rather than simply returning the {@code String} "contact.html".</p>
+	 * To get an absolute URL from a link that could be relative, prefix the attribute name with "abs:". For example
+	 * running `attribute("abs:href")` on `<a href="contact.html` will return the absolute URL of `contact.html`,
+	 * rather than simply returning the `String` "contact.html".
 	 *
 	 * @param attributeName the name of the attribute
 	 *
-	 * @return the value of the supplied attribute, an empty {@code String} if supplied attribute doesn't exist.
+	 * @return the value of the supplied attribute, an empty `String` if supplied attribute doesn't exist.
 	 */
 	String attribute(String attributeName);
 
 	/**
-	 * Returns all the attribute names contained within the {@code HtmlElement} as a set of strings. Returns an empty set if
+	 * Returns all the attribute names contained within this element as a set of `String`. Returns an empty set if
 	 * there are no attributes.
 	 *
-	 * @return set of strings representing the attributes in the {@code HtmlElement}, or an empty set if no attributes.
+	 * @return set of strings representing the attributes in this element, or an empty set if no attributes.
 	 */
 	Set<String> attributeNames();
 
 	/**
-	 * Gets the combined text of this element and all its children. Whitespace is normalized.
+	 * Gets the combined text of this element and all its children. Whitespace is normalized so the only separation
+	 * between words is a single `' '` character.
 	 *
-	 * <p>
-	 * For example, given HTML {@code <p>Hello  <b>there</b> now!</p>}, {@code p.text()} returns {@code "Hello there now!"}
-	 * </p>
+	 * For example, given HTML `<p>Hello  <b>there</b> now!</p>`, the call to `p.text()` returns `"Hello there now!"`
 	 *
-	 * @return unencoded text, or empty string if no text.
+	 * @return the combined text of this element and its children, or empty string if no text.
 	 */
 	String text();
 
 	/**
 	 * Get the data content of this element and all its children. Data consists of textual content inside comments, or
-	 * tags such as {@code style} or {@code script}, for example, where the contents should not render as text.
+	 * tags such as `style` or `script`, for example, where the contents should not render as text.
 	 *
 	 * @return the data content of this element, or empty if no data.
 	 */
@@ -118,82 +117,80 @@ public interface HtmlElement {
 
 
 	/**
-	 * Returns the {@code HtmlElement} that is located just after this {@code HtmlElement}. Returns {@code null} if there
-	 * is no next sibling. For instance, given this HTML document:
-	 * {@code <div> <h1>hello</h1> <p>text <span>saucepan<span> </p> </div>}, the next sibling of 'h1' is 'p'.
-	 * The next sibling of 'p' is {@code null}.
+	 * Returns the `HtmlElement` that is located just after this element. Returns `null` if there
+	 * is no next sibling. For instance, given `<div> <h1>hello</h1> <p>text <span>saucepan<span> </p> </div>`, the next
+	 * sibling of `<h1>` is `<p>`. The next sibling of `<p>` is `null`.
 	 *
-	 * @return the {@code HtmlElement} located just after this {@code HtmlElement} or {@code null} if no such element.
+	 * @return the element located just after this `HtmlElement` or `null` if no such element.
 	 */
 	HtmlElement nextSibling();
 
 	/**
-	 * Returns the {@code HtmlElement} that is located just before this {@code HtmlElement} and is not a parent. Returns {@code null} if there
-	 * is no previous sibling. For instance, given this HTML document: {@code <div> <h1>hello</h1> <p>text</p> </div>}, the previous
-	 * sibling of 'p' is 'h1'. The previous sibling of 'h1' is {@code null} because div is a parent, not a sibling.
+	 * Returns the `HtmlElement` that is located just before this element. Returns `null` if there
+	 * is no previous sibling. For instance, given `<div> <h1>hello</h1> <p>text</p> </div>`, the previous
+	 * sibling of `<p>' is `<h1>` and previous sibling of `<h1>` is `null`.
 	 *
-	 * @return the {@code HtmlElement} located just before this {@code HtmlElement} or {@code null} if no such element.
+	 * @return the element located just before this `HtmlElement` or `null` if no such element.
 	 */
 	HtmlElement previousSibling();
 
 	/**
-	 * Returns the id of the HTML element or an empty {@code String} if the element does not have a id. For example: The HTML
-	 * of {@code <span id="test"></span>} will return "test" when running id() on it.
+	 * Returns the id of this element or an empty `String` if the element does not have an `id` attribute. For example,
+	 * in `<span id="test"></span>` calling `id()` from the `<span>` element will return `"test"`.
 	 *
-	 * @return the element's id as a String, or empty {@code String} if id non-existent
+	 * @return the element id as a `String` if available
 	 */
 	String id();
 
 	/**
-	 * Returns a set of classes of the HTML element or an empty set if the element has no classes.
+	 * Returns the set of CSS classes of this element, or an empty set if has element has no `class` attribute defined.
 	 *
 	 * @return HTML element's classes as a set of Strings or empty set if no classes
 	 */
 	Set<String> classes();
 
 	/**
-	 * Returns {@code true} if the specified element is a descendant of the current element. Returns {@code false} if otherwise. For
+	 * Returns `true` if the specified element is a descendant of the current element. Returns `false` if otherwise. For
 	 * example, in this HTML document:
 	 *
-	 * <hr>{@code
+	 * ```html
 	 * <table>
-	 * <tr>
-	 * <td> <span>First Row</span></td>
-	 * </tr>
-	 * <tr>
-	 * <td>Second Row</td>
-	 * </tr>
+	 *   <tr>
+	 *     <td>
+	 *       <span>First Row</span>
+	 *     </td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Second Row</td>
+	 *   </tr>
 	 * </table>
-	 * }<hr>
+	 * ```
 	 *
-	 * <p>Writing tableElement.containsElementInHierarchy(spanElement) would return {@code true} as the span element is a descendant
-	 * of the table element. Inverting the code to spanElement.containsElementInHierarchy(tableElement) would return {@code false}. </p>
+	 * Writing `table.containsElementInHierarchy(span)` would return `true` as the `<span>` is a descendant
+	 * of the `<table>`. Inverting the code to `span.containsElementInHierarchy(table)` would return `false`.
 	 *
-	 * @param element the element that will be checked to see if it is a descendant of the current element.
+	 * @param element the element to find in the hierarchy of the current element.
 	 *
-	 * @return {@code true} if the specified element is a descendant of the current element.
+	 * @return `true` if the specified element is a descendant of the current element.
 	 */
 	boolean containsElementInHierarchy(HtmlElement element);
 
 
 	/**
-	 * Searches for elements that match a CSS query, with the current {@code HtmlElement} as the starting context. Matched elements
-	 * may include this {@code HtmlElement}, or any of its children.
-	 * <ul>
-	 * <li>{@code el.query("a[href]")} - finds links ({@code a} tags with {@code href} attributes)
-	 * <li>{@code el.query("a[href*=example.com]")} - finds links pointing to example.com (loosely)
-	 * </ul>
-	 * <p>
-	 * <p/>
+	 * Searches for elements that match a CSS query, with the current `HtmlElement` as the starting context. Matched elements
+	 * may include this `HtmlElement`, or any of its children.
+	 *
+	 *  * `el.query("a[href]")` - finds links (`a` tags with `href` attributes)
+	 *  * `el.query("a[href*=example.com]")` - finds links pointing to example.com (loosely)
+	 *
 	 * <h2>Selector syntax</h2>
-	 * <p>
+	 *
 	 * A selector is a chain of simple selectors, separated by combinators. Selectors are case insensitive (including against
 	 * elements, attributes, and attribute values).
-	 * </p>
-	 * <p>
+	 *
 	 * The universal selector (*) is implicit when no element selector is supplied (i.e. {@code *.header} and {@code .header}
 	 * is equivalent).
-	 * </p>
+	 *
 	 * <table summary="">
 	 * <tr><th align="left">Pattern</th><th align="left">Matches</th><th align="left">Example</th></tr>
 	 * <tr><td><code>*</code></td><td>any element</td><td><code>*</code></td></tr>
@@ -222,17 +219,17 @@ public interface HtmlElement {
 	 * <tr><td><code>:gt(<em>n</em>)</code></td><td>elements whose sibling index is greater than <em>n</em></td><td><code>td:gt(1)</code> finds cells after skipping the first two</td></tr>
 	 * <tr><td><code>:eq(<em>n</em>)</code></td><td>elements whose sibling index is equal to <em>n</em></td><td><code>td:eq(0)</code> finds the first cell of each row</td></tr>
 	 * <tr><td><code>:has(<em>selector</em>)</code></td><td>elements that contains at least one element matching the <em>selector</em></td><td><code>div:has(p)</code> finds divs that contain p elements </td></tr>
-	 * <tr><td><code>:not(<em>selector</em>)</code></td><td>elements that do not match the <em>selector</em>.</td><td><code>div:not(.logo)</code> finds all divs that do not have the "logo" class.<p><code>div:not(:has(div))</code> finds divs that do not contain divs.</p></td></tr>
+	 * <tr><td><code>:not(<em>selector</em>)</code></td><td>elements that do not match the <em>selector</em>.</td><td><code>div:not(.logo)</code> finds all divs that do not have the "logo" class.<code>div:not(:has(div))</code> finds divs that do not contain divs.</td></tr>
 	 * <tr><td><code>:contains(<em>text</em>)</code></td><td>elements that contains the specified text. The search is case insensitive. The text may appear in the found element, or any of its descendants.</td><td><code>p:contains(univocity)</code> finds p elements containing the text "univocity".</td></tr>
 	 * <tr><td><code>:matches(<em>regex</em>)</code></td><td>elements whose text matches the specified regular expression. The text may appear in the found element, or any of its descendants.</td><td><code>td:matches(\\d+)</code> finds table cells containing digits. <code>div:matches((?i)login)</code> finds divs containing the text, case insensitively.</td></tr>
 	 * <tr><td><code>:containsOwn(<em>text</em>)</code></td><td>elements that directly contain the specified text. The search is case insensitive. The text must appear in the found element, not any of its descendants.</td><td><code>p:containsOwn(univocity)</code> finds p elements with own text "univocity".</td></tr>
 	 * <tr><td><code>:matchesOwn(<em>regex</em>)</code></td><td>elements whose own text matches the specified regular expression. The text must appear in the found element, not any of its descendants.</td><td><code>td:matchesOwn(\\d+)</code> finds table cells directly containing digits. <code>div:matchesOwn((?i)login)</code> finds divs containing the text, case insensitively.</td></tr>
 	 * <tr><td><code>:containsData(<em>data</em>)</code></td><td>elements that contains the specified <em>data</em>. The contents of {@code script} and {@code style} elements, and {@code comment} nodes (etc) are considered data nodes, not text nodes. The search is case insensitive. The data may appear in the found element, or any of its descendants.</td><td><code>script:contains(univocity)</code> finds script elements containing the data "univocity".</td></tr>
 	 * <tr><td></td><td>The above may be combined in any order and with other selectors</td><td><code>.light:contains(name):eq(0)</code></td></tr>
-	 * <tr><td><code>:matchText</code></td><td>treats text nodes as elements, and so allows you to match against and select text nodes.</td><td>{@code p:matchText:firstChild} with input {@code <p>One<br />Two</p>} will return one element with text "{@code One}".</td></tr>
+	 * <tr><td><code>:matchText</code></td><td>treats text nodes as elements, and so allows you to match against and select text nodes.</td><td>{@code p:matchText:firstChild} with input {@code One<br />Two} will return one element with text "{@code One}".</td></tr>
 	 * <tr><td colspan="3"><h3>Structural pseudo selectors</h3></td></tr>
 	 * <tr><td><code>:root</code></td><td>The element that is the root of the document. In HTML, this is the <code>html</code> element</td><td><code>:root</code></td></tr>
-	 * <tr><td><code>:nth-child(<em>a</em>n+<em>b</em>)</code></td><td><p>elements that have <code><em>a</em>n+<em>b</em>-1</code> siblings <b>before</b> it in the document tree, for any positive integer or zero value of <code>n</code>, and has a parent element. For values of <code>a</code> and <code>b</code> greater than zero, this effectively divides the element's children into groups of a elements (the last group taking the remainder), and selecting the <em>b</em>th element of each group. For example, this allows the selectors to address every other row in a table, and could be used to alternate the color of paragraph text in a cycle of four. The <code>a</code> and <code>b</code> values must be integers (positive, negative, or zero). The index of the first child of an element is 1.</p>
+	 * <tr><td><code>:nth-child(<em>a</em>n+<em>b</em>)</code></td><td>elements that have <code><em>a</em>n+<em>b</em>-1</code> siblings <b>before</b> it in the document tree, for any positive integer or zero value of <code>n</code>, and has a parent element. For values of <code>a</code> and <code>b</code> greater than zero, this effectively divides the element's children into groups of a elements (the last group taking the remainder), and selecting the <em>b</em>th element of each group. For example, this allows the selectors to address every other row in a table, and could be used to alternate the color of paragraph text in a cycle of four. The <code>a</code> and <code>b</code> values must be integers (positive, negative, or zero). The index of the first child of an element is 1.
 	 * In addition to this, <code>:nth-child()</code> can take <code>odd</code> and <code>even</code> as arguments instead. <code>odd</code> has the same signification as <code>2n+1</code>, and <code>even</code> has the same signification as <code>2n</code>.</td><td><code>tr:nth-child(2n+1)</code> finds every odd row of a table. <code>:nth-child(10n-1)</code> the 9th, 19th, 29th, etc, element. <code>li:nth-child(5)</code> the 5h li</td></tr>
 	 * <tr><td><code>:nth-last-child(<em>a</em>n+<em>b</em>)</code></td><td>elements that have <code><em>a</em>n+<em>b</em>-1</code> siblings <b>after</b> it in the document tree. Otherwise like <code>:nth-child()</code></td><td><code>tr:nth-last-child(-n+2)</code> the last two rows of a table</td></tr>
 	 * <tr><td><code>:nth-of-type(<em>a</em>n+<em>b</em>)</code></td><td>pseudo-class notation represents an element that has <code><em>a</em>n+<em>b</em>-1</code> siblings with the same expanded element name <em>before</em> it in the document tree, for any zero or positive integer value of n, and has a parent element</td><td><code>img:nth-of-type(2n+1)</code></td></tr>
@@ -245,7 +242,7 @@ public interface HtmlElement {
 	 * <tr><td><code>:only-of-type</code></td><td> an element that has a parent element and whose parent element has no other element children with the same expanded element name</td><td></td></tr>
 	 * <tr><td><code>:empty</code></td><td>elements that have no children at all</td><td></td></tr>
 	 * </table>
-	 * </p>
+	 *
 	 *
 	 * @param cssQuery a CSS-like query
 	 *
@@ -258,9 +255,9 @@ public interface HtmlElement {
 	/**
 	 * Generates a W3C DOM document from the current HTML element.
 	 *
-	 * The resulting document is guaranteed to have a {@code <head>} and a {@code <body>} element. If the current HTML element
+	 * The resulting document is guaranteed to have a `<head>` and a `<body>` element. If the current HTML element
 	 * is the root of the HTML tree, it will be directly mapped to the output Document object. Otherwise, it will be added into
-	 * automatically generated {@code <head>} or {@code <body>} elements, if it is not a {@code <head>} or {@code <body>}.
+	 * automatically generated `<head>` or `<body>` elements, if it is not a `<head>` or `<body>`.
 	 *
 	 * @return the {@link org.w3c.dom.Document} representing the current HTML tree if this is the root node, or a
 	 * {@link org.w3c.dom.Document} containing this HTML element.
@@ -268,14 +265,14 @@ public interface HtmlElement {
 	org.w3c.dom.Document toW3CDocument();
 
 	/**
-	 * Save the element to a local file using the {@link FileProvider}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
+	 * Saves the element to a local file using the {@link FileProvider}, searching all child nodes for external 
+	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
+	 * HTML will point to the locally saved references.
 	 *
 	 * @param saveFile     provides the path of where to save the files
-	 * @param fetchOptions various options used during the fetching of resources
+	 * @param fetchOptions options used to control the fetching of resources
 	 *
-	 * @return a FetchOutput instance with different options to access the downloaded files
+	 * @return a {@link FetchOutput} instance with different options to access the downloaded contents.
 	 *
 	 * @see FetchOptions
 	 * @see FetchOutput
@@ -284,12 +281,12 @@ public interface HtmlElement {
 
 
 	/**
-	 * Save the element to a local file using the {@link File}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
+	 * Save the element to a local file using the {@link File}, searching all child nodes for external 
+	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
+	 * HTML will point to the locally saved references.
 	 *
 	 * @param saveFile     provides the path of where to save the files
-	 * @param fetchOptions various options used during the fetching of resources
+	 * @param fetchOptions options used to control the fetching of resources
 	 *
 	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
@@ -299,13 +296,13 @@ public interface HtmlElement {
 	FetchOutput fetchResources(File saveFile, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element to a local file using the {@link File}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
+	 * Save the element to a local file using the {@link File}, searching all child nodes for external 
+	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
+	 * HTML will point to the locally saved references.
 	 *
 	 * @param saveFile     provides the path of where to save the files
 	 * @param encoding     the desired character encoding for the destination file
-	 * @param fetchOptions various options used during the fetching of resources
+	 * @param fetchOptions options used to control the fetching of resources
 	 *
 	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
@@ -315,13 +312,13 @@ public interface HtmlElement {
 	FetchOutput fetchResources(File saveFile, String encoding, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element to a local file using the {@link File}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
+	 * Save the element to a local file using the {@link File}, searching all child nodes for external 
+	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
+	 * HTML will point to the locally saved references.
 	 *
 	 * @param saveFile     provides the path of where to save the files
 	 * @param encoding     the desired character encoding for the destination file
-	 * @param fetchOptions various options used during the fetching of resources
+	 * @param fetchOptions options used to control the fetching of resources
 	 *
 	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
@@ -332,12 +329,12 @@ public interface HtmlElement {
 
 
 	/**
-	 * Save the element to a local file at the path {@code pathToFile}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
+	 * Save the element to a local file at the path `pathToFile`, searching all child nodes for external 
+	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
+	 * HTML will point to the locally saved references.
 	 *
 	 * @param pathToFile   the string path to the output file
-	 * @param fetchOptions various options used during the fetching of resources
+	 * @param fetchOptions options used to control the fetching of resources
 	 *
 	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
@@ -347,13 +344,13 @@ public interface HtmlElement {
 	FetchOutput fetchResources(String pathToFile, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element a local file at the path {@code pathToFile}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
+	 * Save the element a local file at the path `pathToFile`, searching all child nodes for external 
+	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
+	 * HTML will point to the locally saved references.
 	 *
 	 * @param pathToFile   the string path to the output file
 	 * @param encoding     the desired character encoding for the destination file
-	 * @param fetchOptions various options used during the fetching of resources
+	 * @param fetchOptions options used to control the fetching of resources
 	 *
 	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
@@ -363,13 +360,13 @@ public interface HtmlElement {
 	FetchOutput fetchResources(String pathToFile, String encoding, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element to a local file at the path {@code pathToFile}
-	 * Search all child nodes for external resources (e.g. href, src) and save to local files.
-	 * Replaces all references to those resources to local references.
+	 * Save the element to a local file at the path `pathToFile`, searching all child nodes for external 
+	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
+	 * HTML will point to the locally saved references.
 	 *
 	 * @param pathToFile   the string path to the output file
 	 * @param encoding     the desired character encoding for the destination file
-	 * @param fetchOptions various options used during the fetching of resources
+	 * @param fetchOptions options used to control the fetching of resources
 	 *
 	 * @return a FetchOutput instance with different options to access the downloaded files
 	 *
@@ -380,13 +377,15 @@ public interface HtmlElement {
 
 	/**
 	 * Starts a matching sequence so chaining selector methods can be used to traverse the HtmlElement
-	 * <br>
-	 * example:
-	 * <hr><pre><code>{@code
-	 * HtmlElement root = HtmlParser.parse(new UrlReaderProvider("https://remote.com/path/to/html"));
+	 *
+	 * Example:
+	 *
+	 * ```java
+	 * HtmlElement root = HtmlParser.parse(new UrlReaderProvider("https://www.univocity.com/pages/about-parsers"));
 	 * String pageTitle = root.query().match("title").getText();
-	 * }</code></pre> <hr>
-	 * <p>The String variable pageTitle would have the value of the title HTML element</p>
+	 * ```
+	 * The `String` variable `pageTitle` would have the text inside the `<title>` element of the HTML page available at
+	 * "https://www.univocity.com/pages/about-parsers"
 	 *
 	 * @return the path start ready for more matching rules to be added or values returned.
 	 *

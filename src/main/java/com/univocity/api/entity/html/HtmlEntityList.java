@@ -12,7 +12,7 @@ import com.univocity.parsers.remote.*;
 /**
  * Manages a list of HTML entities and their {@link HtmlEntitySettings}. Common configuration options shared with
  * {@link HtmlEntitySettings} and {@link HtmlParserSettings} are inherited from the {@link HtmlParserSettings}, but can
- * be overriden in the configuration of each individual entity.
+ * be overridden in the configuration of each individual entity.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  * @see HtmlParser
@@ -22,7 +22,7 @@ import com.univocity.parsers.remote.*;
 public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 
 	/**
-	 * Creates a new, empty {@code HtmlEntityList}, with a default global {@link HtmlParserSettings} configuration, which is
+	 * Creates a new, empty `HtmlEntityList`, with a default global {@link HtmlParserSettings} configuration, which is
 	 * used to provide defaults to all entity-specific settings in this list.
 	 */
 	public HtmlEntityList() {
@@ -30,7 +30,7 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Creates a new, empty {@code HtmlEntityList}, applying the global {@link HtmlParserSettings} configuration, which is
+	 * Creates a new, empty `HtmlEntityList`, applying the global {@link HtmlParserSettings} configuration, which is
 	 * used to provide defaults to all entity-specific settings in this list.
 	 *
 	 * @param parserSettings the global parser settings whose configuration may provide defaults for all entities
@@ -41,11 +41,12 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 	}
 
 	/**
-	 * Creates a new {@link HtmlEntitySettings} with the supplied name and returns it. Used by {@link RemoteEntityList#configureEntity(String)}.
+	 * Creates a new {@link HtmlEntitySettings} for an entity with the supplied name and returns it. Used
+	 * by {@link RemoteEntityList#configureEntity(String)}.
 	 *
 	 * @param entityName the name that will be used to identify the entity
 	 *
-	 * @return the HtmlEntitySettings that was created
+	 * @return the new settings object of the given entity.
 	 */
 	@Override
 	protected final HtmlEntitySettings newEntity(String entityName, HtmlEntitySettings parentEntity) {

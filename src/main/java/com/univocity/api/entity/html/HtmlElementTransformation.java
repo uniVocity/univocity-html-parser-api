@@ -4,7 +4,7 @@ import com.univocity.parsers.common.*;
 
 
 /**
- * A transformation operation over a {@link HtmlElement}, that results in a {@code String}
+ * A transformation operation over a {@link HtmlElement}, that results in a `String`
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */

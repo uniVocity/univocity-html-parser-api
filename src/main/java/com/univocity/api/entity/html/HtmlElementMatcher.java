@@ -13,14 +13,12 @@ public interface HtmlElementMatcher {
 	 * Used to determine if the currentElement should be matched by the parser. The lastMatchedElement can be used
 	 * to provide information to determine if the currentElement should be matched.
 	 *
-	 * <p>
-	 * <em>NOTE:</em>lastMatchedElement may be {@code null}.
-	 * </p>
+	 * **Note:**lastMatchedElement may be `null`.
 	 *
-	 * @param lastMatchedElement the element that was matched last by the parser (may be {@code null})
+	 * @param lastMatchedElement the element that was matched last by the parser (may be `null`)
 	 * @param currentElement     the element that the parser is current visiting
 	 *
-	 * @return {@code true} if the currentElement should be matched by the parser, {@code false} otherwise
+	 * @return `true` if the currentElement should be matched by the parser, `false` otherwise
 	 */
 	boolean match(HtmlElement lastMatchedElement, HtmlElement currentElement);
 }
