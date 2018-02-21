@@ -15,7 +15,7 @@ import com.univocity.parsers.remote.*;
 import java.util.*;
 
 /**
- * A {@code HtmlEntitySettings} object manages the configuration of a HTML entity. An entity has a name and one or more
+ * A `HtmlEntitySettings` object manages the configuration of a HTML entity. An entity has a name and one or more
  * fields. These fields have paths to the elements that will have their data collected. In addition, a {@link HtmlParserListener}
  * can be associated with an entity to notify the user of actions made by the {@link HtmlParser}.
  *
@@ -104,13 +104,19 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * Returns a {@link PartialPathStart} that is used to define a reusable path of HTML elements. Fields then can
 	 * added to this path using {@link PartialPath#addField(String)} and others, which associates the field with this entity.
 	 *
-	 * <hr>{@code
+	 * Example:
+	 *
+	 * ```java
 	 * HtmlEntityList entityList = new HtmlEntityList();
 	 * HtmlEntitySettings items = entityList.configureEntity("items");
-	 * PartialPath path = items.newPath().match("table").id("productsTable").match("td").match("div").classes("productContainer");
+	 * PartialPath path = items.newPath()
+	 *     .match("table").id("productsTable")
+	 *     .match("td").match("div").classes("productContainer");
+	 *
+	 * //uses the path to add new fields to it and further element matching rules from the initial, common path.
 	 * path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
 	 * path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
-	 * }<hr>
+	 * ```
 	 *
 	 * @return a {@link PartialPathStart} to specify the path of HTML elements
 	 */
@@ -121,30 +127,34 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	/**
 	 * Returns a {@link GroupStart} that allows for a {@link Group} to be defined. A {@link Group} demarcates a section
 	 * of the HTML input that is allowed to be parsed. {@link FieldPath}s created from a group will only be executed inside
-	 * this defined area, ignoring any HTML that exists outside of it. For example, say you wanted to parse
-	 * the "hello" and "howdy" in the following HTML:
+	 * this defined area, ignoring any HTML that exists outside of it. For example, say you wanted to extract
+	 * the "hello" and "howdy" words from the following HTML:
 	 *
-	 * <hr>{@code
+	 * ```html
 	 * <div class="parseMe">
 	 * <p>hello</p>
 	 * </div>
 	 * <p>howdy</p>
 	 * <h1>No Parsing Area</h1>
 	 * <p>don't parse me!</p>
-	 * }<hr>
+	 * ```
 	 *
-	 * <p> The parsing rules, using groups can be defined as: </p>
+	 * The parsing rules, using groups, can be defined as:
 	 *
-	 * <hr>{@code
+	 * ```java
 	 * HtmlEntityList entityList = new HtmlEntityList();
 	 * HtmlParserSettings settings = new HtmlParserSettings(entityList);
 	 *
-	 * Group group = entityList.configureEntity("test").newGroup().startAt("div").classes("parseMe").endAt("h1");
-	 * group.addField("greeting").match("p").getText();
-	 * }<hr>
+	 * Group group = entityList.configureEntity("test")
+	 *     .newGroup()
+	 *     .startAt("div").classes("parseMe")
+	 *     .endAt("h1");
 	 *
-	 * <p>The parser will then ignore the 'don't parse me' as the group restricts the parsing to the area defined from
-	 * a div with class "parseMe" until an opening h1 tag.</p>
+	 * group.addField("greeting").match("p").getText();
+	 * ```
+	 *
+	 * The parser will then ignore the `"don't parse me"` paragraph as the group restricts the parsing to the area
+	 * defined from a `div` with `class` "parseMe" until an opening `h1` tag.
 	 *
 	 * @return a {@link GroupStart} used to specify where the {@link Group} starts.
 	 */
@@ -165,76 +175,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	/**
 	 * Returns a {@link RecordTriggerStart} that is used to specify a path that defines when rows should be created.
 	 *
-	 * For example, assume you have set up a parser that parses email address and home address fields from a HTML document
-	 * of customer details. In the document, any of the customers fields may not exist (be null when parsed). An example
-	 * of this HTML is shown below:
-	 *
-	 * <hr>{@code
-	 * <table>
-	 * <tr>
-	 * <td>Email Address</td>
-	 * <td>bla@email.com</td>
-	 * </tr>
-	 * <tr>
-	 * <td>Home Address</td>
-	 * </tr>
-	 * </table>
-	 * <table>
-	 * <tr>
-	 * <td>Email Address</td>
-	 * </tr>
-	 * <tr>
-	 * <td>Home Address</td>
-	 * <td>123 real street</td>
-	 * </tr>
-	 * </table>
-	 * }<hr>
-	 *
-	 * The parsing rules are set below:
-	 *
-	 * <hr>{@code
-	 * HtmlEntityList entityList = new HtmlEntityList();
-	 * HtmlParserSettings settings = new HtmlParserSettings(entityList);
-	 *
-	 * PartialPath path = entityList.configureEntity("record").newPath().match("table");
-	 * path.addField("emailAddress").match("td").precededBy("td").withText("Email Address").getText();
-	 * path.addField("homeAddress").match("td").precededBy("td").withText("Home Address").getText();
-	 * }<hr>
-	 *
-	 * <p>After running it through the HtmlParser, we get this output: </p>
-	 *
-	 * <p>
-	 * Expected output:
-	 * <br>[bla.@email.com, null]
-	 * <br>[null, 123 real street]
-	 * <br>
-	 * Actual output:
-	 * <br>[bla.@email.com, 123 real street]
-	 * </p>
-	 *
-	 * <p>
-	 * This is due to the parser finding that the first Home Address is {@code null}, assuming that the second home
-	 * address is the one that was specified for the first row. To fix this error, the RecordTrigger will be set. This
-	 * is done by adding the line below to the code snippet we had before:
-	 * </p>
-	 *
-	 * <hr>{@code
-	 * path.addRecordTrigger().match("td").withText("Email Address");
-	 * }<hr>
-	 *
-	 * <p>
-	 * Which, when running it through the HtmlParser we get the expected output of:
-	 * </p>
-	 * <p>
-	 * [bla.@email.com, null]<br>
-	 * [null, 123 real street]
-	 * </p>
-	 *
-	 * <p>
-	 * This is because when the parser hits the second email address entry, the {@code RecordTrigger} is activated
-	 * and a new row is created. Therefore, when the parser hits the second Home Address, it adds the value to the
-	 * second row instead of the first row.
-	 * </p>
+	 * @see documentation in {@link Trigger#addRecordTrigger()} for a detailed explanation.
 	 *
 	 * @return a {@link RecordTriggerStart} that defines the path for the trigger
 	 */
@@ -266,9 +207,9 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * by the {@link HtmlParser} while it traverses the HTML structure to collect values for the fields of this entity.
 	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
 	 *
-	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
+	 * <b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
 	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
-	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}</p>
+	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}
 	 *
 	 * @param listener the {@link HtmlParserListener} to be used when the parser executes to collect values for the fields
 	 *                 of this entity.
@@ -282,9 +223,9 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	 * by the {@link HtmlParser} while it traverses the HTML structure to collect values for the fields of this entity
 	 * In essence, a {@link HtmlParserListener} provides information about events that occur during the parsing process.
 	 *
-	 * <p><b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
+	 * <b>Important:</b>The listener methods are used in a concurrent environment. If you are using the same
 	 * instance on multiple entities make sure your listener implementation is thread-safe, or limit the number
-	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}</p>
+	 * of threads to be used when parsing to <b>1</b> with {@link HtmlParserSettings#setParserThreadCount(int)}
 	 *
 	 * @return the {@link HtmlParserListener} to be used when the parser executes to collect values for the fields
 	 * of this entity.
@@ -295,21 +236,21 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 
 	HtmlLinkFollower addHtmlLinkFollower(String fieldName) {
 		HtmlLinkFollower htmlLinkFollower = new HtmlLinkFollower(this);
-		//will break if multiple paths are assigned to same field name and a different link follower is to be used for each path.
+		//FIXME: will break if multiple paths are assigned to same field name and a different link follower is to be used for each path.
 		followers.put(fieldName, htmlLinkFollower);
 		return htmlLinkFollower;
 	}
 
 
 	/**
-	 * Creates a {@link HtmlLinkFollower} as the field with name {@code fieldName} in this {@link HtmlEntitySettings}
-	 * that will follow the {@link UrlReaderProvider}
+	 * Creates a {@link HtmlLinkFollower} a field with the name provided. The link follower will access the
+	 * {@link UrlReaderProvider} all values collected from this resource will be joined with the results of the current
+	 * entity using the {@link #getNesting()} strategy defined.
 	 *
-	 * An example use of this would be to supply a {@link UrlReaderProvider} with a parametrized url and
-	 * use the {@link HtmlLinkFollower#assigning} methods to assign the parameters to certain values before
-	 * being followed. This allows for dynamic link creation.
+	 * A parametrized URL can be used here so values from each record produced by this entity can replace parameters
+	 * in the URL. Use {@link HtmlLinkFollower#assigning} to replace the URL parameters.
 	 *
-	 * @param fieldName the name of the field that the {@link HtmlLinkFollower} will be referred to
+	 * @param fieldName the name of the field associated with {@link HtmlLinkFollower}
 	 * @param urlReaderProvider the url that the {@link HtmlLinkFollower} will follow
 	 *
 	 * @return this {@link HtmlLinkFollower} to allow for method chaining
