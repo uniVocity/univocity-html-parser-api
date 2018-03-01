@@ -81,4 +81,17 @@ public interface HtmlParsingContext extends Context {
 	 */
 	Set<String> getBinaryFields();
 
+	/**
+	 * Converts the given parsed row to a {@link HtmlRecord}
+	 * @return a {@link HtmlRecord} representing the given row.
+	 */
+	HtmlRecord toRecord(String[] row);
+
+	/**
+	 * Returns the metadata information associated with records produced by the current parsing process.
+	 *
+	 * @return the record metadata.
+	 */
+	ResultRecordMetaData recordMetaData();
+
 }
