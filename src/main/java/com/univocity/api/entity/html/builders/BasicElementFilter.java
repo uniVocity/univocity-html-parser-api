@@ -710,6 +710,39 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T containing(String elementName, int depthLimit);
 
 	/**
+	 * Establishes that the matched HTML element should contain *exactly* a given text. Case insensitive.
+	 * Also supports the wildcards `*` and `?` explained in {@link #withText(String)}. An example of using
+	 * withExactTest can be shown by looking at this simple HTML document:
+	 *
+	 * ```html
+	 * <p title="cool">a</p>
+	 * <p title="not-cool">ab</p>
+	 * ```
+	 *
+	 * A technique to get the title of the first p is to write
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("text")
+	 *     .match("p")
+	 *         .withExactText("a")
+	 *     .getAttribute("title");
+	 * ```
+	 *
+	 * The parser will return "cool" as the first `p` element has the same exact text as the text specified.
+	 *
+	 * @param textContent the string that the current matched HTML element must contain, accepting variations in the character
+	 *                    case and accounting for wildcard elements
+	 * @param alternativeTextContents additional `String`s to match
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
+	T withExactText(String textContent, String ... alternativeTextContents);
+
+	/**
 	 * Establishes that the matched HTML element should **start** with a given text. The text
 	 * search is case insensitive, and also supports the `*` and `?` wildcards.
 	 *
@@ -764,44 +797,13 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * followed by any two characters, followed by 'e' and 'f')
 	 *
 	 * @param textContent the case insensitive `String` that the current matched HTML element must start with, accounting for wildcard elements
+	 * @param alternativeTextContents additional `String`s to match
 	 *
 	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
-	T withText(String textContent);
-
-	/**
-	 * Establishes that the matched HTML element should contain *exactly* a given text. Case insensitive.
-	 * Also supports the wildcards `*` and `?` explained in {@link #withText(String)}. An example of using
-	 * withExactTest can be shown by looking at this simple HTML document:
-	 *
-	 * ```html
-	 * <p title="cool">a</p>
-	 * <p title="not-cool">ab</p>
-	 * ```
-	 *
-	 * A technique to get the title of the first p is to write
-	 *
-	 * ```java
-	 * HtmlEntityList entities = new HtmlEntityList();
-	 * HtmlEntitySettings entity = entities.configureEntity("test");
-	 * entity.addField("text")
-	 *     .match("p")
-	 *         .withExactText("a")
-	 *     .getAttribute("title");
-	 * ```
-	 *
-	 * The parser will return "cool" as the first `p` element has the same exact text as the text specified.
-	 *
-	 * @param textContent the string that the current matched HTML element must contain, accepting variations in the character
-	 *                    case and accounting for wildcard elements
-	 *
-	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
-	 * HTML element being matched.
-	 */
-	@Matcher(type = Matcher.Type.WITH_TEXT)
-	T withExactText(String textContent);
+	T withText(String textContent, String ... alternativeTextContents);
 
 	/**
 	 * Like {@link #withText(String)} but case sensitive. Matches elements whose text *start with* a given text.
@@ -809,12 +811,13 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 *
 	 * @param textContent the case sensitive string that the current matched HTML element must start with,
 	 *                    accounting for wildcard elements
+	 * @param alternativeTextContents additional `String`s to match
 	 *
 	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
-	T withTextMatchCase(String textContent);
+	T withTextMatchCase(String textContent, String ... alternativeTextContents);
 
 	/**
 	 * Case sensitive version of {@link #withExactText(String)}. Establishes that the matched HTML element should contain
@@ -822,12 +825,13 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 *
 	 * @param textContent the string that the current matched HTML element must contain exactly, including character case
 	 *                    and accounting for wildcard elements
+	 * @param alternativeTextContents additional `String`s to match
 	 *
 	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
-	T withExactTextMatchCase(String textContent);
+	T withExactTextMatchCase(String textContent, String ... alternativeTextContents);
 
 	/**
 	 * Establishes that the matched HTML element should contain the given CSS class names. Multiple class names can be
