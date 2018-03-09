@@ -218,7 +218,7 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 	 */
 	public final void setRequestParameter(String paramName, String value) {
 		requestParameters.add(paramName);
-		entitySettings.addConstantField(paramName, value);
+		entitySettings.addField(paramName, value);
 	}
 
 	/**

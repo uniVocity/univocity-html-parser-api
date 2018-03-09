@@ -33,8 +33,8 @@ public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEnt
 	}
 
 	@Override
-	public void addConstantField(String constantFieldName, String constantValue) {
-		entitySettings.addConstantField(constantFieldName, constantValue);
+	public void addField(String fieldName, String constantValue) {
+		entitySettings.addField(fieldName, constantValue);
 	}
 
 	public PathStart addField(String fieldName) {

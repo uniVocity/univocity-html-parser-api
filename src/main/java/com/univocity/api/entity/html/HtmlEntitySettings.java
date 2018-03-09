@@ -197,8 +197,8 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 
 
 	@Override
-	public final void addConstantField(String constantFieldName, String constantValue) {
-		fields.put(constantFieldName, constantValue);
+	public final void addField(String fieldName, String constantValue) {
+		fields.put(fieldName, constantValue);
 	}
 
 

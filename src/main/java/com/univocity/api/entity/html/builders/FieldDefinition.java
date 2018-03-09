@@ -143,7 +143,7 @@ public interface FieldDefinition {
 
 
 	/**
-	 * Creates a constant field that always returns the specified value. An example to use this method can
+	 * Creates a field that with a specified value. An example to use this method can
 	 * be shown with this HTML document:
 	 *
 	 * ```html
@@ -170,7 +170,7 @@ public interface FieldDefinition {
 	 * HtmlEntitySettings entity = entities.configureEntity("test");
 	 *
 	 * // creates a constant field
-	 * entity.addConstantField("constant","cool article");
+	 * entity.addField("constant","cool article");
 	 *
 	 * // regular fields
 	 * entity.addField("title").match("h1").getText();
@@ -186,8 +186,8 @@ public interface FieldDefinition {
 	 * [cool article, third, lol]
 	 * ```
 	 *
-	 * @param constantFieldName name of the constant field to be created
-	 * @param constantValue     the value that will always be returned from the given field
+	 * @param fieldName         name of the field to be created
+	 * @param constantValue     a constant value associated with the given field
 	 */
-	void addConstantField(String constantFieldName, String constantValue);
+	void addField(String fieldName, String constantValue);
 }
