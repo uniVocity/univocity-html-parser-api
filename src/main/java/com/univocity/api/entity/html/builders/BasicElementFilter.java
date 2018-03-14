@@ -612,15 +612,17 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * a `p` element. Then, get the text of a `p` element. As neither the first `article` nor the
 	 * third `article` have both a `h1` and a `p` element, they are ignored by the parser.
 	 *
-	 * @param elementNames names of the elements that should be in the hierarchy of the current matched HTML element.
-	 *                     **Note:** This does NOT finalize the filtering rules applied over the current matched element.
-	 *                     Additional filtering rules will NOT take effect over the given element names.
+	 * @param firstElementName name of the first element that should be in the hierarchy of the current matched HTML element.
+	 * @param elementNames names of the remaining elements that should be in the hierarchy of the current matched HTML element.
+	 *
+	 * **Note:** This does NOT finalize the filtering rules applied over the current matched element.
+	 *           Additional filtering rules will NOT take effect over the given element names.
 	 *
 	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
 	 */
 	@Matcher(type = Matcher.Type.INSIDE)
-	T containing(String... elementNames);
+	T containing(String firstElementName, String... additionalElementNames);
 
 	/**
 	 * Establishes that the matched HTML element should contain a given element in its hierarchy.
