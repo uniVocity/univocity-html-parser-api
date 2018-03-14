@@ -868,7 +868,7 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * A way to create a path to the `table` element would be to write:
 	 *
 	 * ```java
-	 * path.match("table").attribute("title","The Tables Have Turned"
+	 * path.match("table").attribute("title","The Tables Have Turned")
 	 * ```
 	 *
 	 * @param attributeName  the name of the attribute
@@ -879,6 +879,31 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T attribute(String attributeName, String attributeValue);
+
+	/**
+	 * Establishes that the matched HTML element should contain the given boolean attribute. For example, if there
+	 * is HTML that looks like this:
+	 *
+	 * ```html
+	 * <div>
+	 *   <input value="A" type="radio" checked>
+	 *   <input value="B" type="radio">
+	 * </div>
+	 * ```
+	 *
+	 * A way to create a path to the value of the selected `input` radio button would be to write:
+	 *
+	 * ```java
+	 * path.match("input").attribute("checked").getAttribute("value");
+	 * ```
+	 *
+	 * @param attributeName  the name of the boolean attribute
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
+	T attribute(String attributeName);
 
 	/**
 	 * Establishes that the matched HTML element should contain an id attribute with a given value. For example, if
