@@ -71,7 +71,7 @@ public interface HtmlElement {
 	 *
 	 * @return an array with the children of this element or an empty array if no children.
 	 */
-	HtmlElement[] children();
+	List<HtmlElement> children();
 
 	/**
 	 * Returns an attribute value by its name as a `String`. If the element has no attributes or if the supplied
