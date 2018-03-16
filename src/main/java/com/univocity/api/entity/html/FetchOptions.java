@@ -102,6 +102,9 @@ public class FetchOptions {
 	 *                       Any value {@link <= 0} will disable the internal {@link RateLimiter}.
 	 */
 	public final void setRemoteInterval(long remoteInterval) {
+		if (remoteInterval < 0L) {
+			remoteInterval = 0L;
+		}
 		this.remoteInterval = remoteInterval;
 	}
 }
