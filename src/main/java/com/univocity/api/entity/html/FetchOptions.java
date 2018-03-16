@@ -1,6 +1,7 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.common.*;
+import com.univocity.api.io.*;
 
 /**
  * Configuration class for use in the {@link HtmlElement#fetchResources} methods
@@ -11,8 +12,8 @@ import com.univocity.api.common.*;
 public class FetchOptions {
 
 	private boolean flattenDirectoryStructure;
-
 	private StringFilter fileFilter;
+	private long remoteInterval = 15L;
 
 	/**
 	 * Default constructor for FetchOptions
@@ -76,5 +77,31 @@ public class FetchOptions {
 	 */
 	public StringFilter getFileFilter() {
 		return fileFilter;
+	}
+
+	/**
+	 * Returns the minimum interval of time to wait between each download request. This is required to prevent
+	 * submitting multiple requests to the same server at the same time.
+	 *
+	 * <em>Defaults to 15 ms</em>
+	 *
+	 * @return the minimum time (in milliseconds) to wait between download requests.
+	 *         Values {@link <= 0} mean the internal {@link RateLimiter} is disabled.
+	 */
+	public final long getRemoteInterval() {
+		return remoteInterval;
+	}
+
+	/**
+	 * Defines the minimum interval of time to wait between each download request. This is required to prevent submitting
+	 * multiple requests to the same server at the same time.
+	 *
+	 * <em>Defaults to 15 ms</em>
+	 *
+	 * @param remoteInterval minimum time (in milliseconds) to wait between download requests.
+	 *                       Any value {@link <= 0} will disable the internal {@link RateLimiter}.
+	 */
+	public final void setRemoteInterval(long remoteInterval) {
+		this.remoteInterval = remoteInterval;
 	}
 }
