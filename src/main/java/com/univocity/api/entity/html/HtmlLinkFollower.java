@@ -56,4 +56,13 @@ public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEnt
 	public HtmlLinkFollower assigning(String parameterName, ValueGetter<?> valueGetter) {
 		return ((HtmlLinkFollower) super.assigning(parameterName, valueGetter));
 	}
+
+	/**
+	 * Returns the {@link HtmlPaginator} associated with the {@code HtmlParserSettings} of this {@code HtmlEntityList}
+	 *
+	 * @return the {@link HtmlPaginator} stored the {@code HtmlParserSettings} of this {@code HtmlEntityList}
+	 */
+	public final HtmlPaginator getPaginator() {
+		return  getParserSettings().getPaginator();
+	}
 }

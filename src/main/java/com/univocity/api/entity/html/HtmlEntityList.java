@@ -61,4 +61,13 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 	protected HtmlEntityList newInstance() {
 		return new HtmlEntityList(getParserSettings().clone());
 	}
+
+	/**
+	 * Returns the {@link HtmlPaginator} associated with the {@code HtmlParserSettings} of this {@code HtmlEntityList}
+	 *
+	 * @return the {@link HtmlPaginator} stored the {@code HtmlParserSettings} of this {@code HtmlEntityList}
+	 */
+	public final HtmlPaginator getPaginator() {
+		return  getParserSettings().getPaginator();
+	}
 }
