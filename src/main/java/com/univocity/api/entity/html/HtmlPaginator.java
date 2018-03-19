@@ -6,6 +6,7 @@
 
 package com.univocity.api.entity.html;
 
+import com.univocity.api.*;
 import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.api.net.*;
@@ -260,5 +261,29 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings> {
 		Args.notBlank(fieldForParamName, "Field to use as parameter name");
 		Args.notNull(value, "Constant to be associated with " + fieldForParamName);
 		this.parameterData.put(fieldForParamName, value);
+	}
+
+	/**
+	 * Returns a {@link PartialPathStart} that is used to define a reusable path of HTML elements. Fields then can
+	 * added to this path using {@link PartialPath#addField(String)} and others, which associates the field with this entity.
+	 *
+	 * Example:
+	 *
+	 * ```java
+	 * HtmlEntityList entityList = new HtmlEntityList();
+	 * HtmlEntitySettings items = entityList.configureEntity("items");
+	 * PartialPath path = items.newPath()
+	 *     .match("table").id("productsTable")
+	 *     .match("td").match("div").classes("productContainer");
+	 *
+	 * //uses the path to add new fields to it and further element matching rules from the initial, common path.
+	 * path.addField("name").match("span").classes("prodName", "prodNameTro").getText();
+	 * path.addField("URL").match("a").childOf("div").classes("productPadding").getAttribute("href")
+	 * ```
+	 *
+	 * @return a {@link PartialPathStart} to specify the path of HTML elements
+	 */
+	public final PaginationPathStart newPath() {
+		return Builder.build(PaginationPathStart.class, entitySettings);
 	}
 }

@@ -392,4 +392,12 @@ public interface HtmlElement {
 	 * @see ElementPathStart
 	 */
 	ElementPathStart query();
+
+	/**
+	 * Runs through the hierarchy of this element and collects the values of any input elements, including select lists,
+	 * radio buttons and checkboxes. Inputs without a `name` attribute are ignored.
+	 *
+	 * @return a map of input names and their values
+	 */
+	Map<String, String[]> inputValues();
 }

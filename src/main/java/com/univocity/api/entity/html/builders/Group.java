@@ -57,6 +57,6 @@ package com.univocity.api.entity.html.builders;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public interface Group extends ElementFilter<Group>, ElementFilterStart<Group>, FieldDefinition, PathCopy, Trigger {
+public interface Group extends ElementFilter<Group>, ElementFilterStart<Group>, FieldDefinition, PathCopy<PartialPath>, Trigger {
 
 }

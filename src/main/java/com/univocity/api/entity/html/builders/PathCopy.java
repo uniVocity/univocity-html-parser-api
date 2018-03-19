@@ -7,11 +7,13 @@
 package com.univocity.api.entity.html.builders;
 
 /**
- * Allows the copying of a {@link PartialPath}.
+ * Allows the copying of a {@link PartialPath} or {@link PaginationPath}.
+ *
+ * @param <T> the type of path being copied.
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-interface PathCopy {
+interface PathCopy<T> {
 
 	/**
 	 * Copies the current path allowing new matching to be added to a common path without changing the original
@@ -67,5 +69,5 @@ interface PathCopy {
 	 * @return a {@link PartialPath} that allows the specification of a path and does not affect the path that it
 	 * is built upon.
 	 */
-	PartialPath copyPath();
+	T copyPath();
 }
