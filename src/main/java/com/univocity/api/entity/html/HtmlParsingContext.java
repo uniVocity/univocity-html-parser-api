@@ -64,6 +64,13 @@ public interface HtmlParsingContext extends Context {
 	HtmlElement getCurrentElement();
 
 	/**
+	 * Returns the root element of the HTML tree being processed by the parser. Typically this is the `<html>` element.
+	 *
+	 * @return the root node of the document being processed
+	 */
+	HtmlElement getPageRoot();
+
+	/**
 	 * Returns the file that was last downloaded for a given binary field. Binary fields are defined using
 	 * {@link com.univocity.api.entity.html.builders.FieldContentTransform#download()}.
 	 *
