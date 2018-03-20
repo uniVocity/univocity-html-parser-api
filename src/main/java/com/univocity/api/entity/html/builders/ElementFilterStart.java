@@ -323,4 +323,5 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	T match(HtmlElementMatcher customHtmlElementMatcher);
 
 
+	T matchCurrent();
 }
