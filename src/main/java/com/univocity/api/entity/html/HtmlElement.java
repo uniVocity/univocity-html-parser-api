@@ -400,4 +400,13 @@ public interface HtmlElement {
 	 * @return a map of input names and their values
 	 */
 	Map<String, String[]> inputValues();
+
+	/**
+	 * Runs through the hierarchy of this element and collects the values of any input elements, including select lists,
+	 * radio buttons and checkboxes. Inputs without an `id` attribute are ignored. If more than one element exists with
+	 * the same ID, the value of the first element found will be considered.
+	 *
+	 * @return a map of input ids and their values
+	 */
+	Map<String, String> inputValuesById();
 }
