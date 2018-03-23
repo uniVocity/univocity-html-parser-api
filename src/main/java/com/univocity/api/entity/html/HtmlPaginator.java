@@ -223,17 +223,6 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPagin
 	}
 
 	/**
-	 * Creates a new {@link PaginationGroup} group for this paginator. Refer to the {@link Group} documentation to learn
-	 * more about how element groups are used.
-	 *
-	 * @return a {@link PaginationGroupStart} which is the first step in determining which element demarcates the start
-	 * of a {@link PaginationGroup}.
-	 */
-	public final PaginationGroupStart newGroup() {
-		return entitySettings.newPaginationGroup(this);
-	}
-
-	/**
 	 * Assigns values captured for two fields declared in this `HtmlPaginator` to a request parameter. For
 	 * example, if fields "scriptName" and "scriptValue" have been defined in this paginator, and and their values are
 	 * collected as "thescript" and "myscript.js" respectively, the {@link HttpRequest} used to invoke the next page
@@ -285,5 +274,16 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPagin
 	 */
 	public final PaginationPathStart newPath() {
 		return Builder.build(PaginationPathStart.class, entitySettings);
+	}
+
+	/**
+	 * Creates a new {@link PaginationGroup} group for this paginator. Refer to the {@link Group} documentation to learn
+	 * more about how element groups are used.
+	 *
+	 * @return a {@link PaginationGroupStart} which is the first step in determining which element demarcates the start
+	 * of a {@link PaginationGroup}.
+	 */
+	public final PaginationGroupStart newGroup() {
+		return entitySettings.newPaginationGroup(this);
 	}
 }
