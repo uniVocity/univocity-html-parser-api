@@ -979,4 +979,63 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 */
 	BasicElementFilter<T> not();
 
+	/**
+	 * Matches an element that must immediately follow the previously matched element, i.e. the given element
+	 * must be the next sibling or the first child of the previous element.
+	 *
+	 * It differs from all other variants of `match(elementName)` which search for elements at any location from the
+	 * previously matched element.
+	 *
+	 * Consider this HTML:
+	 *
+	 * ```html
+	 * <h3>Product A</h3>
+	 * <ul>
+	 *   <li class="lvprice prc">
+	 *     <span class="prRange">
+	 *       <span class="bold"><b>$</b>9.90 <span>to</span> <b>$</b>33.95</span>
+	 *     </span>
+	 *   </li>
+	 * </ul>
+	 *
+	 * <h3>Product B</h3>
+	 * <ul>
+	 *   <li class="lvprice prc">
+	 *     <span class="bold"><b>$</b>10</span>
+	 *   </li>
+	 * </ul>
+	 * ```
+	 *
+	 * The prices can be displayed in two different ways. We can define multiple paths to a "price" field, but we must
+	 * ensure that each path matches only once per product. In the example above, "product B" has
+	 * `<li class="lvprice prc">` followed by `<span class="bold">`. Regular `match` rules would pick up the prices of
+	 * both products as a `<span class="bold">` can be found from `<li class="lvprice prc">` in all cases. Using
+	 * `matchNext` in the code below makes sure that only the `<span class="bold">` that comes right next to
+	 * `<li class="lvprice prc">` will be matched.
+	 *
+	 * ```java
+	 * HtmlEntitySettings product = entityList.configureEntity("product");
+	 *
+	 * product.addField("name").match("h3").getText();
+	 *
+	 * product.addField("price")
+	 *     .match("li").classes("lvprice")
+	 *     .match("span").classes("prRange")
+	 *     .getText();
+	 *
+	 * product.addField("price")
+	 *     .match("li").classes("lvprice")
+	 *     .matchNext("span").classes("bold")
+	 * .getText();
+	 * ```
+	 *
+	 * @param elementName name of the element that should be the next sibling or first child of the current matched HTML
+	 *                    element.
+	 *                    **Note:**This finalizes the filtering rules applied over the current matched element.
+	 *                    Additional filtering rules will take effect over this new element.
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	T matchNext(String elementName);
 }

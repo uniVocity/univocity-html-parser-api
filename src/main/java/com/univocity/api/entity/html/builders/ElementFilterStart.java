@@ -318,10 +318,43 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 *
 	 * @param customHtmlElementMatcher the filter that will be used to determine if a visited HTML element should be matched
 	 *
-	 * @return a {@link ElementFilter} so that filtering rules over HTML elements that were matched by the supplied {@link HtmlElementMatcher}
+	 * @return a {@link ElementFilter} so that further filtering rules over HTML elements that were matched by the
+	 * supplied {@link HtmlElementMatcher} can be specified
 	 */
 	T match(HtmlElementMatcher customHtmlElementMatcher);
 
-
+	/**
+	 * Matches the current node defined in the path. Allows continuation of rules specified using a {@link PartialPath},
+	 * for example:
+	 *
+	 * ```html
+	 * <table>
+	 *   <tr class="footer_grid">
+	 *     <td>
+	 *       <a class="link_paging current_page" href="results/page_1.html">1</a>
+	 *       <a class="link_paging" href="./results/page_2.html">2</a>
+	 *     </td>
+	 *   </tr>
+	 * </table>
+	 * ```
+	 *
+	 * ```java
+	 * PartialPath path = entity.newPath() //creates path to selected <a> with current page number
+	 * .match("tr").classes("footer_grid")
+	 * .match("a").classes("current_page");
+	 *
+	 * // creates field from path. Matches current node to get its text ("1" in the example).
+	 * path.addField("pageNumber").matchCurrent().getText();
+	 *
+	 * // expands the path to match the next <a> element
+	 * path = path.matchFirst("a").classes("link_paging");
+	 * // matches the current <a> element to get its text ("2" in th example"
+	 * path.addField("nextPageNumber").matchCurrent().getText();
+	 * // matches the current <a> element to get the value of its "href" attribute
+	 * path.addField("nextPageUrl").matchCurrent().getAttribute("href");
+	 * ```
+	 *
+	 *  @return the current {@link ElementFilter} so that filtering rules over HTML elements specified so far can be
+	 */
 	T matchCurrent();
 }
