@@ -28,4 +28,14 @@ public interface HtmlParserInterface extends RemoteEntityParserInterface<HtmlRec
 	 */
 	Results<HtmlParserResult> parse(HtmlElement htmlTree);
 
+	/**
+	 * Returns the {@link HtmlPaginationContext} object with information collected for the configured {@link HtmlPaginator}, if
+	 * any. The information returned comes from the last input processed, and might have been modified by a
+	 * {@link NextInputHandler} if it has been associated with the {@link HtmlPaginator}
+	 * using {@link Paginator#setPaginationHandler(NextInputHandler)}.
+	 *
+	 * @return the current {@link PaginationContext} with pagination information captured after parsing a given input.
+	 */
+	@Override
+	HtmlPaginationContext getPaginationContext();
 }

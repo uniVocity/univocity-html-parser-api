@@ -123,16 +123,6 @@ public final class HtmlParser implements HtmlParserInterface {
 		return parse(new FileProvider(file, encoding));
 	}
 
-	@Override
-	public void setReparseDate(Calendar calendar) {
-		parser.setReparseDate(calendar);
-	}
-
-	@Override
-	public void setReparseDate(Date date) {
-		parser.setReparseDate(date);
-	}
-
 	/**
 	 * Given a {@link java.io.Reader}, parses all records of all entities
 	 * defined in the {@link HtmlEntityList} of the {@link HtmlParserSettings} object provided in the constructor
@@ -213,15 +203,15 @@ public final class HtmlParser implements HtmlParserInterface {
 
 
 	/**
-	 * Returns the {@link PaginationContext} object with information collected for the configured {@link Paginator}, if
+	 * Returns the {@link HtmlPaginationContext} object with information collected for the configured {@link HtmlPaginator}, if
 	 * any. The information returned comes from the last input processed, and might have been modified by a
-	 * {@link NextInputHandler} if it has been associated with the {@link Paginator}
+	 * {@link NextInputHandler} if it has been associated with the {@link HtmlPaginator}
 	 * using {@link Paginator#setPaginationHandler(NextInputHandler)}.
 	 *
 	 * @return the current {@link PaginationContext} with pagination information captured after parsing a given input.
 	 */
 	@Override
-	public PaginationContext getPaginationContext() {
+	public HtmlPaginationContext getPaginationContext() {
 		return parser.getPaginationContext();
 	}
 
