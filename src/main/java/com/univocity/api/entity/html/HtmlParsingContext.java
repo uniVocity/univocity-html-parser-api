@@ -28,7 +28,8 @@ public interface HtmlParsingContext extends Context {
 	 *
 	 * @return the {@link HttpResponse} that the parser is using, or `null` if parsing local file.
 	 */
-	HttpResponse getResponse();
+	HttpResponse response();
+
 
 	/**
 	 * Returns a {@code Map} of matched data where the value is the field name and the value is the data that was matched. Values
@@ -37,14 +38,14 @@ public interface HtmlParsingContext extends Context {
 	 *
 	 * @return a {@code Map} of data that was matched for the current record of the current HTML entity while parsing
 	 */
-	Map<String, String> getMatchedData();
+	Map<String, String> matchedData();
 
 	/**
 	 * Returns the name of the HTML entity that the {@link HtmlParser} is using to parse the HTML document.
 	 *
 	 * @return the name that identifies the HTML entity being used by the {@link HtmlParser}
 	 */
-	String getEntityName();
+	String entityName();
 
 
 	/**
@@ -61,14 +62,14 @@ public interface HtmlParsingContext extends Context {
 	 *
 	 * @return the element that is currently being visited by the parser
 	 */
-	HtmlElement getCurrentElement();
+	HtmlElement currentElement();
 
 	/**
 	 * Returns the root element of the HTML tree being processed by the parser. Typically this is the `<html>` element.
 	 *
 	 * @return the root node of the document being processed
 	 */
-	HtmlElement getPageRoot();
+	HtmlElement pageRoot();
 
 	/**
 	 * Returns the file that was last downloaded for a given binary field. Binary fields are defined using
@@ -86,7 +87,7 @@ public interface HtmlParsingContext extends Context {
 	 *
 	 * @return names of fields associated with downloaded content
 	 */
-	Set<String> getBinaryFields();
+	Set<String> binaryFields();
 
 	/**
 	 * Converts the given parsed row to a {@link HtmlRecord}
@@ -101,4 +102,13 @@ public interface HtmlParsingContext extends Context {
 	 */
 	ResultRecordMetaData recordMetaData();
 
+	/**
+	 * Returns the source of the current document being parsed. If running locally, will return the {@code File} whose
+	 * contents are being read, if remote the {@link UrlReaderProvider} will be returned. Otherwise will return the
+	 * given input back i.e. a {@code Reader} implementation, or the {@link HtmlElement} if the parser is running over a
+	 * HTML tree.
+	 *
+	 * @return the source of the document being parsed.
+	 */
+	Object documentSource();
 }

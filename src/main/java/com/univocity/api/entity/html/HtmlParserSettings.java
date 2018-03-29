@@ -33,7 +33,7 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 */
 	@Override
 	protected HtmlPaginator newPaginator(RemoteParserSettings parserSettings) {
-		return new HtmlPaginator((HtmlParserSettings)parserSettings);
+		return new HtmlPaginator((HtmlParserSettings) parserSettings);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	 *
 	 * @param paginator a {@link HtmlPaginator} to be associated with the current {@code HtmlParserSettings}
 	 */
-	public final void setPaginator(HtmlPaginator paginator){
+	public final void setPaginator(HtmlPaginator paginator) {
 		this.paginator = paginator;
 	}
 
