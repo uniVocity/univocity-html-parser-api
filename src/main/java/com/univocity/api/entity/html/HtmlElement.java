@@ -26,22 +26,23 @@ public interface HtmlElement {
 	 * will return `false`. If this `HtmlElement` is just a node with "cool text", `isText()` will return `true`.
 	 *
 	 * **Note:** this method will return `false` if the `HtmlElement` contains text that is not meant to be rendered,
-	 * such as comments and script tags. Use {@link #isData()} to identify such elements.
+	 * such as comments and `<script>` tags. Use {@link #isData()} to identify such elements.
 	 *
 	 * @return `true` if this element is just text, otherwise `false`
 	 */
 	boolean isText();
 
 	/**
-	 * Returns `true` if this `HtmlElement` consists of data, i.e. content in comments or tags such as `style` or
-	 * `script`, which should not render as text.
+	 * Returns `true` if this `HtmlElement` consists of data, i.e. content in comments or tags such as `<style>` or
+	 * `<script>`, which should not render as text.
 	 *
 	 * @return `true` if this element is just invisible text, otherwise `false`
 	 */
 	boolean isData();
 
 	/**
-	 * Returns `true` if this `HtmlElement` consists of comments, which should not render as text.
+	 * Returns `true` if this `HtmlElement` consists of comments, i.e. free text between `<!--` and `-->`, which should
+	 * not render as text.
 	 *
 	 * @return `true` if element is just comments, otherwise `false`
 	 */
@@ -50,6 +51,9 @@ public interface HtmlElement {
 	/**
 	 * Returns the HTML tag name associated with the element. For instance the tag name of the element
 	 * {@code <span title="fan" id="electric"></span>} would be "span".
+	 *
+	 * If the current HTML element is not a tag, i.e. it is a text, comment or data node, then
+	 * `"#text"`, `"#comment"` or `"#data"` will be returned, respectively.
 	 *
 	 * @return the associated HTML tag as a string
 	 */

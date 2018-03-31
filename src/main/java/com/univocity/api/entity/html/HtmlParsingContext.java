@@ -41,6 +41,18 @@ public interface HtmlParsingContext extends Context {
 	Map<String, String> matchedData();
 
 	/**
+	 * Returns a {@code Map} of fields associated with the current sequence of {@link HtmlElement}s that have been
+	 * matched by the parser, i.e. the parser collected a value for each field in this map.
+	 *
+	 * Will only return a map with field names and their matched element sequence from inside an
+	 * {@link HtmlParserListener#elementMatched(HtmlElement, HtmlParsingContext)} callback, otherwise an empty map
+	 * will be returned.
+	 *
+	 * @return a {@code Map} of fields whose paths have been matched by a given {@link HtmlElement}.
+	 */
+	Map<String, HtmlElement[]> getMatchedElements();
+
+	/**
 	 * Returns the name of the HTML entity that the {@link HtmlParser} is using to parse the HTML document.
 	 *
 	 * @return the name that identifies the HTML entity being used by the {@link HtmlParser}
