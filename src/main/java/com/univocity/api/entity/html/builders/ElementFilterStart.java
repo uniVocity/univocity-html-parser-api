@@ -25,7 +25,7 @@ import com.univocity.api.entity.html.*;
  */
 public interface ElementFilterStart<T extends ElementFilter<T>> {
 	/**
-	 * Matches a given tag name.
+	 * Matches a given tag name at any distance from the current element. Navigates through sibling and children nodes.
 	 *
 	 * For example, to get the text of all `span` elements on a HTML document, one would
 	 * have to simply write:
@@ -314,7 +314,7 @@ public interface ElementFilterStart<T extends ElementFilter<T>> {
 	 * **Note:** the `lastMatchedElement` parameter in {@link HtmlElementMatcher#match(HtmlElement, HtmlElement)}
 	 * **will always** be `null` if you use this method at the beginning of a matching sequence. Also note that in this
 	 * case **all** elements of the HTML tree will be sent to your {@link HtmlElementMatcher} so you'd likely want its
-	 * implementation to be as quick as possible.
+	 * implementation to execute as fast as possible.
 	 *
 	 * @param customHtmlElementMatcher the filter that will be used to determine if a visited HTML element should be matched
 	 *
