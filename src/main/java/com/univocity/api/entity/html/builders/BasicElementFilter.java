@@ -493,7 +493,7 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * Establishes that the matched HTML element should be **directly** under a given element of a table,
 	 * at the same column, and where the given element:
 	 *
-	 *  * is a `td` or `th`, or
+	 *  * is a `tr`, `td` or `th`, or
 	 *  * is *contained by* a `td` or `th`
 	 *
 	 * For example, given this HTML document:
