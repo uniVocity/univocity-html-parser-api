@@ -17,6 +17,8 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 
 	private int parserThreadCount = Runtime.getRuntime().availableProcessors();
 
+	private FetchOptions fetchOptions;
+
 	/**
 	 * Creates a new {@code HtmlParserSettings}, which will process
 	 * an input to produce records for entities defined by a {@link HtmlEntityList}.  The
@@ -97,6 +99,25 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 
 	@Override
 	protected HtmlParserSettings clone() {
-		return (HtmlParserSettings) super.clone();
+		HtmlParserSettings out = (HtmlParserSettings) super.clone();
+		if(fetchOptions != null){
+			out.fetchOptions = this.fetchOptions.clone();
+		}
+		return out;
+	}
+
+	public final FetchOptions getFetchOptions() {
+		return fetchOptions;
+	}
+
+	public final boolean fetchResourcesBeforeParsing(){
+		return fetchOptions != null;
+	}
+
+	public final void fetchResourcesBeforeParsing(FetchOptions fetchOptions) {
+		if(downloadBeforeParsingEnabled == null){
+			setDownloadBeforeParsingEnabled(fetchOptions != null);
+		}
+		this.fetchOptions = fetchOptions;
 	}
 }

@@ -9,7 +9,7 @@ import com.univocity.api.io.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public class FetchOptions {
+public class FetchOptions implements Cloneable{
 
 	private boolean flattenDirectoryStructure;
 	private StringFilter fileFilter;
@@ -65,7 +65,7 @@ public class FetchOptions {
 	 *
 	 * @return whether or not the directory structure in filenames will be flattened when saving resources.
 	 */
-	public boolean isFlattenDirectoryStructure() {
+	public boolean flattenDirectoryStructure() {
 		return flattenDirectoryStructure;
 	}
 
@@ -106,5 +106,14 @@ public class FetchOptions {
 			remoteInterval = 0L;
 		}
 		this.remoteInterval = remoteInterval;
+	}
+
+	@Override
+	protected FetchOptions clone() {
+		try {
+			return (FetchOptions) super.clone();
+		} catch(CloneNotSupportedException e){
+			throw new IllegalStateException(e);
+		}
 	}
 }
