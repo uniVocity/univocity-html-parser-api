@@ -13,6 +13,10 @@ import java.net.*;
 
 public interface DownloadContext {
 
+	String baseUri();
+
+	void setBaseUri(String baseUri);
+
 	RateLimiter rateLimiter();
 
 	HtmlElement sourceElement();
@@ -25,7 +29,7 @@ public interface DownloadContext {
 
 	File targetFile();
 
-	void targetFile(File newFile);
+	void setTargetFile(File newFile);
 
 	String targetFileExtension();
 
