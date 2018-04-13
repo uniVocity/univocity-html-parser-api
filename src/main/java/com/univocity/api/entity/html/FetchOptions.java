@@ -12,7 +12,7 @@ import com.univocity.api.io.*;
 public class FetchOptions implements Cloneable{
 
 	private boolean flattenDirectoryStructure;
-	private StringFilter fileFilter;
+	private DownloadHandler downloadHandler;
 	private long remoteInterval = 5L;
 
 	/**
@@ -21,7 +21,6 @@ public class FetchOptions implements Cloneable{
 	 */
 	public FetchOptions() {
 		flattenDirectoryStructure = false;
-		fileFilter = TrueStringFilter.TRUE;
 	}
 
 	/**
@@ -42,18 +41,6 @@ public class FetchOptions implements Cloneable{
 	}
 
 	/**
-	 * Only download resources that match a {@link StringFilter}. The default filter accepts any input.
-	 *
-	 * @param fileFilter used to filter which resources to download
-	 *
-	 * @return current instance of {@link FetchOptions} to enable method chaining during initialization.
-	 */
-	public FetchOptions filterFiles(StringFilter fileFilter) {
-		this.fileFilter = fileFilter;
-		return this;
-	}
-
-	/**
 	 * Whether or not the resource filenames should be 'flattened'. That is to say have the directories condensed into
 	 * the filename so all resource files are in the same directory but all uniquely named.
 	 * e.g.
@@ -69,14 +56,12 @@ public class FetchOptions implements Cloneable{
 		return flattenDirectoryStructure;
 	}
 
-	/**
-	 * Returns the currently set {@link StringFilter} which is used to determine which resource files to download and save.
-	 * The default {@link StringFilter} accepts any `String` so all resources will be downloaded.
-	 *
-	 * @return the {@link StringFilter} used to filter resource URLs.
-	 */
-	public StringFilter getFileFilter() {
-		return fileFilter;
+	public DownloadHandler getDownloadHandler() {
+		return downloadHandler;
+	}
+
+	public void setDownloadHandler(DownloadHandler downloadHandler) {
+		this.downloadHandler = downloadHandler;
 	}
 
 	/**
