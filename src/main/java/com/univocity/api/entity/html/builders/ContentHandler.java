@@ -6,9 +6,9 @@
 
 package com.univocity.api.entity.html.builders;
 
+import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.annotations.*;
 import com.univocity.api.net.*;
-import com.univocity.parsers.common.*;
 
 /**
  * Allows the content captured for a given field, by a {@link ContentReader}, to be transformed by a

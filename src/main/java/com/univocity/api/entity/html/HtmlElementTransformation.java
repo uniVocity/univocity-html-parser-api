@@ -1,6 +1,6 @@
 package com.univocity.api.entity.html;
 
-import com.univocity.parsers.common.*;
+import com.univocity.api.common.*;
 
 
 /**

@@ -13,7 +13,7 @@ public class FetchOptions implements Cloneable{
 
 	private boolean flattenDirectoryStructure;
 	private StringFilter fileFilter;
-	private long remoteInterval = 15L;
+	private long remoteInterval = 5L;
 
 	/**
 	 * Default constructor for FetchOptions
@@ -83,7 +83,7 @@ public class FetchOptions implements Cloneable{
 	 * Returns the minimum interval of time to wait between each download request. This is required to prevent
 	 * submitting multiple requests to the same server at the same time.
 	 *
-	 * <em>Defaults to 15 ms</em>
+	 * <em>Defaults to 5 ms</em>
 	 *
 	 * @return the minimum time (in milliseconds) to wait between download requests.
 	 *         Values {@link <= 0} mean the internal {@link RateLimiter} is disabled.
@@ -96,7 +96,7 @@ public class FetchOptions implements Cloneable{
 	 * Defines the minimum interval of time to wait between each download request. This is required to prevent submitting
 	 * multiple requests to the same server at the same time.
 	 *
-	 * <em>Defaults to 15 ms</em>
+	 * <em>Defaults to 5 ms</em>
 	 *
 	 * @param remoteInterval minimum time (in milliseconds) to wait between download requests.
 	 *                       Any value {@link <= 0} will disable the internal {@link RateLimiter}.
