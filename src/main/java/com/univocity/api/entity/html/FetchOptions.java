@@ -12,7 +12,7 @@ import java.io.*;
  */
 public class FetchOptions implements Cloneable{
 
-	private File sharedResourceDir;
+	private FileProvider sharedResourceDir;
 	private boolean flattenDirectoryStructure;
 	private DownloadHandler downloadHandler;
 	private long remoteInterval = 5L;
@@ -102,12 +102,12 @@ public class FetchOptions implements Cloneable{
 		this.remoteInterval = remoteInterval;
 	}
 
-	public File getSharedResourceDir() {
+	public FileProvider getSharedResourceDir() {
 		return sharedResourceDir;
 	}
 
-	public void setSharedResourceDir(File sharedResourceDir) {
-		this.sharedResourceDir = sharedResourceDir;
+	public void setSharedResourceDir(String sharedResourceDir) {
+		this.sharedResourceDir = new FileProvider(sharedResourceDir);
 	}
 
 	@Override
