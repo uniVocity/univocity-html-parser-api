@@ -1,7 +1,8 @@
 package com.univocity.api.entity.html;
 
-import com.univocity.api.common.*;
 import com.univocity.api.io.*;
+
+import java.io.*;
 
 /**
  * Configuration class for use in the {@link HtmlElement#fetchResources} methods
@@ -11,9 +12,11 @@ import com.univocity.api.io.*;
  */
 public class FetchOptions implements Cloneable{
 
+	private File sharedResourceDir;
 	private boolean flattenDirectoryStructure;
 	private DownloadHandler downloadHandler;
 	private long remoteInterval = 5L;
+	private String baseUri;
 
 	/**
 	 * Default constructor for FetchOptions
@@ -21,6 +24,14 @@ public class FetchOptions implements Cloneable{
 	 */
 	public FetchOptions() {
 		flattenDirectoryStructure = false;
+	}
+
+	public String getBaseUri() {
+		return baseUri;
+	}
+
+	public void setBaseUri(String baseUri) {
+		this.baseUri = baseUri;
 	}
 
 	/**
@@ -33,11 +44,9 @@ public class FetchOptions implements Cloneable{
 	 *
 	 * @param flatten whether to flatten the path of a resource into the saved name.
 	 *
-	 * @return current instance of {@link FetchOptions} to enable method chaining during initialization.
 	 */
-	public FetchOptions flattenDirectory(boolean flatten) {
+	public void flattenDirectory(boolean flatten) {
 		this.flattenDirectoryStructure = flatten;
-		return this;
 	}
 
 	/**
@@ -91,6 +100,14 @@ public class FetchOptions implements Cloneable{
 			remoteInterval = 0L;
 		}
 		this.remoteInterval = remoteInterval;
+	}
+
+	public File getSharedResourceDir() {
+		return sharedResourceDir;
+	}
+
+	public void setSharedResourceDir(File sharedResourceDir) {
+		this.sharedResourceDir = sharedResourceDir;
 	}
 
 	@Override
