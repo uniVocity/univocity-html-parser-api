@@ -2,8 +2,6 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.io.*;
 
-import java.io.*;
-
 /**
  * Configuration class for use in the {@link HtmlElement#fetchResources} methods
  * Setters return `this` instance to enable method chaining during initialization.
@@ -12,6 +10,7 @@ import java.io.*;
  */
 public class FetchOptions implements Cloneable{
 
+	private boolean overwriteSharedResources = false;
 	private FileProvider sharedResourceDir;
 	private boolean flattenDirectoryStructure;
 	private DownloadHandler downloadHandler;
@@ -100,6 +99,14 @@ public class FetchOptions implements Cloneable{
 			remoteInterval = 0L;
 		}
 		this.remoteInterval = remoteInterval;
+	}
+
+	public boolean isOverwriteSharedResources() {
+		return overwriteSharedResources;
+	}
+
+	public void setOverwriteSharedResources(boolean overwriteSharedResources) {
+		this.overwriteSharedResources = overwriteSharedResources;
 	}
 
 	public FileProvider getSharedResourceDir() {

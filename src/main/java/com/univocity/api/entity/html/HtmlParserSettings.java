@@ -110,14 +110,11 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 		return fetchOptions;
 	}
 
-	public final boolean fetchResourcesBeforeParsing(){
+	public final boolean fetchResourcesBeforeParsingEnabled(){
 		return fetchOptions != null;
 	}
 
 	public final void fetchResourcesBeforeParsing(FetchOptions fetchOptions) {
-		if(downloadBeforeParsingEnabled == null){
-			setDownloadBeforeParsingEnabled(fetchOptions != null);
-		}
 		this.fetchOptions = fetchOptions;
 	}
 }
