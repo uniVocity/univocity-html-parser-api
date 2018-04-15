@@ -62,7 +62,7 @@ public class FetchOptions implements Cloneable {
 	 * @param flatten whether to flatten the path of a resource into the saved name.
 	 *
 	 */
-	public void flattenDirectory(boolean flatten) {
+	public void flattenDirectories(boolean flatten) {
 		this.flattenDirectoryStructure = flatten;
 	}
 
