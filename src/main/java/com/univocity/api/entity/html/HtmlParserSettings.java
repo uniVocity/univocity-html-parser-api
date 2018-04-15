@@ -117,13 +117,4 @@ public final class HtmlParserSettings extends RemoteParserSettings<CommonParserS
 	public final void fetchResourcesBeforeParsing(FetchOptions fetchOptions) {
 		this.fetchOptions = fetchOptions;
 	}
-
-	public boolean isDownloadBeforeParsingEnabled() {
-		boolean enabled = super.isDownloadBeforeParsingEnabled();
-		if(enabled && fetchOptions != null){
-			enabled = false; // no need to download then transform page due to fetch.
-		}
-		return enabled;
-	}
-
 }

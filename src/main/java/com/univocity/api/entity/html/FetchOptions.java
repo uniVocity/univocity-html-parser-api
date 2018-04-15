@@ -2,6 +2,8 @@ package com.univocity.api.entity.html;
 
 import com.univocity.api.io.*;
 
+import java.io.*;
+
 /**
  * Configuration class for use in the {@link HtmlElement#fetchResources} methods
  * Setters return `this` instance to enable method chaining during initialization.
@@ -114,6 +116,10 @@ public class FetchOptions implements Cloneable{
 	}
 
 	public void setSharedResourceDir(String sharedResourceDir) {
+		this.sharedResourceDir = new FileProvider(sharedResourceDir);
+	}
+
+	public void setSharedResourceDir(File sharedResourceDir) {
 		this.sharedResourceDir = new FileProvider(sharedResourceDir);
 	}
 
