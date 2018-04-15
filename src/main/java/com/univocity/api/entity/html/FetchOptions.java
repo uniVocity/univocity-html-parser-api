@@ -10,7 +10,7 @@ import java.io.*;
  *
  * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
-public class FetchOptions implements Cloneable{
+public class FetchOptions implements Cloneable {
 
 	private boolean overwriteSharedResources = false;
 	private FileProvider sharedResourceDir;
@@ -27,10 +27,26 @@ public class FetchOptions implements Cloneable{
 		flattenDirectoryStructure = false;
 	}
 
+	/**
+	 * The current base URI associated with the document whose resources are being fetched. Used to "build" the full
+	 * URL used to download a given resource. For example, if a link such as `<a href="/Images/Icons/garage.svg"></a>`
+	 * is being processed, and the base URI is set to `http://www.univocity.com`, the download URL will be
+	 * `http://www.univocity.com/Images/Icons/garage.svg`
+	 *
+	 * @return the base URI if available, or an empty {@code String}
+	 */
 	public String getBaseUri() {
 		return baseUri;
 	}
 
+	/**
+	 * Modifies the current base URI associated with the document whose resources are being fetched. Used to "build" the full
+	 * URL used to download a given resource. For example, if a link such as `<a href="/Images/Icons/garage.svg"></a>`
+	 * is being processed, and the base URI is set to `http://www.univocity.com`, the download URL will be
+	 * `http://www.univocity.com/Images/Icons/garage.svg`
+	 *
+	 * @param the base URI to use for generating absolute download URL paths.
+	 */
 	public void setBaseUri(String baseUri) {
 		this.baseUri = baseUri;
 	}
@@ -66,10 +82,18 @@ public class FetchOptions implements Cloneable{
 		return flattenDirectoryStructure;
 	}
 
+	/**
+	 * Returns the {@link DownloadHandler} callback to be used by the fetch resources operation.
+	 * @return the current download handler
+	 */
 	public DownloadHandler getDownloadHandler() {
 		return downloadHandler;
 	}
 
+	/**
+	 * Defines a {@link DownloadHandler} to manipulate the downloads performed by the fetch resources operation.
+	 * @param downloadHandler the download handler to use
+	 */
 	public void setDownloadHandler(DownloadHandler downloadHandler) {
 		this.downloadHandler = downloadHandler;
 	}
@@ -103,31 +127,87 @@ public class FetchOptions implements Cloneable{
 		this.remoteInterval = remoteInterval;
 	}
 
+	/**
+	 * Returns a flag indicating whether resources that have been downloaded and are shared among multiple pages should
+	 * be overwritten during a new fetch resources operation.
+	 *
+	 * @return whether local files that already exist should be overwritten
+	 */
 	public boolean isOverwriteSharedResources() {
 		return overwriteSharedResources;
 	}
 
+	/**
+	 * Defines whether resources that have been downloaded and are shared among multiple pages should
+	 * be overwritten during a new fetch resources operation.
+	 *
+	 * @param overwriteSharedResources flag indicating that local files that already exist should be overwritten
+	 */
 	public void setOverwriteSharedResources(boolean overwriteSharedResources) {
 		this.overwriteSharedResources = overwriteSharedResources;
 	}
 
+	/**
+	 * Returns the shared resource directory used to store files referenced by one or more HTML pages and CSS files.
+	 * Use it to prevent downloading the same images and CSS files over and over again for each HTML page you want to
+	 * store.
+	 *
+	 * If unspecified (i.e. `null`) a directory named after the HTML file concatenated with the `_files` the suffix will
+	 * be created, and all resources used by that HTML will be stored in this directory - which emulates what most browsers
+	 * do when their "File -> Save Page As..." action is executed.
+	 *
+	 * @return the current resource directory, if any.
+	 */
 	public FileProvider getSharedResourceDir() {
 		return sharedResourceDir;
 	}
 
+
+	/**
+	 * Defines the shared resource directory used to store files referenced by one or more HTML pages and CSS files.
+	 * Use it to prevent downloading the same images and CSS files over and over again for each HTML page you want to
+	 * store.
+	 *
+	 * If unspecified (i.e. `null`) a directory named after the HTML file concatenated with the `_files` the suffix will
+	 * be created, and all resources used by that HTML will be stored in this directory - which emulates what most browsers
+	 * do when their "File -> Save Page As..." action is executed.
+	 *
+	 * @param sharedResourceDir the path to a shared resource directory to use.  It can contain system variables enclosed
+	 * within { and } (e.g. {@code {user.home}/Downloads"}). Subdirectories that don't exist will be created if required.
+	 */
 	public void setSharedResourceDir(String sharedResourceDir) {
-		this.sharedResourceDir = new FileProvider(sharedResourceDir);
+		if (sharedResourceDir == null) {
+			this.sharedResourceDir = null;
+		} else {
+			this.sharedResourceDir = new FileProvider(sharedResourceDir);
+		}
 	}
 
+	/**
+	 * Defines the shared resource directory used to store files referenced by one or more HTML pages and CSS files.
+	 * Use it to prevent downloading the same images and CSS files over and over again for each HTML page you want to
+	 * store.
+	 *
+	 * If unspecified (i.e. `null`) a directory named after the HTML file concatenated with the `_files` the suffix will
+	 * be created, and all resources used by that HTML will be stored in this directory - which emulates what most browsers
+	 * do when their "File -> Save Page As..." action is executed.
+	 *
+	 * @param sharedResourceDir the path to a shared resource directory to use.  Subdirectories that don't exist will
+	 * be created if required.
+	 */
 	public void setSharedResourceDir(File sharedResourceDir) {
-		this.sharedResourceDir = new FileProvider(sharedResourceDir);
+		if (sharedResourceDir == null) {
+			this.sharedResourceDir = null;
+		} else {
+			this.sharedResourceDir = new FileProvider(sharedResourceDir);
+		}
 	}
 
 	@Override
 	protected FetchOptions clone() {
 		try {
 			return (FetchOptions) super.clone();
-		} catch(CloneNotSupportedException e){
+		} catch (CloneNotSupportedException e) {
 			throw new IllegalStateException(e);
 		}
 	}
