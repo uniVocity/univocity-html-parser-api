@@ -16,8 +16,8 @@ public class FetchOptions implements Cloneable {
 	private FileProvider sharedResourceDir;
 	private boolean flattenDirectoryStructure;
 	private DownloadHandler downloadHandler;
-	private long remoteInterval = 5L;
 	private String baseUri;
+	private boolean downloadBlacklistingEnabled = true;
 
 	/**
 	 * Default constructor for FetchOptions
@@ -99,35 +99,6 @@ public class FetchOptions implements Cloneable {
 	}
 
 	/**
-	 * Returns the minimum interval of time to wait between each download request. This is required to prevent
-	 * submitting multiple requests to the same server at the same time.
-	 *
-	 * <em>Defaults to 5 ms</em>
-	 *
-	 * @return the minimum time (in milliseconds) to wait between download requests.
-	 *         Values {@link <= 0} mean the internal {@link RateLimiter} is disabled.
-	 */
-	public final long getRemoteInterval() {
-		return remoteInterval;
-	}
-
-	/**
-	 * Defines the minimum interval of time to wait between each download request. This is required to prevent submitting
-	 * multiple requests to the same server at the same time.
-	 *
-	 * <em>Defaults to 5 ms</em>
-	 *
-	 * @param remoteInterval minimum time (in milliseconds) to wait between download requests.
-	 *                       Any value {@link <= 0} will disable the internal {@link RateLimiter}.
-	 */
-	public final void setRemoteInterval(long remoteInterval) {
-		if (remoteInterval < 0L) {
-			remoteInterval = 0L;
-		}
-		this.remoteInterval = remoteInterval;
-	}
-
-	/**
 	 * Returns a flag indicating whether resources that have been downloaded and are shared among multiple pages should
 	 * be overwritten during a new fetch resources operation.
 	 *
@@ -201,6 +172,28 @@ public class FetchOptions implements Cloneable {
 		} else {
 			this.sharedResourceDir = new FileProvider(sharedResourceDir);
 		}
+	}
+
+	/**
+	 * Indicates whether URLs of resources that resulted in a download failure (such as a 404) should be blacklisted
+	 * while the parser is running, so no further attempts to access the same URL will be made. Enabled by default to improve
+	 * speed when fetching resources of multiple pages, especially when link following is used.
+	 *
+	 * @return flag indicating whether bad URLs should be blacklisted
+	 */
+	public boolean isDownloadBlacklistingEnabled() {
+		return downloadBlacklistingEnabled;
+	}
+
+	/**
+	 * Configures whether URLs of resources that resulted in a download failure (such as a 404) should be blacklisted
+	 * while the parser is running, so no further attempts to access the same URL will be made. Enabled by default to improve
+	 * speed when fetching resources of multiple pages, especially when link following is used.
+	 *
+	 * @return flag indicating whether bad URLs should be blacklisted
+	 */
+	public void setDownloadBlacklistingEnabled(boolean downloadBlacklistingEnabled) {
+		this.downloadBlacklistingEnabled = downloadBlacklistingEnabled;
 	}
 
 	@Override
