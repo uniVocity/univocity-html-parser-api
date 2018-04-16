@@ -18,6 +18,7 @@ public class FetchOptions implements Cloneable {
 	private DownloadHandler downloadHandler;
 	private String baseUri;
 	private boolean downloadBlacklistingEnabled = true;
+	private long remoteInterval = 5L;
 
 	/**
 	 * Default constructor for FetchOptions
@@ -194,6 +195,35 @@ public class FetchOptions implements Cloneable {
 	 */
 	public void setDownloadBlacklistingEnabled(boolean downloadBlacklistingEnabled) {
 		this.downloadBlacklistingEnabled = downloadBlacklistingEnabled;
+	}
+
+	/**
+	 * Returns the minimum interval of time to wait between each download request. This is required to prevent
+	 * submitting multiple requests to the same server at the same time.
+	 *
+	 * <em>Defaults to 5 ms</em>
+	 *
+	 * @return the minimum time (in milliseconds) to wait between download requests.
+	 *         Values {@link <= 0} mean the internal {@link RateLimiter} is disabled.
+	 */
+	public final long getRemoteInterval() {
+		return remoteInterval;
+	}
+
+	/**
+	 * Defines the minimum interval of time to wait between each download request. This is required to prevent submitting
+	 * multiple requests to the same server at the same time.
+	 *
+	 * <em>Defaults to 5 ms</em>
+	 *
+	 * @param remoteInterval minimum time (in milliseconds) to wait between download requests.
+	 *                       Any value {@link <= 0} will disable the internal {@link RateLimiter}.
+	 */
+	public final void setRemoteInterval(long remoteInterval) {
+		if (remoteInterval < 0L) {
+			remoteInterval = 0L;
+		}
+		this.remoteInterval = remoteInterval;
 	}
 
 	@Override
