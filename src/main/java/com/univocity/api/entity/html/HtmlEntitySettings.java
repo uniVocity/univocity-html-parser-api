@@ -175,7 +175,7 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	/**
 	 * Returns a {@link RecordTriggerStart} that is used to specify a path that defines when rows should be created.
 	 *
-	 * @see documentation in {@link Trigger#addRecordTrigger()} for a detailed explanation.
+	 * See documentation in {@link Trigger#addRecordTrigger()} for a detailed explanation.
 	 *
 	 * @return a {@link RecordTriggerStart} that defines the path for the trigger
 	 */

@@ -213,9 +213,9 @@ public final class HtmlPaginator extends Paginator<HtmlEntitySettings, HtmlPagin
 	 * Associates a constant value to a request parameter. Parameter values are submitted in POST requests to load
 	 * the next page.
 	 *
-	 * @param parameterName  the name that will be associated with the parameter, which will be sent in the request
-	 *                       for the next page.
-	 * @param parameterValue the value of the corresponding parameter
+	 * @param paramName the name that will be associated with the parameter, which will be sent in the request
+	 *                  for the next page.
+	 * @param value     the value of the corresponding parameter
 	 */
 	public final void setRequestParameter(String paramName, String value) {
 		requestParameters.add(paramName);

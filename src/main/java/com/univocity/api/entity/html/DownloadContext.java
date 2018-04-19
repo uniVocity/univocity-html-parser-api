@@ -34,7 +34,7 @@ public interface DownloadContext {
 	 * is being processed, and the base URI is set to `http://www.univocity.com`, the download URL will be
 	 * `http://www.univocity.com/Images/Icons/garage.svg`
 	 *
-	 * @param the base URI to use for generating absolute download URL paths.
+	 * @param baseUri the base URI to use for generating absolute download URL paths.
 	 */
 	void setBaseUri(String baseUri);
 

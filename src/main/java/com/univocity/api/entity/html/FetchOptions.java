@@ -46,7 +46,7 @@ public class FetchOptions implements Cloneable {
 	 * is being processed, and the base URI is set to `http://www.univocity.com`, the download URL will be
 	 * `http://www.univocity.com/Images/Icons/garage.svg`
 	 *
-	 * @param the base URI to use for generating absolute download URL paths.
+	 * @param baseUri base URI to use for generating absolute download URL paths.
 	 */
 	public void setBaseUri(String baseUri) {
 		this.baseUri = baseUri;
@@ -191,7 +191,7 @@ public class FetchOptions implements Cloneable {
 	 * while the parser is running, so no further attempts to access the same URL will be made. Enabled by default to improve
 	 * speed when fetching resources of multiple pages, especially when link following is used.
 	 *
-	 * @return flag indicating whether bad URLs should be blacklisted
+	 * @param downloadBlacklistingEnabled flag indicating whether bad URLs should be blacklisted
 	 */
 	public void setDownloadBlacklistingEnabled(boolean downloadBlacklistingEnabled) {
 		this.downloadBlacklistingEnabled = downloadBlacklistingEnabled;
@@ -204,7 +204,7 @@ public class FetchOptions implements Cloneable {
 	 * <em>Defaults to 5 ms</em>
 	 *
 	 * @return the minimum time (in milliseconds) to wait between download requests.
-	 *         Values {@link <= 0} mean the internal {@link RateLimiter} is disabled.
+	 *         Values {@code <= 0} mean the internal {@link RateLimiter} is disabled.
 	 */
 	public final long getRemoteInterval() {
 		return remoteInterval;
@@ -217,7 +217,7 @@ public class FetchOptions implements Cloneable {
 	 * <em>Defaults to 5 ms</em>
 	 *
 	 * @param remoteInterval minimum time (in milliseconds) to wait between download requests.
-	 *                       Any value {@link <= 0} will disable the internal {@link RateLimiter}.
+	 *                       Any value {@code <= 0} will disable the internal {@link RateLimiter}.
 	 */
 	public final void setRemoteInterval(long remoteInterval) {
 		if (remoteInterval < 0L) {

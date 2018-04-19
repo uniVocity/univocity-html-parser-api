@@ -613,7 +613,7 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * third `article` have both a `h1` and a `p` element, they are ignored by the parser.
 	 *
 	 * @param firstElementName name of the first element that should be in the hierarchy of the current matched HTML element.
-	 * @param elementNames names of the remaining elements that should be in the hierarchy of the current matched HTML element.
+	 * @param additionalElementNames names of the remaining elements that should be in the hierarchy of the current matched HTML element.
 	 *
 	 * **Note:** This does NOT finalize the filtering rules applied over the current matched element.
 	 *           Additional filtering rules will NOT take effect over the given element names.
@@ -713,7 +713,7 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 
 	/**
 	 * Establishes that the matched HTML element should contain *exactly* a given text. Case insensitive.
-	 * Also supports the wildcards `*` and `?` explained in {@link #withText(String)}. An example of using
+	 * Also supports the wildcards `*` and `?` explained in {@link #withText(String, String...)}. An example of using
 	 * withExactTest can be shown by looking at this simple HTML document:
 	 *
 	 * ```html
@@ -808,7 +808,7 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T withText(String textContent, String ... alternativeTextContents);
 
 	/**
-	 * Like {@link #withText(String)} but case sensitive. Matches elements whose text *start with* a given text.
+	 * Like {@link #withText(String, String...)} but case sensitive. Matches elements whose text *start with* a given text.
 	 * Also supports the `*` and `?` wildcards.
 	 *
 	 * @param textContent the case sensitive string that the current matched HTML element must start with,
@@ -822,7 +822,7 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T withTextMatchCase(String textContent, String ... alternativeTextContents);
 
 	/**
-	 * Case sensitive version of {@link #withExactText(String)}. Establishes that the matched HTML element should contain
+	 * Case sensitive version of {@link #withExactText(String, String...)}. Establishes that the matched HTML element should contain
 	 * *exactly* a given text. Also supports the `*` and `?` wildcards.'.
 	 *
 	 * @param textContent the string that the current matched HTML element must contain exactly, including character case
