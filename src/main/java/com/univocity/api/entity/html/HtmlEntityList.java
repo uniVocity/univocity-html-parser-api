@@ -59,7 +59,9 @@ public final class HtmlEntityList extends RemoteEntityList<HtmlEntitySettings> {
 
 	@Override
 	protected HtmlEntityList newInstance() {
-		return new HtmlEntityList(getParserSettings().clone());
+		HtmlEntityList out =  new HtmlEntityList(getParserSettings().clone());
+		out.downloadThreadPool = this.getDownloadThreadPool();
+		return out;
 	}
 
 	/**
