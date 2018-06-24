@@ -99,12 +99,6 @@
 								<version>1.4</version>
 							</docletArtifact>
 							<useStandardDocletOptions>true</useStandardDocletOptions>
-
-							<includeDependencySources>true</includeDependencySources>
-							<dependencySourceIncludes>
-								<dependencySourceInclude>com.univocity:univocity-common-api</dependencySourceInclude>
-								<dependencySourceInclude>com.univocity:univocity-common-parser-api</dependencySourceInclude>
-							</dependencySourceIncludes>
 						</configuration>
 					</execution>
 				</executions>
