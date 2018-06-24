@@ -20,8 +20,10 @@ interface PathCopy<T> {
 	 * one. Useful for when the path to multiple elements share a common structure. An example can be shown with
 	 * this HTML:
 	 *
+	 *
 	 * ```html
-	 *  <div>
+	 *
+	 * <div>
 	 *   <article>
 	 *     <h1>first</h1>
 	 *     <p>lorem</p>
@@ -37,8 +39,10 @@ interface PathCopy<T> {
 	 *     <p>article</p>
 	 *   </article>
 	 * </div>
+	 *
 	 * ```
-	 * 	
+	 *
+	 *
 	 * A technique to get the text of the `p` element of the first and second `article`s of the first `div` is:
 	 *
 	 * ```java

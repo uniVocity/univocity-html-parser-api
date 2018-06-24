@@ -132,7 +132,7 @@ public interface HtmlElement {
 	/**
 	 * Returns the `HtmlElement` that is located just before this element. Returns `null` if there
 	 * is no previous sibling. For instance, given `<div> <h1>hello</h1> <p>text</p> </div>`, the previous
-	 * sibling of `<p>' is `<h1>` and previous sibling of `<h1>` is `null`.
+	 * sibling of `<p>` is `<h1>` and previous sibling of `<h1>` is `null`.
 	 *
 	 * @return the element located just before this `HtmlElement` or `null` if no such element.
 	 */

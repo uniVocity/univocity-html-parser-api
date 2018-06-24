@@ -37,7 +37,7 @@ public interface PaginationGroup extends ElementFilter<PaginationGroup>, Element
 	 *
 	 * @param fieldName name of the new field
 	 *
-	 * @return a {@link PathStart} is used to define the path of the value for the given field
+	 * @return a {@link PathStart} to be used to define the path of the value for the given field
 	 */
 	PathStart addField(String fieldName);
 
