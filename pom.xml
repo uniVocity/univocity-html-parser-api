@@ -9,35 +9,35 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.univocity</groupId>
 	<artifactId>univocity-html-parser-api</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>2.0.0</version>
 	<name>univocity-html-parser-api</name>
-	<description>uniVocity Data Integration's Public API</description>
+	<description>Univocity HTML Parser Public API</description>
 
 	<organization>
 		<name>uniVocity Software Pty Ltd</name>
 		<url>www.univocity.com</url>
 	</organization>
 
-	<url>http://github.com/uniVocity/univocity-api</url>
+	<url>http://github.com/uniVocity/univocity-html-parser-api</url>
 
 	<licenses>
 		<license>
-			<name>uniVocity</name>
+			<name>Univocity</name>
 			<url>http://www.univocity.com/pages/license</url>
 			<distribution>repo</distribution>
-			<comments>uniVocity data integration license</comments>
+			<comments>Univocity license</comments>
 		</license>
 	</licenses>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/uniVocity/univocity-api/issues</url>
+		<url>https://github.com/uniVocity/univocity-html-parser-api/issues</url>
 	</issueManagement>
 
 	<scm>
-		<url>https://github.com/uniVocity/univocity-api</url>
-		<connection>scm:git:git://github.com/uniVocity/univocity-api.git</connection>
-		<developerConnection>scm:git:git@github.com:uniVocity/univocity-api.git</developerConnection>
+		<url>https://github.com/uniVocity/univocity-html-parser-api</url>
+		<connection>scm:git:git://github.com/uniVocity/univocity-html-parser-api.git</connection>
+		<developerConnection>scm:git:git@github.com:uniVocity/univocity-html-parser-api.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -153,6 +153,21 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
@@ -174,36 +189,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
-		<pluginManagement>
-			<!-- All this crap just to remove a warning from my eclipse workspace... -->
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-enforcer-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>enforce</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore/>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<properties>
@@ -215,7 +200,7 @@
 		<dependency>
 			<groupId>com.univocity</groupId>
 			<artifactId>univocity-common-parser-api</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<version>2.0.0</version>
 		</dependency>
 	</dependencies>
 
