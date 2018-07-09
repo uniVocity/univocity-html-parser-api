@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.univocity</groupId>
 	<artifactId>univocity-html-parser-api</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 	<name>univocity-html-parser-api</name>
 	<description>Univocity HTML Parser Public API</description>
 
@@ -188,7 +188,7 @@
 		<dependency>
 			<groupId>com.univocity</groupId>
 			<artifactId>univocity-common-parser-api</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.1</version>
 		</dependency>
 	</dependencies>
 
