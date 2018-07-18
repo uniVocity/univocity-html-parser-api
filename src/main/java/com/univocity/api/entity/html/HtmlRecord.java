@@ -16,8 +16,13 @@ import com.univocity.parsers.common.*;
  */
 public interface HtmlRecord extends ResultRecord<HtmlParsingContext> {
 
+	@Override
 	HtmlParserResult getLinkedFieldData();
 
+	@Override
 	Results<HtmlParserResult> getLinkedEntityData();
+
+	@Override
+	HtmlRecord getParentRecord();
 
 }

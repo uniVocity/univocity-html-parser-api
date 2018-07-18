@@ -23,6 +23,11 @@ public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEnt
 		super(parentEntitySettings);
 	}
 
+	public HtmlLinkFollower getParentFollower(){
+		return (HtmlLinkFollower) parentLinkFollower;
+	}
+
+
 	@Override
 	public PathStart addPersistentField(String fieldName) {
 		return entitySettings.addPersistentField(fieldName);
@@ -40,6 +45,16 @@ public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEnt
 
 	public PathStart addField(String fieldName) {
 		return entitySettings.addField(fieldName);
+	}
+
+	@Override
+	public void addFieldFromParent(String fieldName) {
+		entitySettings.addFieldFromParent(fieldName);
+	}
+
+	@Override
+	public void addFieldFrom(String parentEntity, String fieldName) {
+		entitySettings.addFieldFrom(parentEntity, fieldName);
 	}
 
 	/**

@@ -190,4 +190,21 @@ public interface FieldDefinition {
 	 * @param constantValue     a constant value associated with the given field
 	 */
 	void addField(String fieldName, String constantValue);
+
+	/**
+	 * Adds a field to this entity whose value will be populated with the value collected by the parent entity.
+	 * The parent entity is the entity that "owns" a link follower directly.
+	 *
+	 * @param fieldName the name of the parent entity field to be added and whose value will be copied over.
+	 */
+	void addFieldFromParent(String fieldName);
+
+	/**
+	 * Adds a field to this entity whose value will be populated with the value collected by a parent entity.
+	 * The parent entity can be any entity in the link following path.
+	 *
+	 * @param parentEntity the name of the parent entity who has the given field name.
+	 * @param fieldName the name of the parent entity field to be added and whose value will be copied over.
+	 */
+	void addFieldFrom(String parentEntity, String fieldName);
 }

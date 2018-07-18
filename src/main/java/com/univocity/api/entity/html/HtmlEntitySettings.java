@@ -7,6 +7,7 @@
 package com.univocity.api.entity.html;
 
 import com.univocity.api.*;
+import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.*;
 import com.univocity.api.net.*;
 import com.univocity.parsers.common.*;
@@ -201,6 +202,39 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 		fields.put(fieldName, constantValue);
 	}
 
+	@Override
+	public final void addFieldFromParent(String field) {
+		if (getParentEntitySettings() == null) {
+			throw new IllegalArgumentException("Can't add parent field '" + field + "' to '" + getEntityName() + "'. No parent entity defined.");
+		}
+		addFieldFrom(getParentEntitySettings().getEntityName(), field);
+	}
+
+	@Override
+	public final void addFieldFrom(String parentEntityName, String field) {
+		Args.notBlank(parentEntityName, "Parent entity name");
+		Args.notBlank(field, "Field from parent entity " + parentEntityName);
+
+		HtmlEntitySettings parent = getParentEntitySettings();
+		Set<String> allParentFields = new TreeSet<String>();
+		while (parent != null) {
+			if (parentEntityName.equalsIgnoreCase(parent.getEntityName())) {
+				Set<String> parentFields = parent.getFieldNames();
+				if (parentFields.contains(field)) {
+					this.fields.put(field, parent);
+					return;
+				} else {
+					allParentFields.addAll(parentFields);
+				}
+			}
+			parent = parent.getParentEntitySettings();
+		}
+		if (parent == null) {
+			throw new IllegalArgumentException("Can't find entity '" + parentEntityName + "' in hierarchy of entity '" + this.getEntityName() + "'");
+		} else {
+			throw new IllegalArgumentException("Can't find field '" + field + "' in parent entity '" + parentEntityName + "'. Available fields are: " + allParentFields);
+		}
+	}
 
 	/**
 	 * Associates a {@link HtmlParserListener} with this HTML entity. The listener methods will be triggered
@@ -258,6 +292,11 @@ public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext,
 	public HtmlLinkFollower followLink(String fieldName, UrlReaderProvider urlReaderProvider) {
 		HtmlLinkFollower follower = ((FieldContentTransform) addField(fieldName)).followLink(urlReaderProvider);
 		return follower;
+	}
+
+	@Override
+	protected final HtmlEntitySettings getParentEntitySettings() {
+		return (HtmlEntitySettings) parentEntity;
 	}
 
 	@Override
