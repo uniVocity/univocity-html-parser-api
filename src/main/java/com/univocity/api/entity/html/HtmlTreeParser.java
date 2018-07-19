@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 uniVocity Software Pty Ltd. All rights reserved.
+ * Copyright (c) 2013 Univocity Software Pty Ltd. All rights reserved.
  * This file is subject to the terms and conditions defined in file
  * 'LICENSE.txt', which is part of this source code package.
  */
@@ -15,7 +15,7 @@ import java.nio.charset.*;
  * A parser that generates a tree of {@link HtmlElement}s. It always returns the root node of the tree. Specific
  * elements can be matched and easily traversed using {@link HtmlElement#query()} or {@link HtmlElement#query(String)}
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public interface HtmlTreeParser {
 

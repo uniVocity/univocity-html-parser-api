@@ -9,7 +9,7 @@ import com.univocity.parsers.remote.*;
  * A class that allows the addition of fields which are used by the {@link HtmlParser} to parse and return information
  * from a linked page.
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlParser
  */
 public class HtmlLinkFollower extends RemoteFollower<HtmlEntitySettings, HtmlEntityList, HtmlParserSettings> implements FieldDefinition {

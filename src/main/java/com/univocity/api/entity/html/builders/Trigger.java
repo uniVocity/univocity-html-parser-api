@@ -6,7 +6,7 @@ import com.univocity.api.entity.html.*;
  * An interface that provides functionality to define a record trigger, i.e. a path to an element that when found,
  * forces the parser to generate a record with any values accumulated so far.
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 interface Trigger {
 

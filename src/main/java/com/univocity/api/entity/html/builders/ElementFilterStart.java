@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 uniVocity Software Pty Ltd. All rights reserved.
+ * Copyright (c) 2013 Univocity Software Pty Ltd. All rights reserved.
  * This file is subject to the terms and conditions defined in file
  * 'LICENSE.txt', which is part of this source code package.
  */
@@ -18,7 +18,7 @@ import com.univocity.api.entity.html.*;
  * When the parser processes an input HTML, it will run all filtering rules applied over the elements whose tag names
  * match with the rules defined using the methods provided by this class.
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see FieldPath
  * @see PartialPath
  * @see ElementFilter

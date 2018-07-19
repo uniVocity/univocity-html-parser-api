@@ -9,7 +9,7 @@ import com.univocity.parsers.remote.*;
  * and will be used by each entity configuration by default. Individual {@link HtmlEntitySettings} can have their own
  * specific configuration modified to override its defaults.
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlParser
  * @see HtmlEntityList
  */

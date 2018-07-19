@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2013 uniVocity Software Pty Ltd. All rights reserved.
+  ~ Copyright (c) 2013 Univocity Software Pty Ltd. All rights reserved.
   ~ This file is subject to the terms and conditions defined in file
   ~ 'LICENSE.txt', which is part of this source code package.
   -->
@@ -14,11 +14,11 @@
 	<description>Univocity HTML Parser Public API</description>
 
 	<organization>
-		<name>uniVocity Software Pty Ltd</name>
+		<name>Univocity Software Pty Ltd</name>
 		<url>www.univocity.com</url>
 	</organization>
 
-	<url>http://github.com/uniVocity/univocity-html-parser-api</url>
+	<url>http://github.com/univocity/univocity-html-parser-api</url>
 
 	<licenses>
 		<license>
@@ -31,13 +31,13 @@
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/uniVocity/univocity-html-parser-api/issues</url>
+		<url>https://github.com/univocity/univocity-html-parser-api/issues</url>
 	</issueManagement>
 
 	<scm>
-		<url>https://github.com/uniVocity/univocity-html-parser-api</url>
-		<connection>scm:git:git://github.com/uniVocity/univocity-html-parser-api.git</connection>
-		<developerConnection>scm:git:git@github.com:uniVocity/univocity-html-parser-api.git</developerConnection>
+		<url>https://github.com/univocity/univocity-html-parser-api</url>
+		<connection>scm:git:git://github.com/univocity/univocity-html-parser-api.git</connection>
+		<developerConnection>scm:git:git@github.com:univocity/univocity-html-parser-api.git</developerConnection>
 	</scm>
 
 	<developers>
@@ -50,7 +50,7 @@
 
 		<developer>
 			<id>dev</id>
-			<name>uniVocity development team</name>
+			<name>univocity development team</name>
 			<email>dev@univocity.com</email>
 		</developer>
 	</developers>

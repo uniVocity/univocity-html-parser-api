@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 uniVocity Software Pty Ltd. All rights reserved.
+ * Copyright (c) 2013 Univocity Software Pty Ltd. All rights reserved.
  * This file is subject to the terms and conditions defined in file
  * 'LICENSE.txt', which is part of this source code package.
  */
@@ -14,7 +14,7 @@ import com.univocity.parsers.conversions.*;
 /**
  * The essential callback interface to handle records parsed by any parser that extends {@link AbstractParser}.
  *
- * When parsing an input, uniVocity-parsers will obtain the RowProcessor from {@link CommonParserSettings#getRowProcessor()}, and
+ * When parsing an input, univocity-parsers will obtain the RowProcessor from {@link CommonParserSettings#getRowProcessor()}, and
  * delegate each parsed row to {@link RowProcessor#rowProcessed(String[], HtmlParsingContext)}.
  *
  * Before parsing the first row, the parser will invoke the {@link RowProcessor#processStarted(HtmlParsingContext)} method.
@@ -25,7 +25,7 @@ import com.univocity.parsers.conversions.*;
  *
  * More control and information over the parsing process are provided by the {@link HtmlParsingContext} object.
  *
- * uniVocity-parsers provides many useful default implementations of this interface in the package {@link com.univocity.parsers.common.processor}, namely:
+ * univocity-parsers provides many useful default implementations of this interface in the package {@link com.univocity.parsers.common.processor}, namely:
  *
  * <ul>
  * <li>{@link RowListProcessor}: convenience class for storing the processed rows into a list.</li>
@@ -41,7 +41,7 @@ import com.univocity.parsers.conversions.*;
  * @see HtmlEntitySettings
  * @see HtmlParsingContext
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:parsers@univocity.com">parsers@univocity.com</a>
  *
  */
 public interface RowProcessor extends Processor<HtmlParsingContext> {

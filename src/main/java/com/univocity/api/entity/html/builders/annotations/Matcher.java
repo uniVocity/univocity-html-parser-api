@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * Basic annotation used internally to classify methods of the public API based on their purpose.
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited

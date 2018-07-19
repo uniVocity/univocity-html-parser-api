@@ -4,7 +4,7 @@ package com.univocity.api.entity.html;
  * A custom matcher to be triggered each time the parser visits a {@link HtmlElement}. Used
  * to determine if a visited {@link HtmlElement} matches a user-provided criteria.
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  * @see HtmlElement
  */
 public interface HtmlElementMatcher {

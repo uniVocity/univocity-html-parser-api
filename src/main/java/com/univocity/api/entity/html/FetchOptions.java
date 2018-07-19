@@ -8,7 +8,7 @@ import java.io.*;
  * Configuration class for use in the {@link HtmlElement#fetchResources} methods
  * Setters return `this` instance to enable method chaining during initialization.
  *
- * @author uniVocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
+ * @author Univocity Software Pty Ltd - <a href="mailto:dev@univocity.com">dev@univocity.com</a>
  */
 public class FetchOptions implements Cloneable {
 
