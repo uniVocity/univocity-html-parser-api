@@ -871,6 +871,9 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 *
 	 * ```java
 	 * path.match("table").attribute("title","The Tables Have Turned")
+	 *
+	 * //wildcards can also be used
+	 * path.match("table").attribute("title","* Tables *")
 	 * ```
 	 *
 	 * @param attributeName  the name of the attribute
@@ -918,7 +921,10 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * The `div` can matched using:
 	 *
 	 * ```java
-	 * path.match("div").id("coffee")
+	 * path.match("div").id("coffee");
+	 *
+	 * // wildcards can also be used
+	 * path.match("div").id("c*e");
 	 * ```
 	 *
 	 * @param idValue value of the id attribute of the current matched HTML element
