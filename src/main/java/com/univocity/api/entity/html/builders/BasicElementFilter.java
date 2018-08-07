@@ -745,6 +745,100 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T withExactText(String textContent, String ... alternativeTextContents);
 
 	/**
+	 * Establishes that the matched HTML element should contain *exactly* a given text. Case insensitive.
+	 * Also supports the wildcards `*` and `?` explained in {@link #withText(String, String...)}. An example of using
+	 * withExactTest can be shown by looking at this simple HTML document:
+	 *
+	 * ```html
+	 * <p title="cool">a</p>
+	 * <p title="not-cool">ab</p>
+	 * ```
+	 *
+	 * A technique to get the title of the first p is to write
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("text")
+	 *     .match("p")
+	 *         .withExactText("a")
+	 *     .getAttribute("title");
+	 * ```
+	 *
+	 * The parser will return "cool" as the first `p` element has the same exact text as the text specified.
+	 *
+	 * @param textContent the string that the current matched HTML element must contain, accepting variations in the character
+	 *                    case and accounting for wildcard elements
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
+	T withExactText(String textContent);
+
+	/**
+	 * Establishes that the matched HTML element should **start** with a given text. The text
+	 * search is case insensitive, and also supports the `*` and `?` wildcards.
+	 *
+	 * ### The `*` wildcard
+	 *
+	 * Use `*` to match any sequence of characters. For instance:
+	 *
+	 * ```
+	 * <div>
+	 *   <span>abcdef</span>
+	 *   <span>kettle</span>
+	 * </div>
+	 * ```
+	 *
+	 * One technique to match the first span would be to write:
+	 *
+	 * ```java
+	 * path.match("span")
+	 *     .withText("*f")
+	 * .getText();
+	 * ```
+	 *
+	 * The search for `"*f"` means "match the element with text ending with 'f' with any
+	 * characters before it". Alternatives to match the text in the example could also be:
+	 *  * .withText("a*") - meaning to search for any text starting with 'a' and followed by any number of characters.
+	 *  * .withText("a*f") - meaning to search for any text starting with 'a' and ending with 'f', with any number of characters in between.
+	 *
+	 * Note that specifying `.withText("a*")` or `.withText("a")` will match the same content as this rule goes after nodes
+	 * with text **starting** with the given search string.
+	 *
+	 * ### The `?` wildcard
+	 * Use `?` to match any **one** character. For example:
+	 *
+	 * ```html
+	 * <div>
+	 *     <span>abcdef</span>
+	 *     <span>abc</span>
+	 * </div>
+	 *
+	 * We can set the matching rules as:
+	 *
+	 * ```java
+	 * path.match("span")
+	 *     .withText("a?????")
+	 * .getText();
+	 * ```
+	 *
+	 * Which describes "match the `span` element that has text starting with 'a' followed by any 5 characters".
+	 * This will return the "abcdef" value from the first `span`.
+	 *
+	 * Alternatives to match the same content could be '?????f' (any 5 characters then a f) and 'ab??ef' ('a', followed by 'b',
+	 * followed by any two characters, followed by 'e' and 'f')
+	 *
+	 * @param textContent the case insensitive `String` that the current matched HTML element must start with, accounting for wildcard elements
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
+	T withText(String textContent);
+
+	/**
 	 * Establishes that the matched HTML element should **start** with a given text. The text
 	 * search is case insensitive, and also supports the `*` and `?` wildcards.
 	 *
@@ -813,6 +907,19 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 *
 	 * @param textContent the case sensitive string that the current matched HTML element must start with,
 	 *                    accounting for wildcard elements
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
+	T withTextMatchCase(String textContent);
+
+	/**
+	 * Like {@link #withText(String, String...)} but case sensitive. Matches elements whose text *start with* a given text.
+	 * Also supports the `*` and `?` wildcards.
+	 *
+	 * @param textContent the case sensitive string that the current matched HTML element must start with,
+	 *                    accounting for wildcard elements
 	 * @param alternativeTextContents additional `String`s to match
 	 *
 	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
@@ -820,6 +927,19 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 */
 	@Matcher(type = Matcher.Type.WITH_TEXT)
 	T withTextMatchCase(String textContent, String ... alternativeTextContents);
+
+	/**
+	 * Case sensitive version of {@link #withExactText(String, String...)}. Establishes that the matched HTML element should contain
+	 * *exactly* a given text. Also supports the `*` and `?` wildcards.'.
+	 *
+	 * @param textContent the string that the current matched HTML element must contain exactly, including character case
+	 *                    and accounting for wildcard elements
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.WITH_TEXT)
+	T withExactTextMatchCase(String textContent);
 
 	/**
 	 * Case sensitive version of {@link #withExactText(String, String...)}. Establishes that the matched HTML element should contain
@@ -857,6 +977,28 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
 	T classes(String firstCssClass, String... otherCssClasses);
+
+	/**
+	 * Establishes that the matched HTML element should contain the given CSS class names. Multiple class names can be
+	 * used, separated by space. For example:
+	 *
+	 * ```html
+	 * <span class = "a b"></span>
+	 * ```
+	 *
+	 * A technique to create to match this `span` would be:
+	 *
+	 * ```java
+	 * path.match("span").classes("a b");
+	 * ```
+	 *
+	 * @param cssClasses classes of a HTML element that the matched HTML element must contain
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
+	T classes(String cssClasses);
 
 	/**
 	 * Establishes that the matched HTML element should contain the given attribute name and value. For example, if there
