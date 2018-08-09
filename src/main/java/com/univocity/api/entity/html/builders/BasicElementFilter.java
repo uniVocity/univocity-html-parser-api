@@ -1128,6 +1128,87 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	BasicElementFilter<T> not();
 
 	/**
+	 * Specifies that the current matched element must only be considered if it is at a given position,
+	 * where the position is the occurrence of this element inside the parent node.
+	 *
+	 * ```html
+	 * <table>
+	 *   <tr>
+	 *     <th>Product</th><th>Product Price</th>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Something</td><td>$8,154.90</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Something else</td><td>$9,945.00</td>
+	 *   </tr>
+	 * </table>
+	 * ```
+	 *
+	 * To match only the second row we can use:
+	 *
+	 * ```java
+	 * settings.addField("secondRow")
+	 *     .match("tr").at(2)
+	 *     .getText(); //captures "Something $8,154.90"
+	 * ```
+	 *
+	 * To match every row, except the first one:
+	 *
+	 * ```java
+	 * settings.addField("skipHeader")
+	 * 	   .match("tr").not().at(1)
+	 * 	   .getText();
+	 * ```
+	 *
+	 * @param position the position of the matched element relative to its neighbouring nodes in the parent element.
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	T at(int position);
+
+	/**
+	 * Specifies that the current matched element must only be considered if it is at one of the given positions,
+	 * where each position is the occurrence of this element inside the parent node.
+	 *
+	 * ```html
+	 * <table>
+	 *   <tr>
+	 *     <th>Product</th><th>Product Price</th>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Something</td><td>$8,154.90</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>Something else</td><td>$9,945.00</td>
+	 *   </tr>
+	 * </table>
+	 * ```
+	 *
+	 * To match only the second and third rows we can use:
+	 *
+	 * ```java
+	 * settings.addField("secondRow")
+	 *     .match("tr").at(2, 3)
+	 *     .getText();
+	 * ```
+	 *
+	 * To match every row, except the first one:
+	 *
+	 * ```java
+	 * settings.addField("skipHeader")
+	 * 	   .match("tr").not().at(1)
+	 * 	   .getText();
+	 * ```
+	 *
+	 * @param position the position of the matched element relative to its neighbouring nodes in the parent element.
+	 * @param additionalPositions the additional positions relative to the element's neighbouring nodes in the parent element.
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	T at(int position, int... additionalPositions);
+
+	/**
 	 * Matches an element that must immediately follow the previously matched element, i.e. the given element
 	 * must be the next sibling or the first child of the previous element.
 	 *
