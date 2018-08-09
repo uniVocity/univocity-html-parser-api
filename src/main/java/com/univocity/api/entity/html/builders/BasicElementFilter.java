@@ -490,6 +490,71 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T underHeader(String headerElementName);
 
 	/**
+	 * Establishes that the matched HTML element should be under a given element of a table, at the same column, and
+	 * where the given element:
+	 *
+	 *  * is a `td` or `th` of the given table row, or
+	 *  * is *contained by* a `td` or `th` of the given table row.
+	 *
+	 * For example, given the HTML document:
+	 *
+	 * ```html
+	 * <table>
+	 *   <tr>
+	 *       <th>
+	 *         <span>heading1</span>
+	 *       </th>
+	 *       <th>heading2</th>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>one</td>
+	 *     <td>two</td>
+	 *   </tr>
+	 *   <tr>
+	 *     <td>lorem</td>
+	 *     <td>ispum</td>
+	 *   </tr>
+	 * </table>
+	 * ```
+	 *
+	 *  One technique to only return the text under 'heading1' would be:
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("underTableHeader")
+	 *     .match("td")
+	 *         .underHeaderAt("span", 1)
+	 *     .getText();
+	 * ```
+	 *
+	 * When the parser runs, it will return "one" and "lorem", which are the text values found in first column of
+	 * each row of the table.
+	 *
+	 * To get all data under all table headers, one could write:
+	 *
+	 * ```java
+	 * entity.addField("underTableHeader")
+	 *     .match("td")
+	 *         .underHeaderAt("th", 1)
+	 *     .getText();
+	 * ```
+	 *
+	 * Which will result in all the text apart from the table headers being returned.
+	 *
+	 * @param headerElementName the header element of a table that should appear above the current matched HTML element.
+	 *                          **Note:**This finalizes the filtering rules applied over the current matched element.
+	 *                          Additional filtering rules will take effect over this new element.
+	 *
+	 * @param row the table row where the element to be matched should be found (starting from 1)
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.TABLE)
+	T underHeaderAtRow(String headerElementName, int row);
+
+	/**
 	 * Establishes that the matched HTML element should be **directly** under a given element of a table,
 	 * at the same column, and where the given element:
 	 *
