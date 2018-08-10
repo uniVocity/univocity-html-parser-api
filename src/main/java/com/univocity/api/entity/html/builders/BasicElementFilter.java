@@ -1084,13 +1084,41 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * ```
 	 *
 	 * @param attributeName  the name of the attribute
-	 * @param attributeValue the value of the attribute
+	 * @param attributeValue the value of the attribute (wildcards supported)
 	 *
 	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
 	 * HTML element being matched.
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
-	T attribute(String attributeName, String attributeValue);
+	T attribute(String attributeName, Object attributeValue);
+
+	/**
+	 * Establishes that the matched HTML element should contain the given attribute name and value. For example, if there
+	 * is HTML that looks like this:
+	 *
+	 * ```html
+	 * <table title="The Tables Have Turned">
+	 * </table>
+	 * ```
+	 *
+	 * A way to create a path to the `table` element would be to write:
+	 *
+	 * ```java
+	 * path.match("table").attribute("title","The Tables Have Turned")
+	 *
+	 * //wildcards can also be used
+	 * path.match("table").attribute("title","* Tables *")
+	 * ```
+	 *
+	 * @param attributeName  the name of the attribute
+	 * @param attributeValue the value of the attribute (wildcards supported)
+	 * @param otherValues other possible values of the attribute (wildcards supported)
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.ATTRIBUTE)
+	T attribute(String attributeName, Object attributeValue, Object... otherValues);
 
 	/**
 	 * Establishes that the matched HTML element should contain the given boolean attribute. For example, if there
@@ -1140,7 +1168,7 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 * HTML element being matched.
 	 */
 	@Matcher(type = Matcher.Type.ATTRIBUTE)
-	T id(String idValue);
+	T id(Object idValue);
 
 	/**
 	 * Establishes that the matched HTML element should pass the supplied filter method using a
