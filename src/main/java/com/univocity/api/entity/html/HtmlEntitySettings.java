@@ -29,7 +29,7 @@ import java.util.*;
 public class HtmlEntitySettings extends RemoteEntitySettings<HtmlParsingContext, CommonParserSettings, HtmlParserSettings, HtmlLinkFollower> implements FieldDefinition {
 
 	Map<String, Object> fields = new LinkedHashMap<String, Object>();
-	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>();
+	final List<RecordTrigger> triggers = new ArrayList<RecordTrigger>(1);
 	private HtmlParserListener listener = null;
 
 	/**
