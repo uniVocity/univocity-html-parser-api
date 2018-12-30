@@ -94,6 +94,14 @@ public interface HtmlElement {
 	String attribute(String attributeName);
 
 	/**
+	 * Modifies an attribute value (i.e. key=value). If the attribute already exists, it will be replaced.
+	 *
+	 * @param attributeName  the name of the attribute to modify.
+	 * @param attributeValue the value to set for the given attribute name
+	 */
+	void attribute(String attributeName, String attributeValue);
+
+	/**
 	 * Returns all the attribute names contained within this element as a set of `String`. Returns an empty set if
 	 * there are no attributes.
 	 *
@@ -159,14 +167,14 @@ public interface HtmlElement {
 	 *
 	 * ```html
 	 * <table>
-	 *   <tr>
-	 *     <td>
-	 *       <span>First Row</span>
-	 *     </td>
-	 *   </tr>
-	 *   <tr>
-	 *     <td>Second Row</td>
-	 *   </tr>
+	 * <tr>
+	 * <td>
+	 * <span>First Row</span>
+	 * </td>
+	 * </tr>
+	 * <tr>
+	 * <td>Second Row</td>
+	 * </tr>
 	 * </table>
 	 * ```
 	 *
@@ -184,8 +192,8 @@ public interface HtmlElement {
 	 * Searches for elements that match a CSS query, with the current `HtmlElement` as the starting context. Matched elements
 	 * may include this `HtmlElement`, or any of its children.
 	 *
-	 *  * `el.query("a[href]")` - finds links (`a` tags with `href` attributes)
-	 *  * `el.query("a[href*=example.com]")` - finds links pointing to example.com (loosely)
+	 * * `el.query("a[href]")` - finds links (`a` tags with `href` attributes)
+	 * * `el.query("a[href*=example.com]")` - finds links pointing to example.com (loosely)
 	 *
 	 * <h2>Selector syntax</h2>
 	 *
@@ -247,7 +255,6 @@ public interface HtmlElement {
 	 * <tr><td><code>:empty</code></td><td>elements that have no children at all</td><td></td></tr>
 	 * </table>
 	 *
-	 *
 	 * @param cssQuery a CSS-like query
 	 *
 	 * @return all elements that match the query from the current element (empty if none match)
@@ -269,7 +276,7 @@ public interface HtmlElement {
 	org.w3c.dom.Document toW3CDocument();
 
 	/**
-	 * Saves the element to a local file using the {@link FileProvider}, searching all child nodes for external 
+	 * Saves the element to a local file using the {@link FileProvider}, searching all child nodes for external
 	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
 	 * HTML will point to the locally saved references.
 	 *
@@ -285,7 +292,7 @@ public interface HtmlElement {
 
 
 	/**
-	 * Save the element to a local file using the {@link File}, searching all child nodes for external 
+	 * Save the element to a local file using the {@link File}, searching all child nodes for external
 	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
 	 * HTML will point to the locally saved references.
 	 *
@@ -300,7 +307,7 @@ public interface HtmlElement {
 	FetchOutput fetchResources(File saveFile, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element to a local file using the {@link File}, searching all child nodes for external 
+	 * Save the element to a local file using the {@link File}, searching all child nodes for external
 	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
 	 * HTML will point to the locally saved references.
 	 *
@@ -316,7 +323,7 @@ public interface HtmlElement {
 	FetchOutput fetchResources(File saveFile, String encoding, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element to a local file using the {@link File}, searching all child nodes for external 
+	 * Save the element to a local file using the {@link File}, searching all child nodes for external
 	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
 	 * HTML will point to the locally saved references.
 	 *
@@ -333,7 +340,7 @@ public interface HtmlElement {
 
 
 	/**
-	 * Save the element to a local file at the path `pathToFile`, searching all child nodes for external 
+	 * Save the element to a local file at the path `pathToFile`, searching all child nodes for external
 	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
 	 * HTML will point to the locally saved references.
 	 *
@@ -348,7 +355,7 @@ public interface HtmlElement {
 	FetchOutput fetchResources(String pathToFile, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element a local file at the path `pathToFile`, searching all child nodes for external 
+	 * Save the element a local file at the path `pathToFile`, searching all child nodes for external
 	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
 	 * HTML will point to the locally saved references.
 	 *
@@ -364,7 +371,7 @@ public interface HtmlElement {
 	FetchOutput fetchResources(String pathToFile, String encoding, FetchOptions fetchOptions);
 
 	/**
-	 * Save the element to a local file at the path `pathToFile`, searching all child nodes for external 
+	 * Save the element to a local file at the path `pathToFile`, searching all child nodes for external
 	 * resources (e.g. `href`, `src`) and saving them to local files. All references to those resources in the resulting
 	 * HTML will point to the locally saved references.
 	 *
@@ -413,4 +420,11 @@ public interface HtmlElement {
 	 * @return a map of input ids and their values
 	 */
 	Map<String, String> inputValuesById();
+
+	/**
+	 * Saves the HTML representation of this element to a file
+	 *
+	 * @param fileProvider the output file details into which the contents will be written.
+	 */
+	void saveToFile(FileProvider fileProvider);
 }

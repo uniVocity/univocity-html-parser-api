@@ -19,6 +19,7 @@ public class FetchOptions implements Cloneable {
 	private String baseUri;
 	private boolean downloadBlacklistingEnabled = true;
 	private long remoteInterval = 5L;
+	private int depth = 0;
 
 	/**
 	 * Default constructor for FetchOptions
@@ -60,6 +61,8 @@ public class FetchOptions implements Cloneable {
 	 *
 	 * When flattened it will instead be saved as `path_to_resource_image.png` in the `.` directory.
 	 *
+	 * <em>Defaults to {@code false}</em>
+	 *
 	 * @param flatten whether to flatten the path of a resource into the saved name.
 	 *
 	 */
@@ -76,6 +79,8 @@ public class FetchOptions implements Cloneable {
 	 * would normally be saved as a file named `image.png` in the `./path/to/resource/` directory.
 	 *
 	 * When flattened it will instead be saved as `path_to_resource_image.png` in the `.` directory.
+	 *
+	 * <em>Defaults to {@code false}</em>
 	 *
 	 * @return whether or not the directory structure in filenames will be flattened when saving resources.
 	 */
@@ -103,6 +108,8 @@ public class FetchOptions implements Cloneable {
 	 * Returns a flag indicating whether resources that have been downloaded and are shared among multiple pages should
 	 * be overwritten during a new fetch resources operation.
 	 *
+	 * <em>Defaults to {@code false}</em>
+	 *
 	 * @return whether local files that already exist should be overwritten
 	 */
 	public boolean isOverwriteSharedResources() {
@@ -112,6 +119,8 @@ public class FetchOptions implements Cloneable {
 	/**
 	 * Defines whether resources that have been downloaded and are shared among multiple pages should
 	 * be overwritten during a new fetch resources operation.
+	 *
+	 * <em>Defaults to {@code false}</em>
 	 *
 	 * @param overwriteSharedResources flag indicating that local files that already exist should be overwritten
 	 */
@@ -180,6 +189,8 @@ public class FetchOptions implements Cloneable {
 	 * while the parser is running, so no further attempts to access the same URL will be made. Enabled by default to improve
 	 * speed when fetching resources of multiple pages, especially when link following is used.
 	 *
+	 * <em>Defaults to {@code true}</em>
+	 *
 	 * @return flag indicating whether bad URLs should be blacklisted
 	 */
 	public boolean isDownloadBlacklistingEnabled() {
@@ -190,6 +201,8 @@ public class FetchOptions implements Cloneable {
 	 * Configures whether URLs of resources that resulted in a download failure (such as a 404) should be blacklisted
 	 * while the parser is running, so no further attempts to access the same URL will be made. Enabled by default to improve
 	 * speed when fetching resources of multiple pages, especially when link following is used.
+	 *
+	 * <em>Defaults to {@code true}</em>
 	 *
 	 * @param downloadBlacklistingEnabled flag indicating whether bad URLs should be blacklisted
 	 */
@@ -224,6 +237,36 @@ public class FetchOptions implements Cloneable {
 			remoteInterval = 0L;
 		}
 		this.remoteInterval = remoteInterval;
+	}
+
+	/**
+	 * Returns the maximum link following depth from the first page whose resources have been collected.
+	 * The first HTML page has depth = 0. Any pages linked from that first page will have depth = 1,
+	 * any pages linked from each one of these will have depth = 2 and so on. With a large enough depth
+	 * setting, the fetch process can potentially save all contents from an entire website.
+	 *
+	 * Defaults to {@code 0}, i.e. saves only the resources available from a given URL without visiting linked
+	 * pages.
+	 *
+	 * @return the maximum link following depth.
+	 */
+	public int getDepth() {
+		return depth;
+	}
+
+	/**
+	 * Defines the maximum link following depth from the first page whose resources have been collected.
+	 * The first HTML page has depth = 0. Any pages linked from that first page will have depth = 1,
+	 * any pages linked from each one of these will have depth = 2 and so on. With a large enough depth
+	 * setting, the fetch process can potentially save all contents from an entire website.
+	 *
+	 * Defaults to {@code 0}, i.e. saves only the resources available from a given URL without visiting linked
+	 * pages.
+	 *
+	 * @param depth the maximum link following depth.
+	 */
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 
 	@Override

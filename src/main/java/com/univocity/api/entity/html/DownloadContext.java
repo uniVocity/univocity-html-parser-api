@@ -61,6 +61,18 @@ public interface DownloadContext {
 	HtmlElement sourceElement();
 
 	/**
+	 * Returns the specific attribute of the {@link HtmlElement} that has a reference to the resource being downloaded.
+	 * This is the attribute of the {@link #sourceElement()} that will be updated to point to the file downloaded locally.
+	 *
+	 * This method will return `null` when a CSS file is being updated to point to local resources, i.e.
+	 * {@link #parentHtmlFile()} returns `null` and {@link #parentCssFile()} returns a valid `File`.
+	 *
+	 * @return the attribute of the HTML element that will be updated to point to a local file
+	 * instead of the remote resource, or `null` if the file to download originates from a CSS file.
+	 */
+	String sourceAttribute();
+
+	/**
 	 * Returns the HTML file that is going to be updated/generated after the fetch resources operation is complete. All
 	 * HTML nodes that have attributes pointing to a remote resource that could be downloaded will be modified to point
 	 * to the locally downloaded files.
