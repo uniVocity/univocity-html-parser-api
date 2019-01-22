@@ -12,6 +12,8 @@ import java.util.*;
  */
 public class FetchOutput {
 
+	private FetchNode siteStructure;
+
 	private HtmlElement treeRoot;
 
 	private File treeHtmlFile;
@@ -25,7 +27,8 @@ public class FetchOutput {
 	 * @param treeHtmlFile a `File` with the saved HTML content, with all resources pointing to local files.
 	 * @param resourceMap the mapping of each local `File` that has been downloaded to its original remote URL
 	 */
-	public FetchOutput(HtmlElement treeRoot, File treeHtmlFile, Map<File, URL> resourceMap) {
+	public FetchOutput(HtmlElement treeRoot, File treeHtmlFile, Map<File, URL> resourceMap, FetchNode root) {
+		this.siteStructure = root;
 		this.treeRoot = treeRoot;
 		this.treeHtmlFile = treeHtmlFile;
 		this.resourceMap = resourceMap;
@@ -58,5 +61,9 @@ public class FetchOutput {
 	 */
 	public Map<File, URL> getResourceMap() {
 		return resourceMap;
+	}
+
+	public FetchNode getSiteStructure() {
+		return siteStructure;
 	}
 }
