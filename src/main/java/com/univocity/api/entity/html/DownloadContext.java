@@ -107,6 +107,13 @@ public interface DownloadContext {
 	File targetFile();
 
 	/**
+	 * Returns the updated attribute value using the path to the downloaded content.
+	 *
+	 * @return the target attribute pointing to the downloaded file.
+	 */
+	String targetAttribute();
+
+	/**
 	 * Changes the download destination to a new location.
 	 *
 	 * @param newFile the download destination of the {@link #targetFile()}
