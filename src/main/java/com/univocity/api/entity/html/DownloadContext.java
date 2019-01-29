@@ -128,6 +128,13 @@ public interface DownloadContext {
 	String targetFileExtension();
 
 	/**
+	 * Tests whether the target file extension matches one of the given file extensions (case insensitive)
+	 * @param targetFileExtensions the file extensions to match
+	 * @return `true` if the {@link #targetFileExtension()} is found in the given list of extensions.
+	 */
+	boolean fileExtensionMatches(String ... targetFileExtensions);
+
+	/**
 	 * Returns the relative path of the file being downloaded. The path will be relative to the location of the HTML file
 	 * if {@link #parentHtmlFile()} is not `null, or relative to the CSS file if {@link #parentCssFile()} is not `null`.
 	 *
