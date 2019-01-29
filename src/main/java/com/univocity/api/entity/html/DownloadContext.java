@@ -173,4 +173,11 @@ public interface DownloadContext {
 	 * @return whether the fetch operation has been stopped.
 	 */
 	boolean downloadsStopped();
+
+	/**
+	 * Returns a flag indicating that the current URL points to an external website
+	 *
+	 * @return whether the the resource collection process identified the current URL as a link to an external website.
+	 */
+	boolean isExternalWebsite();
 }
