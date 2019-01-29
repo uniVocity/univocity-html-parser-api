@@ -18,7 +18,7 @@ public class FetchOutput {
 
 	private File treeHtmlFile;
 
-	private Map<File, URL> resourceMap;
+	private Map<File, String> resourceMap;
 
 	/**
 	 * Creates a new `FetchOutput` with the results obtained from a call to {@link HtmlElement#fetchResources}
@@ -27,7 +27,7 @@ public class FetchOutput {
 	 * @param treeHtmlFile a `File` with the saved HTML content, with all resources pointing to local files.
 	 * @param resourceMap the mapping of each local `File` that has been downloaded to its original remote URL
 	 */
-	public FetchOutput(HtmlElement treeRoot, File treeHtmlFile, Map<File, URL> resourceMap, FetchNode root) {
+	public FetchOutput(HtmlElement treeRoot, File treeHtmlFile, Map<File, String> resourceMap, FetchNode root) {
 		this.siteStructure = root;
 		this.treeRoot = treeRoot;
 		this.treeHtmlFile = treeHtmlFile;
@@ -59,7 +59,7 @@ public class FetchOutput {
 	 *
 	 * @return a map of each local `File` that has been downloaded to its original remote URL
 	 */
-	public Map<File, URL> getResourceMap() {
+	public Map<File, String> getResourceMap() {
 		return resourceMap;
 	}
 
