@@ -107,11 +107,16 @@ public interface DownloadContext {
 	File targetFile();
 
 	/**
-	 * Returns the updated attribute value using the path to the downloaded content.
+	 * Returns the updated attribute name using the path to the downloaded content.
 	 *
 	 * @return the target attribute pointing to the downloaded file.
 	 */
 	String targetAttribute();
+
+	/**
+	 * Skips this download and moves on to the next.
+	 */
+	void setTargetAttributeValue(String attributeValue);
 
 	/**
 	 * Changes the download destination to a new location.
