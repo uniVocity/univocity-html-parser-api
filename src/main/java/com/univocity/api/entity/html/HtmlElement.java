@@ -426,5 +426,27 @@ public interface HtmlElement {
 	 *
 	 * @param fileProvider the output file details into which the contents will be written.
 	 */
-	void saveToFile(FileProvider fileProvider);
+	void writeOuterHtml(FileProvider fileProvider);
+
+	/**
+	 * Saves the HTML representation of this element's children to a file.
+	 *
+	 * @param fileProvider the output file details into which the contents will be written.
+	 */
+	void writeInnerHtml(FileProvider fileProvider);
+
+	/**
+	 * Saves the HTML representation of this element to a file
+	 *
+	 * @param writer the output writer into which the contents will be written.
+	 */
+	void writeOuterHtml(Writer writer);
+
+	/**
+	 * Saves the HTML representation of this element's children to a file.
+	 *
+	 * @param writer the output writer into which the contents will be written.
+	 */
+	void writeInnerHtml(Writer writer);
+
 }
