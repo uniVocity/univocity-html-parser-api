@@ -107,6 +107,16 @@ public interface DownloadContext {
 	File targetFile();
 
 	/**
+	 * Returns the current depth of the resource collection process.
+	 *
+	 * The initial URL has depth = 0, and any pages linked from the first page will have depth = 1,
+	 * any pages linked from each one of these will have depth = 2 and so on.
+	 *
+	 * @return an index indicating how deep in the site structure the process is running.
+	 */
+	int depth();
+
+	/**
 	 * Returns the updated attribute name using the path to the downloaded content.
 	 *
 	 * @return the target attribute pointing to the downloaded file.
@@ -137,7 +147,7 @@ public interface DownloadContext {
 	 * @param targetFileExtensions the file extensions to match
 	 * @return `true` if the {@link #targetFileExtension()} is found in the given list of extensions.
 	 */
-	boolean fileExtensionMatches(String ... targetFileExtensions);
+	boolean fileExtensionMatches(String... targetFileExtensions);
 
 	/**
 	 * Returns the relative path of the file being downloaded. The path will be relative to the location of the HTML file
@@ -181,7 +191,7 @@ public interface DownloadContext {
 
 	/**
 	 * Returns a flag indicating that all downloads have been stopped
-	 * 
+	 *
 	 * @return whether the fetch operation has been stopped.
 	 */
 	boolean downloadsStopped();
