@@ -449,4 +449,9 @@ public interface HtmlElement {
 	 */
 	void writeInnerHtml(Writer writer);
 
+	/**
+	 * Checks whether the given element is parent of only text nodes
+	 * @return {@code true} if all child nodes of this element are text, otherwise {@code false}
+	 */
+	boolean hasTextOnly();
 }

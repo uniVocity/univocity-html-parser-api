@@ -10,6 +10,8 @@ import com.univocity.api.common.*;
 import com.univocity.api.entity.html.builders.annotations.*;
 import com.univocity.api.net.*;
 
+import java.util.function.*;
+
 /**
  * Allows the content captured for a given field, by a {@link ContentReader}, to be transformed by a
  * {@link StringTransformation} to clean up or transform values or to obtain very specific textual content from the
@@ -52,8 +54,15 @@ interface ContentHandler<T extends ContentHandler<T>> {
 	 *
 	 * @param transformation the transformation to be applied over the content parsed for a given field.
 	 *
-	 * @return options to download content if the text represents a path to a remote resource.
+	 * @return options to further transform or download content if the text represents a path to a remote resource.
 	 */
 	T transform(StringTransformation transformation);
+
+	/**
+	 * Merges existing values assigned to the same persistent field with the help of a {@link java.util.function.BiFunction}
+	 * @param transformation the merge operation
+	 * @return options to further transform or download content if the text represents a path to a remote resource.
+	 */
+	T merge(BiFunction<String, String, String> transformation);
 
 }
