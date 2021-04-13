@@ -116,6 +116,41 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T followedBy(String elementName);
 
 	/**
+	 * Establishes that the matched HTML element should have a given element placed after it, at any distance. For
+	 * example:
+	 *
+	 * ```html
+	 * <div>
+	 *   <strong>before</strong>
+	 *   <strong>after</strong>
+	 * </div>
+	 * ```
+	 *
+	 * One technique to get the text of the first 'strong' element is:
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("followed")
+	 *     .match("strong")
+	 *         .followedBy("strong").withText("after")
+	 *     .getText();
+	 * ```
+	 *
+	 * The matching rules in plain english are: get the text of a 'strong' element that has a 'strong' element placed
+	 * after it, and that 'strong' element must have the text "after". When the parsing process runs, the value "before"
+	 * will be assigned to the field `followed` of this `test` entity.
+	 *
+	 * @param matcher a custom matcher for a HTML element. **Note:**This finalizes the filtering rules applied over the
+	 *                    current matched element. Additional filtering rules will take effect over this new element.
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
+	T followedBy(HtmlElementMatcher matcher);
+
+	/**
 	 * Establishes that the matched HTML element should have a given element at a given distance after it. The distance
 	 * is a measure of how many siblings away the element is. For example, in this HTML:
 	 *
@@ -154,6 +189,44 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T followedBy(String elementName, int distance);
 
 	/**
+	 * Establishes that the matched HTML element should have a given element at a given distance after it. The distance
+	 * is a measure of how many siblings away the element is. For example, in this HTML:
+	 *
+	 * ```html
+	 * <span>first</span>
+	 * <span>second</span>
+	 * <pre>surpriseHeader</pre>
+	 * <strong>third</strong>
+	 * ```
+	 *
+	 * The `pre` element sits 1 position away from the second `span` element and the `strong` element is 2 positions. A technique to
+	 * get the text from the second `span` element would be:
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("fieldName")
+	 *     .match("span")
+	 *         .followedBy("strong",2)
+	 *     .getText();
+	 * ```
+	 *
+	 * The parser will return "second" as the `strong` element is the second element after `<span>second</span>`.
+	 * The first `span` element is ignored as the distance from it to the `strong` element is 3.
+	 *
+	 * @param matcher a custom matcher for the HTML element that should follow the current matched HTML element. **Note:**
+	 *                    This finalizes the filtering rules applied over the current matched element. Additional
+	 *                    filtering rules will take effect over this new element.
+	 * @param distance    the number of siblings where the parser should find the given element after matching the
+	 *                    current HTML element.
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
+	T followedBy(HtmlElementMatcher matcher, int distance);
+
+	/**
 	 * Establishes that the matched HTML element should have a given element placed directly after it.
 	 *
 	 * An example using this method can be described with the following HTML document:
@@ -189,6 +262,41 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	T followedImmediatelyBy(String elementName);
 
 	/**
+	 * Establishes that the matched HTML element should have a given element placed directly after it.
+	 *
+	 * An example using this method can be described with the following HTML document:
+	 *
+	 * ```html
+	 * <span>first</span>
+	 * <span>second</span>
+	 * <strong>third</strong>
+	 * ```
+	 *
+	 * A technique to get the text of the second `span` element is:
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("secondSpan")
+	 *     .match("span")
+	 *         .followedImmediatelyBy("strong")
+	 *     .getText();
+	 * ```
+	 *
+	 * This will only return the text from the second `span` element as it is followed immediately by a `strong` element.
+	 * The first `span` element is followed immediately by a `span` element, so it will be ignored
+	 *
+	 * @param matcher     a custom matcher for the element expected to be directly after the current matched HTML element. **Note:**This
+	 *                    finalizes the filtering rules applied over the current matched element.
+	 *                    Additional filtering rules will take effect over this new element.
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
+	T followedImmediatelyBy(HtmlElementMatcher matcher);
+
+	/**
 	 * Establishes that the matched HTML element should have a given element placed before it, at any distance. For
 	 * example, given this simple HTML document:
 	 *
@@ -222,6 +330,41 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T precededBy(String elementName);
+
+	/**
+	 * Establishes that the matched HTML element should have a given element placed before it, at any distance. For
+	 * example, given this simple HTML document:
+	 *
+	 * ```html
+	 * <div>
+	 *   <strong>before</strong>
+	 *   <strong>after</strong>
+	 * </div>
+	 * ```
+	 *
+	 * One technique to get the text of the second `strong` element is:
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("preceded")
+	 *     .match("strong")
+	 *         .precededBy("strong")
+	 *     .getText();
+	 * ```
+	 *
+	 * The matching rules in plain english are: get the text of a `strong` element that has a `strong` element placed
+	 * before it. When the parsing process runs, it will return "after"
+	 *
+	 * @param matcher a custom matcher for the element that must precede the current matched HTML element. **Note:**This
+	 *                    finalizes the filtering rules applied over the current matched element.
+	 *                    Additional filtering rules will take effect over this new element.
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
+	T precededBy(HtmlElementMatcher matcher);
 
 	/**
 	 * Establishes that the matched HTML element should have a given element at a given distance before it.
@@ -261,6 +404,43 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T precededBy(String elementName, int distance);
 
+	/**
+	 * Establishes that the matched HTML element should have a given element at a given distance before it.
+	 * The distance is a measure of how many siblings away the specified element is. For example:
+	 *
+	 * ```html
+	 * <strong>first</strong>
+	 * <h1>surprise header</h1>
+	 * <span>first</span>
+	 * <span>second</span>
+	 * ```
+	 *
+	 * The `h1` element is 1 position away from the first `span`, and the `strong` element is at a distance of 2. A technique to
+	 * get the text from the first `span` element would be:
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("firstSpan")
+	 *     .match("span")
+	 *         .precededBy("strong",2)
+	 *     .getText();
+	 * ```
+	 *
+	 * The parser will return "first" as the `strong` element is 2 positions away from the matched `span` element.
+	 * The second `span` element is ignored as the distance from it to the `strong` element is 3.
+	 *
+	 * @param matcher a custom matcher for the element that must precede the current matched HTML element. **Note:**This
+	 *                    finalizes the filtering rules applied over the current matched element.
+	 *                    Additional filtering rules will take effect over this new element.
+	 * @param distance    the number of previous siblings before the currently matched HTML element where the parser should
+	 *                    find the given element.
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
+	T precededBy(HtmlElementMatcher matcher, int distance);
 
 	/**
 	 * Establishes that the matched HTML element should have a given element placed directly before it. This can be showcased
@@ -295,6 +475,41 @@ public interface BasicElementFilter<T extends BasicElementFilter<T>> {
 	 */
 	@Matcher(type = Matcher.Type.NEIGHBOUR)
 	T precededImmediatelyBy(String elementName);
+
+	/**
+	 * Establishes that the matched HTML element should have a given element placed directly before it. This can be showcased
+	 * by looking at this small HTML snippet:
+	 *
+	 *  ```html
+	 * <strong>first</strong>
+	 * <span>match!</span>
+	 * <span>ignore me</span>
+	 * ```
+	 *
+	 * A technique to get the text of the first `span` element is:
+	 *
+	 * ```java
+	 * HtmlEntityList entities = new HtmlEntityList();
+	 * HtmlEntitySettings entity = entities.configureEntity("test");
+	 * entity.addField("firstSpan")
+	 *     .match("span")
+	 *         .precededImmediatelyBy("strong")
+	 *     .getText();
+	 * ```
+	 *
+	 * This will only return the text "match!" from the first `span` element as it is followed immediately by a `strong` element.
+	 * The second `span` element is preceded immediately by a `span` element, so it will be ignored
+	 *
+	 * @param matcher a custom matcher for the element that must directly precede the current matched HTML element.
+	 *                    **Note:**This finalizes the filtering rules applied over the current matched element.
+	 *                    Additional filtering rules will take effect over this new element.
+	 *
+	 * @return this `BasicElementFilter` instance, allowing method chaining to add more filtering rules over the
+	 * HTML element being matched.
+	 */
+	@Matcher(type = Matcher.Type.NEIGHBOUR)
+	T precededImmediatelyBy(HtmlElementMatcher matcher);
+
 
 	/**
 	 * Establishes that the matched HTML element should be a child of a given element. A child is defined as a HTML
