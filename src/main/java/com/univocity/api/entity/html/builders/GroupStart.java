@@ -32,4 +32,18 @@ public interface GroupStart {
 	 * and where the group will end.
 	 */
 	PartialGroup startAt(String elementName);
+
+	/**
+	 * Specifies where on the HTML the group will start. Any element before the starting element will be ignored by
+	 * the parser when parsing fields created from this group. Returns a {@link PartialGroup} which allows further
+	 * specification of exactly what element on the page the group will start at. {@link PartialGroup} also provides
+	 * methods to define what element the group will end at (method {@link PartialGroup#endAt(String)} and
+	 * {@link PartialGroup#endAtClosing(String)}).
+	 *
+	 * @param elementMatcher a custom matcher for HTML element that the group will start at
+	 *
+	 * @return a {@link PartialGroup} which is used to further specify the exact element where the group will start
+	 * and where the group will end.
+	 */
+	PartialGroup startAt(HtmlElementMatcher elementMatcher);
 }
